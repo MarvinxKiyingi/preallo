@@ -1,4 +1,5 @@
-#Blueprint
+# Blueprint
+
 A webb-app created to help you in keeping your finance in check.
 
 ### Getting Started
