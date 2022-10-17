@@ -1,11 +1,17 @@
 import React from 'react';
-import { Button as MuiButton, ButtonProps as MuiButtonProps } from '@mui/material';
+import { Button as MuiButton, ButtonProps as MuiButtonProps, styled } from '@mui/material';
 
 // Only include
-type ButtonBaseProps = Pick<MuiButtonProps, 'variant' | 'size' | 'color' | 'children' | 'fullWidth'>;
+type ButtonBaseProps = Pick<MuiButtonProps, 'variant' | 'size' | 'color' | 'children' | 'fullWidth' | 'href' | 'onClick'>;
 
-export interface ButtonProps extends ButtonBaseProps {}
+export interface IButtonProps extends ButtonBaseProps {
+  onClick: () => void;
+}
 
-export const Button = ({ children, ...props }: ButtonProps) => {
-  return <MuiButton {...props}>{children}</MuiButton>;
+const StyledButton = styled(MuiButton)(({ theme }) => ({
+  borderRadius: '0.625rem',
+}));
+
+export const Button = ({ children, ...props }: IButtonProps) => {
+  return <StyledButton {...props}>{children}</StyledButton>;
 };
