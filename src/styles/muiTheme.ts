@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material/styles';
-import { useTheme } from '@mui/system';
 import { common } from './colors/common';
 import { purple } from './colors/purple';
 export const theme = createTheme({
