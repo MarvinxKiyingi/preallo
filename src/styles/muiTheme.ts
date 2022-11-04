@@ -13,7 +13,7 @@ export const theme = createTheme({
       main: purple[300],
     },
     error: {
-      main: '#ff6961',
+      main: '#E75152',
       contrastText: common.white,
     },
   },
