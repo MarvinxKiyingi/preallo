@@ -1,6 +1,5 @@
-import { IconButton, IconButtonProps as MuiIconButtonProps } from '@mui/material';
+import { IconButton, IconButtonProps as MuiIconButtonProps, styled } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { theme } from '../../styles/muiTheme';
 
 // Only include
 type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disableRipple' | 'disabled' | 'disableFocusRipple'>;
@@ -12,16 +11,17 @@ export interface IAddButtonProps extends IconButtonProps {
 }
 
 export const AddButton = ({ fontSizeMobile, fontSizeDesktop, hasBgColor, ...props }: IAddButtonProps) => {
-  const iconButtonInlineStyling = {
+  const StyledIconButton = styled(IconButton)(({ theme }) => ({
+    backgroundColor: hasBgColor ? theme.palette.common.white : 'transparent',
     fontSize: fontSizeMobile ? fontSizeMobile : theme.spacing(3),
     [theme.breakpoints.up('md')]: {
       fontSize: fontSizeDesktop ? fontSizeDesktop : theme.spacing(6),
     },
-    backgroundColor: hasBgColor ? theme.palette.common.white : null,
-  };
+  }));
+
   return (
-    <IconButton sx={iconButtonInlineStyling} {...props}>
+    <StyledIconButton {...props}>
       <AddIcon fontSize='inherit' />
-    </IconButton>
+    </StyledIconButton>
   );
 };

@@ -1,4 +1,3 @@
-import { color } from '@mui/system';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { AddButton } from './AddButton';
 
