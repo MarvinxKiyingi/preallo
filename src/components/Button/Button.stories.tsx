@@ -17,3 +17,12 @@ export default {
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const Default = Template.bind({});
+Default.args = {
+  component: 'button',
+};
+
+export const MonthPicker = Template.bind({});
+
+MonthPicker.args = {
+  component: 'monthPicker',
+};
