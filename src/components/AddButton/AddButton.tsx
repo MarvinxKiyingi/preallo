@@ -2,12 +2,13 @@ import { IconButton, IconButtonProps as MuiIconButtonProps, styled } from '@mui/
 import AddIcon from '@mui/icons-material/Add';
 
 // Only include
-type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disableRipple' | 'disabled' | 'disableFocusRipple'>;
+type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disableRipple' | 'disabled'>;
 
 export interface IAddButtonProps extends IconButtonProps {
   fontSizeMobile?: string;
   fontSizeDesktop?: string;
   hasBgColor?: boolean;
+  onClick?: () => void;
 }
 
 export const AddButton = ({ fontSizeMobile, fontSizeDesktop, hasBgColor, ...props }: IAddButtonProps) => {

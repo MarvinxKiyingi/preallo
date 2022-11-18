@@ -1,8 +1,8 @@
 import { Typography, styled, Box } from '@mui/material';
 import React from 'react';
-import { AddButton } from '../AddButton/AddButton';
+import { AddButton, IAddButtonProps } from '../AddButton/AddButton';
 
-export interface IAddRowProps {
+export interface IAddRowProps extends IAddButtonProps {
   title: string;
 }
 
@@ -22,13 +22,13 @@ export const StyledAddRow = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const AddRow = ({ title }: IAddRowProps) => {
+export const AddRow = ({ title, ...props }: IAddRowProps) => {
   return (
     <StyledAddRow>
       <Typography variant='h5' component={'h3'}>
         {title}
       </Typography>
-      <AddButton fontSizeMobile='2rem' fontSizeDesktop='2.5rem' size='small' color='inherit' />
+      <AddButton {...props} />
     </StyledAddRow>
   );
 };
