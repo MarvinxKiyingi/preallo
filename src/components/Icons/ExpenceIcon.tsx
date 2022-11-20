@@ -1,7 +1,7 @@
 import React from 'react';
 import { ISvgProps, SvgIcon } from '../SvgIcon/SvgIcon';
 
-const ExpenceIcon = (props: ISvgProps) => {
+const ExpenseIcon = (props: ISvgProps) => {
   return (
     <SvgIcon {...props}>
       <path d='M4.91513 4.00143V10.0057C4.91513 11.1065 5.81983 12.0071 6.92557 12.0071H16.9778C18.0835 12.0071 18.9882 11.1065 18.9882 10.0057V4.00143C18.9882 2.90064 18.0835 2 16.9778 2H6.92557C5.81983 2 4.91513 2.90064 4.91513 4.00143ZM14.9673 5.00214H8.93601V4.00143H14.9673V5.00214Z' />
@@ -10,4 +10,4 @@ const ExpenceIcon = (props: ISvgProps) => {
   );
 };
 
-export default ExpenceIcon;
+export default ExpenseIcon;
