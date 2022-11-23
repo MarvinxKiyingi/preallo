@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { AddButton } from './AddButton';
 
 export default {
-  title: 'components/AddIcon',
+  title: 'components/AddButton',
   component: AddButton,
   args: {
     color: 'primary',

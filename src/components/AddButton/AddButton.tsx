@@ -4,14 +4,14 @@ import AddIcon from '@mui/icons-material/Add';
 // Only include
 type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disableRipple' | 'disabled'>;
 
-export interface IAddButtonProps extends IconButtonProps {
+export interface IIconButton extends IconButtonProps {
   fontSizeMobile?: string;
   fontSizeDesktop?: string;
   hasBgColor?: boolean;
   onClick?: () => void;
 }
 
-export const AddButton = ({ fontSizeMobile, fontSizeDesktop, hasBgColor, ...props }: IAddButtonProps) => {
+export const AddButton = ({ fontSizeMobile, fontSizeDesktop, hasBgColor, ...props }: IIconButton) => {
   const StyledIconButton = styled(IconButton)(({ theme }) => ({
     backgroundColor: hasBgColor ? theme.palette.common.white : 'transparent',
     fontSize: fontSizeMobile ? fontSizeMobile : theme.spacing(3),
