@@ -20,33 +20,33 @@ export const theme = createTheme({
   typography: {
     fontFamily: "'Hind Vadodara', sans-serif",
     h1: {
-      fontWeight: 700,
+      fontWeight: 900,
       fontSize: '3.052rem',
       fontFamily: 'Chivo',
     },
     h2: {
-      fontWeight: 700,
+      fontWeight: 900,
       fontSize: '2.441rem',
       fontFamily: 'Chivo',
     },
     h3: {
       fontSize: '1.953rem',
-      fontWeight: 700,
+      fontWeight: 900,
       fontFamily: 'Chivo',
     },
     h4: {
       fontSize: '1.563rem',
-      fontWeight: 700,
+      fontWeight: 900,
       fontFamily: 'Chivo',
     },
     h5: {
       fontSize: '1.25rem',
-      fontWeight: 700,
+      fontWeight: 900,
       fontFamily: 'Chivo',
     },
     h6: {
       fontSize: '1rem',
-      fontWeight: 700,
+      fontWeight: 900,
       fontFamily: 'Chivo',
     },
     allVariants: {
