@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar as MuiAvatar, styled } from '@mui/material';
 
 export interface IAvatar {
-  url: string;
+  url?: string;
   mobileSize?: string;
   deskSize?: string;
 }
