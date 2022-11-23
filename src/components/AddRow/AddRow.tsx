@@ -1,9 +1,13 @@
 import { Typography, styled, Box } from '@mui/material';
 import React from 'react';
-import { AddButton, IAddButtonProps } from '../AddButton/AddButton';
+import { AddButton, IIconButton } from '../AddButton/AddButton';
+import { RenewButton } from '../RenewButton/RenewButton';
 
-export interface IAddRowProps extends IAddButtonProps {
+export interface IAddRowProps extends IIconButton {
   title: string;
+  addIsVisible?: boolean;
+  renewIsVisible?: boolean;
+  hasBgColor?: boolean;
 }
 
 export const StyledAddRow = styled(Box)(({ theme }) => ({
@@ -21,14 +25,21 @@ export const StyledAddRow = styled(Box)(({ theme }) => ({
     },
   },
 }));
+export const ButtonGroup = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(),
+}));
 
-export const AddRow = ({ title, ...props }: IAddRowProps) => {
+export const AddRow = ({ title, renewIsVisible, addIsVisible, ...props }: IAddRowProps) => {
   return (
     <StyledAddRow>
       <Typography variant='h5' component={'h3'}>
         {title}
       </Typography>
-      <AddButton {...props} />
+      <ButtonGroup>
+        {renewIsVisible && <RenewButton {...props} />}
+        {addIsVisible && <AddButton {...props} />}
+      </ButtonGroup>
     </StyledAddRow>
   );
 };
