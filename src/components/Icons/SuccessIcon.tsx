@@ -1,7 +1,7 @@
 import React from 'react';
 import { ISvgProps, SvgIcon } from '../SvgIcon/SvgIcon';
 
-const CheckIcon = (props: ISvgProps) => {
+const SuccessIcon = (props: ISvgProps) => {
   return (
     <SvgIcon {...props} sx={{ color: 'transparent' }}>
       <rect x='2' y='2' width='20' height='20' rx='10' fill='#D1FADF' />
@@ -19,4 +19,4 @@ const CheckIcon = (props: ISvgProps) => {
   );
 };
 
-export default CheckIcon;
+export default SuccessIcon;

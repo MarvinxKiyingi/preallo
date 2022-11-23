@@ -1,5 +1,5 @@
 import { IconButton, IconButtonProps as MuiIconButtonProps, styled } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import PlusIcon from '../Icons/PlusIcon';
 
 // Only include
 type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disableRipple' | 'disabled'>;
@@ -22,7 +22,7 @@ export const AddButton = ({ fontSizeMobile, fontSizeDesktop, hasBgColor, ...prop
 
   return (
     <StyledIconButton {...props}>
-      <AddIcon fontSize='inherit' />
+      <PlusIcon fontSize='inherit' />
     </StyledIconButton>
   );
 };

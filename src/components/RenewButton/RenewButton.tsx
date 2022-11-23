@@ -1,5 +1,5 @@
 import { IconButton, IconButtonProps as MuiIconButtonProps, styled } from '@mui/material';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
+import RenewIcon from '../Icons/RenewIcon';
 
 // Only include
 type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disableRipple' | 'disabled'>;
@@ -22,7 +22,7 @@ export const RenewButton = ({ fontSizeMobile, fontSizeDesktop, hasBgColor, ...pr
 
   return (
     <StyledIconButton {...props}>
-      <AutorenewIcon fontSize='inherit' />
+      <RenewIcon fontSize='inherit' />
     </StyledIconButton>
   );
 };
