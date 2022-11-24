@@ -1,11 +1,11 @@
 import { styled, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { IIconButton } from '../AddButton/AddButton';
 import { IAvatar } from '../Avatar/Avatar';
 import { DashboardButton } from '../DashboardButton/DashboardButton';
+import { IIconButtonProps } from '../IconButton/IconButton';
 import { ProfileButton } from '../ProfileButton/ProfileButton';
 
-interface INavBar extends IIconButton {
+interface INavBar extends IIconButtonProps {
   title?: string;
   useName?: string;
   dashBoardIsVisible?: boolean;
