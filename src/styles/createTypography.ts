@@ -2,7 +2,7 @@ const largeTextSize = '1.2rem';
 const normalTextSize = '1rem';
 const smallTextSize = '0.833rem';
 
-export const typography = {
+export const createTypography = {
   fontFamily: "'Hind Vadodara', sans-serif",
   h1: {
     fontWeight: 900,
