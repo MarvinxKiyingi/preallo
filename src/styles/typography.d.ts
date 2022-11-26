@@ -3,7 +3,7 @@ import '@mui/material/styles';
 import '@mui/material/Typography';
 
 declare module '@mui/material/styles' {
-  interface TypographyVariants {
+  export interface TypographyVariants {
     textLargeBold?: React.CSSProperties;
     textLargeSemiBold?: React.CSSProperties;
     textLarge?: React.CSSProperties;
@@ -16,7 +16,7 @@ declare module '@mui/material/styles' {
   }
 
   // allow configuration using `createTheme`
-  interface TypographyVariantsOptions {
+  export interface TypographyVariantsOptions {
     textLargeBold?: React.CSSProperties;
     textLargeSemiBold?: React.CSSProperties;
     textLarge?: React.CSSProperties;
@@ -31,7 +31,7 @@ declare module '@mui/material/styles' {
 
 // Update the Typography's variant prop options
 declare module '@mui/material/Typography' {
-  interface TypographyPropsVariantOverrides {
+  export interface TypographyPropsVariantOverrides {
     textLargeBold?: true;
     textLargeSemiBold?: true;
     textLarge?: true;
