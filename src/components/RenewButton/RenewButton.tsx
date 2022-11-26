@@ -3,7 +3,7 @@ import RenewIcon from '../Icons/RenewIcon';
 
 export const RenewButton = (props: IIconButtonProps) => {
   return (
-    <IconButton {...props}>
+    <IconButton className='renewButton-container' {...props}>
       <RenewIcon fontSize='inherit' />
     </IconButton>
   );

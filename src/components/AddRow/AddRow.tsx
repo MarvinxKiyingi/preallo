@@ -32,7 +32,7 @@ export const ButtonGroup = styled(Box)(({ theme }) => ({
 
 export const AddRow = ({ title, renewIsVisible, addIsVisible, ...props }: IAddRowProps) => {
   return (
-    <StyledAddRow>
+    <StyledAddRow className='addRow-container'>
       <Typography variant='h5' component={'h3'}>
         {title}
       </Typography>

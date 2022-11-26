@@ -50,7 +50,7 @@ const NavbarContainer = styled(Box)(({ theme }) => ({
 
 export const NavBar = ({ title, useName, dashBoardIsVisible, profileIsVisible, ...props }: INavBar & IAvatar) => {
   return (
-    <NavbarContainer>
+    <NavbarContainer className='navBar-container'>
       <div className='dashBoardIconContainer'>{dashBoardIsVisible && <DashboardButton {...props} />}</div>
 
       <Typography className='titleContainer' variant='h6'>

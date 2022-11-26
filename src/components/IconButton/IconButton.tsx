@@ -8,6 +8,7 @@ export interface IIconButtonProps extends IMuiIconButtonProps {
   fontSizeDesktop?: string;
   hasBgColor?: boolean;
   onClick?: () => void;
+  className?: string;
 }
 
 export const IconButton = ({ hasBgColor, fontSizeMobile, fontSizeDesktop, children, ...props }: IIconButtonProps) => {

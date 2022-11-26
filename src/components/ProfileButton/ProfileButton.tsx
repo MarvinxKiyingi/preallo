@@ -5,7 +5,7 @@ import { IIconButtonProps } from '../IconButton/IconButton';
 
 export const ProfileButton = ({ ...props }: IIconButtonProps & IAvatar) => {
   return (
-    <IconButton {...props}>
+    <IconButton className='profileButton-container' {...props}>
       <Avatar {...props} />
     </IconButton>
   );

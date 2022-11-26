@@ -5,7 +5,7 @@ import { DashboardIcon } from '../Icons';
 
 export const DashboardButton = (props: IIconButtonProps) => {
   return (
-    <IconButton {...props}>
+    <IconButton className='dashboardButton-container' {...props}>
       <DashboardIcon fontSize='inherit' />
     </IconButton>
   );

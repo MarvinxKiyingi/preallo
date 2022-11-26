@@ -16,5 +16,9 @@ export const Avatar = ({ url, mobileSize, deskSize }: IAvatar) => {
       height: deskSize ? deskSize : theme.spacing(6),
     },
   }));
-  return <StyledAvatar src={url}>Avatar</StyledAvatar>;
+  return (
+    <StyledAvatar className='avatar-container' src={url}>
+      Avatar
+    </StyledAvatar>
+  );
 };

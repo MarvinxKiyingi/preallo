@@ -58,7 +58,7 @@ export function Select({ fullWidth, size, yearList, textAlign, bgColor, boxShado
 
   return (
     <MuiFormControl fullWidth={fullWidth} size={size}>
-      <StyledMuiSelect {...props} sx={selectInlineStyling}>
+      <StyledMuiSelect className='select-container' {...props} sx={selectInlineStyling}>
         {yearList &&
           yearList.map((value, idx) => (
             <StyledMuiMenuItem key={idx} value={value} sx={menuInlineStyling}>
