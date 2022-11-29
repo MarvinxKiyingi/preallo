@@ -7,15 +7,16 @@ export type ICardType = {
   cardType: 'visa' | 'mastercard';
 };
 
-const StyledCardTypeContainer = styled(Box)({
+const StyledCardTypeContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: 105,
+  height: theme.spacing(5),
 
   'span,img': {
     width: '100% ',
     height: '100% ',
   },
-});
+}));
 
 export const CardType = ({ cardType }: ICardType) => {
   return (
