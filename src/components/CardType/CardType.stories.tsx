@@ -11,9 +11,9 @@ const Template: ComponentStory<typeof CardType> = (args) => <CardType {...args} 
 
 export const Default = Template.bind({});
 Default.args = {
-  type: 'visa',
+  cardType: 'visa',
 };
 export const MasterCard = Template.bind({});
 MasterCard.args = {
-  type: 'mastercard',
+  cardType: 'mastercard',
 };

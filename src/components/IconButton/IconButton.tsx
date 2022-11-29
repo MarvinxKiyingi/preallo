@@ -13,6 +13,7 @@ export interface IIconButtonProps extends IMuiIconButtonProps {
 
 export const IconButton = ({ hasBgColor, fontSizeMobile, fontSizeDesktop, children, ...props }: IIconButtonProps) => {
   const StyledIcon = styled(MuiIconButton)(({ theme }) => ({
+    width: 'fit-content',
     backgroundColor: hasBgColor ? theme.palette.common.white : 'transparent',
     fontSize: fontSizeMobile ? fontSizeMobile : theme.spacing(3),
     [theme.breakpoints.up('md')]: {

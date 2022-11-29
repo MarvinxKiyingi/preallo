@@ -14,7 +14,7 @@ const StyledCircularProgress = styled(Typography)(({ theme }) => ({
       '&-text': {
         [theme.breakpoints.up('md')]: {
           ...theme.typography.h1,
-          fontWeight: 400,
+          fontWeight: 600,
         },
       },
     },

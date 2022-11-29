@@ -4,40 +4,29 @@ import visaCard from './../../svg/visa.svg';
 import mastercard from './../../svg/mastercard.svg';
 
 export type ICardType = {
-  type: 'visa' | 'mastercard';
+  cardType: 'visa' | 'mastercard';
 };
 
-const StyledCardTypeContainer = styled(Box)(({ theme }) => ({
+const StyledCardTypeContainer = styled(Box)({
   display: 'flex',
-  width: 71.5,
-  height: 36.82,
+  width: 105,
 
-  [theme.breakpoints.up('md')]: {
-    width: 105,
-  },
-  svg: {
-    width: 71.5,
-    height: 36.82,
-    [theme.breakpoints.up('md')]: {
-      width: 105,
-    },
-  },
   'span,img': {
     width: '100% ',
     height: '100% ',
   },
-}));
+});
 
-export const CardType = ({ type }: ICardType) => {
+export const CardType = ({ cardType }: ICardType) => {
   return (
     <>
-      {type === 'visa' && (
+      {cardType === 'visa' && (
         <StyledCardTypeContainer className='visaCardType-container'>
           {/* eslint-disable-next-line */}
           <img src={visaCard} alt='visaCard' />
         </StyledCardTypeContainer>
       )}
-      {type === 'mastercard' && (
+      {cardType === 'mastercard' && (
         <StyledCardTypeContainer className='mastercardCardType-container'>
           {/* eslint-disable-next-line */}
           <img src={mastercard} alt='mastercard' />
