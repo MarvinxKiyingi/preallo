@@ -16,7 +16,7 @@ export const StyledAddRow = styled(Box)(({ theme }) => ({
   width: '100%',
   alignItems: 'center',
   color: theme.palette.common.black,
-  h3: {
+  '.title': {
     ...theme.typography.h6,
     fontWeight: 600,
     [theme.breakpoints.up('md')]: {
@@ -24,23 +24,23 @@ export const StyledAddRow = styled(Box)(({ theme }) => ({
       fontWeight: 600,
     },
   },
-}));
-export const ButtonGroup = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(),
+  '.buttonGroup': {
+    display: 'flex',
+    gap: theme.spacing(),
+  },
 }));
 
 export const AddRow = ({ title, renewIsVisible, addIsVisible, ...props }: IAddRowProps) => {
   return (
     <StyledAddRow className='addRow-container'>
-      <Typography variant='h5' component={'h3'}>
+      <Typography className='title' variant='h5' component={'h3'}>
         {title}
       </Typography>
 
-      <ButtonGroup>
+      <div className='buttonGroup'>
         {renewIsVisible && <RenewButton {...props} />}
         {addIsVisible && <AddButton {...props} />}
-      </ButtonGroup>
+      </div>
     </StyledAddRow>
   );
 };

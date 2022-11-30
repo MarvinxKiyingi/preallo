@@ -9,16 +9,17 @@ type ButtonBaseProps = Pick<
 
 export interface IButtonProps extends ButtonBaseProps {
   onClick?: () => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   fullHeight?: boolean;
-  component: 'button' | 'monthPicker';
+  component?: 'button' | 'monthPicker';
 }
 
-const StyledButton = styled(MuiButton)({
+const StyledButton = styled(MuiButton)<{ ownerState: IButtonProps }>(({ ownerState }) => ({
   borderRadius: '0.625rem',
-});
+  height: ownerState.fullWidth ? '100%' : undefined,
+}));
 
-const StyledMonthPicker = styled(MuiButton)(({ theme }) => ({
+const StyledMonthPicker = styled(MuiButton)<{ ownerState: IButtonProps }>(({ theme }) => ({
   borderRadius: theme.spacing(3),
   padding: theme.spacing(4, 15),
   fontSize: theme.spacing(2),
@@ -29,17 +30,17 @@ const StyledMonthPicker = styled(MuiButton)(({ theme }) => ({
 }));
 
 export const Button = ({ children, fullHeight, component, ...props }: IButtonProps) => {
-  const buttonInlineStyling = {
-    height: fullHeight ? '100%' : null,
+  const ownerState = {
+    fullHeight,
   };
   return (
     <>
       {component === 'button' ? (
-        <StyledButton sx={buttonInlineStyling} {...props}>
+        <StyledButton ownerState={ownerState} {...props}>
           {children}
         </StyledButton>
       ) : (
-        <StyledMonthPicker sx={buttonInlineStyling} {...props}>
+        <StyledMonthPicker ownerState={ownerState} {...props}>
           {children}
         </StyledMonthPicker>
       )}

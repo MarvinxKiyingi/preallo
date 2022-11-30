@@ -7,17 +7,22 @@ export interface IAvatar {
   deskSize?: string;
 }
 
+const StyledAvatar = styled(MuiAvatar)<{ ownerState: IAvatar }>(({ theme, ownerState }) => ({
+  width: ownerState.mobileSize ? ownerState.mobileSize : theme.spacing(3),
+  height: ownerState.mobileSize ? ownerState.mobileSize : theme.spacing(3),
+  [theme.breakpoints.up('md')]: {
+    width: ownerState.deskSize ? ownerState.deskSize : theme.spacing(6),
+    height: ownerState.deskSize ? ownerState.deskSize : theme.spacing(6),
+  },
+}));
+
 export const Avatar = ({ url, mobileSize, deskSize }: IAvatar) => {
-  const StyledAvatar = styled(MuiAvatar)(({ theme }) => ({
-    width: mobileSize ? mobileSize : theme.spacing(3),
-    height: mobileSize ? mobileSize : theme.spacing(3),
-    [theme.breakpoints.up('md')]: {
-      width: deskSize ? deskSize : theme.spacing(6),
-      height: deskSize ? deskSize : theme.spacing(6),
-    },
-  }));
+  const ownerState = {
+    mobileSize,
+    deskSize,
+  };
   return (
-    <StyledAvatar className='avatar-container' src={url}>
+    <StyledAvatar className='avatar-container' src={url} ownerState={ownerState}>
       Avatar
     </StyledAvatar>
   );

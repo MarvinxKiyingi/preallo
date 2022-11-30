@@ -10,15 +10,24 @@ export interface IIconButtonProps extends IMuiIconButtonProps {
   onClick?: () => void;
   className?: string;
 }
+const StyledIcon = styled(MuiIconButton)<{ ownerState: IIconButtonProps }>(({ theme, ownerState }) => ({
+  width: 'fit-content',
+  backgroundColor: ownerState.hasBgColor ? theme.palette.common.white : 'transparent',
+  fontSize: ownerState.fontSizeMobile ? ownerState.fontSizeMobile : theme.spacing(3),
+  [theme.breakpoints.up('md')]: {
+    fontSize: ownerState.fontSizeDesktop ? ownerState.fontSizeDesktop : theme.spacing(6),
+  },
+}));
 
 export const IconButton = ({ hasBgColor, fontSizeMobile, fontSizeDesktop, children, ...props }: IIconButtonProps) => {
-  const StyledIcon = styled(MuiIconButton)(({ theme }) => ({
-    width: 'fit-content',
-    backgroundColor: hasBgColor ? theme.palette.common.white : 'transparent',
-    fontSize: fontSizeMobile ? fontSizeMobile : theme.spacing(3),
-    [theme.breakpoints.up('md')]: {
-      fontSize: fontSizeDesktop ? fontSizeDesktop : theme.spacing(6),
-    },
-  }));
-  return <StyledIcon {...props}>{children}</StyledIcon>;
+  const ownerState = {
+    hasBgColor,
+    fontSizeDesktop,
+    fontSizeMobile,
+  };
+  return (
+    <StyledIcon ownerState={ownerState} {...props}>
+      {children}
+    </StyledIcon>
+  );
 };
