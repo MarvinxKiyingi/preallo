@@ -8,7 +8,7 @@ export default {
     income: '3,578',
     cardType: 'visa',
     hasBgColor: true,
-    color: 'error',
+    color: 'default',
   },
 } as ComponentMeta<typeof IncomeDisplay>;
 const Template: ComponentStory<typeof IncomeDisplay> = (args) => <IncomeDisplay {...args} />;
