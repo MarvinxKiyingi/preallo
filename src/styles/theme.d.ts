@@ -1,8 +1,17 @@
 import React from 'react';
+import { PaletteColor, PaletteColorOptions } from '@mui/material/styles';
 import '@mui/material/styles';
 import '@mui/material/Typography';
 
 declare module '@mui/material/styles' {
+  export interface PaletteColor {
+    secondary?: string;
+  }
+
+  export interface TypeBackground {
+    secondary?: string;
+  }
+
   export interface TypographyVariants {
     textLargeBold?: React.CSSProperties;
     textLargeSemiBold?: React.CSSProperties;
