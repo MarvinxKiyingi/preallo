@@ -22,13 +22,13 @@ export const CardType = ({ cardType }: ICardType) => {
   return (
     <>
       {cardType === 'visa' && (
-        <StyledCardTypeContainer className='visaCardType-container'>
+        <StyledCardTypeContainer className='visaCardType-container cardType'>
           {/* eslint-disable-next-line */}
           <img src={visaCard} alt='visaCard' />
         </StyledCardTypeContainer>
       )}
       {cardType === 'mastercard' && (
-        <StyledCardTypeContainer className='mastercardCardType-container'>
+        <StyledCardTypeContainer className='mastercardCardType-container cardType'>
           {/* eslint-disable-next-line */}
           <img src={mastercard} alt='mastercard' />
         </StyledCardTypeContainer>

@@ -29,7 +29,7 @@ const StyledIncomeDisplay = styled(Box)<{ ownerState: IIncomeDisplayProps }>(({ 
     display: 'flex',
     flexDirection: 'column',
     '>*+*': {
-      paddingTop: theme.spacing(2),
+      paddingTop: theme.spacing(),
     },
     '>:last-child': {
       marginTop: 'auto',
@@ -62,6 +62,15 @@ const StyledIncomeDisplay = styled(Box)<{ ownerState: IIncomeDisplayProps }>(({ 
     justifyContent: 'space-between',
     '&>*': {
       alignSelf: 'end',
+    },
+    '.cardType': {
+      width: '100%',
+      maxWidth: '80%',
+    },
+    '.addButton-container': {
+      [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(2),
+      },
     },
   },
   button: {
