@@ -18,7 +18,7 @@ const StyledIncomeDisplay = styled(Box)<{ ownerState: IIncomeDisplayProps }>(({ 
   display: 'flex',
   width: ownerState.fullWidth ? '100%' : '334px',
   height: ownerState.fullHeight ? '100%' : '165px',
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('lg')]: {
     width: ownerState.fullWidth ? '100%' : '487.53px',
     height: ownerState.fullHeight ? '100%' : '246px',
     padding: theme.spacing(3),
@@ -35,21 +35,21 @@ const StyledIncomeDisplay = styled(Box)<{ ownerState: IIncomeDisplayProps }>(({ 
       marginTop: 'auto',
     },
     '.title': {
-      [theme.breakpoints.up('md')]: {
+      [theme.breakpoints.up('lg')]: {
         // @ts-ignore
         ...theme.typography.h4,
       },
     },
     '.price': {
       fontWeight: 600,
-      [theme.breakpoints.up('md')]: {
+      [theme.breakpoints.up('lg')]: {
         // @ts-ignore
         ...theme.typography.h1,
         fontWeight: 600,
       },
     },
     '.description': {
-      [theme.breakpoints.up('md')]: {
+      [theme.breakpoints.up('lg')]: {
         // @ts-ignore
         ...theme.typography.textLarge,
       },
@@ -68,7 +68,7 @@ const StyledIncomeDisplay = styled(Box)<{ ownerState: IIncomeDisplayProps }>(({ 
       maxWidth: '80%',
     },
     '.addButton-container': {
-      [theme.breakpoints.up('md')]: {
+      [theme.breakpoints.up('lg')]: {
         padding: theme.spacing(2),
       },
     },

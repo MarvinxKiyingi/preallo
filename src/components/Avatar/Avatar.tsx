@@ -10,7 +10,7 @@ export interface IAvatar {
 const StyledAvatar = styled(MuiAvatar)<{ ownerState: IAvatar }>(({ theme, ownerState }) => ({
   width: ownerState.mobileSize ? ownerState.mobileSize : theme.spacing(3),
   height: ownerState.mobileSize ? ownerState.mobileSize : theme.spacing(3),
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('lg')]: {
     width: ownerState.deskSize ? ownerState.deskSize : theme.spacing(6),
     height: ownerState.deskSize ? ownerState.deskSize : theme.spacing(6),
   },

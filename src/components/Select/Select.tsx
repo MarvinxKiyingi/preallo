@@ -26,7 +26,7 @@ export interface IFormControlProps extends FormControlProps, SelectProps {
 const StyledMuiSelect = styled(MuiSelect)(({ theme }) => ({
   borderRadius: theme.spacing(2),
   textAlign: 'center',
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('lg')]: {
     fontSize: '1.2rem',
   },
 }));
@@ -34,7 +34,7 @@ const StyledMuiSelect = styled(MuiSelect)(({ theme }) => ({
 const StyledMuiMenuItem = styled(MuiMenuItem)(({ theme }) => ({
   justifyContent: 'center',
   paddingRight: '32px',
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('lg')]: {
     fontSize: '1.2rem',
   },
 }));

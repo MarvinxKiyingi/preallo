@@ -25,7 +25,7 @@ const NavbarContainer = styled(Box)(({ theme }) => ({
   '.titleContainer': {
     textAlign: 'center',
     alignSelf: 'center',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       ...theme.typography.h4,
     },
   },
@@ -38,7 +38,7 @@ const NavbarContainer = styled(Box)(({ theme }) => ({
     '&-title': {
       display: 'none',
     },
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       gap: theme.spacing(2),
       '&-title': {
         display: 'initial',

@@ -17,7 +17,7 @@ const StyledIconButton = styled(IconButton)<{
 }>(({ theme, ownerState }) => ({
   backgroundColor: ownerState.hasBgColor ? theme.palette.common.white : 'transparent',
   fontSize: ownerState.fontSizeMobile ? ownerState.fontSizeMobile : theme.spacing(3),
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('lg')]: {
     fontSize: ownerState.fontSizeDesktop ? ownerState.fontSizeDesktop : theme.spacing(6),
   },
 }));

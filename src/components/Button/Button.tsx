@@ -23,7 +23,7 @@ const StyledMonthPicker = styled(MuiButton)<{ ownerState: IButtonProps }>(({ the
   borderRadius: theme.spacing(3),
   padding: theme.spacing(4, 15),
   fontSize: theme.spacing(2),
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('lg')]: {
     padding: theme.spacing(9, 13),
     fontSize: theme.spacing(2.25),
   },
