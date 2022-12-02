@@ -3,6 +3,9 @@ import { ExpenceIcon } from '../Icons';
 
 type IExpenseProps = {
   bgColor?: string;
+  title?: string;
+  date?: string;
+  amount?: string;
   fullHeight?: boolean;
   fullWidth?: boolean;
 };
@@ -12,7 +15,7 @@ const StyledExpense = styled(Box)<{ ownerState: IExpenseProps }>(({ theme, owner
   display: 'flex',
   alignItems: 'center',
   borderRadius: theme.spacing(2),
-  padding: theme.spacing(2, 3, 2, 2),
+  padding: theme.spacing(2),
   height: ownerState.fullHeight ? '100%' : undefined,
   width: ownerState.fullWidth ? '100%' : 334,
   '.iconContainer': {
@@ -20,15 +23,11 @@ const StyledExpense = styled(Box)<{ ownerState: IExpenseProps }>(({ theme, owner
     color: theme.palette.common.white,
     display: 'flex',
     aspectRatio: '1/1',
-    maxWidth: 56,
+    maxWidth: 48,
     width: '100%',
     borderRadius: '50%',
     alignItems: 'center',
     justifyContent: 'center',
-
-    svg: {
-      fontSize: '2.2em',
-    },
   },
   '.textContainer': {
     width: '100%',
@@ -40,7 +39,7 @@ const StyledExpense = styled(Box)<{ ownerState: IExpenseProps }>(({ theme, owner
     '.expenseInfoContainer': {
       display: 'flex',
       flexDirection: 'column',
-      gap: theme.spacing(),
+      gap: theme.spacing(0.5),
     },
 
     '.price': {
@@ -49,7 +48,7 @@ const StyledExpense = styled(Box)<{ ownerState: IExpenseProps }>(({ theme, owner
   },
 }));
 
-export const Expense = ({ bgColor, fullHeight, fullWidth, ...props }: IExpenseProps) => {
+export const Expense = ({ bgColor, fullHeight, fullWidth, title, date, amount, ...props }: IExpenseProps) => {
   const ownerState = {
     bgColor,
     fullHeight,
@@ -63,15 +62,15 @@ export const Expense = ({ bgColor, fullHeight, fullWidth, ...props }: IExpensePr
       <div className='textContainer'>
         <div className='expenseInfoContainer'>
           <Typography className='expense' variant='textNormalBold'>
-            Expense
+            {title}
           </Typography>
           <Typography className='date' variant='textSmall'>
-            20 March 2022
+            {date}
           </Typography>
         </div>
         <div>
           <Typography className='price' variant='h6'>
-            -849 kr
+            {`${amount} kr`}
           </Typography>
         </div>
       </div>
