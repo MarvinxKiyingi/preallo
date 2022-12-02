@@ -2,8 +2,9 @@ const largeTextSize = '1.2rem';
 const normalTextSize = '1rem';
 const smallTextSize = '0.833rem';
 
-const headingFont = "'Chivo', sans-serif";
-const bodyFont = "'Hind Vadodara', sans-serif";
+const headingFont = ['Chivo', 'sans-serif'].join(',');
+const bodyFont = ['Hind Vadodara', 'sans-serif'].join(',');
+const letterSpacing = '0.060rem';
 
 export const createTypography = {
   h1: {
@@ -37,7 +38,7 @@ export const createTypography = {
     fontFamily: headingFont,
   },
   allVariants: {
-    letterSpacing: '0.060rem',
+    letterSpacing: letterSpacing,
   },
   subtitle1: {
     fontWeight: 700,
@@ -48,45 +49,54 @@ export const createTypography = {
     fontWeight: 700,
     fontSize: largeTextSize,
     fontFamily: bodyFont,
+    letterSpacing: letterSpacing,
   },
   textLargeSemiBold: {
     fontWeight: 600,
     fontSize: largeTextSize,
     fontFamily: bodyFont,
+    letterSpacing: letterSpacing,
   },
   textLarge: {
     fontWeight: 400,
     fontSize: largeTextSize,
     fontFamily: bodyFont,
+    letterSpacing: letterSpacing,
   },
   textNormalBold: {
     fontWeight: 700,
     fontSize: normalTextSize,
     fontFamily: bodyFont,
+    letterSpacing: letterSpacing,
   },
   textNormalSemiBold: {
     fontWeight: 600,
     fontSize: normalTextSize,
     fontFamily: bodyFont,
+    letterSpacing: letterSpacing,
   },
   textNormal: {
     fontWeight: 400,
     fontSize: normalTextSize,
     fontFamily: bodyFont,
+    letterSpacing: letterSpacing,
   },
   textSmallBold: {
     fontWeight: 700,
     fontSize: smallTextSize,
     fontFamily: bodyFont,
+    letterSpacing: letterSpacing,
   },
   textSmallSemiBold: {
     fontWeight: 600,
     fontSize: smallTextSize,
     fontFamily: bodyFont,
+    letterSpacing: letterSpacing,
   },
   textSmall: {
     fontWeight: 400,
     fontSize: smallTextSize,
     fontFamily: bodyFont,
+    letterSpacing: letterSpacing,
   },
 };
