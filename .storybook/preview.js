@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@mui/material';
-import { theme } from '../src/styles/muiTheme';
+import { theme } from '../src/styles/theme/muiTheme';
 
 const BREAKPOINTS_INT = {
   xs: 0,

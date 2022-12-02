@@ -1,5 +1,5 @@
-import { common } from './colors/common';
-import { purple } from './colors/purple';
+import { common } from '../colors/common';
+import { purple } from '../colors/purple';
 
 export const createPalette = {
   background: {
