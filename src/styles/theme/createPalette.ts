@@ -7,8 +7,8 @@ export const createPalette = {
     secondary: purple[200],
   },
   primary: {
-    main: purple[500],
-    secondary: purple[400],
+    main: purple[400],
+    secondary: purple[500],
   },
   secondary: {
     main: purple[300],

@@ -9,7 +9,7 @@ export type IBudgetDisplay = {
 };
 
 const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(({ theme, ownerState }) => ({
-  backgroundColor: ownerState.bgColor ? ownerState.bgColor : theme.palette.primary.secondary,
+  backgroundColor: ownerState.bgColor ? ownerState.bgColor : theme.palette.primary.main,
   color: theme.palette.common.white,
   display: 'flex',
   flexDirection: 'column',
@@ -54,7 +54,13 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(({ theme
   },
 }));
 
-export const BudgetDisplay = ({ viewProgress, bgColor, fullWidth, color, ...props }: IBudgetDisplay & LinearProgressProps) => {
+export const BudgetDisplay = ({
+  viewProgress,
+  bgColor,
+  fullWidth,
+  color,
+  ...props
+}: IBudgetDisplay & LinearProgressProps) => {
   const ownerState = {
     bgColor,
     fullWidth,
