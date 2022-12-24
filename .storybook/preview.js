@@ -1,3 +1,6 @@
+import { ThemeProvider } from '@mui/material';
+import { theme } from '../src/styles/theme/muiTheme';
+
 const BREAKPOINTS_INT = {
   xs: 0,
   sm: 600,
@@ -34,3 +37,11 @@ export const parameters = {
     viewports,
   },
 };
+
+export const withMuiTheme = (Story) => (
+  <ThemeProvider theme={theme}>
+    <Story />
+  </ThemeProvider>
+);
+
+export const decorators = [withMuiTheme];
