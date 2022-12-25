@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type IAuthContexProvider = {
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode;
 };
