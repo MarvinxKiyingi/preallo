@@ -11,7 +11,6 @@ const StyledWrapper = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100vh',
   maxWidth: '87.5rem',
-  border: '1px solid',
 
   [theme.breakpoints.up('md')]: {
     height: '100%',
