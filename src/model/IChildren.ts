@@ -1,5 +1,4 @@
 import React from 'react';
-
-export type IAuthContexProvider = {
+export type IChildren = {
   children: React.ReactNode;
 };

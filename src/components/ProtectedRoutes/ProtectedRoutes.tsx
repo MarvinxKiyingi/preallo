@@ -1,17 +1,15 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import { IChildren } from '../../model/IChildren';
 import { useAuth } from '../../utils/context/AuthContext';
 
-type IProtectedRoutes = {
-  children: React.ReactNode;
-};
-const ProtectedRoutes = ({ children }: IProtectedRoutes) => {
+const ProtectedRoutes = ({ children }: IChildren) => {
   const { currentUser, currentUserLoading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if (!currentUser) {
-      router.push('/signin');
+      router.push('/auth/signin');
     }
   }, [router, currentUser]);
 
