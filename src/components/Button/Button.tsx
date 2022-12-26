@@ -4,7 +4,20 @@ import { Button as MuiButton, ButtonProps as MuiButtonProps, styled } from '@mui
 // Only include
 type ButtonBaseProps = Pick<
   MuiButtonProps,
-  'variant' | 'size' | 'color' | 'children' | 'fullWidth' | 'href' | 'onClick' | 'disabled' | 'disableFocusRipple' | 'disableRipple'
+  | 'variant'
+  | 'size'
+  | 'color'
+  | 'children'
+  | 'fullWidth'
+  | 'href'
+  | 'onClick'
+  | 'disabled'
+  | 'disableFocusRipple'
+  | 'disableRipple'
+  | 'type'
+  | 'startIcon'
+  | 'endIcon'
+  | 'sx'
 >;
 
 export interface IButtonProps extends ButtonBaseProps {
@@ -12,11 +25,17 @@ export interface IButtonProps extends ButtonBaseProps {
   children?: React.ReactNode;
   fullHeight?: boolean;
   component?: 'button' | 'monthPicker';
+  iconSize?: string;
 }
 
-const StyledButton = styled(MuiButton)<{ ownerState: IButtonProps }>(({ ownerState }) => ({
-  borderRadius: '0.625rem',
+const StyledButton = styled(MuiButton)<{ ownerState: IButtonProps }>(({ ownerState, theme }) => ({
+  borderRadius: '0.5rem',
   height: ownerState.fullWidth ? '100%' : undefined,
+  padding: '1.031rem 0.875rem',
+
+  '.MuiButton-startIcon>*': {
+    fontSize: ownerState.iconSize ? ownerState.iconSize : theme.spacing(3),
+  },
 }));
 
 const StyledMonthPicker = styled(MuiButton)<{ ownerState: IButtonProps }>(({ theme }) => ({
@@ -29,9 +48,10 @@ const StyledMonthPicker = styled(MuiButton)<{ ownerState: IButtonProps }>(({ the
   },
 }));
 
-export const Button = ({ children, fullHeight, component, ...props }: IButtonProps) => {
+export const Button = ({ children, fullHeight, iconSize, component, ...props }: IButtonProps) => {
   const ownerState = {
     fullHeight,
+    iconSize,
   };
   return (
     <>

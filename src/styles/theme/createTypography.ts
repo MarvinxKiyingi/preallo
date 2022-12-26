@@ -2,8 +2,8 @@ const largeTextSize = '1.2rem';
 const normalTextSize = '1rem';
 const smallTextSize = '0.833rem';
 
-const headingFont = ['Chivo', 'sans-serif'].join(',');
-const bodyFont = ['Hind Vadodara', 'sans-serif'].join(',');
+const headingFont = "'Chivo', sans-serif";
+const bodyFont = "'Hind Vadodara', sans-serif";
 const letterSpacing = '0.060rem';
 
 export const createTypography = {

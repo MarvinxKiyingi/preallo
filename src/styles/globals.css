@@ -1,8 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;500;600;700&family=Hind+Vadodara:wght@300;400;500;600;700&display=swap');
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Hind Vadodara', sans-serif;
+  background-color: #f7fafc;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Chivo', sans-serif;
 }
 
 a {
@@ -14,7 +25,8 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Enebles nest night mode??? */
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
@@ -22,4 +34,4 @@ a {
     color: white;
     background: black;
   }
-}
+} */
