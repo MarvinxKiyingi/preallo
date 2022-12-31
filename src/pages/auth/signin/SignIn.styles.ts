@@ -48,8 +48,10 @@ export const ForgottenPassword = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   display: 'flex',
   alignSelf: 'end',
+  color: theme.palette.secondary.main,
 }));
 
 export const SignUpLink = styled(Link)(({ theme }) => ({
   ...theme.typography.textNormalBold,
+  color: theme.palette.secondary.main,
 }));
