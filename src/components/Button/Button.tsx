@@ -29,17 +29,18 @@ export interface IButtonProps extends ButtonBaseProps {
 }
 
 const StyledButton = styled(MuiButton)<{ ownerState: IButtonProps }>(({ ownerState, theme }) => ({
-  borderRadius: '0.5rem',
-  height: ownerState.fullWidth ? '100%' : undefined,
-  padding: '1.031rem 0.875rem',
+  borderRadius: 8,
+  height: ownerState.fullHeight ? '100%' : undefined,
+  padding: theme.spacing(2, 2),
 
   '.MuiButton-startIcon>*': {
     fontSize: ownerState.iconSize ? ownerState.iconSize : theme.spacing(3),
   },
 }));
 
-const StyledMonthPicker = styled(MuiButton)<{ ownerState: IButtonProps }>(({ theme }) => ({
-  borderRadius: theme.spacing(3),
+const StyledMonthPicker = styled(MuiButton)<{ ownerState: IButtonProps }>(({ ownerState, theme }) => ({
+  height: ownerState.fullHeight ? '100%' : undefined,
+  borderRadius: 8,
   padding: theme.spacing(4, 15),
   fontSize: theme.spacing(2),
   [theme.breakpoints.up('lg')]: {
