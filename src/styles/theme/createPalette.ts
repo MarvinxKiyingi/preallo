@@ -25,10 +25,10 @@ export const createPalette = {
     ...common,
   },
   text: {
-    primary: grey[600],
-    secondary: grey[500],
-    disabled: grey[100],
-    hint: grey[100],
+    primary: grey.light[600],
+    secondary: grey.light[500],
+    disabled: grey.light[100],
+    hint: grey.light[100],
   },
   error: {
     main: red[500],
