@@ -1,6 +1,6 @@
 import { Box, styled, Typography } from '@mui/material';
 import React from 'react';
-import { BlueprintIcon } from '../Icons';
+import { Xcode } from '../Icons';
 import { ISvgProps } from '../SvgIcon/SvgIcon';
 
 export type ILogo = {
@@ -12,7 +12,7 @@ const StyledLogo = styled(Box)<{
   ownerState: ILogo;
 }>(({ theme, ownerState }) => ({
   display: 'flex',
-  gap: theme.spacing(),
+  gap: theme.spacing(1 / 2),
 
   '.logoIcon': {
     fontSize: ownerState.fontSizeMobile ? ownerState.fontSizeMobile : theme.spacing(4),
@@ -22,10 +22,11 @@ const StyledLogo = styled(Box)<{
   },
 
   '.logoName': {
-    fontWeight: 400,
+    fontFamily: 'Chivo',
     fontStyle: 'italic',
+    fontWeight: 400,
     alignSelf: 'center',
-    textTransform: 'uppercase',
+    fontSize: '1rem',
     [theme.breakpoints.up('md')]: {
       fontSize: '1.331rem',
     },
@@ -38,9 +39,9 @@ export const Logo = ({ fontSizeMobile, fontSizeDesktop, ...props }: ILogo & ISvg
   };
   return (
     <StyledLogo ownerState={ownerState} {...props}>
-      <BlueprintIcon className='logoIcon' {...props} />
+      <Xcode className='logoIcon' {...props} />
       <Typography className='logoName' variant='h6' component={'span'}>
-        Xcode
+        code
       </Typography>
     </StyledLogo>
   );
