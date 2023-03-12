@@ -40,7 +40,7 @@ export const Logo = ({ fontSizeMobile, fontSizeDesktop, ...props }: ILogo & ISvg
     <StyledLogo ownerState={ownerState} {...props}>
       <BlueprintIcon className='logoIcon' {...props} />
       <Typography className='logoName' variant='h6' component={'span'}>
-        Blueprint
+        Xcode
       </Typography>
     </StyledLogo>
   );

@@ -1,13 +1,17 @@
-# Blueprint
+![initials logo](/public/android-chrome-192x192.png 'initials logo')
 
-A webb-app created to help you in keeping your finance in check.
+# Xcost
 
-### Getting Started
+Spreadsheet no more! Xcost gets the job done in a more elegant way.
+
+---
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-First, run the development server:
+## Available Scripts
 
-```bash
-yarn dev
-```
+In the project directory, you can run:
+
+### `npm start`
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
