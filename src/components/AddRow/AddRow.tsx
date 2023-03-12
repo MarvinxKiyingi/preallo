@@ -2,7 +2,6 @@ import { Typography, styled, Box } from '@mui/material';
 import React from 'react';
 import { AddButton } from '../AddButton/AddButton';
 import { IIconButtonProps } from '../IconButton/IconButton';
-import { RenewButton } from '../RenewButton/RenewButton';
 
 export interface IAddRowProps extends IIconButtonProps {
   title: string;
@@ -19,6 +18,7 @@ export const StyledAddRow = styled(Box)(({ theme }) => ({
   '.title': {
     ...theme.typography.h6,
     fontWeight: 600,
+    fontSize: '1rem',
     [theme.breakpoints.up('lg')]: {
       ...theme.typography.h5,
       fontWeight: 600,
@@ -30,17 +30,14 @@ export const StyledAddRow = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const AddRow = ({ title, renewIsVisible, addIsVisible, ...props }: IAddRowProps) => {
+export const AddRow = ({ title, addIsVisible, ...props }: IAddRowProps) => {
   return (
     <StyledAddRow className='addRow-container'>
       <Typography className='title' variant='h5' component={'h3'}>
         {title}
       </Typography>
 
-      <div className='buttonGroup'>
-        {renewIsVisible && <RenewButton {...props} />}
-        {addIsVisible && <AddButton {...props} />}
-      </div>
+      <div className='buttonGroup'>{addIsVisible && <AddButton {...props} />}</div>
     </StyledAddRow>
   );
 };
