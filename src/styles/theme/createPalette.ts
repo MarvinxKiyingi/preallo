@@ -1,20 +1,38 @@
 import { common } from '../colors/common';
-import { purple } from '../colors/purple';
+import { grey } from '../colors/grey';
+import { indigo } from '../colors/indigo';
+import { red } from '../colors/red';
+import { violet } from '../colors/violet';
 
 export const createPalette = {
   background: {
-    default: purple[100],
-    secondary: purple[200],
+    default: common.base,
+    paper: common.white,
   },
   primary: {
-    main: purple[400],
-    secondary: purple[500],
+    main: violet[500],
+    dark: violet[900],
+    light: violet[700],
+    contrastText: common.white,
   },
   secondary: {
-    main: purple[300],
+    main: indigo[500],
+    dark: indigo[550],
+    light: indigo[300],
+    contrastText: common.white,
+  },
+  common: {
+    ...common,
+  },
+  text: {
+    primary: grey[600],
+    secondary: grey[500],
+    disabled: grey[100],
+    hint: grey[100],
   },
   error: {
-    main: '#E75152',
-    contrastText: common.white,
+    main: red[500],
+    light: red[400],
+    dark: red[700],
   },
 };

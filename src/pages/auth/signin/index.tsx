@@ -43,7 +43,7 @@ const SignIn = () => {
                 Sign in with google
               </Google>
 
-              <Typography variant='textNormal'>
+              <Typography>
                 Don’t have an account? <SignUpLink href={'#'}>Sign Up</SignUpLink>
               </Typography>
             </CtaStack>

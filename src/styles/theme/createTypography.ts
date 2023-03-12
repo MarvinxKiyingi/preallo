@@ -1,102 +1,75 @@
-const largeTextSize = '1.2rem';
-const normalTextSize = '1rem';
-const smallTextSize = '0.833rem';
-
 const headingFont = "'Chivo', sans-serif";
 const bodyFont = "'Hind Vadodara', sans-serif";
-const letterSpacing = '0.060rem';
 
 export const createTypography = {
+  fontFamily: bodyFont,
   h1: {
-    fontWeight: 900,
-    fontSize: '4.209rem',
     fontFamily: headingFont,
+    fontWeight: 700,
+    fontSize: '5rem',
+    lineHeight: '120%',
   },
   h2: {
-    fontWeight: 900,
-    fontSize: '3.158rem',
     fontFamily: headingFont,
+    fontWeight: 700,
+    fontSize: '3.813rem',
+    lineHeight: '120%',
   },
   h3: {
-    fontSize: '2.369rem',
-    fontWeight: 900,
     fontFamily: headingFont,
+    fontWeight: 700,
+    fontSize: '2.938rem61',
+    lineHeight: '120%',
   },
   h4: {
-    fontSize: '1.777rem',
-    fontWeight: 900,
     fontFamily: headingFont,
+    fontWeight: 700,
+    fontSize: '2.25rem',
+    lineHeight: '120%',
   },
   h5: {
-    fontSize: '1.333rem',
-    fontWeight: 900,
     fontFamily: headingFont,
+    fontWeight: 700,
+    fontSize: '1.688rem',
+    lineHeight: '120%',
   },
   h6: {
-    fontSize: '1rem',
-    fontWeight: 900,
     fontFamily: headingFont,
-  },
-  allVariants: {
-    letterSpacing: letterSpacing,
+    fontWeight: 700,
+    fontSize: '1.313rem',
+    lineHeight: '120%',
   },
   subtitle1: {
-    fontWeight: 700,
-    fontSize: '1.2rem',
-    fontFamily: bodyFont,
-  },
-  textLargeBold: {
-    fontWeight: 700,
-    fontSize: largeTextSize,
-    fontFamily: bodyFont,
-    letterSpacing: letterSpacing,
-  },
-  textLargeSemiBold: {
+    fontFamily: headingFont,
+    fontSize: '1rem',
     fontWeight: 600,
-    fontSize: largeTextSize,
-    fontFamily: bodyFont,
-    letterSpacing: letterSpacing,
+    lineHeight: '120%',
   },
-  textLarge: {
-    fontWeight: 400,
-    fontSize: largeTextSize,
-    fontFamily: bodyFont,
-    letterSpacing: letterSpacing,
-  },
-  textNormalBold: {
-    fontWeight: 700,
-    fontSize: normalTextSize,
-    fontFamily: bodyFont,
-    letterSpacing: letterSpacing,
-  },
-  textNormalSemiBold: {
+  subtitle2: {
+    fontFamily: headingFont,
+    fontSize: '0.75rem',
     fontWeight: 600,
-    fontSize: normalTextSize,
-    fontFamily: bodyFont,
-    letterSpacing: letterSpacing,
+    lineHeight: '120%',
   },
-  textNormal: {
+  body1: {
+    fontSize: '1rem',
     fontWeight: 400,
-    fontSize: normalTextSize,
-    fontFamily: bodyFont,
-    letterSpacing: letterSpacing,
+    lineHeight: 24,
   },
-  textSmallBold: {
-    fontWeight: 700,
-    fontSize: smallTextSize,
-    fontFamily: bodyFont,
-    letterSpacing: letterSpacing,
-  },
-  textSmallSemiBold: {
-    fontWeight: 600,
-    fontSize: smallTextSize,
-    fontFamily: bodyFont,
-    letterSpacing: letterSpacing,
-  },
-  textSmall: {
+  body2: {
+    fontSize: '0.875rem',
     fontWeight: 400,
-    fontSize: smallTextSize,
-    fontFamily: bodyFont,
-    letterSpacing: letterSpacing,
+    lineHeight: '1.313rem',
+  },
+  button: {
+    fontSize: '0.875rem',
+  },
+  caption: {
+    fontSize: '0.75rem',
+    lineHeight: 18,
+  },
+  overline: {
+    fontSize: '1rem',
+    lineHeight: 15,
   },
 };
