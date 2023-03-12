@@ -54,22 +54,18 @@ export const createTypography = {
   body1: {
     fontSize: '1rem',
     fontWeight: 400,
-    lineHeight: 24,
   },
   body2: {
     fontSize: '0.875rem',
     fontWeight: 400,
-    lineHeight: '1.313rem',
   },
   button: {
     fontSize: '0.875rem',
   },
   caption: {
     fontSize: '0.75rem',
-    lineHeight: 18,
   },
   overline: {
     fontSize: '1rem',
-    lineHeight: 15,
   },
 };
