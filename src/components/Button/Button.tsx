@@ -26,6 +26,7 @@ export interface IButtonProps extends ButtonBaseProps {
   fullHeight?: boolean;
   component?: 'button' | 'monthPicker';
   iconSize?: string;
+  className?: string;
 }
 
 const StyledButton = styled(MuiButton)<{ ownerState: IButtonProps }>(({ ownerState, theme }) => ({
