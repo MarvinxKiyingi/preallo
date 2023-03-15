@@ -1,11 +1,28 @@
-import { CircularProgress as MuiCircularProgress, CircularProgressProps as MuiCircularProgressProps, Typography, Box, styled } from '@mui/material';
+import {
+  CircularProgress as MuiCircularProgress,
+  CircularProgressProps as MuiCircularProgressProps,
+  Typography,
+  Box,
+  styled,
+} from '@mui/material';
 
 export interface IMuiCircularProgressProps extends MuiCircularProgressProps {
   value: number;
   thickness?: number;
   size?: number;
   circularProgressColor: 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | undefined;
-  progressTextColor: 'common.white' | 'common.black' | 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | string;
+  progressTextColor:
+    | 'common.white'
+    | 'common.black'
+    | 'inherit'
+    | 'primary'
+    | 'secondary'
+    | 'error'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | string;
+  circularProgressColorBg?: 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | undefined;
 }
 
 const StyledCircularProgress = styled(Typography)(({ theme }) => ({
@@ -18,20 +35,45 @@ const StyledCircularProgress = styled(Typography)(({ theme }) => ({
         },
       },
     },
+    '&-progressBackground': {
+      position: 'absolute',
+    },
   },
 }));
 
-export const CircularProgress = ({ value, circularProgressColor, progressTextColor, ...props }: IMuiCircularProgressProps) => {
+export const CircularProgress = ({
+  value,
+  circularProgressColor,
+  progressTextColor,
+  circularProgressColorBg,
+  ...props
+}: IMuiCircularProgressProps) => {
   const hasValue = value ? value : 0;
   return (
-    <StyledCircularProgress className='circularProgress-container' sx={{ position: 'relative', display: 'inline-flex' }}>
+    <StyledCircularProgress
+      className='circularProgress-container'
+      sx={{ position: 'relative', display: 'inline-flex' }}
+    >
       <MuiCircularProgress
         className='circularProgress-circularProgress'
         variant='determinate'
         value={hasValue}
         color={circularProgressColor}
         {...props}
+        sx={{ zIndex: 1 }}
       />
+
+      {/* Visible only of there is a background */}
+      {circularProgressColorBg && (
+        <MuiCircularProgress
+          className='circularProgress-progressBackground'
+          variant='determinate'
+          value={100}
+          color={circularProgressColorBg}
+          {...props}
+        />
+      )}
+
       <Box
         className='circularProgress-progressText-container'
         sx={{
@@ -45,9 +87,12 @@ export const CircularProgress = ({ value, circularProgressColor, progressTextCol
           justifyContent: 'center',
         }}
       >
-        <Typography className='circularProgress-progressText-text' variant='caption' component='div' color={progressTextColor}>{`${Math.round(
-          hasValue
-        )}%`}</Typography>
+        <Typography
+          className='circularProgress-progressText-text'
+          variant='caption'
+          component='div'
+          color={progressTextColor}
+        >{`${Math.round(hasValue)}%`}</Typography>
       </Box>
     </StyledCircularProgress>
   );
