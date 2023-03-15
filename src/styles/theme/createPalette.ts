@@ -8,6 +8,7 @@ export const createPalette = {
   background: {
     default: common.base,
     paper: common.white,
+    accent: '#EEEBF9',
   },
   primary: {
     main: violet[500],
@@ -34,5 +35,8 @@ export const createPalette = {
     main: red[500],
     light: red[400],
     dark: red[700],
+  },
+  accent: {
+    background: '#EEEBF9',
   },
 };
