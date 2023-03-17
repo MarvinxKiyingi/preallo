@@ -66,6 +66,6 @@ export const createTypography = {
     fontSize: '0.75rem',
   },
   overline: {
-    fontSize: '1rem',
+    fontSize: '0.625',
   },
 };
