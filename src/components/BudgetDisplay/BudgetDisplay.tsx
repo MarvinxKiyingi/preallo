@@ -1,4 +1,5 @@
 import { Box, LinearProgress, LinearProgressProps, styled, Typography } from '@mui/material';
+import { grey } from '../../styles/colors/grey';
 
 export type IBudgetDisplay = {
   bgColor?: string;
@@ -35,10 +36,10 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(({ theme
     alignItems: ownerState.centerWithTitle ? 'center' : 'initial',
 
     '.infoText': {
-      color: theme.palette.text.secondary,
+      color: grey.light[500],
     },
     '.title': {
-      color: theme.palette.text.secondary,
+      color: ownerState.centerWithTitle ? grey.light[500] : theme.palette.text.secondary,
       ...theme.typography.subtitle1,
       fontWeight: 600,
       lineHeight: 'null',
