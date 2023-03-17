@@ -97,7 +97,13 @@ export const Expense = ({
     amount,
   };
   return (
-    <StyledExpense className='expenseButtonContainer' ownerState={ownerState} disableRipple {...props}>
+    <StyledExpense
+      className='expenseButtonContainer'
+      ownerState={ownerState}
+      component='button'
+      disableRipple
+      {...props}
+    >
       <div className='iconContainer'>
         <ExpenceIcon />
       </div>
