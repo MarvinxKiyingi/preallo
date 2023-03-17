@@ -4,7 +4,7 @@ import { IconButtonProps as MuiIconButtonProps, styled } from '@mui/material';
 import PlusIcon from '../Icons/PlusIcon';
 
 // Only include
-type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disableRipple' | 'disabled'>;
+type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disabled'>;
 export interface IIconButton extends IconButtonProps {
   fontSizeMobile?: string;
   fontSizeDesktop?: string;

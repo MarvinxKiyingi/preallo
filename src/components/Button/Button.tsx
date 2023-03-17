@@ -13,7 +13,6 @@ type ButtonBaseProps = Pick<
   | 'onClick'
   | 'disabled'
   | 'disableFocusRipple'
-  | 'disableRipple'
   | 'type'
   | 'startIcon'
   | 'endIcon'
