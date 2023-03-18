@@ -5,14 +5,13 @@ import { DashboardButton } from '../DashboardButton/DashboardButton';
 import { IIconButtonProps } from '../IconButton/IconButton';
 import { ProfileButton } from '../ProfileButton/ProfileButton';
 
-interface INavBar extends IIconButtonProps {
+interface IAppBar extends IIconButtonProps {
   title?: string;
-  useName?: string;
   dashBoardIsVisible?: boolean;
   profileIsVisible?: boolean;
 }
 
-const NavbarContainer = styled(Box)(({ theme }) => ({
+const AppBarContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   '&>*': {
     flex: 1,
@@ -40,17 +39,13 @@ const NavbarContainer = styled(Box)(({ theme }) => ({
     },
     [theme.breakpoints.up('lg')]: {
       gap: theme.spacing(2),
-      '&-title': {
-        display: 'initial',
-        ...theme.typography.textLarge,
-      },
     },
   },
 }));
 
-export const NavBar = ({ title, useName, dashBoardIsVisible, profileIsVisible, ...props }: INavBar & IAvatar) => {
+export const AppBar = ({ title, dashBoardIsVisible, profileIsVisible, ...props }: IAppBar & IAvatar) => {
   return (
-    <NavbarContainer className='navBar-container'>
+    <AppBarContainer className='AppBarContainer'>
       <div className='dashBoardIconContainer'>{dashBoardIsVisible && <DashboardButton {...props} />}</div>
 
       <Typography className='titleContainer' variant='h6'>
@@ -58,9 +53,8 @@ export const NavBar = ({ title, useName, dashBoardIsVisible, profileIsVisible, .
       </Typography>
 
       <div className='profileContainer'>
-        <Typography className='profileContainer-title'>{useName}</Typography>
         <div>{profileIsVisible && <ProfileButton {...props} />}</div>
       </div>
-    </NavbarContainer>
+    </AppBarContainer>
   );
 };
