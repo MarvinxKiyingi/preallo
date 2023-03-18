@@ -28,9 +28,6 @@ export const StyledAddRowContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   color: theme.palette.common.black,
-  [theme.breakpoints.up('md')]: {
-    gap: theme.spacing(),
-  },
 }));
 
 export const StyledAddRow = styled(Box)(({ theme }) => ({
