@@ -18,7 +18,7 @@ export const createTypography = {
   h3: {
     fontFamily: headingFont,
     fontWeight: 700,
-    fontSize: '2.938rem61',
+    fontSize: '2.938rem',
     lineHeight: '120%',
   },
   h4: {
