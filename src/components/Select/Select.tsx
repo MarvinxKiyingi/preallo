@@ -13,7 +13,7 @@ type FormControlProps = Pick<MuiFormControlProps, 'fullWidth' | 'size'>;
 
 export interface IFormControlProps extends FormControlProps, SelectProps {
   fullWidth?: boolean;
-  yearList: string[];
+  list: string[];
   onClick?: () => void;
   variant?: 'standard' | 'outlined' | 'filled';
   size?: OverridableStringUnion<'small' | 'medium', FormControlPropsSizeOverrides>;
@@ -39,7 +39,16 @@ const StyledMuiMenuItem = styled(MuiMenuItem)(({ theme }) => ({
   },
 }));
 
-export function Select({ fullWidth, size, yearList, textAlign, bgColor, boxShadow, hasBorder, ...props }: IFormControlProps) {
+export function Select({
+  fullWidth,
+  size,
+  list,
+  textAlign,
+  bgColor,
+  boxShadow,
+  hasBorder,
+  ...props
+}: IFormControlProps) {
   const boxShadowStyles = '0px 4px 4px rgba(0, 0, 0, 0.03), 0px -2.81px 7.51px rgba(0, 0, 0, 0.03);';
 
   const selectInlineStyling = {
@@ -59,8 +68,8 @@ export function Select({ fullWidth, size, yearList, textAlign, bgColor, boxShado
   return (
     <MuiFormControl fullWidth={fullWidth} size={size}>
       <StyledMuiSelect className='select-container' {...props} sx={selectInlineStyling}>
-        {yearList &&
-          yearList.map((value, idx) => (
+        {list &&
+          list.map((value, idx) => (
             <StyledMuiMenuItem key={idx} value={value} sx={menuInlineStyling}>
               {value}
             </StyledMuiMenuItem>
