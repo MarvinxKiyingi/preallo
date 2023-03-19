@@ -60,7 +60,7 @@ export const ModalContent = ({
         <Stack spacing={2}>
           <Input label={amountLabel} type='number' fullWidth />
           <Input label={expenseLabel} type='text' fullWidth />
-          <Select defaultValue={categoryList[0]} list={categoryList} fullWidth hasBorder />
+          <Select defaultValue={categoryList[0]} list={categoryList} textAlign='initial' fullWidth hasBorder />
         </Stack>
       </DialogContent>
 
