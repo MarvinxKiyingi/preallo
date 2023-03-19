@@ -21,5 +21,6 @@ const Template: ComponentStory<typeof ModalContent> = (args) => <ModalContent {.
 export const Default = Template.bind({});
 export const Remove = Template.bind({});
 Remove.args = {
+  title: 'Remove',
   remove: true,
 };
