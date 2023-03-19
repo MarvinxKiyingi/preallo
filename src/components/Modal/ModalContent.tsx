@@ -64,14 +64,16 @@ export const ModalContent = ({
         </Stack>
       </DialogContent>
 
-      <Stack spacing={2} p={theme.spacing(0, 3)}>
-        <Button component='button' onClick={onAgree} variant='contained' color={remove ? 'error' : 'secondary'}>
-          {onAgreeLabel}
-        </Button>
-        <Button component='button' onClick={onDisagree} variant='contained' color='primary'>
-          {onDisagreeLabel}
-        </Button>
-      </Stack>
+      <DialogContent>
+        <Stack spacing={2}>
+          <Button component='button' onClick={onAgree} variant='contained' color={remove ? 'error' : 'secondary'}>
+            {onAgreeLabel}
+          </Button>
+          <Button component='button' onClick={onDisagree} variant='contained' color='primary'>
+            {onDisagreeLabel}
+          </Button>
+        </Stack>
+      </DialogContent>
     </>
   );
 };
