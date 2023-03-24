@@ -10,7 +10,7 @@ export default {
     variant: 'determinate',
     progressValue: 60,
     color: 'secondary',
-    centerWithTile: false,
+    centerWithTitle: false,
   },
 } as ComponentMeta<typeof BudgetDisplay>;
 const Template: ComponentStory<typeof BudgetDisplay> = (args) => <BudgetDisplay {...args} />;
