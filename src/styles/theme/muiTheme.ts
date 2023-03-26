@@ -7,6 +7,9 @@ export const theme = createTheme({
   breakpoints: createBreakpoints,
   typography: createTypography,
   palette: createPalette,
+  shape: {
+    borderRadius: 8,
+  },
   components: {
     MuiButtonBase: {
       defaultProps: {
