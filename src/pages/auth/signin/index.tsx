@@ -1,8 +1,7 @@
-import { Stack, FormControl, Typography } from '@mui/material';
+import { Stack, FormControl, Typography, TextField } from '@mui/material';
 import React from 'react';
 import Container from '../../../components/Container/Container';
 import { GoogleIcon } from '../../../components/Icons';
-import { Input } from '../../../components/Input/Input';
 import { Logo } from '../../../components/Logo/Logo';
 import {
   CtaStack,
@@ -28,8 +27,8 @@ const SignIn = () => {
           <Title variant='h1'>Sign in</Title>
           <FormControl fullWidth margin='none'>
             <Stack spacing={2} direction='column'>
-              <Input id='Email' label='Email' type='email' margin={'none'} />
-              <Input id='Password' label='Password' type='password' margin={'none'} />
+              <TextField id='Email' label='Email' type='email' margin={'none'} />
+              <TextField id='Password' label='Password' type='password' margin={'none'} />
             </Stack>
 
             <CtaStack>
