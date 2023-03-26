@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ModalContent } from './ModalContent';
+import { FormContent } from './FormContent';
 
 export default {
-  title: 'components/Modal/ModalContent',
-  component: ModalContent,
+  title: 'components/Form/FormContent',
+  component: FormContent,
   args: {
     title: 'Add',
     description:
@@ -14,9 +14,9 @@ export default {
     amountLabel: 'Amount',
     expenseLabel: 'Expense',
   },
-} as ComponentMeta<typeof ModalContent>;
+} as ComponentMeta<typeof FormContent>;
 
-const Template: ComponentStory<typeof ModalContent> = (args) => <ModalContent {...args} />;
+const Template: ComponentStory<typeof FormContent> = (args) => <FormContent {...args} />;
 
 export const Default = Template.bind({});
 export const Remove = Template.bind({});

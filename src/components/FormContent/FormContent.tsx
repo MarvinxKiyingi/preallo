@@ -24,7 +24,7 @@ type IModalContent = {
   amountLabel?: string;
   expenseLabel?: string;
   categoryList: string[];
-  register: (
+  register?: (
     name: string,
     RegisterOptions?: any
   ) => { onChange: (e: any) => void; onBlur: (e: any) => void; name: string; ref: any };
@@ -35,7 +35,7 @@ const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
   fontWeight: 600,
 }));
 
-export const ModalContent = ({
+export const FormContent = ({
   title,
   description,
   onAgree,
@@ -70,10 +70,21 @@ export const ModalContent = ({
 
       <DialogContent>
         <Stack spacing={2}>
-          <TextField {...register('amount')} label={amountLabel} type='number' fullWidth />
-          <TextField {...register('expense')} label={expenseLabel} type='text' fullWidth />
+          <TextField
+            {...(register ? register('amount') : { name: 'amount' })}
+            label={amountLabel}
+            type='number'
+            fullWidth
+          />
+          <TextField
+            {...(register ? register('expense') : { name: 'expense' })}
+            label={expenseLabel}
+            type='text'
+            fullWidth
+          />
+
           <Select
-            {...register('category')}
+            {...(register ? register('category') : { name: 'category' })}
             defaultValue={categoryList[0]}
             list={categoryList}
             textAlign='initial'
