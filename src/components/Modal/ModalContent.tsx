@@ -1,9 +1,16 @@
-import { Box, DialogContent, DialogContentText, DialogTitle, Stack, styled, IconButton } from '@mui/material';
+import {
+  Box,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Stack,
+  styled,
+  IconButton,
+  TextField,
+} from '@mui/material';
 
-import { theme } from '../../styles/theme/muiTheme';
 import { Button } from '../Button/Button';
 import { PlusIcon, SuccessIcon, TrashIcon } from '../Icons';
-import { Input } from '../Input/Input';
 import { Select } from '../Select/Select';
 
 type IModalContent = {
@@ -17,6 +24,10 @@ type IModalContent = {
   amountLabel?: string;
   expenseLabel?: string;
   categoryList: string[];
+  register: (
+    name: string,
+    RegisterOptions?: any
+  ) => { onChange: (e: any) => void; onBlur: (e: any) => void; name: string; ref: any };
 };
 
 const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
@@ -35,6 +46,7 @@ export const ModalContent = ({
   amountLabel,
   expenseLabel,
   categoryList,
+  register,
 }: IModalContent) => {
   return (
     <>
@@ -58,15 +70,28 @@ export const ModalContent = ({
 
       <DialogContent>
         <Stack spacing={2}>
-          <Input label={amountLabel} type='number' fullWidth />
-          <Input label={expenseLabel} type='text' fullWidth />
-          <Select defaultValue={categoryList[0]} list={categoryList} textAlign='initial' fullWidth hasBorder />
+          <TextField {...register('amount')} label={amountLabel} type='number' fullWidth />
+          <TextField {...register('expense')} label={expenseLabel} type='text' fullWidth />
+          <Select
+            {...register('category')}
+            defaultValue={categoryList[0]}
+            list={categoryList}
+            textAlign='initial'
+            fullWidth
+            hasBorder
+          />
         </Stack>
       </DialogContent>
 
       <DialogContent>
         <Stack spacing={2}>
-          <Button component='button' onClick={onAgree} variant='contained' color={remove ? 'error' : 'secondary'}>
+          <Button
+            type='submit'
+            component='button'
+            onClick={onAgree}
+            variant='contained'
+            color={remove ? 'error' : 'secondary'}
+          >
             {onAgreeLabel}
           </Button>
           <Button component='button' onClick={onDisagree} variant='contained' color='primary'>
