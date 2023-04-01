@@ -5,6 +5,7 @@ export default {
   title: 'components/Form/FormContent',
   component: FormContent,
   args: {
+    variant: 'all',
     title: 'Add',
     description:
       'I live my day as if it was the last Live my day as if there was no past Doin it all night, all summer Doin it the way I wanna',
@@ -19,8 +20,16 @@ export default {
 const Template: ComponentStory<typeof FormContent> = (args) => <FormContent {...args} />;
 
 export const Default = Template.bind({});
-export const Remove = Template.bind({});
-Remove.args = {
-  title: 'Remove',
-  remove: true,
+
+export const Amount = Template.bind({});
+Amount.args = {
+  variant: 'amount',
 };
+
+export const Expense = Template.bind({});
+Expense.args = {
+  variant: 'expense',
+};
+
+export const Remove = Template.bind({});
+Remove;

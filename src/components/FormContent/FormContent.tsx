@@ -14,6 +14,7 @@ import { PlusIcon, SuccessIcon, TrashIcon } from '../Icons';
 import { Select } from '../Select/Select';
 
 type IModalContent = {
+  variant: 'amount' | 'expense' | 'all';
   remove?: boolean;
   title: string;
   description?: string;
@@ -47,6 +48,7 @@ export const FormContent = ({
   expenseLabel,
   categoryList,
   register,
+  variant,
 }: IModalContent) => {
   return (
     <>
@@ -70,27 +72,48 @@ export const FormContent = ({
 
       <DialogContent>
         <Stack spacing={2}>
-          <TextField
-            {...(register ? register('amount') : { name: 'amount' })}
-            label={amountLabel}
-            type='number'
-            fullWidth
-          />
-          <TextField
-            {...(register ? register('expense') : { name: 'expense' })}
-            label={expenseLabel}
-            type='text'
-            fullWidth
-          />
+          {variant == 'amount' && (
+            <TextField
+              {...(register ? register('amount') : { name: 'amount' })}
+              label={amountLabel}
+              type='number'
+              fullWidth
+            />
+          )}
 
-          <Select
-            {...(register ? register('category') : { name: 'category' })}
-            defaultValue={categoryList[0]}
-            list={categoryList}
-            textAlign='initial'
-            fullWidth
-            hasBorder
-          />
+          {variant === 'expense' && (
+            <TextField
+              {...(register ? register('expense') : { name: 'expense' })}
+              label={expenseLabel}
+              type='text'
+              fullWidth
+            />
+          )}
+
+          {variant === 'all' && (
+            <>
+              <TextField
+                {...(register ? register('amount') : { name: 'amount' })}
+                label={amountLabel}
+                type='number'
+                fullWidth
+              />
+              <TextField
+                {...(register ? register('expense') : { name: 'expense' })}
+                label={expenseLabel}
+                type='text'
+                fullWidth
+              />
+              <Select
+                {...(register ? register('category') : { name: 'category' })}
+                defaultValue={categoryList[0]}
+                list={categoryList}
+                textAlign='initial'
+                fullWidth
+                hasBorder
+              />
+            </>
+          )}
         </Stack>
       </DialogContent>
 
