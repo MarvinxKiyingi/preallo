@@ -1,4 +1,9 @@
 html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #F7F6F8;
+}
 
 a {
   color: inherit;
@@ -7,6 +12,7 @@ a {
 
 * {
   box-sizing: border-box;
+  margin: unset;
 }
 
 /* Enebles nest night mode??? */
