@@ -13,6 +13,7 @@ const StyledLogo = styled(Box)<{
 }>(({ theme, ownerState }) => ({
   display: 'flex',
   gap: theme.spacing(1 / 2),
+  height: 'fit-content',
 
   '.logoIcon': {
     fontSize: ownerState.fontSizeMobile ? ownerState.fontSizeMobile : theme.spacing(4),
