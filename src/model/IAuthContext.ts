@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth';
 
-export type IAuthContex = {
+export type IAuthContext = {
   currentUser: User | null | undefined;
   currentUserLoading: boolean;
 };
