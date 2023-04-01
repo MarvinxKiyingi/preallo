@@ -1,21 +1,21 @@
 import React, { useContext, useMemo } from 'react';
-import { IAuthContex } from '../../model/IAuthContex';
+import { IAuthContext } from '../../model/IAuthContext';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase/clientApp';
 import { IChildren } from '../../model/IChildren';
 
 // Initiating context
-export const AuthContex = React.createContext({} as IAuthContex);
+export const AuthContext = React.createContext({} as IAuthContext);
 
 // Exporting the context, to be used wherever
-export const useAuth = () => useContext(AuthContex);
+export const useAuth = () => useContext(AuthContext);
 
-export const AuthContexProvider = ({ children }: IChildren) => {
+export const AuthContextProvider = ({ children }: IChildren) => {
   const [currentUser, currentUserLoading] = useAuthState(auth);
 
   // Auth provider values
   const values = useMemo(() => ({ currentUser, currentUserLoading }), [currentUser, currentUserLoading]);
 
-  return <AuthContex.Provider value={values}>{children}</AuthContex.Provider>;
+  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
