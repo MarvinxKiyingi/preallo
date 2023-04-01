@@ -6,7 +6,17 @@ export default {
   component: CircularProgress,
   argTypes: {
     progressTextColor: {
-      options: ['common.white', 'common.black', 'inherit', 'primary', 'secondary', 'error', 'info', 'success', 'warning'],
+      options: [
+        'common.white',
+        'common.black',
+        'inherit',
+        'primary',
+        'secondary',
+        'error',
+        'info',
+        'success',
+        'warning',
+      ],
       control: { type: 'select' },
     },
   },
@@ -14,7 +24,8 @@ export default {
     value: 75,
     size: 230,
     progressTextColor: 'primary',
-    circularProgressColor: 'secondary',
+    circularProgressColor: 'primary',
+    circularProgressColorBg: 'secondary',
   },
 } as ComponentMeta<typeof CircularProgress>;
 const Template: ComponentStory<typeof CircularProgress> = (args) => <CircularProgress {...args} />;

@@ -1,5 +1,5 @@
 export const common = {
   white: '#ffffff',
   black: '#000000',
-  altBackground: '#f3f3f4',
+  base: '#F7F6F8',
 };

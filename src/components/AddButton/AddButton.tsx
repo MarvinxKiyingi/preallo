@@ -4,7 +4,7 @@ import { IconButtonProps as MuiIconButtonProps, styled } from '@mui/material';
 import PlusIcon from '../Icons/PlusIcon';
 
 // Only include
-type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disableRipple' | 'disabled'>;
+type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disabled'>;
 export interface IIconButton extends IconButtonProps {
   fontSizeMobile?: string;
   fontSizeDesktop?: string;
@@ -17,7 +17,7 @@ const StyledIconButton = styled(IconButton)<{
 }>(({ theme, ownerState }) => ({
   backgroundColor: ownerState.hasBgColor ? theme.palette.common.white : 'transparent',
   fontSize: ownerState.fontSizeMobile ? ownerState.fontSizeMobile : theme.spacing(3),
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('md')]: {
     fontSize: ownerState.fontSizeDesktop ? ownerState.fontSizeDesktop : theme.spacing(6),
   },
 }));

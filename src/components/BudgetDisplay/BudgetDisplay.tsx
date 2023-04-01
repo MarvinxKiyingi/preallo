@@ -1,11 +1,15 @@
 import { Box, LinearProgress, LinearProgressProps, styled, Typography } from '@mui/material';
+import { grey } from '../../styles/colors/grey';
 
 export type IBudgetDisplay = {
   bgColor?: string;
-  value?: number;
+  amount: number;
+  progressValue: number;
   variant?: 'buffer' | 'determinate' | 'indeterminate' | 'query';
   viewProgress?: boolean;
   fullWidth: boolean;
+  days: number;
+  centerWithTitle: boolean;
 };
 
 const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(({ theme, ownerState }) => ({
@@ -16,33 +20,35 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(({ theme
   alignItems: 'center',
   gap: theme.spacing(),
   borderRadius: theme.spacing(2),
-  padding: theme.spacing(2),
+  padding: theme.spacing(3),
   width: ownerState.fullWidth ? '100%' : 334,
-  height: 54,
+  height: '100%',
   [theme.breakpoints.up('lg')]: {
     width: ownerState.fullWidth ? '100%' : 663,
   },
 
   '.textContainer': {
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    justifyContent: 'center',
     width: '100%',
     height: '100%',
-    alignItems: 'center',
+    alignItems: ownerState.centerWithTitle ? 'center' : 'initial',
 
+    '.infoText': {
+      color: grey.light[500],
+    },
     '.title': {
-      [theme.breakpoints.up('lg')]: {
-        ...theme.typography.h5,
-        fontWeight: 600,
-      },
+      color: ownerState.centerWithTitle ? grey.light[500] : theme.palette.text.secondary,
+      ...theme.typography.subtitle1,
+      fontWeight: 600,
+      lineHeight: 'null',
     },
 
     '.amount': {
-      fontWeight: 600,
-      [theme.breakpoints.up('lg')]: {
-        ...theme.typography.h3,
-        fontWeight: 600,
-      },
+      ...theme.typography.h6,
+      fontWeight: 700,
+      textTransform: 'uppercase',
     },
   },
 
@@ -58,25 +64,32 @@ export const BudgetDisplay = ({
   viewProgress,
   bgColor,
   fullWidth,
-  color,
+  days,
+  amount,
+  progressValue,
+  centerWithTitle,
   ...props
 }: IBudgetDisplay & LinearProgressProps) => {
   const ownerState = {
     bgColor,
     fullWidth,
+    amount,
+    days,
+    progressValue,
+    centerWithTitle,
   };
   return (
     <StyledBudgetDisplay className='budgetDisplay-container' ownerState={ownerState} {...props}>
       <div className='textContainer'>
-        <Typography className='title' variant='textNormal'>
-          Budget for October
+        <Typography className={centerWithTitle ? 'title' : 'infoText'} variant='caption'>
+          {centerWithTitle ? 'Total' : `Left to spend, for the next ${days} days`}
         </Typography>
-        <Typography className='amount' variant='h4'>{`${'-2,478'} kr`}</Typography>
+        <Typography className='amount' variant='h4'>{`${amount} kr`}</Typography>
       </div>
-      {/* {viewProgress && <LinearProgress color={color ? color : 'inherit'} {...props} />} */}
+
       {viewProgress && (
         <Box className='linearProgress-container'>
-          <LinearProgress color={color ? color : 'inherit'} {...props} />
+          <LinearProgress sx={{ height: 6 }} value={progressValue} {...props} />
         </Box>
       )}
     </StyledBudgetDisplay>

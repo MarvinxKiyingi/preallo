@@ -5,7 +5,7 @@ export default {
   title: 'components/Select',
   component: Select,
   args: {
-    yearList: ['2022', '2023', '2024'],
+    list: ['2022', '2023', '2024'],
     defaultValue: '2022',
     hasBorder: true,
   },

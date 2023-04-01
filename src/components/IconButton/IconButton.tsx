@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButtonProps as MuiIconButtonProps, styled, IconButton as MuiIconButton } from '@mui/material';
 // Only include
-type IMuiIconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disableRipple' | 'disabled' | 'children'>;
+type IMuiIconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disabled' | 'children'>;
 
 export interface IIconButtonProps extends IMuiIconButtonProps {
   fontSizeMobile?: string;
