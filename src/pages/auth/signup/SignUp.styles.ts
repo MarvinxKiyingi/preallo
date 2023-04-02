@@ -1,8 +1,14 @@
 import { Box, Link, Typography, styled } from "@mui/material";
 import { Button } from "../../../components/Button/Button";
+import { grey } from "../../../styles/colors/grey";
 
 export const Title = styled(Typography)(({ theme }) => ({
-    marginBottom: theme.spacing(4),
+    ...theme.typography.h1
+  }));
+  
+export const Description = styled(Typography)(({ theme }) => ({
+    ...theme.typography.body2,
+    color: grey.dark[500],
   }));
   
   export const Email = styled(Button)({});

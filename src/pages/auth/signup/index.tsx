@@ -1,6 +1,13 @@
 import { Stack, TextField, Typography } from '@mui/material';
 import { AuthLayout } from '../../../components/Layouts/AuthLayout';
-import { CtaStack, Email, Google, SignInLink, Title } from './SignUp.styles';
+import {
+  CtaStack,
+  Description,
+  Email,
+  Google,
+  SignInLink,
+  Title,
+} from './SignUp.styles';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { GoogleIcon } from '../../../components/Icons';
 import { ISignUp } from '../../../model/ISignUp';
@@ -11,7 +18,6 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<ISignUp>({ resolver: yupResolver(ISignUpYupSchema) });
 
@@ -22,7 +28,11 @@ const SignUp = () => {
   return (
     <AuthLayout>
       <form onSubmit={handleSubmit(formSubmitHandler)}>
-        <Title variant='h1'>Sign up</Title>
+        <Stack spacing={1} direction='column' mb={6}>
+          <Title>Sign up</Title>
+          <Description>Type in your credentials, to get started</Description>
+        </Stack>
+
         <Stack spacing={2} direction='column'>
           <TextField
             {...register('firstName')}
