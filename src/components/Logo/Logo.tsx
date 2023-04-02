@@ -17,7 +17,7 @@ const StyledLogo = styled(Box)<{
 
   '.logoIcon': {
     fontSize: ownerState.fontSizeMobile ? ownerState.fontSizeMobile : theme.spacing(4),
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       fontSize: ownerState.fontSizeDesktop ? ownerState.fontSizeDesktop : theme.spacing(6),
     },
   },
@@ -27,7 +27,7 @@ const StyledLogo = styled(Box)<{
     fontWeight: 400,
     alignSelf: 'center',
     fontSize: '1rem',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       fontSize: '1.331rem',
     },
   },
