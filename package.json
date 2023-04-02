@@ -20,7 +20,8 @@
     "next-shield": "^2.1.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-firebase-hooks": "^5.1.1"
+    "react-firebase-hooks": "^5.1.1",
+    "react-hook-form": "^7.43.9"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
