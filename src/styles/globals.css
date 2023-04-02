@@ -3,6 +3,7 @@ body {
   padding: 0;
   margin: 0;
   background-color: #F7F6F8;
+  height: 100%;
 }
 
 a {
@@ -10,18 +11,6 @@ a {
   text-decoration: none;
 }
 
-* {
+* ,main{
   box-sizing: border-box;
-  margin: unset;
 }
-
-/* Enebles nest night mode??? */
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-} */
