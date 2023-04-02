@@ -16,7 +16,7 @@ const Container = styled('main')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     display: 'grid',
     padding: 'unset',
-    gridTemplateColumns: '1.5fr 1fr',
+    gridTemplateColumns: '1.3fr 1fr',
   },
 }));
 
