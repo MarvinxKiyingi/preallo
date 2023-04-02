@@ -7,6 +7,12 @@ const StyledFormContainer = styled('div')(({ theme }) => ({
   width: '100%',
   alignSelf: 'center',
 
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignSelf: 'center',
+  },
+
   [theme.breakpoints.up('sm')]: {
     display: 'grid',
     gridTemplateColumns: 'repeat(6,1fr)',
