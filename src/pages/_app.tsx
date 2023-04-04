@@ -5,6 +5,7 @@ import { theme } from '../styles/theme/muiTheme';
 import { AuthContextProvider } from '../utils/context/AuthContext';
 import { useRouter } from 'next/router';
 import { NextShield } from 'next-shield';
+import { HeadContainer } from '../components/Container/HeadContainer';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           loginRoute='/auth/signin'
           LoadingComponent={<p>Loading...</p>}
         >
+          <HeadContainer />
           <Component {...pageProps} />
         </NextShield>
       </ThemeProvider>

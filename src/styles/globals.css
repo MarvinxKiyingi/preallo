@@ -1,21 +1,16 @@
 html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #F7F6F8;
+  height: 100%;
+}
 
 a {
   color: inherit;
   text-decoration: none;
 }
 
-* {
+* ,main{
   box-sizing: border-box;
 }
-
-/* Enebles nest night mode??? */
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-} */

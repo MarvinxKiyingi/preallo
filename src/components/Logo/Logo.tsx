@@ -13,21 +13,21 @@ const StyledLogo = styled(Box)<{
 }>(({ theme, ownerState }) => ({
   display: 'flex',
   gap: theme.spacing(1 / 2),
+  height: 'fit-content',
 
   '.logoIcon': {
     fontSize: ownerState.fontSizeMobile ? ownerState.fontSizeMobile : theme.spacing(4),
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       fontSize: ownerState.fontSizeDesktop ? ownerState.fontSizeDesktop : theme.spacing(6),
     },
   },
 
   '.logoName': {
-    fontFamily: 'Chivo',
     fontStyle: 'italic',
     fontWeight: 400,
     alignSelf: 'center',
     fontSize: '1rem',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       fontSize: '1.331rem',
     },
   },
@@ -41,7 +41,7 @@ export const Logo = ({ fontSizeMobile, fontSizeDesktop, ...props }: ILogo & ISvg
     <StyledLogo ownerState={ownerState} {...props}>
       <Xcode className='logoIcon' {...props} />
       <Typography className='logoName' variant='h6' component={'span'}>
-        code
+        cost
       </Typography>
     </StyledLogo>
   );
