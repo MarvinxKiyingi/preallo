@@ -64,6 +64,7 @@ const SignUp = () => {
             helperText={errors.password ? errors.password?.message : ''}
             label='Password'
             margin={'none'}
+            type='password'
           />
 
           <TextField
@@ -74,6 +75,7 @@ const SignUp = () => {
             }
             label='Confirm password'
             margin={'none'}
+            type='password'
           />
         </Stack>
 
