@@ -44,7 +44,7 @@ export const CtaStack = styled(Box)(({ theme }) => ({
 }));
 
 export const ForgottenPassword = styled(Link)(({ theme }) => ({
-  ...theme.typography.textNormalBold,
+  ...theme.typography.body2,
   textDecoration: 'none',
   display: 'flex',
   alignSelf: 'end',
@@ -52,6 +52,6 @@ export const ForgottenPassword = styled(Link)(({ theme }) => ({
 }));
 
 export const SignUpLink = styled(Link)(({ theme }) => ({
-  ...theme.typography.textNormalBold,
+  ...theme.typography.body2,
   color: theme.palette.secondary.main,
 }));
