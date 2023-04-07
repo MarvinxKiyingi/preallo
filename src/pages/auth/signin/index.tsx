@@ -4,6 +4,11 @@ import { Button } from '../../../components/Button/Button';
 import Link from 'next/link';
 import { AuthLayout } from '../../../components/Layouts/AuthLayout';
 import { grey } from '../../../styles/colors/grey';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { ISignIn } from '../../../model/ISignIn';
+import { ISignInYupSchema } from '../../../model/IYupSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useAuth } from '../../../utils/context/AuthContext';
 
 export const Title = styled(Typography)(({ theme }) => ({
   ...theme.typography.h1,
@@ -53,9 +58,22 @@ export const SignUpLink = styled(Link)(({ theme }) => ({
 }));
 
 const SignIn = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ISignIn>({ resolver: yupResolver(ISignInYupSchema) });
+
+  const { signInUser, googleSignIn } = useAuth();
+
+  const formSubmitHandler: SubmitHandler<ISignIn> = (data: ISignIn) => {
+    console.log('data:', data);
+    signInUser(data);
+  };
+
   return (
     <AuthLayout>
-      <form>
+      <form onSubmit={handleSubmit(formSubmitHandler)}>
         <Stack spacing={1} direction='column' mb={6}>
           <Title>Sign in</Title>
           <Description>
@@ -64,9 +82,18 @@ const SignIn = () => {
         </Stack>
 
         <Stack spacing={2} direction='column'>
-          <TextField id='Email' label='Email' type='email' margin={'none'} />
           <TextField
-            id='Password'
+            {...register('email')}
+            error={!!errors.email}
+            helperText={errors.email ? errors.email?.message : ''}
+            label='Email'
+            type='email'
+            margin={'none'}
+          />
+          <TextField
+            {...register('password')}
+            error={!!errors.password}
+            helperText={errors.password ? errors.password?.message : ''}
             label='Password'
             type='password'
             margin={'none'}
@@ -90,6 +117,7 @@ const SignIn = () => {
             variant={'contained'}
             component='button'
             startIcon={<GoogleIcon />}
+            onClick={() => googleSignIn()}
           >
             Sign in/up with google
           </Google>
