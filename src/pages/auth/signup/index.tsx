@@ -1,4 +1,4 @@
-import { Box, Link, Stack, TextField, Typography, styled } from '@mui/material';
+import { Box, Stack, TextField, Typography, styled } from '@mui/material';
 import { AuthLayout } from '../../../components/Layouts/AuthLayout';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ISignUp } from '../../../model/ISignUp';
@@ -7,6 +7,7 @@ import { ISignUpYupSchema } from '../../../model/IYupSchema';
 import { useAuth } from '../../../utils/context/AuthContext';
 import { grey } from '../../../styles/colors/grey';
 import { Button } from '../../../components/Button/Button';
+import Link from 'next/link';
 
 export const Title = styled(Typography)(({ theme }) => ({
   ...theme.typography.h1,
