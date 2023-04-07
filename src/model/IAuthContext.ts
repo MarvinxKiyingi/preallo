@@ -7,5 +7,6 @@ export type IAuthContext = {
   currentUserLoading: boolean;
   signUpUser: (props: ISignUp) => void;
   signInUser: (props: ISignIn) => void;
+  signOutUser: () => void;
   googleSignIn: () => void;
 };
