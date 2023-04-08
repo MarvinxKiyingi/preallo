@@ -128,7 +128,7 @@ const SignIn = () => {
               <SignUpLink href={'/auth/signup'}>Sign Up</SignUpLink>
             </Typography>
 
-            <ForgottenPassword href={'#'}>
+            <ForgottenPassword href={'/auth/resetpassword'}>
               Forgotten password?
             </ForgottenPassword>
           </Stack>

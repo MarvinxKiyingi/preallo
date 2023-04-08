@@ -23,5 +23,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
     3) Navigate to the project directory
 
-###Run
+### Run
+
 yarn && yarn dev
