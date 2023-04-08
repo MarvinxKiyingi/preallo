@@ -8,10 +8,20 @@ Spreadsheet no more! Xcost gets the job done in a more elegant way.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Available Scripts
+## Get started
 
-In the project directory, you can run:
+    1) Clone project
 
-### `npm start`
+    2) Connect your firebase credentials into an env file
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+        NEXT_PUBLIC_FIREBASE_API_KEY=
+        NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+        NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+        NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+        NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+        NEXT_PUBLIC_FIREBASE_APP_ID=
+
+    3) Navigate to the project directory
+
+###Run
+yarn && yarn dev
