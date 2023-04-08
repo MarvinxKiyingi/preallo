@@ -8,11 +8,13 @@ import { ISignUp } from '../../model/ISignUp';
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
 import { ISignIn } from '../../model/ISignIn';
+import { IPasswordReset } from '../../model/IPasswordReset';
 
 // Initiating context
 export const AuthContext = React.createContext({} as IAuthContext);
@@ -39,9 +41,19 @@ export const AuthContextProvider = ({ children }: IChildren) => {
   // Signin in a user to firebase
   const signInUser = (props: ISignIn) => {
     signInWithEmailAndPassword(auth, props.email, props.password)
-      .then(async (data) => {
-        console.log('data:', data);
-      })
+      .then((data) => {})
+      .catch((error) => {
+        console.log('error:', {
+          errorMessage: error.message,
+          errorCode: error.code,
+        });
+      });
+  };
+
+  // Reset password with firebase
+  const passwordReset = (props: IPasswordReset) => {
+    sendPasswordResetEmail(auth, props.email)
+      .then((data) => {})
       .catch((error) => {
         console.log('error:', {
           errorMessage: error.message,
@@ -53,9 +65,7 @@ export const AuthContextProvider = ({ children }: IChildren) => {
   // Google sign in
   const googleSignIn = () => {
     signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        console.log('result:', result);
-      })
+      .then((result) => {})
       .catch((error) => {
         console.log('error:', {
           errorMessage: error.message,
@@ -82,6 +92,7 @@ export const AuthContextProvider = ({ children }: IChildren) => {
     currentUserLoading,
     signUpUser,
     signInUser,
+    passwordReset,
     signOutUser,
     googleSignIn,
   };

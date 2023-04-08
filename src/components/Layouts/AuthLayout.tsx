@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
 import { styled, useMediaQuery } from '@mui/material';
 import Calculator from '../../images/Calculator.png';
+import lockIllustration from '../../images/PasswordLockIllustration.png';
 import Image from 'next/image';
 import { IChildren } from '../../model/IChildren';
 import { theme } from '../../styles/theme/muiTheme';
@@ -8,6 +8,7 @@ import { Logo } from '../Logo/Logo';
 import { LogoContainer } from '../Container/LogoContainer';
 import { FormContainer } from '../Container/FormContainer';
 import { AuthContainer } from '../Container/AuthContainer';
+import { useRouter } from 'next/router';
 
 const IllustrationContainer = styled('div')(({ theme }) => ({
   display: 'grid',
@@ -43,6 +44,9 @@ export const AuthLayout = ({ children }: IChildren) => {
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
 
+  const router = useRouter();
+  const isResetPassword = router.pathname.includes('/auth/resetpassword');
+
   return (
     <AuthContainer>
       {!isDesktop && (
@@ -58,7 +62,14 @@ export const AuthLayout = ({ children }: IChildren) => {
           </LogoContainer>
 
           <Illustration>
-            <Image src={Calculator} alt='Calculator illustration' />
+            <Image
+              src={!isResetPassword ? Calculator : lockIllustration}
+              alt={
+                !isResetPassword
+                  ? 'Calculator illustration'
+                  : 'Password Lock Illustration'
+              }
+            />
           </Illustration>
         </IllustrationContainer>
       )}
