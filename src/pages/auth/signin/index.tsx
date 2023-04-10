@@ -11,7 +11,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../../../utils/context/AuthContext';
 
 export const Title = styled(Typography)(({ theme }) => ({
-  ...theme.typography.h1,
+  ...theme.typography.h2,
+  marginBottom: 'unset',
 }));
 
 export const Description = styled(Typography)(({ theme }) => ({
@@ -75,7 +76,7 @@ const SignIn = () => {
     <AuthLayout>
       <form onSubmit={handleSubmit(formSubmitHandler)}>
         <Stack spacing={1} direction='column' mb={6}>
-          <Title>Sign in</Title>
+          <Title as={'h1'}>Sign in</Title>
           <Description>
             Ready to get organized? Type in your credentials, to get started
           </Description>

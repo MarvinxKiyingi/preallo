@@ -10,7 +10,8 @@ import { Button } from '../../../components/Button/Button';
 import Link from 'next/link';
 
 export const Title = styled(Typography)(({ theme }) => ({
-  ...theme.typography.h1,
+  ...theme.typography.h2,
+  marginBottom: 'unset',
 }));
 
 export const Description = styled(Typography)(({ theme }) => ({
@@ -60,7 +61,7 @@ const SignUp = () => {
     <AuthLayout>
       <form onSubmit={handleSubmit(formSubmitHandler)}>
         <Stack spacing={1} direction='column' mb={6}>
-          <Title>Sign up</Title>
+          <Title as={'h1'}>Sign up</Title>
           <Description>Type in your credentials, to get started</Description>
         </Stack>
 

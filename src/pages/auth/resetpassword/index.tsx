@@ -10,7 +10,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAuth } from '../../../utils/context/AuthContext';
 
 export const Title = styled(Typography)(({ theme }) => ({
-  ...theme.typography.h1,
+  ...theme.typography.h2,
+  marginBottom: 'unset',
 }));
 
 export const Description = styled(Typography)(({ theme }) => ({
@@ -56,7 +57,11 @@ const ResetPassword = () => {
     <AuthLayout>
       <form onSubmit={handleSubmit(formSubmitHandler)}>
         <Stack spacing={1} direction='column' mb={6}>
-          <Title>Password reset</Title>
+          <Title as={'h1'}>
+            Password
+            <br />
+            reset
+          </Title>
           <Description>
             Type in your user email to receive instructions on how to reset your
             password.
