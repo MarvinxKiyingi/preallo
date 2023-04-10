@@ -1,6 +1,6 @@
 import { styled, Typography } from '@mui/material';
 import React from 'react';
-import { Xcode } from '../Icons';
+import { Xcost } from '../Icons';
 import { ISvgProps } from '../SvgIcon/SvgIcon';
 import Link from 'next/link';
 
@@ -49,7 +49,7 @@ export const Logo = ({
   };
   return (
     <StyledLogo href={'/'} ownerState={ownerState} {...props}>
-      <Xcode className='logoIcon' {...props} />
+      <Xcost className='logoIcon' {...props} />
       <Typography className='logoName' variant='h6' component={'span'}>
         cost
       </Typography>
