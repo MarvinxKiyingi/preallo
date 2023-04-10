@@ -1,24 +1,30 @@
-import { Box, styled, Typography } from '@mui/material';
+import { styled, Typography } from '@mui/material';
 import React from 'react';
 import { Xcode } from '../Icons';
 import { ISvgProps } from '../SvgIcon/SvgIcon';
+import Link from 'next/link';
 
 export type ILogo = {
   fontSizeMobile?: string;
   fontSizeDesktop?: string;
 };
 
-const StyledLogo = styled(Box)<{
+const StyledLogo = styled(Link)<{
   ownerState: ILogo;
 }>(({ theme, ownerState }) => ({
   display: 'flex',
   gap: theme.spacing(1 / 2),
   height: 'fit-content',
+  width: 'fit-content',
 
   '.logoIcon': {
-    fontSize: ownerState.fontSizeMobile ? ownerState.fontSizeMobile : theme.spacing(4),
+    fontSize: ownerState.fontSizeMobile
+      ? ownerState.fontSizeMobile
+      : theme.spacing(4),
     [theme.breakpoints.up('sm')]: {
-      fontSize: ownerState.fontSizeDesktop ? ownerState.fontSizeDesktop : theme.spacing(6),
+      fontSize: ownerState.fontSizeDesktop
+        ? ownerState.fontSizeDesktop
+        : theme.spacing(6),
     },
   },
 
@@ -32,13 +38,17 @@ const StyledLogo = styled(Box)<{
     },
   },
 }));
-export const Logo = ({ fontSizeMobile, fontSizeDesktop, ...props }: ILogo & ISvgProps) => {
+export const Logo = ({
+  fontSizeMobile,
+  fontSizeDesktop,
+  ...props
+}: ILogo & ISvgProps) => {
   const ownerState = {
     fontSizeMobile,
     fontSizeDesktop,
   };
   return (
-    <StyledLogo ownerState={ownerState} {...props}>
+    <StyledLogo href={'/'} ownerState={ownerState} {...props}>
       <Xcode className='logoIcon' {...props} />
       <Typography className='logoName' variant='h6' component={'span'}>
         cost
