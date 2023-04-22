@@ -12,25 +12,40 @@ export interface IIconButton extends IconButtonProps {
   onClick?: () => void;
 }
 
-const StyledIconButton = styled(IconButton)<{
+const StyledDefaultIcon = styled(IconButton)<{
   ownerState: IIconButton;
 }>(({ theme, ownerState }) => ({
-  backgroundColor: ownerState.hasBgColor ? theme.palette.common.white : 'transparent',
-  fontSize: ownerState.fontSizeMobile ? ownerState.fontSizeMobile : theme.spacing(3),
+  backgroundColor: ownerState.hasBgColor
+    ? theme.palette.common.white
+    : 'transparent',
+  fontSize: ownerState.fontSizeMobile
+    ? ownerState.fontSizeMobile
+    : theme.spacing(3),
   [theme.breakpoints.up('md')]: {
-    fontSize: ownerState.fontSizeDesktop ? ownerState.fontSizeDesktop : theme.spacing(6),
+    fontSize: ownerState.fontSizeDesktop
+      ? ownerState.fontSizeDesktop
+      : theme.spacing(6),
   },
 }));
 
-export const AddButton = ({ fontSizeMobile, fontSizeDesktop, hasBgColor, ...props }: IIconButton) => {
+export const AddButton = ({
+  fontSizeMobile,
+  fontSizeDesktop,
+  hasBgColor,
+  ...props
+}: IIconButton) => {
   const ownerState = {
     fontSizeMobile,
     fontSizeDesktop,
     hasBgColor,
   };
   return (
-    <StyledIconButton className='addButton-container' ownerState={ownerState} {...props}>
+    <StyledDefaultIcon
+      className='addButton-container'
+      ownerState={ownerState}
+      {...props}
+    >
       <PlusIcon fontSize='inherit' />
-    </StyledIconButton>
+    </StyledDefaultIcon>
   );
 };
