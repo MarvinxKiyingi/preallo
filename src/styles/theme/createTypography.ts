@@ -1,7 +1,9 @@
-
 import { Chivo, Hind_Vadodara } from 'next/font/google';
 const chivo = Chivo({ subsets: ['latin'] });
-const hindVadodara = Hind_Vadodara({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'] });
+const hindVadodara = Hind_Vadodara({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+});
 
 const headingFont = chivo.style.fontFamily;
 const bodyFont = hindVadodara.style.fontFamily;
