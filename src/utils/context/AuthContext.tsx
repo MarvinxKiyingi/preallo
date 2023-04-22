@@ -1,6 +1,5 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { IAuthContext } from '../../model/IAuthContext';
-
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase/clientApp';
 import { IChildren } from '../../model/IChildren';
@@ -12,9 +11,11 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 import { ISignIn } from '../../model/ISignIn';
 import { IPasswordReset } from '../../model/IPasswordReset';
+import { transformFullName } from '../functions/transformFullName';
 
 // Initiating context
 export const AuthContext = React.createContext({} as IAuthContext);
@@ -29,7 +30,11 @@ export const AuthContextProvider = ({ children }: IChildren) => {
   // Signing up a user to firebase
   const signUpUser = (props: ISignUp) => {
     createUserWithEmailAndPassword(auth, props.email, props.password)
-      .then((user) => {})
+      .then((user) => {
+        updateProfile(user.user, {
+          displayName: transformFullName(props.firstName, props?.lastName),
+        });
+      })
       .catch((error) => {
         console.log('error:', {
           errorMessage: error.message,
