@@ -6,7 +6,7 @@ import { Button } from '../components/Button/Button';
 import { useAuth } from '../utils/context/AuthContext';
 
 const Home: NextPage = () => {
-  const { signOutUser } = useAuth();
+  const { signOutUser, currentUser } = useAuth();
   return (
     <div className={styles.container}>
       <Head>
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href='https://nextjs.org'>Next.js!</a>
+          Welcome <a href='https://nextjs.org'>{currentUser?.displayName}</a>
         </h1>
 
         <p className={styles.description}>

@@ -54,7 +54,7 @@ const SignUp = () => {
   const { signUpUser } = useAuth();
 
   const formSubmitHandler: SubmitHandler<ISignUp> = (data: ISignUp) => {
-    console.log('data:', data);
+    // console.log('data:', data);
     signUpUser(data);
   };
 
