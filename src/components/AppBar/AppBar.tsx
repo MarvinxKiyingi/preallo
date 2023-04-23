@@ -5,10 +5,10 @@ import { DashboardButton } from '../DashboardButton/DashboardButton';
 import { IIconButtonProps } from '../IconButton/IconButton';
 import { ProfileButton } from '../ProfileButton/ProfileButton';
 
-interface IAppBar extends IIconButtonProps {
+export interface IAppBar extends IIconButtonProps {
   title?: string;
-  dashBoardIsVisible?: boolean;
-  profileIsVisible?: boolean;
+  hideDashBoard?: boolean;
+  hideProfile?: boolean;
 }
 
 const AppBarContainer = styled(Box)(({ theme }) => ({
@@ -43,17 +43,24 @@ const AppBarContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const AppBar = ({ title, dashBoardIsVisible, profileIsVisible, ...props }: IAppBar & IAvatar) => {
+export const AppBar = ({
+  title,
+  hideDashBoard,
+  hideProfile,
+  ...props
+}: IAppBar & IAvatar) => {
   return (
     <AppBarContainer className='AppBarContainer'>
-      <div className='dashBoardIconContainer'>{dashBoardIsVisible && <DashboardButton {...props} />}</div>
+      <div className='dashBoardIconContainer'>
+        {!hideDashBoard && <DashboardButton {...props} />}
+      </div>
 
       <Typography className='titleContainer' variant='h6'>
         {title}
       </Typography>
 
       <div className='profileContainer'>
-        <div>{profileIsVisible && <ProfileButton {...props} />}</div>
+        <>{!hideProfile && <ProfileButton {...props} />}</>
       </div>
     </AppBarContainer>
   );
