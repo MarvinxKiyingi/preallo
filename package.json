@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=9999bcf1ac0e"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -43,6 +44,7 @@
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.39.0",
     "babel-loader": "^8.2.5",
+    "chromatic": "^6.17.3",
     "eslint": "^8.24.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -62,5 +64,7 @@
   },
   "resolutions": {
     "webpack": "^5"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "blueprint@0.1.0"
 }
