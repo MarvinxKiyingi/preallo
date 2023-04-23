@@ -11,3 +11,4 @@ export { default as FilterIcon } from './FilterIcon';
 export { default as MonthIcon } from './MonthIcon';
 export { default as SubscriptionsIcon } from './SubscriptionsIcon';
 export { default as RepeatIcon } from './RepeatIcon';
+export { default as InfoIcon } from './InfoIcon';
