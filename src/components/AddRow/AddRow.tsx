@@ -1,6 +1,6 @@
 import { Typography, styled, Box, Stack, Chip, ChipProps } from '@mui/material';
 import React from 'react';
-import { AddButton } from '../AddButton/AddButton';
+import { AddButton, IIconButton } from '../AddButton/AddButton';
 import { IIconButtonProps } from '../IconButton/IconButton';
 import { FilterIcon } from '../Icons';
 
@@ -27,6 +27,7 @@ export interface IChipProps extends ChipProps {
 export const StyledAddRowContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  gap: theme.spacing(),
   color: theme.palette.common.black,
 }));
 
@@ -67,7 +68,15 @@ export const StyledFilterBar = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const AddRow = ({ title, addIsVisible, chipsList, filter, ...props }: IAddRowProps & IChipProps) => {
+export const AddRow = ({
+  title,
+  addIsVisible,
+  chipsList,
+  filter,
+  // eslint-disable-next-line no-unused-vars
+  version,
+  ...props
+}: IAddRowProps & IChipProps & IIconButton) => {
   return (
     <StyledAddRowContainer className='addRowContainer'>
       <StyledAddRow className='addRow'>
@@ -75,7 +84,11 @@ export const AddRow = ({ title, addIsVisible, chipsList, filter, ...props }: IAd
           {title}
         </Typography>
 
-        <div className='buttonGroup'>{addIsVisible && <AddButton {...props} />}</div>
+        <div className='buttonGroup'>
+          {addIsVisible && (
+            <AddButton color='secondary' version='secondary' {...props} />
+          )}
+        </div>
       </StyledAddRow>
 
       {filter && (

@@ -1,6 +1,7 @@
-import { AddRow } from './AddRow';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { IIconButton } from '../AddButton/AddButton';
+import { AddRow, IAddRowProps, IChipProps } from './AddRow';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'components/AddRow',
   component: AddRow,
@@ -9,7 +10,6 @@ export default {
     fontSizeMobile: '1.5rem',
     fontSizeDesktop: '2rem',
     size: 'small',
-    color: 'primary',
     renewIsVisible: true,
     addIsVisible: true,
     filter: true,
@@ -31,7 +31,9 @@ export default {
       },
     ],
   },
-} as ComponentMeta<typeof AddRow>;
-const Template: ComponentStory<typeof AddRow> = (args) => <AddRow {...args} />;
+};
 
-export const Default = Template.bind({});
+export const Primary = (args: IAddRowProps & IChipProps & IIconButton) => (
+  <AddRow {...args} />
+);
+Primary.args = {};
