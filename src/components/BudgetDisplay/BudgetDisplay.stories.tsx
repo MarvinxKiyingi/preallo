@@ -1,29 +1,34 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { BudgetDisplay } from './BudgetDisplay';
+import { BudgetDisplay, IBudgetDisplay } from './BudgetDisplay';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'components/BudgetDisplay',
   component: BudgetDisplay,
   args: {
     days: 25,
     amount: 2.478,
-    variant: 'determinate',
     progressValue: 60,
     color: 'secondary',
-    centerWithTitle: false,
+    version: 'primary',
   },
-} as ComponentMeta<typeof BudgetDisplay>;
-const Template: ComponentStory<typeof BudgetDisplay> = (args) => <BudgetDisplay {...args} />;
+};
 
-export const Default = Template.bind({});
+export const Primary = (args: IBudgetDisplay) => <BudgetDisplay {...args} />;
 
-export const WithProgress = Template.bind({});
+Primary.args = {};
+
+export const WithProgress = (args: IBudgetDisplay) => (
+  <BudgetDisplay {...args} />
+);
+
 WithProgress.args = {
   viewProgress: true,
-  progressValue: 60,
+  variant: 'determinate',
 };
-export const CenteredWithTitle = Template.bind({});
-CenteredWithTitle.args = {
-  viewProgress: false,
-  centerWithTitle: true,
+
+export const Secondary = (args: IBudgetDisplay) => <BudgetDisplay {...args} />;
+
+Secondary.args = {
+  title: 'Budget',
+  version: 'secondary',
 };
