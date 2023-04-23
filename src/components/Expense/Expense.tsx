@@ -5,16 +5,17 @@ import { ExpenseIcon } from '../Icons';
 import { theme } from '../../styles/theme/muiTheme';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 
-type IExpenseProps = {
+export type IExpenseProps = {
   bgColor?: string;
   title: string;
   date?: string;
   amount: string;
   fullHeight?: boolean;
   fullWidth?: boolean;
-  IconBgColor?: string | undefined;
-  iconContainerBgColor?: string | undefined;
-  light?: boolean | undefined;
+  IconBgColor?: string;
+  iconContainerBgColor?: string;
+  light?: boolean;
+  stripped?: boolean;
 };
 
 const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
@@ -27,10 +28,12 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
     // * Save for later usage
     // boxShadow: ' rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
     // boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
-    boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.15)',
+    boxShadow: ownerState.stripped
+      ? 'unset'
+      : '0px 0px 4px rgba(0, 0, 0, 0.15)',
     display: 'flex',
     alignItems: 'unset',
-    borderRadius: theme.spacing(2),
+    borderRadius: ownerState.stripped ? 'unset' : theme.spacing(2),
     padding: theme.spacing(3),
     height: ownerState.fullHeight ? '100%' : undefined,
     width: ownerState.fullWidth ? '100%' : 334,
@@ -97,6 +100,7 @@ export const Expense = ({
   amount,
   light,
   IconBgColor,
+  stripped,
   ...props
 }: IExpenseProps) => {
   const isDesktop = useMediaQuery(
@@ -111,6 +115,7 @@ export const Expense = ({
     IconBgColor,
     title,
     amount,
+    stripped,
   };
 
   return (

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Expense } from './Expense';
+import { Expense, IExpenseProps } from './Expense';
 
 export default {
   title: 'components/Expense',
@@ -9,7 +9,10 @@ export default {
     amount: '-120',
     date: '20 March 2022',
   },
-} as ComponentMeta<typeof Expense>;
-const Template: ComponentStory<typeof Expense> = (args) => <Expense {...args} />;
+};
 
-export const Default = Template.bind({});
+export const Primary = (args: IExpenseProps) => <Expense {...args} />;
+Primary.args = {};
+
+export const Stripped = (args: IExpenseProps) => <Expense {...args} />;
+Stripped.args = { stripped: true };
