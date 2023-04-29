@@ -1,18 +1,22 @@
+import type { Meta, StoryObj } from '@storybook/react';
 import { AddButton, IIconButton } from './AddButton';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const meta: Meta<typeof AddButton> = {
   title: 'components/AddButton',
   component: AddButton,
 };
 
-export const Primary = (args: IIconButton) => <AddButton {...args} />;
-Primary.args = {
-  color: 'primary',
-  version: 'primary',
-};
+export default meta;
+type Story = StoryObj<typeof AddButton>;
 
-export const Secondary = (args: IIconButton) => <AddButton {...args} />;
-Secondary.args = {
-  version: 'secondary',
+export const Primary: Story = {
+  args: {
+    color: 'primary',
+    version: 'primary',
+  },
+};
+export const Secondary: Story = {
+  args: {
+    version: 'secondary',
+  },
 };

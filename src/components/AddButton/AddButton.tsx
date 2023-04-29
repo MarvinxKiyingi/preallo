@@ -5,12 +5,19 @@ import PlusIcon from '../Icons/PlusIcon';
 import { Button } from '../Button/Button';
 
 // Only include
-type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'disabled'>;
+type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disabled'>;
 export interface IIconButton extends IconButtonProps {
+  /** Pass in a css string to control the icon size in mobile view  */
   fontSizeMobile?: string;
+
+  /** Pass in a css string to control the icon size in Desktop view  */
   fontSizeDesktop?: string;
+
+  /** If true, the icon background color would be set to white. */
   hasBgColor?: boolean;
+
   onClick?: () => void;
+  /** Primary is the default icon button, where the secondary is a custom version */
   version: 'primary' | 'secondary';
 }
 
@@ -47,6 +54,7 @@ export const AddButton = ({
   fontSizeDesktop,
   hasBgColor,
   version,
+  color,
   ...props
 }: IIconButton) => {
   const ownerState = {
@@ -54,6 +62,7 @@ export const AddButton = ({
     fontSizeDesktop,
     hasBgColor,
     version,
+    color,
   };
   return (
     <>
@@ -72,6 +81,7 @@ export const AddButton = ({
         <StyledDefaultIcon
           className='addButton-default'
           ownerState={ownerState}
+          color={color}
           {...props}
         >
           <PlusIcon fontSize='inherit' />
