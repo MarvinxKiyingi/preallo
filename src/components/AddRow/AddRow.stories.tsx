@@ -4,11 +4,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 const meta: Meta<typeof AddRow> = {
   title: 'components/AddRow',
   component: AddRow,
-  argTypes: {
-    version: {
-      defaultValue: 'primary',
-    },
-  },
   args: {
     title: 'Add',
     addIsVisible: true,
