@@ -1,7 +1,7 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Expense, IExpenseProps } from './Expense';
+import type { Meta, StoryObj } from '@storybook/react';
+import { Expense } from './Expense';
 
-export default {
+const meta: Meta<typeof Expense> = {
   title: 'components/Expense',
   component: Expense,
   args: {
@@ -11,8 +11,15 @@ export default {
   },
 };
 
-export const Primary = (args: IExpenseProps) => <Expense {...args} />;
-Primary.args = {};
+export default meta;
+type Story = StoryObj<typeof Expense>;
 
-export const Stripped = (args: IExpenseProps) => <Expense {...args} />;
-Stripped.args = { stripped: true };
+export const Primary: Story = {
+  args: {},
+};
+
+export const Stripped: Story = {
+  args: {
+    stripped: true,
+  },
+};
