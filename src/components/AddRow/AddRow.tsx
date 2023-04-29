@@ -1,27 +1,32 @@
-import { Typography, styled, Box, Stack, Chip, ChipProps } from '@mui/material';
+import {
+  Typography,
+  styled,
+  Box,
+  Stack,
+  Chip,
+  ChipProps as MuiChipProps,
+} from '@mui/material';
 import React from 'react';
 import { AddButton, IIconButton } from '../AddButton/AddButton';
-import { IIconButtonProps } from '../IconButton/IconButton';
 import { FilterIcon } from '../Icons';
 
-export interface IChip {
-  id: string;
-  chipLabel: string;
-  activated: boolean;
+// Only include
+type IPickChipProps = Pick<
+  MuiChipProps,
+  'size' | 'color' | 'clickable' | 'label' | 'disabled'
+>;
+type IPickIconButton = Pick<IIconButton, 'version'>;
+export interface IChipProps extends IPickChipProps {
+  id?: string;
+  activated?: boolean;
+  label?: string;
 }
 
-export interface IAddRowProps extends IIconButtonProps {
+export interface IAddRowProps extends IPickIconButton {
   title: string;
   addIsVisible?: boolean;
-  renewIsVisible?: boolean;
   filter: boolean;
-  chipsList: Array<IChip>;
-}
-export interface IChipProps extends ChipProps {
-  id: string;
-  chipLabel: string;
-  activated?: boolean;
-  onClick?: () => void;
+  chipsList: Array<IChipProps>;
 }
 
 export const StyledAddRowContainer = styled(Box)(({ theme }) => ({
@@ -73,10 +78,9 @@ export const AddRow = ({
   addIsVisible,
   chipsList,
   filter,
-  // eslint-disable-next-line no-unused-vars
   version,
   ...props
-}: IAddRowProps & IChipProps & IIconButton) => {
+}: IAddRowProps & IChipProps & IPickIconButton) => {
   return (
     <StyledAddRowContainer className='addRowContainer'>
       <StyledAddRow className='addRow'>
@@ -85,9 +89,7 @@ export const AddRow = ({
         </Typography>
 
         <div className='buttonGroup'>
-          {addIsVisible && (
-            <AddButton color='secondary' version='secondary' {...props} />
-          )}
+          {addIsVisible && <AddButton version={version} />}
         </div>
       </StyledAddRow>
 
@@ -96,14 +98,15 @@ export const AddRow = ({
           <Box display='flex' height={32} alignItems='center'>
             <FilterIcon />
           </Box>
-          <Stack direction='row' gap={2} flexWrap='wrap'>
+          <Stack direction='row' gap={2} flexWrap='wrap' alignItems='center'>
             {chipsList.map((chip) => (
               <Chip
                 key={chip.id}
-                label={chip.chipLabel}
                 variant={chip.activated ? 'filled' : 'outlined'}
                 color={chip.activated ? 'default' : 'default'}
                 clickable={!chip.activated ? true : false}
+                label={chip.label}
+                {...props}
               />
             ))}
           </Stack>

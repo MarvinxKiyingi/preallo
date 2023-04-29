@@ -1,39 +1,42 @@
-import { IIconButton } from '../AddButton/AddButton';
-import { AddRow, IAddRowProps, IChipProps } from './AddRow';
+import { AddRow } from './AddRow';
+import type { Meta, StoryObj } from '@storybook/react';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const meta: Meta<typeof AddRow> = {
   title: 'components/AddRow',
   component: AddRow,
+  argTypes: {
+    version: {
+      defaultValue: 'primary',
+    },
+  },
   args: {
     title: 'Add',
-    fontSizeMobile: '1.5rem',
-    fontSizeDesktop: '2rem',
-    size: 'small',
-    renewIsVisible: true,
     addIsVisible: true,
+    version: 'secondary',
     filter: true,
     chipsList: [
       {
         id: 'Test 1',
         activated: true,
-        chipLabel: 'Test First',
+        label: 'Test First',
       },
       {
         id: 'Test 2',
         activated: false,
-        chipLabel: 'Test Second',
+        label: 'Test Second',
       },
       {
         id: 'Test 3',
         activated: false,
-        chipLabel: 'Test Third',
+        label: 'Test Third',
       },
     ],
   },
 };
 
-export const Primary = (args: IAddRowProps & IChipProps & IIconButton) => (
-  <AddRow {...args} />
-);
-Primary.args = {};
+export default meta;
+type Story = StoryObj<typeof AddRow>;
+
+export const Primary: Story = {
+  args: {},
+};
