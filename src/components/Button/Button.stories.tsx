@@ -1,9 +1,7 @@
-import React from 'react';
-
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
 
-export default {
+const meta: Meta<typeof Button> = {
   title: 'components/Button',
   component: Button,
   args: {
@@ -13,16 +11,19 @@ export default {
     fullWidth: false,
     fullHeight: false,
   },
-} as ComponentMeta<typeof Button>;
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  component: 'button',
 };
 
-export const MonthPicker = Template.bind({});
+export default meta;
+type Story = StoryObj<typeof Button>;
 
-MonthPicker.args = {
-  component: 'monthPicker',
+export const Primary: Story = {
+  args: {
+    component: 'button',
+  },
+};
+
+export const MonthPicker: Story = {
+  args: {
+    component: 'monthPicker',
+  },
 };
