@@ -56,7 +56,7 @@ export const AddButton = ({
           className='addButton-secondary'
           variant='contained'
           color='secondary'
-          component='button'
+          version='button'
           {...props}
         >
           <PlusIcon />

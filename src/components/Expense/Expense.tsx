@@ -122,7 +122,7 @@ export const Expense = ({
     <StyledExpense
       className='expenseButtonContainer'
       ownerState={ownerState}
-      component='button'
+      version='button'
       {...props}
     >
       <div className='iconContainer'>

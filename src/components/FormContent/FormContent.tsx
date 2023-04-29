@@ -137,7 +137,7 @@ export const FormContent = ({
         <Stack spacing={2}>
           <Button
             type='submit'
-            component='button'
+            version='button'
             onClick={onAgree}
             variant='contained'
             color={remove ? 'error' : 'secondary'}
@@ -145,7 +145,7 @@ export const FormContent = ({
             {onAgreeLabel}
           </Button>
           <Button
-            component='button'
+            version='button'
             onClick={onDisagree}
             variant='contained'
             color='primary'

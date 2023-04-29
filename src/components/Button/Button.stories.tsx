@@ -18,12 +18,12 @@ type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
   args: {
-    component: 'button',
+    version: 'button',
   },
 };
 
 export const MonthPicker: Story = {
   args: {
-    component: 'monthPicker',
+    version: 'monthPicker',
   },
 };
