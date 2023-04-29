@@ -1,8 +1,8 @@
+import type { Meta, StoryObj } from '@storybook/react';
 import { AppBar, IAppBar } from './AppBar';
 import { IAvatar } from '../Avatar/Avatar';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const meta: Meta<typeof AppBar> = {
   title: 'components/AppBar',
   component: AppBar,
   args: {
@@ -15,15 +15,19 @@ export default {
   },
 };
 
-export const Primary = (args: IAppBar & IAvatar) => <AppBar {...args} />;
-Primary.args = {};
+export default meta;
+type Story = StoryObj<typeof AppBar>;
 
-export const HideDashBar = (args: IAppBar & IAvatar) => <AppBar {...args} />;
-HideDashBar.args = {
-  hideDashBoard: true,
+export const Primary: Story = {
+  args: {},
 };
-
-export const HideProfile = (args: IAppBar & IAvatar) => <AppBar {...args} />;
-HideProfile.args = {
-  hideProfile: true,
+export const HideDashBar: Story = {
+  args: {
+    hideDashBoard: true,
+  },
+};
+export const HideProfile: Story = {
+  args: {
+    hideProfile: true,
+  },
 };
