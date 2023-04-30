@@ -8,7 +8,7 @@ import {
 
 export interface IMuiCircularProgressProps extends MuiCircularProgressProps {
   value: number;
-  thickness?: number;
+  thickness: number;
   size?: number;
   circularProgressColor:
     | 'inherit'
