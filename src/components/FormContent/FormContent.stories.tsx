@@ -1,7 +1,7 @@
-import { FormContent, IModalContent } from './FormContent';
+import { FormContent } from './FormContent';
+import type { Meta, StoryObj } from '@storybook/react';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const meta: Meta<typeof FormContent> = {
   title: 'components/Form/FormContent',
   component: FormContent,
   args: {
@@ -15,41 +15,49 @@ export default {
   },
 };
 
-export const Primary = (args: IModalContent) => <FormContent {...args} />;
-Primary.args = {
-  title: 'Add',
-  add: true,
-  onAgreeLabel: 'Add',
+export default meta;
+type Story = StoryObj<typeof FormContent>;
+
+export const Primary: Story = {
+  args: {
+    title: 'Add',
+    add: true,
+    onAgreeLabel: 'Add',
+  },
 };
 
-export const Amount = (args: IModalContent) => <FormContent {...args} />;
-Amount.args = {
-  title: 'Add',
-  add: true,
-  variant: 'amount',
-  onAgreeLabel: 'Add',
+export const Amount: Story = {
+  args: {
+    title: 'Add',
+    add: true,
+    variant: 'amount',
+    onAgreeLabel: 'Add',
+  },
 };
 
-export const Expense = (args: IModalContent) => <FormContent {...args} />;
-Expense.args = {
-  title: 'Add',
-  add: true,
-  variant: 'expense',
-  onAgreeLabel: 'Add',
+export const Expense: Story = {
+  args: {
+    title: 'Add',
+    add: true,
+    variant: 'expense',
+    onAgreeLabel: 'Add',
+  },
 };
 
-export const Edit = (args: IModalContent) => <FormContent {...args} />;
-Edit.args = {
-  title: 'Edit',
-  variant: 'all',
-  edit: true,
-  onAgreeLabel: 'Edit',
+export const Edit: Story = {
+  args: {
+    title: 'Edit',
+    variant: 'all',
+    edit: true,
+    onAgreeLabel: 'Edit',
+  },
 };
 
-export const Remove = (args: IModalContent) => <FormContent {...args} />;
-Remove.args = {
-  title: 'Remove',
-  variant: 'all',
-  remove: true,
-  onAgreeLabel: 'Remove',
+export const Remove: Story = {
+  args: {
+    title: 'Remove',
+    variant: 'all',
+    remove: true,
+    onAgreeLabel: 'Remove',
+  },
 };
