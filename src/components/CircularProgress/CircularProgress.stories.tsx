@@ -1,7 +1,7 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { CircularProgress } from './CircularProgress';
 
-export default {
+const meta: Meta<typeof CircularProgress> = {
   title: 'components/CircularProgress',
   component: CircularProgress,
   argTypes: {
@@ -27,7 +27,11 @@ export default {
     circularProgressColor: 'primary',
     circularProgressColorBg: 'secondary',
   },
-} as ComponentMeta<typeof CircularProgress>;
-const Template: ComponentStory<typeof CircularProgress> = (args) => <CircularProgress {...args} />;
+};
 
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<typeof CircularProgress>;
+
+export const Primary: Story = {
+  args: {},
+};
