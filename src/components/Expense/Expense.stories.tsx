@@ -1,7 +1,7 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Expense } from './Expense';
 
-export default {
+const meta: Meta<typeof Expense> = {
   title: 'components/Expense',
   component: Expense,
   args: {
@@ -9,7 +9,17 @@ export default {
     amount: '-120',
     date: '20 March 2022',
   },
-} as ComponentMeta<typeof Expense>;
-const Template: ComponentStory<typeof Expense> = (args) => <Expense {...args} />;
+};
 
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<typeof Expense>;
+
+export const Primary: Story = {
+  args: {},
+};
+
+export const Stripped: Story = {
+  args: {
+    stripped: true,
+  },
+};

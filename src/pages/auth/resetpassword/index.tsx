@@ -91,7 +91,7 @@ const ResetPassword = () => {
               fullHeight={false}
               fullWidth
               variant={'contained'}
-              component='button'
+              version='button'
             >
               Reset password
             </Email>

@@ -1,7 +1,8 @@
-import { BudgetDisplay, IBudgetDisplay } from './BudgetDisplay';
+import { BudgetDisplay } from './BudgetDisplay';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+import type { Meta, StoryObj } from '@storybook/react';
+
+const meta: Meta<typeof BudgetDisplay> = {
   title: 'components/BudgetDisplay',
   component: BudgetDisplay,
   args: {
@@ -13,22 +14,23 @@ export default {
   },
 };
 
-export const Primary = (args: IBudgetDisplay) => <BudgetDisplay {...args} />;
+export default meta;
+type Story = StoryObj<typeof BudgetDisplay>;
 
-Primary.args = {};
-
-export const WithProgress = (args: IBudgetDisplay) => (
-  <BudgetDisplay {...args} />
-);
-
-WithProgress.args = {
-  viewProgress: true,
-  variant: 'determinate',
+export const Primary: Story = {
+  args: {},
 };
 
-export const Secondary = (args: IBudgetDisplay) => <BudgetDisplay {...args} />;
+export const Secondary: Story = {
+  args: {
+    title: 'Budget',
+    version: 'secondary',
+  },
+};
 
-Secondary.args = {
-  title: 'Budget',
-  version: 'secondary',
+export const WithProgress: Story = {
+  args: {
+    viewProgress: true,
+    variant: 'determinate',
+  },
 };

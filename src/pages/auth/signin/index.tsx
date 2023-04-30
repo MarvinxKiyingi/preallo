@@ -114,7 +114,7 @@ const SignIn = () => {
               fullHeight={false}
               fullWidth
               variant={'contained'}
-              component='button'
+              version='button'
             >
               Sign in
             </Email>
@@ -123,7 +123,7 @@ const SignIn = () => {
               fullHeight={false}
               fullWidth
               variant={'contained'}
-              component='button'
+              version='button'
               startIcon={<GoogleIcon />}
               onClick={() => googleSignIn()}
             >

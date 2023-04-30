@@ -8,9 +8,17 @@ import {
 
 export interface IMuiCircularProgressProps extends MuiCircularProgressProps {
   value: number;
-  thickness?: number;
+  thickness: number;
   size?: number;
-  circularProgressColor: 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | undefined;
+  circularProgressColor:
+    | 'inherit'
+    | 'primary'
+    | 'secondary'
+    | 'error'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | undefined;
   progressTextColor:
     | 'common.white'
     | 'common.black'
@@ -22,17 +30,23 @@ export interface IMuiCircularProgressProps extends MuiCircularProgressProps {
     | 'success'
     | 'warning'
     | string;
-  circularProgressColorBg?: 'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | undefined;
+  circularProgressColorBg?:
+    | 'inherit'
+    | 'primary'
+    | 'secondary'
+    | 'error'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | undefined;
 }
 
 const StyledCircularProgress = styled(Typography)(({ theme }) => ({
   '.circularProgress': {
     '&-progressText': {
       '&-text': {
-        [theme.breakpoints.up('lg')]: {
-          ...theme.typography.h1,
-          fontWeight: 600,
-        },
+        ...theme.typography.h1,
+        fontWeight: 600,
       },
     },
     '&-progressBackground': {

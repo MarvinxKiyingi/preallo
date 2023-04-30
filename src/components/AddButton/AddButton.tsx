@@ -1,16 +1,10 @@
-import { IconButton } from '../IconButton/IconButton';
+import { IIconButtonProps, IconButton } from '../IconButton/IconButton';
 import React from 'react';
-import { IconButtonProps as MuiIconButtonProps, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import PlusIcon from '../Icons/PlusIcon';
 import { Button } from '../Button/Button';
-
-// Only include
-type IconButtonProps = Pick<MuiIconButtonProps, 'size' | 'disabled'>;
-export interface IIconButton extends IconButtonProps {
-  fontSizeMobile?: string;
-  fontSizeDesktop?: string;
-  hasBgColor?: boolean;
-  onClick?: () => void;
+export interface IIconButton extends IIconButtonProps {
+  /** Primary is the default icon button, where the secondary is a custom version */
   version: 'primary' | 'secondary';
 }
 
@@ -30,9 +24,7 @@ const StyledDefaultIcon = styled(IconButton)<{
   },
 }));
 
-const StyledSecondaryIcon = styled(Button)<{
-  ownerState: IIconButton;
-}>(({ theme }) => ({
+const StyledSecondaryIcon = styled(Button)(({ theme }) => ({
   width: 77,
   height: 28,
   borderRadius: theme.spacing(),
@@ -47,6 +39,7 @@ export const AddButton = ({
   fontSizeDesktop,
   hasBgColor,
   version,
+  color,
   ...props
 }: IIconButton) => {
   const ownerState = {
@@ -54,6 +47,7 @@ export const AddButton = ({
     fontSizeDesktop,
     hasBgColor,
     version,
+    color,
   };
   return (
     <>
@@ -62,8 +56,7 @@ export const AddButton = ({
           className='addButton-secondary'
           variant='contained'
           color='secondary'
-          component='button'
-          ownerState={ownerState}
+          version='button'
           {...props}
         >
           <PlusIcon />
@@ -72,6 +65,7 @@ export const AddButton = ({
         <StyledDefaultIcon
           className='addButton-default'
           ownerState={ownerState}
+          color={color}
           {...props}
         >
           <PlusIcon fontSize='inherit' />

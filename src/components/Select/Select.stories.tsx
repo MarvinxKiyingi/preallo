@@ -1,7 +1,8 @@
 import { Select } from './Select';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-export default {
+import type { Meta, StoryObj } from '@storybook/react';
+
+const meta: Meta<typeof Select> = {
   title: 'components/Select',
   component: Select,
   args: {
@@ -9,17 +10,21 @@ export default {
     defaultValue: '2022',
     hasBorder: true,
   },
-} as ComponentMeta<typeof Select>;
-const Template: ComponentStory<typeof Select> = (args) => <Select {...args} />;
-
-export const Default = Template.bind({});
-export const Secondary = Template.bind({});
-Default.args = {
-  fullWidth: true,
 };
-Secondary.args = {
-  fullWidth: true,
-  textAlign: 'center',
-  bgColor: 'white',
-  boxShadow: true,
+
+export default meta;
+type Story = StoryObj<typeof Select>;
+
+export const Primary: Story = {
+  args: {
+    fullWidth: true,
+  },
+};
+export const Secondary: Story = {
+  args: {
+    fullWidth: true,
+    textAlign: 'center',
+    bgColor: 'white',
+    boxShadow: true,
+  },
 };

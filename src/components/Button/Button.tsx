@@ -1,5 +1,9 @@
 import React from 'react';
-import { Button as MuiButton, ButtonProps as MuiButtonProps, styled } from '@mui/material';
+import {
+  Button as MuiButton,
+  ButtonProps as MuiButtonProps,
+  styled,
+} from '@mui/material';
 
 // Only include
 type ButtonBaseProps = Pick<
@@ -23,40 +27,50 @@ export interface IButtonProps extends ButtonBaseProps {
   onClick?: () => void;
   children?: React.ReactNode;
   fullHeight?: boolean;
-  component?: 'button' | 'monthPicker';
+  version?: 'button' | 'monthPicker';
   iconSize?: string;
   className?: string;
 }
 
-const StyledButton = styled(MuiButton)<{ ownerState: IButtonProps }>(({ ownerState, theme }) => ({
-  borderRadius: 8,
-  height: ownerState.fullHeight ? '100%' : undefined,
-  padding: theme.spacing(2, 2),
+const StyledButton = styled(MuiButton)<{ ownerState: IButtonProps }>(
+  ({ ownerState, theme }) => ({
+    borderRadius: 8,
+    height: ownerState.fullHeight ? '100%' : undefined,
+    padding: theme.spacing(2, 2),
 
-  '.MuiButton-startIcon>*': {
-    fontSize: ownerState.iconSize ? ownerState.iconSize : theme.spacing(3),
-  },
-}));
+    '.MuiButton-startIcon>*': {
+      fontSize: ownerState.iconSize ? ownerState.iconSize : theme.spacing(3),
+    },
+  })
+);
 
-const StyledMonthPicker = styled(MuiButton)<{ ownerState: IButtonProps }>(({ ownerState, theme }) => ({
-  height: ownerState.fullHeight ? '100%' : undefined,
-  borderRadius: 8,
-  padding: theme.spacing(4, 15),
-  fontSize: theme.spacing(2),
-  [theme.breakpoints.up('lg')]: {
-    padding: theme.spacing(9, 13),
-    fontSize: theme.spacing(2.25),
-  },
-}));
+const StyledMonthPicker = styled(MuiButton)<{ ownerState: IButtonProps }>(
+  ({ ownerState, theme }) => ({
+    height: ownerState.fullHeight ? '100%' : undefined,
+    borderRadius: 8,
+    padding: theme.spacing(4, 15),
+    fontSize: theme.spacing(2),
+    [theme.breakpoints.up('lg')]: {
+      padding: theme.spacing(9, 13),
+      fontSize: theme.spacing(2.25),
+    },
+  })
+);
 
-export const Button = ({ children, fullHeight, iconSize, component, ...props }: IButtonProps) => {
+export const Button = ({
+  children,
+  fullHeight,
+  iconSize,
+  version,
+  ...props
+}: IButtonProps) => {
   const ownerState = {
     fullHeight,
     iconSize,
   };
   return (
     <>
-      {component === 'button' ? (
+      {version === 'button' ? (
         <StyledButton ownerState={ownerState} {...props}>
           {children}
         </StyledButton>
