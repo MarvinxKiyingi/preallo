@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { AppBar, IAppBar } from './AppBar';
-import { IAvatar } from '../Avatar/Avatar';
+import { AppBar } from './AppBar';
 
 const meta: Meta<typeof AppBar> = {
   title: 'components/AppBar',

@@ -31,8 +31,8 @@ export type IModalContent = {
     name: string,
     RegisterOptions?: any
   ) => {
-    onChange: (e: any) => void;
-    onBlur: (e: any) => void;
+    onChange: () => void;
+    onBlur: () => void;
     name: string;
     ref: any;
   };
