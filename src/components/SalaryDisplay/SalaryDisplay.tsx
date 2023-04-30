@@ -12,27 +12,38 @@ export type ISalaryDisplayProps = {
   onClick?: () => void;
 };
 
-const Title = styled(Typography)<{ ownerState: ISalaryDisplayProps }>(({ theme, ownerState }) => ({
-  ...theme.typography.subtitle1,
-  color: ownerState.light ? grey.light[100] : grey.dark[100],
+const Title = styled(Typography)<{ ownerState: ISalaryDisplayProps }>(
+  ({ theme, ownerState }) => ({
+    ...theme.typography.subtitle1,
+    color: ownerState.light ? grey.light[100] : grey.dark[100],
 
-  [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('md')]: {
+      ...theme.typography.h4,
+    },
+  })
+);
+
+const Salary = styled(Typography)<{ ownerState: ISalaryDisplayProps }>(
+  ({ theme, ownerState }) => ({
     ...theme.typography.h4,
-  },
-}));
+    textTransform: 'uppercase',
+    margin: 'unset',
+    color: ownerState.invert
+      ? theme.palette.common.white
+      : theme.palette.common.black,
 
-const Salary = styled(Typography)<{ ownerState: ISalaryDisplayProps }>(({ theme, ownerState }) => ({
-  ...theme.typography.h4,
-  textTransform: 'uppercase',
-  margin: 'unset',
-  color: ownerState.invert ? theme.palette.common.white : theme.palette.common.black,
+    [theme.breakpoints.up('md')]: {
+      ...theme.typography.h2,
+    },
+  })
+);
 
-  [theme.breakpoints.up('md')]: {
-    ...theme.typography.h2,
-  },
-}));
-
-export const SalaryDisplay = ({ title, amount, onClick, ...props }: ISalaryDisplayProps) => {
+export const SalaryDisplay = ({
+  title,
+  amount,
+  onClick,
+  ...props
+}: ISalaryDisplayProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const ownerState = {
     title,
@@ -43,14 +54,26 @@ export const SalaryDisplay = ({ title, amount, onClick, ...props }: ISalaryDispl
 
   return (
     <Box display='flex' p={theme.spacing(0, 3)} alignItems='center'>
-      <Box display='flex' flexDirection='column' width='100%' alignItems='center'>
+      <Box
+        display='flex'
+        flexDirection='column'
+        width='100%'
+        alignItems='center'
+      >
         <Title as='span' ownerState={ownerState}>
           {title}
         </Title>
         <Salary as='h3' ownerState={ownerState}>{`${amount} kr`}</Salary>
       </Box>
 
-      {isMobile && <AddButton hasBgColor color='inherit' onClick={onClick} />}
+      {isMobile && (
+        <AddButton
+          hasBgColor
+          color='inherit'
+          version='primary'
+          onClick={onClick}
+        />
+      )}
     </Box>
   );
 };
