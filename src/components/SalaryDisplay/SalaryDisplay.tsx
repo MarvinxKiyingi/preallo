@@ -53,7 +53,7 @@ export const SalaryDisplay = ({
   };
 
   return (
-    <Box display='flex' p={theme.spacing(0, 3)} alignItems='center'>
+    <Box display='flex' alignItems='center'>
       <Box
         display='flex'
         flexDirection='column'
@@ -67,12 +67,14 @@ export const SalaryDisplay = ({
       </Box>
 
       {isMobile && (
-        <AddButton
-          hasBgColor
-          color='inherit'
-          version='primary'
-          onClick={onClick}
-        />
+        <Box p={theme.spacing(0, 2, 0, 0)}>
+          <AddButton
+            hasBgColor
+            color='inherit'
+            version='primary'
+            onClick={onClick}
+          />
+        </Box>
       )}
     </Box>
   );
