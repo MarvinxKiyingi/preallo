@@ -1,14 +1,19 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { SalaryDisplay } from './SalaryDisplay';
 
-export default {
+import type { Meta, StoryObj } from '@storybook/react';
+
+const meta: Meta<typeof SalaryDisplay> = {
   title: 'components/SalaryDisplay',
   component: SalaryDisplay,
   args: {
     title: 'Salary',
     amount: '20.000',
   },
-} as ComponentMeta<typeof SalaryDisplay>;
-const Template: ComponentStory<typeof SalaryDisplay> = (args) => <SalaryDisplay {...args} />;
+};
 
-export const Default = Template.bind({});
+export default meta;
+type Story = StoryObj<typeof SalaryDisplay>;
+
+export const Primary: Story = {
+  args: {},
+};
