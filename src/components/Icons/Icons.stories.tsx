@@ -1,12 +1,15 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Icons } from './Icons';
 
-export default {
+const meta: Meta<typeof Icons> = {
   title: 'Components/Icons',
   component: Icons,
   args: {},
-} as ComponentMeta<typeof Icons>;
+};
 
-const Template: ComponentStory<typeof Icons> = (args) => <Icons {...args} />;
+export default meta;
+type Story = StoryObj<typeof Icons>;
 
-export const Default = Template.bind({});
+export const Primary: Story = {
+  args: {},
+};
