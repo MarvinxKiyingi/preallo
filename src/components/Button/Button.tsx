@@ -16,7 +16,6 @@ type ButtonBaseProps = Pick<
   | 'href'
   | 'onClick'
   | 'disabled'
-  | 'disableFocusRipple'
   | 'startIcon'
   | 'endIcon'
   | 'sx'
@@ -26,6 +25,7 @@ export interface IButtonProps extends ButtonBaseProps {
   onClick?: () => void;
   children?: React.ReactNode;
   fullHeight?: boolean;
+  /** If `"monthPicker"`, the button will change appearance */
   version?: 'button' | 'monthPicker';
   iconSize?: string;
   className?: string;
@@ -65,7 +65,7 @@ export const Button = ({
   children,
   fullHeight,
   iconSize,
-  version,
+  version = 'button',
   ...props
 }: IButtonProps) => {
   const ownerState = {
