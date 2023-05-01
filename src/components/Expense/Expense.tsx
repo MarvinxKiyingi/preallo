@@ -19,7 +19,7 @@ export type IExpenseProps = {
   /** pass in a css string to change color */
   iconContainerBgColor?: string;
   /** If true, text color will become lighter */
-  light?: boolean;
+  invert?: boolean;
   /** If true, background-color, border-radius, box-shadow & left and right will be removed */
   stripped?: boolean;
   /** If `"detail"`, left and right padding will be removed. And overall show a more minimal look with category in text also visible */
@@ -69,21 +69,21 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
       justifyContent: 'space-between',
 
       '.expense': {
-        color: ownerState.light
+        color: ownerState.invert
           ? theme.palette.common.white
           : theme.palette.common.black,
         lineHeight: 'unset',
       },
       '.date': {
-        color: ownerState.light ? grey.light[500] : grey.dark[500],
+        color: ownerState.invert ? grey.light[500] : grey.dark[500],
       },
       '.category': {
-        color: ownerState.light ? grey.light[500] : grey.dark[500],
+        color: ownerState.invert ? grey.light[500] : grey.dark[500],
       },
 
       '.price': {
         fontWeight: 600,
-        color: ownerState.light
+        color: ownerState.invert
           ? theme.palette.common.white
           : theme.palette.common.black,
         textTransform: 'uppercase',
@@ -100,7 +100,7 @@ export const Expense = ({
   title,
   date,
   amount,
-  light = false,
+  invert = false,
   IconColor,
   stripped = false,
   version = 'default',
@@ -115,7 +115,7 @@ export const Expense = ({
     bgColor,
     fullHeight,
     fullWidth,
-    light,
+    invert,
     IconColor,
     title,
     amount,
