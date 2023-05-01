@@ -5,7 +5,7 @@ const meta: Meta<typeof Avatar> = {
   title: 'components/Avatar',
   component: Avatar,
   args: {
-    url: 'https://akamai.sscdn.co/tb/letras-blog/wp-content/uploads/2021/09/afd335d-billie-eilish-1024x819.jpg',
+    src: 'https://assets.teenvogue.com/photos/60883d3762144bb77196700d/1:1/w_595,h_595,c_limit/unnamed%20(8).jpg',
   },
 };
 
