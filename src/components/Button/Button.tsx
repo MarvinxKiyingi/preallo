@@ -19,6 +19,7 @@ type ButtonBaseProps = Pick<
   | 'startIcon'
   | 'endIcon'
   | 'sx'
+  | 'type'
 >;
 
 export interface IButtonProps extends ButtonBaseProps {

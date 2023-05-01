@@ -46,7 +46,6 @@ const Home: NextPage = () => {
 
         <Button
           variant='contained'
-          version='button'
           fullWidth
           sx={{ maxWidth: 600 }}
           onClick={() => signOutUser()}

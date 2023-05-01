@@ -7,7 +7,7 @@ import { Button, IButtonProps as ButtonProps } from '../Button/Button';
 
 type IButtonProps = Pick<
   ButtonProps,
-  'variant' | 'fullWidth' | 'onClick' | 'disabled' | 'disableFocusRipple' | 'sx'
+  'variant' | 'fullWidth' | 'onClick' | 'disabled' | 'sx'
 >;
 export type ISubscriptionCard = {
   /** Choose between available icons, if not passed in a value the default one will be `"other"`  */
@@ -76,7 +76,7 @@ const SubscriptionCard = ({
   ...props
 }: ISubscriptionCard & IButtonProps) => {
   return (
-    <Container className='SubscriptionCard' version='button' {...props}>
+    <Container className='SubscriptionCard' {...props}>
       <Icon className='icon'>
         {icon === 'tv' && <OndemandVideoOutlinedIcon fontSize='inherit' />}
         {icon === 'music' && <LibraryMusicOutlinedIcon fontSize='inherit' />}

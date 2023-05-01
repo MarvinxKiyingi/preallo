@@ -127,7 +127,6 @@ export const Expense = ({
     <StyledExpense
       className='expenseButtonContainer'
       ownerState={ownerState}
-      version='button'
       {...props}
     >
       <div className='iconContainer'>

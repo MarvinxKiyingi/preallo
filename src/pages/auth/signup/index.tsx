@@ -125,7 +125,6 @@ const SignUp = () => {
               fullHeight={false}
               fullWidth
               variant={'contained'}
-              version='button'
             >
               Sign up
             </Email>

@@ -58,7 +58,6 @@ export const AddButton = ({
           className='addButton-secondary'
           variant='contained'
           color='secondary'
-          version='button'
           disabled={disabled}
           size={size}
           {...props}

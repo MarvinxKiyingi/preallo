@@ -28,7 +28,9 @@ export type IModalContent = {
   expenseLabel?: string;
   categoryList: string[];
   register?: (
+    // eslint-disable-next-line no-unused-vars
     name: string,
+    // eslint-disable-next-line no-unused-vars
     RegisterOptions?: any
   ) => {
     onChange: () => void;
@@ -137,19 +139,13 @@ export const FormContent = ({
         <Stack spacing={2}>
           <Button
             type='submit'
-            version='button'
             onClick={onAgree}
             variant='contained'
             color={remove ? 'error' : 'secondary'}
           >
             {onAgreeLabel}
           </Button>
-          <Button
-            version='button'
-            onClick={onDisagree}
-            variant='contained'
-            color='primary'
-          >
+          <Button onClick={onDisagree} variant='contained' color='primary'>
             {onDisagreeLabel}
           </Button>
         </Stack>
