@@ -10,7 +10,6 @@ const meta: Meta<typeof BudgetDisplay> = {
     amount: 2.478,
     progressValue: 60,
     color: 'secondary',
-    version: 'primary',
   },
 };
 
@@ -21,16 +20,15 @@ export const Primary: Story = {
   args: {},
 };
 
+export const WithProgress: Story = {
+  args: {
+    viewProgress: true,
+  },
+};
+
 export const Secondary: Story = {
   args: {
     title: 'Budget',
     version: 'secondary',
-  },
-};
-
-export const WithProgress: Story = {
-  args: {
-    viewProgress: true,
-    variant: 'determinate',
   },
 };
