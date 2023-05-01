@@ -5,12 +5,8 @@ const meta: Meta<typeof AppBar> = {
   title: 'components/AppBar',
   component: AppBar,
   args: {
-    fontSizeMobile: '1.5rem',
-    fontSizeDesktop: '2rem',
-    hideDashBoard: false,
-    hideProfile: false,
     title: 'Dashboard',
-    url: 'https://assets.teenvogue.com/photos/60883d3762144bb77196700d/1:1/w_595,h_595,c_limit/unnamed%20(8).jpg',
+    src: 'https://assets.teenvogue.com/photos/60883d3762144bb77196700d/1:1/w_595,h_595,c_limit/unnamed%20(8).jpg',
   },
 };
 
