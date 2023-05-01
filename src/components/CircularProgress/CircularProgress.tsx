@@ -57,9 +57,9 @@ const StyledCircularProgress = styled(Typography)(({ theme }) => ({
 
 export const CircularProgress = ({
   value,
-  circularProgressColor,
-  progressTextColor,
-  circularProgressColorBg,
+  circularProgressColor = 'primary',
+  progressTextColor = 'primary',
+  circularProgressColorBg = 'secondary',
   ...props
 }: IMuiCircularProgressProps) => {
   const hasValue = value ? value : 0;

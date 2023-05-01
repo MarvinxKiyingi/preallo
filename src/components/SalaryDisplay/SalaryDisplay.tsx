@@ -7,7 +7,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 export type ISalaryDisplayProps = {
   title: string;
   amount: string;
-  light?: boolean;
   invert?: boolean;
   onClick?: () => void;
 };
@@ -15,7 +14,7 @@ export type ISalaryDisplayProps = {
 const Title = styled(Typography)<{ ownerState: ISalaryDisplayProps }>(
   ({ theme, ownerState }) => ({
     ...theme.typography.subtitle1,
-    color: ownerState.light ? grey.light[100] : grey.dark[100],
+    color: ownerState.invert ? grey.light[100] : grey.dark[100],
 
     [theme.breakpoints.up('md')]: {
       ...theme.typography.h4,
@@ -42,6 +41,7 @@ export const SalaryDisplay = ({
   title,
   amount,
   onClick,
+  invert = false,
   ...props
 }: ISalaryDisplayProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -49,11 +49,12 @@ export const SalaryDisplay = ({
     title,
     amount,
     onClick,
+    invert,
     ...props,
   };
 
   return (
-    <Box display='flex' p={theme.spacing(0, 3)} alignItems='center'>
+    <Box display='flex' alignItems='center'>
       <Box
         display='flex'
         flexDirection='column'
@@ -67,12 +68,14 @@ export const SalaryDisplay = ({
       </Box>
 
       {isMobile && (
-        <AddButton
-          hasBgColor
-          color='inherit'
-          version='primary'
-          onClick={onClick}
-        />
+        <Box p={theme.spacing(0, 2, 0, 0)}>
+          <AddButton
+            hasBgColor
+            color='inherit'
+            version='primary'
+            onClick={onClick}
+          />
+        </Box>
       )}
     </Box>
   );

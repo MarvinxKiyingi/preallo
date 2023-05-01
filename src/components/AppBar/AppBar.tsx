@@ -7,7 +7,9 @@ import { ProfileButton } from '../ProfileButton/ProfileButton';
 
 export interface IAppBar extends IIconButtonProps {
   title?: string;
+  /** If true, hides dashboard icon button */
   hideDashBoard?: boolean;
+  /** If true, hides profile icon button */
   hideProfile?: boolean;
 }
 
@@ -45,14 +47,22 @@ const AppBarContainer = styled(Box)(({ theme }) => ({
 
 export const AppBar = ({
   title,
-  hideDashBoard,
-  hideProfile,
+  hideDashBoard = false,
+  hideProfile = false,
+  fontSizeMobile = '24px',
+  fontSizeDesktop = '32px',
   ...props
 }: IAppBar & IAvatar) => {
   return (
     <AppBarContainer className='AppBarContainer'>
       <div className='dashBoardIconContainer'>
-        {!hideDashBoard && <DashboardButton {...props} />}
+        {!hideDashBoard && (
+          <DashboardButton
+            fontSizeMobile={fontSizeMobile}
+            fontSizeDesktop={fontSizeDesktop}
+            {...props}
+          />
+        )}
       </div>
 
       <Typography className='titleContainer' variant='h6'>
@@ -60,7 +70,15 @@ export const AppBar = ({
       </Typography>
 
       <div className='profileContainer'>
-        <>{!hideProfile && <ProfileButton {...props} />}</>
+        <>
+          {!hideProfile && (
+            <ProfileButton
+              fontSizeMobile={fontSizeMobile}
+              fontSizeDesktop={fontSizeDesktop}
+              {...props}
+            />
+          )}
+        </>
       </div>
     </AppBarContainer>
   );

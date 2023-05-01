@@ -24,9 +24,6 @@ const meta: Meta<typeof CircularProgress> = {
     value: 75,
     size: 230,
     thickness: 4,
-    progressTextColor: 'primary',
-    circularProgressColor: 'primary',
-    circularProgressColorBg: 'secondary',
   },
 };
 

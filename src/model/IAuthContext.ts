@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { User } from 'firebase/auth';
 import { ISignUp } from './ISignUp';
 import { ISignIn } from './ISignIn';

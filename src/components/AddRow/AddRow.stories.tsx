@@ -8,7 +8,20 @@ const meta: Meta<typeof AddRow> = {
     title: 'Add',
     addIsVisible: true,
     version: 'secondary',
-    filter: true,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof AddRow>;
+
+export const Primary: Story = {
+  args: {
+    filterIsVisible: false,
+  },
+};
+export const WithFilter: Story = {
+  args: {
+    filterIsVisible: true,
     chipsList: [
       {
         id: 'Test 1',
@@ -27,11 +40,4 @@ const meta: Meta<typeof AddRow> = {
       },
     ],
   },
-};
-
-export default meta;
-type Story = StoryObj<typeof AddRow>;
-
-export const Primary: Story = {
-  args: {},
 };

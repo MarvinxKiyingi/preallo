@@ -8,13 +8,19 @@ import {
 import { grey } from '../../styles/colors/grey';
 
 export type IBudgetDisplay = {
+  /** Input css string to change the background color  */
   bgColor?: string;
+  /** Budget amount amount  */
   amount: number;
+  /** The value of the progress indicator for the determinate and buffer variants. Value between 0 and 100.  */
   progressValue?: number;
   variant?: 'buffer' | 'determinate' | 'indeterminate' | 'query';
+  /** If true, progress will be visible   */
   viewProgress?: boolean;
   fullWidth: boolean;
+  /** Days until next salary   */
   days: number;
+  /** If `"secondary"`, the budget display will change to a more simpler appearance   */
   version: 'primary' | 'secondary';
   title?: string;
 };
@@ -92,14 +98,15 @@ const StyledSecondaryBudgetDisplay = styled(Box)(({ theme }) => ({
 }));
 
 export const BudgetDisplay = ({
-  viewProgress,
+  viewProgress = true,
   bgColor,
   fullWidth,
   days,
   amount,
   progressValue,
-  version,
+  version = 'primary',
   title,
+  variant = 'determinate',
   ...props
 }: IBudgetDisplay & LinearProgressProps) => {
   const ownerState = {
@@ -153,6 +160,7 @@ export const BudgetDisplay = ({
               <LinearProgress
                 sx={{ height: 6 }}
                 value={progressValue}
+                variant={variant}
                 {...props}
               />
             </Box>

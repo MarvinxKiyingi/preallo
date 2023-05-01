@@ -16,17 +16,17 @@ type ButtonBaseProps = Pick<
   | 'href'
   | 'onClick'
   | 'disabled'
-  | 'disableFocusRipple'
-  | 'type'
   | 'startIcon'
   | 'endIcon'
   | 'sx'
+  | 'type'
 >;
 
 export interface IButtonProps extends ButtonBaseProps {
   onClick?: () => void;
   children?: React.ReactNode;
   fullHeight?: boolean;
+  /** If `"monthPicker"`, the button will change appearance */
   version?: 'button' | 'monthPicker';
   iconSize?: string;
   className?: string;
@@ -37,6 +37,11 @@ const StyledButton = styled(MuiButton)<{ ownerState: IButtonProps }>(
     borderRadius: 8,
     height: ownerState.fullHeight ? '100%' : undefined,
     padding: theme.spacing(2, 2),
+
+    ':active': {
+      transition: '0.2s',
+      transform: 'scale(0.98)',
+    },
 
     '.MuiButton-startIcon>*': {
       fontSize: ownerState.iconSize ? ownerState.iconSize : theme.spacing(3),
@@ -61,7 +66,7 @@ export const Button = ({
   children,
   fullHeight,
   iconSize,
-  version,
+  version = 'button',
   ...props
 }: IButtonProps) => {
   const ownerState = {

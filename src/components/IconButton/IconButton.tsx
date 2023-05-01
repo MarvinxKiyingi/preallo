@@ -41,9 +41,9 @@ const StyledIcon = styled(MuiIconButton)<{ ownerState: IIconButtonProps }>(
 );
 
 export const IconButton = ({
-  hasBgColor,
-  fontSizeMobile,
-  fontSizeDesktop,
+  hasBgColor = false,
+  fontSizeMobile = '24',
+  fontSizeDesktop = '48',
   children,
   ...props
 }: IIconButtonProps) => {
