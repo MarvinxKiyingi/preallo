@@ -4,6 +4,7 @@ import { Button } from '../Button/Button';
 import { ExpenseIcon } from '../Icons';
 import { theme } from '../../styles/theme/muiTheme';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import { ICategory } from '../../model/ICategory';
 
 export type IExpenseProps = {
   bgColor?: string;
@@ -16,6 +17,7 @@ export type IExpenseProps = {
   iconContainerBgColor?: string;
   light?: boolean;
   stripped?: boolean;
+  version: 'default' | 'detail';
 };
 
 const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
@@ -65,18 +67,14 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
       alignItems: 'center',
       justifyContent: 'space-between',
 
-      '.expenseInfoContainer': {
-        display: 'flex',
-        flexDirection: 'column',
-        '.expense': {
-          color: ownerState.light
-            ? theme.palette.common.white
-            : theme.palette.common.black,
-          lineHeight: 'unset',
-        },
-        '.date': {
-          color: ownerState.light ? grey.light[500] : grey.dark[500],
-        },
+      '.expense': {
+        color: ownerState.light
+          ? theme.palette.common.white
+          : theme.palette.common.black,
+        lineHeight: 'unset',
+      },
+      '.date': {
+        color: ownerState.light ? grey.light[500] : grey.dark[500],
       },
 
       '.price': {
@@ -101,8 +99,10 @@ export const Expense = ({
   light,
   IconBgColor,
   stripped,
+  version = 'default',
+  category,
   ...props
-}: IExpenseProps) => {
+}: IExpenseProps & ICategory) => {
   const isDesktop = useMediaQuery(
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
@@ -116,6 +116,7 @@ export const Expense = ({
     title,
     amount,
     stripped,
+    version,
   };
 
   return (
@@ -128,24 +129,70 @@ export const Expense = ({
       <div className='iconContainer'>
         <ExpenseIcon />
       </div>
-      <div className='textContainer'>
-        <div className='expenseInfoContainer'>
-          <Typography className='expense' variant='button' align='left'>
-            {title}
-          </Typography>
 
-          {date && (
-            <Typography className='date' variant='body2' align='left'>
-              {date}
+      <div className='textContainer'>
+        {version === 'default' ? (
+          <Stack>
+            {title && (
+              <Typography className='expense' variant='button' align='left'>
+                {title}
+              </Typography>
+            )}
+
+            {date && (
+              <Typography className='date' variant='body2' align='left'>
+                {date}
+              </Typography>
+            )}
+          </Stack>
+        ) : (
+          <>
+            {!isDesktop ? (
+              <Stack>
+                {title && (
+                  <Typography className='expense' variant='button' align='left'>
+                    {title}
+                  </Typography>
+                )}
+
+                {date && (
+                  <Typography className='date' variant='body2' align='left'>
+                    {date}
+                  </Typography>
+                )}
+              </Stack>
+            ) : (
+              <>
+                {title && (
+                  <Typography className='expense' variant='button' align='left'>
+                    {title}
+                  </Typography>
+                )}
+
+                {date && (
+                  <Typography className='date' variant='body2' align='left'>
+                    {date}
+                  </Typography>
+                )}
+
+                {category && (
+                  <Typography className='category' variant='body2' align='left'>
+                    {category}
+                  </Typography>
+                )}
+              </>
+            )}
+          </>
+        )}
+
+        {amount && (
+          <Stack direction='row' spacing={1 / 2}>
+            <Typography className='price' variant='h6' align='right'>
+              {`${amount} kr`}
             </Typography>
-          )}
-        </div>
-        <Stack direction='row' spacing={1 / 2}>
-          <Typography className='price' variant='h6' align='right'>
-            {`${amount} kr`}
-          </Typography>
-          {isDesktop && <MoreVertOutlinedIcon color='secondary' />}
-        </Stack>
+            {isDesktop && <MoreVertOutlinedIcon color='secondary' />}
+          </Stack>
+        )}
       </div>
     </StyledExpense>
   );
