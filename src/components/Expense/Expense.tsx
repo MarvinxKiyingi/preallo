@@ -5,6 +5,7 @@ import { ExpenseIcon } from '../Icons';
 import { theme } from '../../styles/theme/muiTheme';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import { ICategory } from '../../model/ICategory';
+import ExpenseContent from './ExpenseContent';
 
 export type IExpenseProps = {
   bgColor?: string;
@@ -13,10 +14,15 @@ export type IExpenseProps = {
   amount: string;
   fullHeight?: boolean;
   fullWidth?: boolean;
-  IconBgColor?: string;
+  /** pass in a css string to change color */
+  IconColor?: string;
+  /** pass in a css string to change color */
   iconContainerBgColor?: string;
+  /** If true, text color will become lighter */
   light?: boolean;
+  /** If true, background-color, border-radius, box-shadow & left and right will be removed */
   stripped?: boolean;
+  /** If `"detail"`, left and right padding will be removed. And overall show a more minimal look with category in text also visible */
   version: 'default' | 'detail';
 };
 
@@ -27,16 +33,13 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
     backgroundColor: ownerState.bgColor
       ? ownerState.bgColor
       : theme.palette.background.paper,
-    // * Save for later usage
-    // boxShadow: ' rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-    // boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
     boxShadow: ownerState.stripped
       ? 'unset'
       : '0px 0px 4px rgba(0, 0, 0, 0.15)',
     display: 'flex',
     alignItems: 'unset',
     borderRadius: ownerState.stripped ? 'unset' : theme.spacing(2),
-    padding: theme.spacing(3),
+    padding: ownerState.stripped ? theme.spacing(2, 0) : theme.spacing(3),
     height: ownerState.fullHeight ? '100%' : undefined,
     width: ownerState.fullWidth ? '100%' : 334,
     gap: theme.spacing(2),
@@ -56,9 +59,7 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
       justifyContent: 'center',
 
       '>svg>path': {
-        color: ownerState.IconBgColor
-          ? ownerState.IconBgColor
-          : grey.shades[50],
+        color: ownerState.IconColor ? ownerState.IconColor : grey.shades[50],
       },
     },
     '.textContainer': {
@@ -76,6 +77,9 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
       '.date': {
         color: ownerState.light ? grey.light[500] : grey.dark[500],
       },
+      '.category': {
+        color: ownerState.light ? grey.light[500] : grey.dark[500],
+      },
 
       '.price': {
         fontWeight: 600,
@@ -83,7 +87,7 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
           ? theme.palette.common.white
           : theme.palette.common.black,
         textTransform: 'uppercase',
-        fontsize: theme.spacing(2),
+        fontSize: theme.spacing(2),
       },
     },
   })
@@ -97,7 +101,7 @@ export const Expense = ({
   date,
   amount,
   light,
-  IconBgColor,
+  IconColor,
   stripped,
   version = 'default',
   category,
@@ -112,7 +116,7 @@ export const Expense = ({
     fullHeight,
     fullWidth,
     light,
-    IconBgColor,
+    IconColor,
     title,
     amount,
     stripped,
@@ -131,62 +135,30 @@ export const Expense = ({
       </div>
 
       <div className='textContainer'>
-        {version === 'default' ? (
-          <Stack>
-            {title && (
-              <Typography className='expense' variant='button' align='left'>
-                {title}
-              </Typography>
-            )}
-
-            {date && (
-              <Typography className='date' variant='body2' align='left'>
-                {date}
-              </Typography>
-            )}
+        {version === 'default' && (
+          <Stack display='flex' direction='column'>
+            <ExpenseContent title={title} date={date} />
           </Stack>
-        ) : (
+        )}
+
+        {version === 'detail' && (
           <>
-            {!isDesktop ? (
-              <Stack>
-                {title && (
-                  <Typography className='expense' variant='button' align='left'>
-                    {title}
-                  </Typography>
-                )}
-
-                {date && (
-                  <Typography className='date' variant='body2' align='left'>
-                    {date}
-                  </Typography>
-                )}
-              </Stack>
-            ) : (
+            {!isDesktop && (
               <>
-                {title && (
-                  <Typography className='expense' variant='button' align='left'>
-                    {title}
-                  </Typography>
-                )}
-
-                {date && (
-                  <Typography className='date' variant='body2' align='left'>
-                    {date}
-                  </Typography>
-                )}
-
-                {category && (
-                  <Typography className='category' variant='body2' align='left'>
-                    {category}
-                  </Typography>
-                )}
+                <Stack display='flex' direction='column' alignItems='center'>
+                  <ExpenseContent title={title} date={date} />
+                </Stack>
+                <ExpenseContent category={category} />
               </>
+            )}
+            {isDesktop && (
+              <ExpenseContent title={title} date={date} category={category} />
             )}
           </>
         )}
 
         {amount && (
-          <Stack direction='row' spacing={1 / 2}>
+          <Stack direction='row' spacing={1 / 2} alignItems='center'>
             <Typography className='price' variant='h6' align='right'>
               {`${amount} kr`}
             </Typography>

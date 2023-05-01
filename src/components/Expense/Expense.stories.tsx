@@ -21,5 +21,8 @@ export const Primary: Story = {
 export const Stripped: Story = {
   args: {
     stripped: true,
+    version: 'detail',
+    category: 'Food',
+    fullWidth: true,
   },
 };
