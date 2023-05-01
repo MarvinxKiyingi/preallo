@@ -35,11 +35,13 @@ const StyledSecondaryIcon = styled(Button)(({ theme }) => ({
 }));
 
 export const AddButton = ({
-  fontSizeMobile,
-  fontSizeDesktop,
-  hasBgColor,
-  version,
-  color,
+  fontSizeMobile = '24px',
+  fontSizeDesktop = '48px',
+  hasBgColor = false,
+  version = 'primary',
+  color = 'primary',
+  disabled = false,
+  size = 'medium',
   ...props
 }: IIconButton) => {
   const ownerState = {
@@ -57,6 +59,8 @@ export const AddButton = ({
           variant='contained'
           color='secondary'
           version='button'
+          disabled={disabled}
+          size={size}
           {...props}
         >
           <PlusIcon />
@@ -66,6 +70,8 @@ export const AddButton = ({
           className='addButton-default'
           ownerState={ownerState}
           color={color}
+          disabled={disabled}
+          size={size}
           {...props}
         >
           <PlusIcon fontSize='inherit' />
