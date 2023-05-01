@@ -17,16 +17,21 @@ type IPickChipProps = Pick<
 >;
 type IPickIconButton = Pick<IIconButton, 'version'>;
 export interface IChipProps extends IPickChipProps {
+  /** Can be used in a map to identify an item */
   id?: string;
+  /** if true, the activated chip will change appearance */
   activated?: boolean;
   label?: string;
 }
 
 export interface IAddRowProps extends IPickIconButton {
-  title: string;
-  addIsVisible?: boolean;
-  filter: boolean;
+  /** list of chips content*/
   chipsList: Array<IChipProps>;
+  title: string;
+  /** if true, the add button will not be visible */
+  addIsVisible?: boolean;
+  /** if true, the filter bar will not be visible*/
+  filterIsVisible: boolean;
 }
 
 export const StyledAddRowContainer = styled(Box)(({ theme }) => ({
@@ -75,10 +80,10 @@ export const StyledFilterBar = styled(Box)(({ theme }) => ({
 
 export const AddRow = ({
   title,
-  addIsVisible,
+  addIsVisible = true,
   chipsList,
-  filter,
-  version,
+  filterIsVisible = false,
+  version = 'primary',
   ...props
 }: IAddRowProps & IChipProps & IPickIconButton) => {
   return (
@@ -93,7 +98,7 @@ export const AddRow = ({
         </div>
       </StyledAddRow>
 
-      {filter && (
+      {filterIsVisible && (
         <StyledFilterBar>
           <Box display='flex' height={32} alignItems='center'>
             <FilterIcon />
