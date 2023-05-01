@@ -100,9 +100,9 @@ export const Expense = ({
   title,
   date,
   amount,
-  light,
+  light = false,
   IconColor,
-  stripped,
+  stripped = false,
   version = 'default',
   category,
   ...props
