@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { AppBar } from './AppBar';
+import { MobileNavigation } from './MobileNavigation';
 
-const meta: Meta<typeof AppBar> = {
-  title: 'components/AppBar',
-  component: AppBar,
+const meta: Meta<typeof MobileNavigation> = {
+  title: 'components/MobileNavigation',
+  component: MobileNavigation,
   args: {
     title: 'Dashboard',
     src: 'https://assets.teenvogue.com/photos/60883d3762144bb77196700d/1:1/w_595,h_595,c_limit/unnamed%20(8).jpg',
@@ -11,7 +11,7 @@ const meta: Meta<typeof AppBar> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof AppBar>;
+type Story = StoryObj<typeof MobileNavigation>;
 
 export const Primary: Story = {
   args: {},
