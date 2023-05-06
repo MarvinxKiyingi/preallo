@@ -17,6 +17,7 @@ const StyledLogo = styled(Link)<{
   height: 'fit-content',
   width: 'fit-content',
   textDecoration: 'none',
+  color: theme.palette.common.black,
 
   '.logoIcon': {
     fontSize: ownerState.fontSizeMobile
@@ -42,7 +43,7 @@ const StyledLogo = styled(Link)<{
 export const Logo = ({
   fontSizeMobile,
   fontSizeDesktop,
-  color = 'primary',
+  color = 'inherit',
   ...props
 }: ILogo & ISvgProps) => {
   const ownerState = {
