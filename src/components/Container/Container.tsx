@@ -10,7 +10,6 @@ const StyledContainer = styled(Box)(({ theme }) => ({
 const StyledWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   width: '100%',
-  height: '100vh',
   maxWidth: '87.5rem',
   padding: theme.spacing(0, 3),
 

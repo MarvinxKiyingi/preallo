@@ -5,7 +5,7 @@ import { styled } from '@mui/material';
 const Container = styled('main')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  height: '100vh',
+  minHeight: '100vh',
   backgroundColor: theme.palette.background.default,
   padding: theme.spacing(3, 3, 0, 3),
 
@@ -14,6 +14,7 @@ const Container = styled('main')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('md')]: {
+    height: '100vh',
     display: 'grid',
     padding: 'unset',
     gridTemplateColumns: '1.3fr 1fr',
