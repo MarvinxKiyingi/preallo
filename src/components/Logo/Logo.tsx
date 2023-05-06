@@ -16,6 +16,7 @@ const StyledLogo = styled(Link)<{
   gap: theme.spacing(1 / 2),
   height: 'fit-content',
   width: 'fit-content',
+  textDecoration: 'none',
 
   '.logoIcon': {
     fontSize: ownerState.fontSizeMobile
