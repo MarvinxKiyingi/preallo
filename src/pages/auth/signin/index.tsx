@@ -2,7 +2,7 @@ import { Stack, Typography, TextField, styled, Box } from '@mui/material';
 import { GoogleIcon } from '../../../components/Icons';
 import { Button } from '../../../components/Button/Button';
 import Link from 'next/link';
-import { AuthLayout } from '../../../components/Layouts/AuthLayout';
+import { AuthLayout } from '../../../components/Layouts/AuthLayout/AuthLayout';
 import { grey } from '../../../styles/colors/grey';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ISignIn } from '../../../model/ISignIn';
