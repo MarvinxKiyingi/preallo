@@ -13,31 +13,22 @@ import { useRouter } from 'next/router';
 const IllustrationContainer = styled('div')(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: 'repeat(6,1fr)',
+  gridTemplateRows: 'repeat(6,1fr)',
   backgroundColor: theme.palette.background.accent,
   gap: theme.spacing(3),
+  height: 'inherit',
 }));
 
-const Illustration = styled('div')(({ theme }) => ({
+const Illustration = styled('div')({
   gridColumn: '2/-2',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
+  gridRow: '2/-2',
 
   img: {
     width: '100%',
     height: '100%',
-    // TODO: use dynamic width for maxWidth and height, and remove the multiple media queries
-    maxWidth: '500px',
     objectFit: 'contain',
-
-    [theme.breakpoints.up('lg')]: {
-      maxWidth: '650px',
-    },
-    [theme.breakpoints.up('xl')]: {
-      maxWidth: '750px',
-    },
   },
-}));
+});
 
 export const AuthLayout = ({ children }: IChildren) => {
   const isDesktop = useMediaQuery(
