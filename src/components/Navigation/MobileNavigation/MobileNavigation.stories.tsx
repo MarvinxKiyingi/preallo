@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { MobileNavigation } from './MobileNavigation';
 
 const meta: Meta<typeof MobileNavigation> = {
-  title: 'components/MobileNavigation',
+  title: 'components/Navigation/MobileNavigation',
   component: MobileNavigation,
   args: {
     title: 'Dashboard',

@@ -1,9 +1,9 @@
 import { styled, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { IAvatar } from '../Avatar/Avatar';
-import { DashboardButton } from '../DashboardButton/DashboardButton';
-import { IIconButtonProps } from '../IconButton/IconButton';
-import { ProfileButton } from '../ProfileButton/ProfileButton';
+import { IAvatar } from '../../Avatar/Avatar';
+import { DashboardButton } from '../../DashboardButton/DashboardButton';
+import { IIconButtonProps } from '../../IconButton/IconButton';
+import { ProfileButton } from '../../ProfileButton/ProfileButton';
 
 export interface IMobileNavigation extends IIconButtonProps {
   title?: string;
