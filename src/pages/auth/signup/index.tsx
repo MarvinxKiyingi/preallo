@@ -1,5 +1,5 @@
 import { Box, Stack, TextField, Typography, styled } from '@mui/material';
-import { AuthLayout } from '../../../components/Layouts/AuthLayout';
+import { AuthLayout } from '../../../components/Layouts/AuthLayout/AuthLayout';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ISignUp } from '../../../model/ISignUp';
 import { yupResolver } from '@hookform/resolvers/yup';

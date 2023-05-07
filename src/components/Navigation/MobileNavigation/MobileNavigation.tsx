@@ -1,11 +1,11 @@
 import { styled, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { IAvatar } from '../Avatar/Avatar';
-import { DashboardButton } from '../DashboardButton/DashboardButton';
-import { IIconButtonProps } from '../IconButton/IconButton';
-import { ProfileButton } from '../ProfileButton/ProfileButton';
+import { IAvatar } from '../../Avatar/Avatar';
+import { DashboardButton } from '../../DashboardButton/DashboardButton';
+import { IIconButtonProps } from '../../IconButton/IconButton';
+import { ProfileButton } from '../../ProfileButton/ProfileButton';
 
-export interface IAppBar extends IIconButtonProps {
+export interface IMobileNavigation extends IIconButtonProps {
   title?: string;
   /** If true, hides dashboard icon button */
   hideDashBoard?: boolean;
@@ -13,7 +13,7 @@ export interface IAppBar extends IIconButtonProps {
   hideProfile?: boolean;
 }
 
-const AppBarContainer = styled(Box)(({ theme }) => ({
+const MobileNavigationContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   '&>*': {
     flex: 1,
@@ -45,16 +45,16 @@ const AppBarContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const AppBar = ({
+export const MobileNavigation = ({
   title,
   hideDashBoard = false,
   hideProfile = false,
   fontSizeMobile = '24px',
   fontSizeDesktop = '32px',
   ...props
-}: IAppBar & IAvatar) => {
+}: IMobileNavigation & IAvatar) => {
   return (
-    <AppBarContainer className='AppBarContainer'>
+    <MobileNavigationContainer className='MobileNavigationContainer'>
       <div className='dashBoardIconContainer'>
         {!hideDashBoard && (
           <DashboardButton
@@ -80,6 +80,6 @@ export const AppBar = ({
           )}
         </>
       </div>
-    </AppBarContainer>
+    </MobileNavigationContainer>
   );
 };

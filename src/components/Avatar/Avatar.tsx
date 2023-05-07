@@ -22,7 +22,7 @@ const StyledAvatar = styled(MuiAvatar)<{ ownerState: IAvatar }>(
     height: ownerState.avatarMobileSize
       ? ownerState.avatarMobileSize
       : theme.spacing(3),
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up('md')]: {
       width: ownerState.avatarDeskSize
         ? ownerState.avatarDeskSize
         : theme.spacing(6),
@@ -38,6 +38,7 @@ export const Avatar = ({
   avatarDeskSize = '48px',
   ...props
 }: IAvatar) => {
+  console.log('avatarDeskSize', avatarDeskSize);
   const ownerState = {
     avatarMobileSize,
     avatarDeskSize,

@@ -1,5 +1,5 @@
 import { Box, Stack, TextField, Typography, styled } from '@mui/material';
-import { AuthLayout } from '../../../components/Layouts/AuthLayout';
+import { AuthLayout } from '../../../components/Layouts/AuthLayout/AuthLayout';
 import Link from 'next/dist/client/link';
 import { Button } from '../../../components/Button/Button';
 import { grey } from '../../../styles/colors/grey';
