@@ -41,31 +41,37 @@ export const AuthLayout = ({ children }: IChildren) => {
   return (
     <AuthContainer>
       {!isDesktop && (
-        <LogoContainer>
-          <Logo />
-        </LogoContainer>
-      )}
-
-      {isDesktop && (
-        <IllustrationContainer className='illustrationContainer'>
+        <>
           <LogoContainer>
             <Logo />
           </LogoContainer>
 
-          <Illustration>
-            <Image
-              src={!isResetPassword ? Calculator : lockIllustration}
-              alt={
-                !isResetPassword
-                  ? 'Calculator illustration'
-                  : 'Password Lock Illustration'
-              }
-            />
-          </Illustration>
-        </IllustrationContainer>
+          <FormContainer> {children}</FormContainer>
+        </>
       )}
 
-      <FormContainer> {children}</FormContainer>
+      {isDesktop && (
+        <>
+          <IllustrationContainer className='illustrationContainer'>
+            <LogoContainer>
+              <Logo />
+            </LogoContainer>
+
+            <Illustration>
+              <Image
+                src={!isResetPassword ? Calculator : lockIllustration}
+                alt={
+                  !isResetPassword
+                    ? 'Calculator illustration'
+                    : 'Password Lock Illustration'
+                }
+              />
+            </Illustration>
+          </IllustrationContainer>
+
+          <FormContainer> {children}</FormContainer>
+        </>
+      )}
     </AuthContainer>
   );
 };
