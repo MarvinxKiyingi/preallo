@@ -65,6 +65,7 @@ export const AuthLayout = ({ children }: IChildren) => {
                     ? 'Calculator illustration'
                     : 'Password Lock Illustration'
                 }
+                priority
               />
             </Illustration>
           </IllustrationContainer>
