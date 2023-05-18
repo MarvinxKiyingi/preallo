@@ -24,6 +24,18 @@ const viewports = Object.fromEntries(
   })
 );
 
+export const globalTypes = {
+  themeMode: {
+    name: 'Theme mode',
+    description: 'Global theme mode for components',
+    defaultValue: 'light',
+    toolbar: {
+      icon: 'circlehollow',
+      items: ['light', 'dark'],
+    },
+  },
+}
+
 export const parameters = {
   layout: 'fullscreen',
   actions: { argTypesRegex: '^on[A-Z].*' },
