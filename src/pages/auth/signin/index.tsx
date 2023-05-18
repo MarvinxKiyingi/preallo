@@ -2,13 +2,14 @@ import { Stack, Typography, TextField, styled, Box } from '@mui/material';
 import { GoogleIcon } from '../../../components/Icons';
 import { Button } from '../../../components/Button/Button';
 import Link from 'next/link';
-import { AuthLayout } from '../../../components/Layouts/AuthLayout';
+import { AuthLayout } from '../../../components/Layouts/AuthLayout/AuthLayout';
 import { grey } from '../../../styles/colors/grey';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ISignIn } from '../../../model/ISignIn';
 import { ISignInYupSchema } from '../../../model/IYupSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../../../utils/context/AuthContext';
+import Head from 'next/head';
 
 export const Title = styled(Typography)(({ theme }) => ({
   ...theme.typography.h2,
@@ -72,70 +73,75 @@ const SignIn = () => {
     signInUser(data);
   };
 
+  const description =
+    'Ready to get organized? Type in your credentials, to get started';
+
   return (
-    <AuthLayout>
-      <form onSubmit={handleSubmit(formSubmitHandler)}>
-        <Stack spacing={1} direction='column' mb={6}>
-          <Title as={'h1'}>Sign in</Title>
-          <Description>
-            Ready to get organized? Type in your credentials, to get started
-          </Description>
-        </Stack>
-
-        <Stack spacing={2} direction='column'>
-          <TextField
-            {...register('email')}
-            error={!!errors.email}
-            helperText={errors.email ? errors.email?.message : ''}
-            label='Email'
-            type='email'
-            margin={'none'}
-          />
-          <TextField
-            {...register('password')}
-            error={!!errors.password}
-            helperText={errors.password ? errors.password?.message : ''}
-            label='Password'
-            type='password'
-            margin={'none'}
-          />
-        </Stack>
-
-        <CtaStack>
-          <Email
-            type='submit'
-            fullHeight={false}
-            fullWidth
-            variant={'contained'}
-            component='button'
-          >
-            Sign in
-          </Email>
-
-          <Google
-            fullHeight={false}
-            fullWidth
-            variant={'contained'}
-            component='button'
-            startIcon={<GoogleIcon />}
-            onClick={() => googleSignIn()}
-          >
-            Sign in/up with google
-          </Google>
-
-          <Stack spacing={1}>
-            <Typography>
-              Don’t have an account?{' '}
-              <SignUpLink href={'/auth/signup'}>Sign Up</SignUpLink>
-            </Typography>
-
-            <ForgottenPassword href={'/auth/resetpassword'}>
-              Forgotten password?
-            </ForgottenPassword>
+    <>
+      <Head>
+        <title>Sign in</title>
+        <meta name='description' content={description} />
+      </Head>
+      <AuthLayout>
+        <form onSubmit={handleSubmit(formSubmitHandler)}>
+          <Stack spacing={1} direction='column' mb={6}>
+            <Title as={'h1'}>Sign in</Title>
+            <Description>{description}</Description>
           </Stack>
-        </CtaStack>
-      </form>
-    </AuthLayout>
+
+          <Stack spacing={2} direction='column'>
+            <TextField
+              {...register('email')}
+              error={!!errors.email}
+              helperText={errors.email ? errors.email?.message : ''}
+              label='Email'
+              type='email'
+              margin={'none'}
+            />
+            <TextField
+              {...register('password')}
+              error={!!errors.password}
+              helperText={errors.password ? errors.password?.message : ''}
+              label='Password'
+              type='password'
+              margin={'none'}
+            />
+          </Stack>
+
+          <CtaStack>
+            <Email
+              type='submit'
+              fullHeight={false}
+              fullWidth
+              variant={'contained'}
+            >
+              Sign in
+            </Email>
+
+            <Google
+              fullHeight={false}
+              fullWidth
+              variant={'contained'}
+              startIcon={<GoogleIcon />}
+              onClick={() => googleSignIn()}
+            >
+              Sign in/up with google
+            </Google>
+
+            <Stack spacing={1}>
+              <Typography>
+                Don’t have an account?{' '}
+                <SignUpLink href={'/auth/signup'}>Sign Up</SignUpLink>
+              </Typography>
+
+              <ForgottenPassword href={'/auth/resetpassword'}>
+                Forgotten password?
+              </ForgottenPassword>
+            </Stack>
+          </CtaStack>
+        </form>
+      </AuthLayout>
+    </>
   );
 };
 

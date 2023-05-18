@@ -1,29 +1,53 @@
 import React from 'react';
-import { Avatar as MuiAvatar, styled } from '@mui/material';
+import {
+  Avatar as MuiAvatar,
+  AvatarProps as MuiAvatarProps,
+  styled,
+} from '@mui/material';
 
-export interface IAvatar {
-  url?: string;
-  mobileSize?: string;
-  deskSize?: string;
+// Only include
+type AvatarProps = Pick<MuiAvatarProps, 'alt' | 'children' | 'src' | 'variant'>;
+export interface IAvatar extends AvatarProps {
+  /** adjust avatar size for only when in mobile view  */
+  avatarMobileSize?: string;
+  /** adjust avatar size for only when in desktop view  */
+  avatarDeskSize?: string;
 }
 
-const StyledAvatar = styled(MuiAvatar)<{ ownerState: IAvatar }>(({ theme, ownerState }) => ({
-  width: ownerState.mobileSize ? ownerState.mobileSize : theme.spacing(3),
-  height: ownerState.mobileSize ? ownerState.mobileSize : theme.spacing(3),
-  [theme.breakpoints.up('lg')]: {
-    width: ownerState.deskSize ? ownerState.deskSize : theme.spacing(6),
-    height: ownerState.deskSize ? ownerState.deskSize : theme.spacing(6),
-  },
-}));
+const StyledAvatar = styled(MuiAvatar)<{ ownerState: IAvatar }>(
+  ({ theme, ownerState }) => ({
+    width: ownerState.avatarMobileSize
+      ? ownerState.avatarMobileSize
+      : theme.spacing(3),
+    height: ownerState.avatarMobileSize
+      ? ownerState.avatarMobileSize
+      : theme.spacing(3),
+    [theme.breakpoints.up('md')]: {
+      width: ownerState.avatarDeskSize
+        ? ownerState.avatarDeskSize
+        : theme.spacing(6),
+      height: ownerState.avatarDeskSize
+        ? ownerState.avatarDeskSize
+        : theme.spacing(6),
+    },
+  })
+);
 
-export const Avatar = ({ url, mobileSize, deskSize }: IAvatar) => {
+export const Avatar = ({
+  avatarMobileSize = '24px',
+  avatarDeskSize = '48px',
+  ...props
+}: IAvatar) => {
+  console.log('avatarDeskSize', avatarDeskSize);
   const ownerState = {
-    mobileSize,
-    deskSize,
+    avatarMobileSize,
+    avatarDeskSize,
   };
   return (
-    <StyledAvatar className='avatar-container' src={url} ownerState={ownerState}>
-      Avatar
-    </StyledAvatar>
+    <StyledAvatar
+      className='avatar-container'
+      ownerState={ownerState}
+      {...props}
+    />
   );
 };

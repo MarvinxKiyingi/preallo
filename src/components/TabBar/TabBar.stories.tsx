@@ -1,7 +1,7 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { TabBar } from './TabBar';
 
-export default {
+const meta: Meta<typeof TabBar> = {
   title: 'components/TabBar',
   component: TabBar,
   args: {
@@ -11,8 +11,11 @@ export default {
       { id: 'recurring', label: 'recurring', value: 'recurring' },
     ],
   },
-} as ComponentMeta<typeof TabBar>;
+};
 
-const Template: ComponentStory<typeof TabBar> = (args) => <TabBar {...args} />;
+export default meta;
+type Story = StoryObj<typeof TabBar>;
 
-export const Default = Template.bind({});
+export const Primary: Story = {
+  args: {},
+};

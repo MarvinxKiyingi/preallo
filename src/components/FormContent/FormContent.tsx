@@ -10,11 +10,13 @@ import {
 } from '@mui/material';
 
 import { Button } from '../Button/Button';
-import { PlusIcon, SuccessIcon, TrashIcon } from '../Icons';
+import { InfoIcon, PlusIcon, SuccessIcon, TrashIcon } from '../Icons';
 import { Select } from '../Select/Select';
 
-type IModalContent = {
+export type IModalContent = {
   variant: 'amount' | 'expense' | 'all';
+  add?: boolean;
+  edit?: boolean;
   remove?: boolean;
   title: string;
   description?: string;
@@ -26,9 +28,16 @@ type IModalContent = {
   expenseLabel?: string;
   categoryList: string[];
   register?: (
+    // eslint-disable-next-line no-unused-vars
     name: string,
+    // eslint-disable-next-line no-unused-vars
     RegisterOptions?: any
-  ) => { onChange: (e: any) => void; onBlur: (e: any) => void; name: string; ref: any };
+  ) => {
+    onChange: () => void;
+    onBlur: () => void;
+    name: string;
+    ref: any;
+  };
 };
 
 const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
@@ -43,6 +52,8 @@ export const FormContent = ({
   onAgreeLabel,
   onDisagree,
   onDisagreeLabel,
+  add,
+  edit,
   remove,
   amountLabel,
   expenseLabel,
@@ -53,7 +64,11 @@ export const FormContent = ({
   return (
     <>
       <DialogContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box fontSize='3rem'>{remove ? <TrashIcon fontSize='inherit' /> : <SuccessIcon fontSize='inherit' />}</Box>
+        <Box fontSize='3rem'>
+          {add && <SuccessIcon fontSize='inherit' />}
+          {edit && <InfoIcon fontSize='inherit' />}
+          {remove && <TrashIcon fontSize='inherit' />}
+        </Box>
 
         <div>
           <IconButton sx={{ transform: 'rotate(135deg)' }}>
@@ -65,7 +80,10 @@ export const FormContent = ({
       <StyledDialogTitle id='alert-dialog-title'>{title}</StyledDialogTitle>
 
       <DialogContent>
-        <DialogContentText sx={{ fontSize: '1rem' }} id='alert-dialog-description'>
+        <DialogContentText
+          sx={{ fontSize: '1rem' }}
+          id='alert-dialog-description'
+        >
           {description}
         </DialogContentText>
       </DialogContent>
@@ -121,14 +139,13 @@ export const FormContent = ({
         <Stack spacing={2}>
           <Button
             type='submit'
-            component='button'
             onClick={onAgree}
             variant='contained'
             color={remove ? 'error' : 'secondary'}
           >
             {onAgreeLabel}
           </Button>
-          <Button component='button' onClick={onDisagree} variant='contained' color='primary'>
+          <Button onClick={onDisagree} variant='contained' color='primary'>
             {onDisagreeLabel}
           </Button>
         </Stack>

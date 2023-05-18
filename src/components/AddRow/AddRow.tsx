@@ -1,32 +1,43 @@
-import { Typography, styled, Box, Stack, Chip, ChipProps } from '@mui/material';
+import {
+  Typography,
+  styled,
+  Box,
+  Stack,
+  Chip,
+  ChipProps as MuiChipProps,
+} from '@mui/material';
 import React from 'react';
-import { AddButton } from '../AddButton/AddButton';
-import { IIconButtonProps } from '../IconButton/IconButton';
+import { AddButton, IIconButton } from '../AddButton/AddButton';
 import { FilterIcon } from '../Icons';
 
-export interface IChip {
-  id: string;
-  chipLabel: string;
-  activated: boolean;
+// Only include
+type IPickChipProps = Pick<
+  MuiChipProps,
+  'size' | 'color' | 'clickable' | 'label' | 'disabled'
+>;
+type IPickIconButton = Pick<IIconButton, 'version'>;
+export interface IChipProps extends IPickChipProps {
+  /** Can be used in a map to identify an item */
+  id?: string;
+  /** if true, the activated chip will change appearance */
+  activated?: boolean;
+  label?: string;
 }
 
-export interface IAddRowProps extends IIconButtonProps {
+export interface IAddRowProps extends IPickIconButton {
+  /** list of chips content*/
+  chipsList: Array<IChipProps>;
   title: string;
+  /** if true, the add button will not be visible */
   addIsVisible?: boolean;
-  renewIsVisible?: boolean;
-  filter: boolean;
-  chipsList: Array<IChip>;
-}
-export interface IChipProps extends ChipProps {
-  id: string;
-  chipLabel: string;
-  activated?: boolean;
-  onClick?: () => void;
+  /** if true, the filter bar will not be visible*/
+  filterIsVisible: boolean;
 }
 
 export const StyledAddRowContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  gap: theme.spacing(),
   color: theme.palette.common.black,
 }));
 
@@ -67,7 +78,14 @@ export const StyledFilterBar = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const AddRow = ({ title, addIsVisible, chipsList, filter, ...props }: IAddRowProps & IChipProps) => {
+export const AddRow = ({
+  title,
+  addIsVisible = true,
+  chipsList,
+  filterIsVisible = false,
+  version = 'primary',
+  ...props
+}: IAddRowProps & IChipProps & IPickIconButton) => {
   return (
     <StyledAddRowContainer className='addRowContainer'>
       <StyledAddRow className='addRow'>
@@ -75,22 +93,25 @@ export const AddRow = ({ title, addIsVisible, chipsList, filter, ...props }: IAd
           {title}
         </Typography>
 
-        <div className='buttonGroup'>{addIsVisible && <AddButton {...props} />}</div>
+        <div className='buttonGroup'>
+          {addIsVisible && <AddButton version={version} />}
+        </div>
       </StyledAddRow>
 
-      {filter && (
+      {filterIsVisible && (
         <StyledFilterBar>
           <Box display='flex' height={32} alignItems='center'>
             <FilterIcon />
           </Box>
-          <Stack direction='row' gap={2} flexWrap='wrap'>
+          <Stack direction='row' gap={2} flexWrap='wrap' alignItems='center'>
             {chipsList.map((chip) => (
               <Chip
                 key={chip.id}
-                label={chip.chipLabel}
                 variant={chip.activated ? 'filled' : 'outlined'}
                 color={chip.activated ? 'default' : 'default'}
                 clickable={!chip.activated ? true : false}
+                label={chip.label}
+                {...props}
               />
             ))}
           </Stack>

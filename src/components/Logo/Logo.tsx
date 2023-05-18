@@ -16,6 +16,8 @@ const StyledLogo = styled(Link)<{
   gap: theme.spacing(1 / 2),
   height: 'fit-content',
   width: 'fit-content',
+  textDecoration: 'none',
+  color: theme.palette.common.black,
 
   '.logoIcon': {
     fontSize: ownerState.fontSizeMobile
@@ -41,18 +43,18 @@ const StyledLogo = styled(Link)<{
 export const Logo = ({
   fontSizeMobile,
   fontSizeDesktop,
+  color = 'inherit',
   ...props
 }: ILogo & ISvgProps) => {
   const ownerState = {
     fontSizeMobile,
     fontSizeDesktop,
+    color,
   };
   return (
-    <StyledLogo href={'/'} ownerState={ownerState} {...props}>
-      <Preallo className='logoIcon' {...props} />
-      <Typography className='logoName' variant='h6' component={'span'}>
-        cost
-      </Typography>
+
+    <StyledLogo href={'/'} ownerState={ownerState} {...props} color={color}>
+      <Preallo className='logoIcon' color={color} {...props} />
     </StyledLogo>
   );
 };

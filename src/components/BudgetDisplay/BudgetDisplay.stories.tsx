@@ -1,29 +1,34 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BudgetDisplay } from './BudgetDisplay';
 
-export default {
+import type { Meta, StoryObj } from '@storybook/react';
+
+const meta: Meta<typeof BudgetDisplay> = {
   title: 'components/BudgetDisplay',
   component: BudgetDisplay,
   args: {
     days: 25,
     amount: 2.478,
-    variant: 'determinate',
     progressValue: 60,
     color: 'secondary',
-    centerWithTitle: false,
   },
-} as ComponentMeta<typeof BudgetDisplay>;
-const Template: ComponentStory<typeof BudgetDisplay> = (args) => <BudgetDisplay {...args} />;
-
-export const Default = Template.bind({});
-
-export const WithProgress = Template.bind({});
-WithProgress.args = {
-  viewProgress: true,
-  progressValue: 60,
 };
-export const CenteredWithTitle = Template.bind({});
-CenteredWithTitle.args = {
-  viewProgress: false,
-  centerWithTitle: true,
+
+export default meta;
+type Story = StoryObj<typeof BudgetDisplay>;
+
+export const Primary: Story = {
+  args: {},
+};
+
+export const WithProgress: Story = {
+  args: {
+    viewProgress: true,
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    title: 'Budget',
+    version: 'secondary',
+  },
 };
