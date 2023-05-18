@@ -1,59 +1,24 @@
-import { styled, Typography } from '@mui/material';
+import { styled } from '@mui/material';
 import React from 'react';
 import { Preallo } from '../Icons';
 import { ISvgProps } from '../SvgIcon/SvgIcon';
 import Link from 'next/link';
 
-export type ILogo = {
-  fontSizeMobile?: string;
-  fontSizeDesktop?: string;
-};
+type IPickedSvgProps = Pick<ISvgProps, 'color' | 'sx'>;
 
-const StyledLogo = styled(Link)<{
-  ownerState: ILogo;
-}>(({ theme, ownerState }) => ({
+const StyledLogo = styled(Link)(({ theme }) => ({
   display: 'flex',
-  gap: theme.spacing(1 / 2),
-  height: 'fit-content',
-  width: 'fit-content',
-  textDecoration: 'none',
   color: theme.palette.common.black,
 
   '.logoIcon': {
-    fontSize: ownerState.fontSizeMobile
-      ? ownerState.fontSizeMobile
-      : theme.spacing(4),
-    [theme.breakpoints.up('sm')]: {
-      fontSize: ownerState.fontSizeDesktop
-        ? ownerState.fontSizeDesktop
-        : theme.spacing(6),
-    },
-  },
-
-  '.logoName': {
-    fontStyle: 'italic',
-    fontWeight: 400,
-    alignSelf: 'center',
-    fontSize: '1rem',
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '1.331rem',
-    },
+    width: 'fit-content',
+    height: 'fit-content',
   },
 }));
-export const Logo = ({
-  fontSizeMobile,
-  fontSizeDesktop,
-  color = 'inherit',
-  ...props
-}: ILogo & ISvgProps) => {
-  const ownerState = {
-    fontSizeMobile,
-    fontSizeDesktop,
-    color,
-  };
-  return (
 
-    <StyledLogo href={'/'} ownerState={ownerState} {...props} color={color}>
+export const Logo = ({ color = 'inherit', ...props }: IPickedSvgProps) => {
+  return (
+    <StyledLogo href={'/'} {...props} color={color}>
       <Preallo className='logoIcon' color={color} {...props} />
     </StyledLogo>
   );
