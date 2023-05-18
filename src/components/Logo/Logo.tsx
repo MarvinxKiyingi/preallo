@@ -8,6 +8,7 @@ type IPickedSvgProps = Pick<ISvgProps, 'color' | 'sx'>;
 const StyledLogo = styled(Link)(({ theme }) => ({
   display: 'flex',
   color: theme.palette.common.black,
+  width: 'fit-content',
 
   '>svg': {
     width: 118,
