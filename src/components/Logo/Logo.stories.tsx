@@ -4,9 +4,7 @@ import { Logo } from './Logo';
 const meta: Meta<typeof Logo> = {
   title: 'components/Logo',
   component: Logo,
-  args: {
-    color: 'inherit',
-  },
+  args: {},
 };
 
 export default meta;
