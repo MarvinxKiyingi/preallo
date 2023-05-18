@@ -12,6 +12,11 @@ const StyledFormContainer = styled('div')(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignSelf: 'center',
+    height: 'inherit',
+
+    [theme.breakpoints.up('md')]: {
+      height: 'fit-content',
+    },
   },
 
   [theme.breakpoints.up('sm')]: {
