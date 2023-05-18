@@ -5,7 +5,7 @@ export { default as ExpenseIcon } from './ExpenseIcon';
 export { default as GoogleIcon } from './Google';
 export { default as PlusIcon } from './PlusIcon';
 export { default as LeftPointer } from './LeftPointer';
-export { default as Xcost } from './Xcost';
+export { default as Preallo } from './Preallo';
 export { default as SettingsIcon } from './SettingsIcon';
 export { default as FilterIcon } from './FilterIcon';
 export { default as MonthIcon } from './MonthIcon';

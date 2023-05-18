@@ -4,10 +4,10 @@ import React from 'react';
 export const HeadContainer = () => {
   return (
     <Head>
-      <title>Xcost</title>
+      <title>Preallo</title>
       <meta
         name='description'
-        content='A webb-app created to help in keeping your finance in check. Spreadsheet no more! Xcost gets the job done in a more elegant way.'
+        content='A webb-app created to help in keeping your finance in check. Spreadsheet no more! Preallo gets the job done in a more elegant way.'
       />
       <meta name='theme-color' content='#F7F6F8' />
       <link rel='icon' href='/favicon.ico' />

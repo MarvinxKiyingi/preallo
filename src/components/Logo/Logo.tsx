@@ -1,6 +1,6 @@
 import { styled, Typography } from '@mui/material';
 import React from 'react';
-import { Xcost } from '../Icons';
+import { Preallo } from '../Icons';
 import { ISvgProps } from '../SvgIcon/SvgIcon';
 import Link from 'next/link';
 
@@ -52,16 +52,9 @@ export const Logo = ({
     color,
   };
   return (
+
     <StyledLogo href={'/'} ownerState={ownerState} {...props} color={color}>
-      <Xcost className='logoIcon' color={color} {...props} />
-      <Typography
-        className='logoName'
-        variant='h6'
-        component='span'
-        color={color}
-      >
-        cost
-      </Typography>
+      <Preallo className='logoIcon' color={color} {...props} />
     </StyledLogo>
   );
 };

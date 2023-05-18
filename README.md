@@ -1,8 +1,8 @@
 ![initials logo](/public/android-chrome-192x192.png 'initials logo')
 
-# Xcost
+# Preallo
 
-Spreadsheet no more! Xcost gets the job done in a more elegant way.
+Spreadsheet no more! Preallo gets the job done in a more elegant way.
 
 ---
 
