@@ -73,7 +73,7 @@ const SignIn = () => {
   const { signInUser, googleSignIn } = useAuth();
 
   const formSubmitHandler: SubmitHandler<ISignIn> = (data: ISignIn) => {
-    console.log('data:', data);
+    // console.log('data:', data);
     signInUser(data);
   };
 
