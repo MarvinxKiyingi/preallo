@@ -14,7 +14,6 @@ const Container = styled('main')<{
   flexDirection: 'column',
   padding: theme.spacing(3, 3, 0, 3),
   maxWidth: theme.breakpoints.values.xl,
-  width: '100%',
   flex: 1,
 
   [theme.breakpoints.up('sm')]: {
