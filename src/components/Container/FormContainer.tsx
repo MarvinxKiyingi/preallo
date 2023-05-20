@@ -6,7 +6,10 @@ const StyledFormContainer = styled('div')(({ theme }) => ({
   height: '100%',
   width: '100%',
   alignSelf: 'center',
-  overflow: 'auto',
+
+  [theme.breakpoints.up('md')]: {
+    overflow: 'auto',
+  },
 
   form: {
     display: 'flex',
