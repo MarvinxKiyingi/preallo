@@ -11,8 +11,12 @@ import { useAuth } from '../../../utils/context/AuthContext';
 import Head from 'next/head';
 
 export const Title = styled(Typography)(({ theme }) => ({
-  ...theme.typography.h2,
+  ...theme.typography.h3,
   marginBottom: 'unset',
+
+  [theme.breakpoints.up('md')]: {
+    ...theme.typography.h2,
+  },
 }));
 
 export const Description = styled(Typography)(({ theme }) => ({
