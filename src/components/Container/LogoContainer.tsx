@@ -18,6 +18,7 @@ const StyledLogoContainer = styled('div')(({ theme }) => ({
       gridColumn: '2/-2',
     },
   },
+
   [theme.breakpoints.up('md')]: {
     margin: theme.spacing(6, 0, 0, 6),
     position: 'absolute',
