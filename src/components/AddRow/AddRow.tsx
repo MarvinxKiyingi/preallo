@@ -26,12 +26,12 @@ export interface IChipProps extends IPickChipProps {
 
 export interface IAddRowProps extends IPickIconButton {
   /** list of chips content*/
-  chipsList: Array<IChipProps>;
+  chipsList?: Array<IChipProps>;
   title: string;
   /** if true, the add button will not be visible */
   addIsVisible?: boolean;
   /** if true, the filter bar will not be visible*/
-  filterIsVisible: boolean;
+  filterIsVisible?: boolean;
 }
 
 export const StyledAddRowContainer = styled(Box)(({ theme }) => ({
@@ -103,18 +103,21 @@ export const AddRow = ({
           <Box display='flex' height={32} alignItems='center'>
             <FilterIcon />
           </Box>
-          <Stack direction='row' gap={2} flexWrap='wrap' alignItems='center'>
-            {chipsList.map((chip) => (
-              <Chip
-                key={chip.id}
-                variant={chip.activated ? 'filled' : 'outlined'}
-                color={chip.activated ? 'default' : 'default'}
-                clickable={!chip.activated ? true : false}
-                label={chip.label}
-                {...props}
-              />
-            ))}
-          </Stack>
+
+          {chipsList && (
+            <Stack direction='row' gap={2} flexWrap='wrap' alignItems='center'>
+              {chipsList.map((chip) => (
+                <Chip
+                  key={chip.id}
+                  variant={chip.activated ? 'filled' : 'outlined'}
+                  color={chip.activated ? 'default' : 'default'}
+                  clickable={!chip.activated ? true : false}
+                  label={chip.label}
+                  {...props}
+                />
+              ))}
+            </Stack>
+          )}
         </StyledFilterBar>
       )}
     </StyledAddRowContainer>
