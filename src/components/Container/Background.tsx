@@ -7,6 +7,10 @@ const StyledBackground = styled('main')(({ theme }) => ({
   flexDirection: 'column',
   height: '100vh',
   backgroundColor: theme.palette.background.default,
+
+  [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
+    height: 'unset',
+  },
 }));
 
 const Background = ({ children }: IChildren) => {

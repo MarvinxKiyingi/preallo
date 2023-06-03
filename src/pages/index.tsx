@@ -18,7 +18,17 @@ const Grid = styled('div')(({ theme }) => ({
   display: 'grid',
   gridTemplateRows: '1fr',
   gap: theme.spacing(2),
+  height: '100%',
   overflow: 'auto',
+
+  [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
+    overflow: 'unset',
+  },
+
+  [theme.breakpoints.up('sm')]: {
+    gridTemplateRows: 'unset',
+    gridTemplateColumns: '1fr 1fr',
+  },
 }));
 
 const Home: NextPage = () => {

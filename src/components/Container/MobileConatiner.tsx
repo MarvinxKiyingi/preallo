@@ -9,6 +9,9 @@ const StyledMobileContainer = styled('div')(({ theme }) => ({
   '>*+*': {
     marginTop: theme.spacing(3),
   },
+  '>:last-child': {
+    paddingBottom: theme.spacing(2),
+  },
 
   display: 'flex',
   flexDirection: 'column',
@@ -21,6 +24,9 @@ const StyledMobileContainer = styled('div')(({ theme }) => ({
     },
     '>*+*': {
       marginTop: theme.spacing(6),
+    },
+    [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
+      height: 'unset',
     },
   },
 }));
