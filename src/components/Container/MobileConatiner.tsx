@@ -25,7 +25,7 @@ const StyledMobileContainer = styled('div')(({ theme }) => ({
     '>*+*': {
       marginTop: theme.spacing(6),
     },
-    [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
+    [`${theme.breakpoints.between(0, 'md')} and (orientation: landscape)`]: {
       height: 'unset',
     },
   },

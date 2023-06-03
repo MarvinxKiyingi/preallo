@@ -8,7 +8,7 @@ const StyledBackground = styled('main')(({ theme }) => ({
   height: '100vh',
   backgroundColor: theme.palette.background.default,
 
-  [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
+  [`${theme.breakpoints.between(0, 'md')} and (orientation: landscape)`]: {
     height: 'unset',
   },
 }));

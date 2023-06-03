@@ -9,9 +9,15 @@ import { MobileNavigation } from '../components/Navigation/MobileNavigation/Mobi
 import { Select } from '../components/Select/Select';
 import { AddRow } from '../components/AddRow/AddRow';
 import { Button } from '../components/Button/Button';
+import DesktopNavigation from '../components/Navigation/DesktopNavigation/DesktopNavigation';
+import ContentContainer from '../components/Container/ContentContainer';
 
 const StyledSelect = styled(Select)(({ theme }) => ({
-  height: 44,
+  minHeight: 44,
+
+  [theme.breakpoints.up('md')]: {
+    minHeight: 56,
+  },
 }));
 
 const Grid = styled('div')(({ theme }) => ({
@@ -28,6 +34,10 @@ const Grid = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     gridTemplateRows: 'unset',
     gridTemplateColumns: '1fr 1fr',
+  },
+  [theme.breakpoints.up('md')]: {
+    gridTemplateRows: 'unset',
+    gridTemplateColumns: '1fr 1fr 1fr',
   },
 }));
 
@@ -95,6 +105,45 @@ const Home: NextPage = () => {
                 ))}
               </Grid>
             )}
+          </>
+        )}
+
+        {isDesktop && (
+          <>
+            <DesktopNavigation />
+            <ContentContainer>
+              <div aria-hidden='true' />
+
+              <div>
+                <StyledSelect
+                  boxShadow
+                  fullWidth
+                  hasBorder={false}
+                  defaultValue='2022'
+                  textAlign='center'
+                  list={['2022', '2023', '2024']}
+                />
+              </div>
+
+              <AddRow addIsVisible version='secondary' title='Add' />
+
+              {monthList && (
+                <Grid>
+                  {monthList.map((item, indx) => (
+                    <Button
+                      key={indx}
+                      fullWidth
+                      color='primary'
+                      onClick={() => {}}
+                      variant='contained'
+                      version='monthPicker'
+                    >
+                      {item}
+                    </Button>
+                  ))}
+                </Grid>
+              )}
+            </ContentContainer>
           </>
         )}
       </AppContainer>

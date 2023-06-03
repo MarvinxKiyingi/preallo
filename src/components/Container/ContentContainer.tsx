@@ -7,7 +7,10 @@ const StyledContentContainer = styled('div')(({ theme }) => ({
   height: '100%',
   '>:first-child': {
     marginBottom: theme.spacing(6),
-    height: theme.spacing(6),
+    minHeight: theme.spacing(6),
+  },
+  '>*+*': {
+    marginTop: theme.spacing(3),
   },
 }));
 

@@ -53,7 +53,7 @@ export const StyledAddRow = styled(Box)(({ theme }) => ({
     fontWeight: 600,
     fontSize: '1rem',
     [theme.breakpoints.up('md')]: {
-      ...theme.typography.h5,
+      ...theme.typography.h6,
       fontWeight: 600,
     },
   },

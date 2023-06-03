@@ -14,13 +14,14 @@ const StyledDesktopContainer = styled('div')<{
     display: 'grid',
     gridTemplateColumns: ownerState.desktopColumns
       ? ownerState.desktopColumns
-      : '0.4fr 1fr',
+      : '0.4fr 2fr',
     height: '100%',
+    gap: theme.spacing(3),
   },
 }));
 const DesktopContainer = ({
   children,
-  desktopColumns = '0.4fr 1fr',
+  desktopColumns = '0.4fr 2fr',
 }: IAppContainer) => {
   const ownerState = {
     children,
