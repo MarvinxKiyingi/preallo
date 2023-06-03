@@ -4,6 +4,7 @@ import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNaviga
 import AppContainer from '../../Container/AppContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
 import ContentContainer from '../../Container/ContentContainer';
+import DesktopContainer from '../../Container/DesktopConatiner';
 
 const AppLayout = () => {
   const isDesktop = useMediaQuery(

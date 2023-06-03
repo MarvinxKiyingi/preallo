@@ -25,14 +25,13 @@ const StyledMuiSelect = styled(MuiSelect)<{ ownerState: IFormControlProps }>(
   ({ theme, ownerState }) => ({
     borderRadius: theme.spacing(1),
     textAlign: ownerState.textAlign ? ownerState.textAlign : 'center',
-    bgcolor: ownerState.bgColor ? ownerState.bgColor : 'initial',
+    backgroundColor: ownerState.bgColor ? ownerState.bgColor : undefined,
     '.MuiOutlinedInput-notchedOutline': {
-      border: ownerState.hasBorder ? null : 'unset',
+      border: ownerState.hasBorder ? undefined : 'unset',
       boxShadow: ownerState.boxShadow
         ? '0px 4px 4px rgba(0, 0, 0, 0.03), 0px -2.81px 7.51px rgba(0, 0, 0, 0.03);'
-        : null,
+        : undefined,
     },
-    backgroundColor: ownerState.bgColor ? ownerState.bgColor : 'initial',
   })
 );
 
@@ -41,13 +40,13 @@ const StyledMuiMenuItem = styled(MuiMenuItem)<{
 }>(({ ownerState }) => ({
   justifyContent: ownerState.textAlign ? ownerState.textAlign : 'center',
   paddingRight: '32px',
-  backgroundColor: ownerState.bgColor ? ownerState.bgColor : 'initial',
+  backgroundColor: ownerState.bgColor ? ownerState.bgColor : undefined,
 }));
 
 export function Select({
   list,
   textAlign = 'center',
-  bgColor = 'initial',
+  bgColor = undefined,
   boxShadow,
   hasBorder = true,
   ...props
@@ -64,6 +63,7 @@ export function Select({
     <StyledMuiSelect
       className='select-container'
       ownerState={ownerState}
+      variant='outlined'
       {...props}
     >
       {list &&

@@ -8,7 +8,6 @@ const meta: Meta<typeof Select> = {
   args: {
     list: ['2022', '2023', '2024'],
     defaultValue: '2022',
-    hasBorder: true,
   },
 };
 
@@ -18,13 +17,15 @@ type Story = StoryObj<typeof Select>;
 export const Primary: Story = {
   args: {
     fullWidth: true,
+    hasBorder: true,
   },
 };
 export const Secondary: Story = {
   args: {
+    boxShadow: true,
     fullWidth: true,
+    hasBorder: false,
     textAlign: 'center',
     bgColor: 'white',
-    boxShadow: true,
   },
 };
