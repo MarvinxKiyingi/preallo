@@ -38,7 +38,6 @@ export const Avatar = ({
   avatarDeskSize = '48px',
   ...props
 }: IAvatar) => {
-  console.log('avatarDeskSize', avatarDeskSize);
   const ownerState = {
     avatarMobileSize,
     avatarDeskSize,

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Avatar } from '../../Avatar/Avatar';
 import { useAuth } from '../../../utils/context/AuthContext';
 import ContentContainer from '../../Container/ContentContainer';
+import { useEffect } from 'react';
 
 const NavContainer = styled('div')({
   display: 'flex',
@@ -77,7 +78,8 @@ const ProfileContainer = styled(Link)(({ theme }) => ({
 }));
 
 const DesktopNavigation = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, signOutUser } = useAuth();
+
   return (
     <ContentContainer>
       <Logo />
@@ -107,7 +109,7 @@ const DesktopNavigation = () => {
           </NavMenu>
         </NavItems>
 
-        <ProfileContainer href=''>
+        <ProfileContainer href='' onClick={() => signOutUser()}>
           <Avatar
             src={currentUser?.photoURL ? currentUser.photoURL : undefined}
           />
