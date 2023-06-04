@@ -17,6 +17,9 @@ import { ISignIn } from '../../model/ISignIn';
 import { IPasswordReset } from '../../model/IPasswordReset';
 import { transformFullName } from '../functions/transformFullName';
 
+import { currentYear } from '../functions/currentYear';
+import { createOrUpdateYears } from '../functions/collection/years';
+
 // Initiating context
 export const AuthContext = React.createContext({} as IAuthContext);
 
@@ -30,10 +33,11 @@ export const AuthContextProvider = ({ children }: IChildren) => {
   // Signing up a user to firebase
   const signUpUser = (props: ISignUp) => {
     createUserWithEmailAndPassword(auth, props.email, props.password)
-      .then((user) => {
-        updateProfile(user.user, {
+      .then((data) => {
+        updateProfile(data.user, {
           displayName: transformFullName(props.firstName, props?.lastName),
         });
+        createOrUpdateYears(data, currentYear());
       })
       .catch((error) => {
         console.log('error:', {
@@ -46,7 +50,9 @@ export const AuthContextProvider = ({ children }: IChildren) => {
   // Signin in a user to firebase
   const signInUser = (props: ISignIn) => {
     signInWithEmailAndPassword(auth, props.email, props.password)
-      .then((data) => {})
+      .then(async (data) => {
+        createOrUpdateYears(data, currentYear());
+      })
       .catch((error) => {
         console.log('error:', {
           errorMessage: error.message,
@@ -70,7 +76,9 @@ export const AuthContextProvider = ({ children }: IChildren) => {
   // Google sign in
   const googleSignIn = () => {
     signInWithPopup(auth, googleProvider)
-      .then((result) => {})
+      .then((data) => {
+        createOrUpdateYears(data, currentYear());
+      })
       .catch((error) => {
         console.log('error:', {
           errorMessage: error.message,
