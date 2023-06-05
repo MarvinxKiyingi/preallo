@@ -5,13 +5,12 @@ const StyledContentContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
-  '>:first-child': {
+  '>:first-of-type': {
     marginBottom: theme.spacing(6),
     minHeight: theme.spacing(6),
   },
-  '>*+*': {
-    marginTop: theme.spacing(3),
-  },
+
+  gap: theme.spacing(3),
 }));
 
 const ContentContainer = ({ children }: IChildren) => {

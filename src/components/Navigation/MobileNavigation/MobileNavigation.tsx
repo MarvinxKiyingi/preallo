@@ -4,6 +4,7 @@ import { IAvatar } from '../../Avatar/Avatar';
 import { DashboardButton } from '../../DashboardButton/DashboardButton';
 import { IIconButtonProps } from '../../IconButton/IconButton';
 import { ProfileButton } from '../../ProfileButton/ProfileButton';
+import { useAuth } from '../../../utils/context/AuthContext';
 
 export interface IMobileNavigation extends IIconButtonProps {
   title?: string;
@@ -53,6 +54,7 @@ export const MobileNavigation = ({
   fontSizeDesktop = '32px',
   ...props
 }: IMobileNavigation & IAvatar) => {
+  const { signOutUser } = useAuth();
   return (
     <MobileNavigationContainer className='MobileNavigationContainer'>
       <div className='dashBoardIconContainer'>
@@ -76,6 +78,7 @@ export const MobileNavigation = ({
               fontSizeMobile={fontSizeMobile}
               fontSizeDesktop={fontSizeDesktop}
               {...props}
+              onClick={signOutUser}
             />
           )}
         </>

@@ -11,6 +11,10 @@ import { AddRow } from '../components/AddRow/AddRow';
 import { Button } from '../components/Button/Button';
 import DesktopNavigation from '../components/Navigation/DesktopNavigation/DesktopNavigation';
 import ContentContainer from '../components/Container/ContentContainer';
+import { useDocument } from 'react-firebase-hooks/firestore';
+import { doc } from 'firebase/firestore';
+import { db } from '../utils/firebase/clientApp';
+import { currentYear } from '../utils/functions/currentYear';
 
 const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -35,14 +39,26 @@ const Grid = styled('div')(({ theme }) => ({
     gridTemplateRows: 'unset',
     gridTemplateColumns: '1fr 1fr',
   },
+  [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  },
+
   [theme.breakpoints.up('md')]: {
-    gridTemplateRows: 'unset',
-    gridTemplateColumns: '1fr 1fr 1fr',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+  },
+
+  [theme.breakpoints.up('lg')]: {
+    gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
+  },
+  [theme.breakpoints.up('xl')]: {
+    gridTemplateColumns: 'repeat(auto-fit, minmax(319px, 1fr))',
   },
 }));
 
 const Home: NextPage = () => {
-  const { signOutUser, currentUser } = useAuth();
+  const { currentUser } = useAuth();
+  const [years] = useDocument(doc(db, 'Years', `${currentUser?.uid}`));
+  const yearList: [string] = years?.data()?.yearList;
 
   const isDesktop = useMediaQuery(
     `${theme.breakpoints.up('md').replace('@media ', '')}`
@@ -55,9 +71,12 @@ const Home: NextPage = () => {
     'apr',
     'may',
     'jun',
-    'july',
+    'jul',
     'aug',
     'sep',
+    'oct',
+    'nov',
+    'dec',
   ];
 
   return (
@@ -79,9 +98,9 @@ const Home: NextPage = () => {
                 boxShadow
                 fullWidth
                 hasBorder={false}
-                defaultValue='2022'
+                defaultValue={currentYear}
                 textAlign='center'
-                list={['2022', '2023', '2024']}
+                list={yearList}
               />
             </div>
 
@@ -118,10 +137,9 @@ const Home: NextPage = () => {
                 <StyledSelect
                   boxShadow
                   fullWidth
-                  hasBorder={false}
-                  defaultValue='2022'
+                  defaultValue={currentYear}
                   textAlign='center'
-                  list={['2022', '2023', '2024']}
+                  list={yearList}
                 />
               </div>
 
