@@ -39,9 +39,19 @@ const Grid = styled('div')(({ theme }) => ({
     gridTemplateRows: 'unset',
     gridTemplateColumns: '1fr 1fr',
   },
+  [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  },
+
   [theme.breakpoints.up('md')]: {
-    gridTemplateRows: 'unset',
-    gridTemplateColumns: '1fr 1fr 1fr',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+  },
+
+  [theme.breakpoints.up('lg')]: {
+    gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
+  },
+  [theme.breakpoints.up('xl')]: {
+    gridTemplateColumns: 'repeat(auto-fit, minmax(319px, 1fr))',
   },
 }));
 

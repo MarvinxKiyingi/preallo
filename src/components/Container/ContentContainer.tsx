@@ -9,9 +9,8 @@ const StyledContentContainer = styled('div')(({ theme }) => ({
     marginBottom: theme.spacing(6),
     minHeight: theme.spacing(6),
   },
-  '>*+*': {
-    marginTop: theme.spacing(3),
-  },
+
+  gap: theme.spacing(3),
 }));
 
 const ContentContainer = ({ children }: IChildren) => {
