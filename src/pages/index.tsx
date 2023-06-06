@@ -91,14 +91,16 @@ const Home: NextPage = () => {
             />
 
             <div>
-              <StyledSelect
-                boxShadow
-                fullWidth
-                hasBorder={false}
-                defaultValue={currentYear}
-                textAlign='center'
-                list={yearList}
-              />
+              {yearList && (
+                <StyledSelect
+                  boxShadow
+                  fullWidth
+                  // hasBorder={false}
+                  defaultValue={currentYear}
+                  textAlign='center'
+                  list={yearList}
+                />
+              )}
             </div>
 
             <AddRow addIsVisible version='secondary' title='Add' />
@@ -131,13 +133,16 @@ const Home: NextPage = () => {
               <div aria-hidden='true' />
 
               <div>
-                <StyledSelect
-                  boxShadow
-                  fullWidth
-                  defaultValue={currentYear}
-                  textAlign='center'
-                  list={yearList}
-                />
+                {yearList && (
+                  <StyledSelect
+                    boxShadow
+                    fullWidth
+                    // hasBorder={false}
+                    defaultValue={currentYear}
+                    textAlign='center'
+                    list={yearList}
+                  />
+                )}
               </div>
 
               <AddRow addIsVisible version='secondary' title='Add' />
