@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useAuth } from '../utils/context/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
 import { theme } from '../styles/theme/muiTheme';
-import { styled } from '@mui/material';
+import { Dialog, Typography, styled } from '@mui/material';
 import AppContainer from '../components/Container/AppContainer';
 import { MobileNavigation } from '../components/Navigation/MobileNavigation/MobileNavigation';
 import { Select } from '../components/Select/Select';
@@ -15,6 +15,9 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 import { doc } from 'firebase/firestore';
 import { db } from '../utils/firebase/clientApp';
 import { currentYear } from '../utils/functions/currentYear';
+import { FormContent } from '../components/FormContent/FormContent';
+import { useState } from 'react';
+import { monthList } from '../utils/Variables/monthList';
 
 const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -52,29 +55,30 @@ const Grid = styled('div')(({ theme }) => ({
   },
 }));
 
+const NoContentContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flex: 1,
+}));
+
 const Home: NextPage = () => {
   const { currentUser } = useAuth();
   const [years] = useDocument(doc(db, 'Years', `${currentUser?.uid}`));
   const yearList: [string] = years?.data()?.yearList;
 
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const isDesktop = useMediaQuery(
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
-
-  const monthList = [
-    'jan',
-    'feb',
-    'mar',
-    'apr',
-    'may',
-    'jun',
-    'jul',
-    'aug',
-    'sep',
-    'oct',
-    'nov',
-    'dec',
-  ];
 
   return (
     <>
@@ -103,11 +107,29 @@ const Home: NextPage = () => {
               )}
             </div>
 
-            <AddRow addIsVisible version='secondary' title='Add' />
+            <AddRow
+              addIsVisible
+              version='secondary'
+              title='Add'
+              onClick={() => handleOpen()}
+            />
 
-            {!monthList && <div>Press the add button to get started</div>}
+            <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
+              <FormContent
+                add
+                title='Add Month'
+                description='Pick a month to add, you can only add existing and coming months.'
+                variant='category'
+                categoryList={monthList}
+                onAgreeLabel='Add'
+                onAgree={() => handleClose()}
+                onDisagreeLabel='Cancel'
+                onDisagree={() => handleClose()}
+                onClick={() => handleClose()}
+              />
+            </Dialog>
 
-            {monthList && (
+            {monthList.length > 0 ? (
               <Grid>
                 {monthList.map((item, indx) => (
                   <Button
@@ -122,6 +144,10 @@ const Home: NextPage = () => {
                   </Button>
                 ))}
               </Grid>
+            ) : (
+              <NoContentContainer>
+                <Typography>Press the add button to get started</Typography>
+              </NoContentContainer>
             )}
           </>
         )}
@@ -130,7 +156,7 @@ const Home: NextPage = () => {
           <>
             <DesktopNavigation />
             <ContentContainer>
-              <div aria-hidden='true' />
+              <div aria-hidden='true' className='emptySpace' />
 
               <div>
                 {yearList && (
@@ -145,9 +171,28 @@ const Home: NextPage = () => {
                 )}
               </div>
 
-              <AddRow addIsVisible version='secondary' title='Add' />
+              <AddRow
+                addIsVisible
+                version='secondary'
+                title='Add'
+                onClick={handleOpen}
+              />
 
-              {monthList && (
+              <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
+                <FormContent
+                  add
+                  title='Add Month'
+                  description='Pick a month to add, you can only add existing and coming months.'
+                  variant='category'
+                  categoryList={monthList}
+                  onAgreeLabel='Add'
+                  onAgree={() => handleClose()}
+                  onDisagreeLabel='Cancel'
+                  onDisagree={() => handleClose()}
+                />
+              </Dialog>
+
+              {monthList.length > 0 ? (
                 <Grid>
                   {monthList.map((item, indx) => (
                     <Button
@@ -162,6 +207,10 @@ const Home: NextPage = () => {
                     </Button>
                   ))}
                 </Grid>
+              ) : (
+                <NoContentContainer>
+                  <Typography>Press the add button to get started</Typography>
+                </NoContentContainer>
               )}
             </ContentContainer>
           </>
