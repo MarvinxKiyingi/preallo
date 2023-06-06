@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { Avatar } from '../../Avatar/Avatar';
 import { useAuth } from '../../../utils/context/AuthContext';
 import ContentContainer from '../../Container/ContentContainer';
-import { useEffect } from 'react';
 
 const NavContainer = styled('div')({
   display: 'flex',

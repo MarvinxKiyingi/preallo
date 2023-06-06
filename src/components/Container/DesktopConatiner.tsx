@@ -28,7 +28,7 @@ const DesktopContainer = ({
     desktopColumns,
   };
   return (
-    <StyledDesktopContainer className='hello' ownerState={ownerState}>
+    <StyledDesktopContainer ownerState={ownerState}>
       {children}
     </StyledDesktopContainer>
   );
