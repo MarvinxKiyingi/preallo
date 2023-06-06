@@ -3,7 +3,7 @@ import React from 'react';
 import { ISvgProps } from '../SvgIcon/SvgIcon';
 import Link from 'next/link';
 
-type IPickedSvgProps = Pick<ISvgProps, 'color' | 'sx'>;
+type IPickedSvgProps = Pick<ISvgProps, 'color' | 'sx' | 'className'>;
 
 const StyledLogo = styled(Link)(({ theme }) => ({
   display: 'flex',
@@ -25,7 +25,7 @@ const StyledLogo = styled(Link)(({ theme }) => ({
 
 export const Logo = ({ color = 'inherit', ...props }: IPickedSvgProps) => {
   return (
-    <StyledLogo href={'/'}>
+    <StyledLogo href={'/'} {...props}>
       <SvgIcon
         {...props}
         color={color}

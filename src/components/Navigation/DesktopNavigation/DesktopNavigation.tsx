@@ -81,7 +81,7 @@ const DesktopNavigation = () => {
 
   return (
     <ContentContainer>
-      <Logo />
+      <Logo className='desktopNavLogo' />
       <NavContainer>
         <NavItems>
           <NavMenu>

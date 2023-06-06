@@ -3,9 +3,16 @@ import React from 'react';
 import { Avatar, IAvatar } from '../Avatar/Avatar';
 import { IIconButtonProps } from '../IconButton/IconButton';
 
-export const ProfileButton = ({ ...props }: IIconButtonProps & IAvatar) => {
+export const ProfileButton = ({
+  onClick,
+  ...props
+}: IIconButtonProps & IAvatar) => {
   return (
-    <IconButton className='profileButton-container' {...props}>
+    <IconButton
+      className='profileButton-container'
+      onClick={onClick}
+      {...props}
+    >
       <Avatar {...props} />
     </IconButton>
   );
