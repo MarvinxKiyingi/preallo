@@ -189,6 +189,7 @@ const Home: NextPage = () => {
                   onAgree={() => handleClose()}
                   onDisagreeLabel='Cancel'
                   onDisagree={() => handleClose()}
+                  onClick={() => handleClose()}
                 />
               </Dialog>
 
