@@ -43,6 +43,14 @@ export const Expense: Story = {
     onAgreeLabel: 'Add',
   },
 };
+export const Category: Story = {
+  args: {
+    title: 'Add',
+    add: true,
+    variant: 'category',
+    onAgreeLabel: 'Add',
+  },
+};
 
 export const Edit: Story = {
   args: {

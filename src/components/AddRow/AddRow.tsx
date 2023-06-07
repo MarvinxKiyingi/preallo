@@ -15,7 +15,7 @@ type IPickChipProps = Pick<
   MuiChipProps,
   'size' | 'color' | 'clickable' | 'label' | 'disabled'
 >;
-type IPickIconButton = Pick<IIconButton, 'version'>;
+type IPickIconButton = Pick<IIconButton, 'version' | 'onClick'>;
 export interface IChipProps extends IPickChipProps {
   /** Can be used in a map to identify an item */
   id?: string;
@@ -84,6 +84,7 @@ export const AddRow = ({
   chipsList,
   filterIsVisible = false,
   version = 'primary',
+  onClick,
   ...props
 }: IAddRowProps & IChipProps & IPickIconButton) => {
   return (
@@ -94,7 +95,7 @@ export const AddRow = ({
         </Typography>
 
         <div className='buttonGroup'>
-          {addIsVisible && <AddButton version={version} />}
+          {addIsVisible && <AddButton version={version} onClick={onClick} />}
         </div>
       </StyledAddRow>
 

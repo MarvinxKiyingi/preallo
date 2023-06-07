@@ -50,21 +50,13 @@ export const MobileNavigation = ({
   title,
   hideDashBoard = false,
   hideProfile = false,
-  fontSizeMobile = '24px',
-  fontSizeDesktop = '32px',
   ...props
 }: IMobileNavigation & IAvatar) => {
   const { signOutUser } = useAuth();
   return (
     <MobileNavigationContainer className='MobileNavigationContainer'>
       <div className='dashBoardIconContainer'>
-        {!hideDashBoard && (
-          <DashboardButton
-            fontSizeMobile={fontSizeMobile}
-            fontSizeDesktop={fontSizeDesktop}
-            {...props}
-          />
-        )}
+        {!hideDashBoard && <DashboardButton {...props} />}
       </div>
 
       <Typography className='titleContainer' variant='h6'>
@@ -72,16 +64,7 @@ export const MobileNavigation = ({
       </Typography>
 
       <div className='profileContainer'>
-        <>
-          {!hideProfile && (
-            <ProfileButton
-              fontSizeMobile={fontSizeMobile}
-              fontSizeDesktop={fontSizeDesktop}
-              {...props}
-              onClick={signOutUser}
-            />
-          )}
-        </>
+        {!hideProfile && <ProfileButton onClick={signOutUser} {...props} />}
       </div>
     </MobileNavigationContainer>
   );

@@ -7,7 +7,7 @@ import {
 // Only include
 type IMuiIconButtonProps = Pick<
   MuiIconButtonProps,
-  'size' | 'color' | 'disabled' | 'children'
+  'size' | 'color' | 'disabled' | 'children' | 'onClick' | 'className' | 'sx'
 >;
 
 export interface IIconButtonProps extends IMuiIconButtonProps {
@@ -19,9 +19,6 @@ export interface IIconButtonProps extends IMuiIconButtonProps {
 
   /** If true, the icon background color would be set to white. */
   hasBgColor?: boolean;
-
-  onClick?: () => void;
-  className?: string;
 }
 const StyledIcon = styled(MuiIconButton)<{ ownerState: IIconButtonProps }>(
   ({ theme, ownerState }) => ({

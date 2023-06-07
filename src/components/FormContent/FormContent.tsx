@@ -5,16 +5,17 @@ import {
   DialogTitle,
   Stack,
   styled,
-  IconButton,
   TextField,
 } from '@mui/material';
 
 import { Button } from '../Button/Button';
 import { InfoIcon, PlusIcon, SuccessIcon, TrashIcon } from '../Icons';
 import { Select } from '../Select/Select';
+import { IconButton } from '../IconButton/IconButton';
+import { IIconButtonProps } from '../IconButton/IconButton';
 
 export type IModalContent = {
-  variant: 'amount' | 'expense' | 'all';
+  variant: 'amount' | 'expense' | 'category' | 'all';
   add?: boolean;
   edit?: boolean;
   remove?: boolean;
@@ -60,7 +61,9 @@ export const FormContent = ({
   categoryList,
   register,
   variant,
-}: IModalContent) => {
+  onClick,
+  ...props
+}: IModalContent & IIconButtonProps) => {
   return (
     <>
       <DialogContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -71,7 +74,12 @@ export const FormContent = ({
         </Box>
 
         <div>
-          <IconButton sx={{ transform: 'rotate(135deg)' }}>
+          <IconButton
+            sx={{ transform: 'rotate(135deg)' }}
+            color='inherit'
+            onClick={onClick}
+            {...props}
+          >
             <PlusIcon />
           </IconButton>
         </div>
@@ -105,6 +113,16 @@ export const FormContent = ({
               label={expenseLabel}
               type='text'
               fullWidth
+            />
+          )}
+          {variant === 'category' && (
+            <Select
+              {...(register ? register('category') : { name: 'category' })}
+              defaultValue={categoryList[0]}
+              list={categoryList}
+              textAlign='initial'
+              fullWidth
+              hasBorder
             />
           )}
 
