@@ -23,7 +23,6 @@ type ButtonBaseProps = Pick<
 >;
 
 export interface IButtonProps extends ButtonBaseProps {
-  onClick?: () => void;
   children?: React.ReactNode;
   fullHeight?: boolean;
   /** If `"monthPicker"`, the button will change appearance */
