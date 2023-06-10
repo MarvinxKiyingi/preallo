@@ -3,16 +3,19 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  MenuItem,
   Stack,
   styled,
-  TextField,
 } from '@mui/material';
 
+import TextField from '@mui/material/TextField';
 import { Button } from '../Button/Button';
 import { InfoIcon, PlusIcon, SuccessIcon, TrashIcon } from '../Icons';
-import { Select } from '../Select/Select';
 import { IconButton } from '../IconButton/IconButton';
 import { IIconButtonProps } from '../IconButton/IconButton';
+import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
+import { IModalForm } from '../../model/IModalForm';
+import { useForm } from 'react-hook-form';
 
 export type IModalContent = {
   variant: 'amount' | 'expense' | 'category' | 'all';
@@ -21,24 +24,14 @@ export type IModalContent = {
   remove?: boolean;
   title: string;
   description?: string;
-  onAgree?: () => void;
   onAgreeLabel: string;
   onDisagree?: () => void;
   onDisagreeLabel: string;
   amountLabel?: string;
   expenseLabel?: string;
   categoryList: string[];
-  register?: (
-    // eslint-disable-next-line no-unused-vars
-    name: string,
-    // eslint-disable-next-line no-unused-vars
-    RegisterOptions?: any
-  ) => {
-    onChange: () => void;
-    onBlur: () => void;
-    name: string;
-    ref: any;
-  };
+  // register?: UseFormRegister<IModalForm>;
+  // errors?: FieldErrors<IModalForm>;
 };
 
 const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
@@ -49,7 +42,6 @@ const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
 export const FormContent = ({
   title,
   description,
-  onAgree,
   onAgreeLabel,
   onDisagree,
   onDisagreeLabel,
@@ -59,13 +51,20 @@ export const FormContent = ({
   amountLabel,
   expenseLabel,
   categoryList,
-  register,
   variant,
   onClick,
   ...props
 }: IModalContent & IIconButtonProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({});
+
+  const submitFormContentHandler = (data: any) =>
+    alert(JSON.stringify(data, null, 4));
   return (
-    <>
+    <form onSubmit={handleSubmit(submitFormContentHandler)}>
       <DialogContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box fontSize='3rem'>
           {add && <SuccessIcon fontSize='inherit' />}
@@ -100,54 +99,68 @@ export const FormContent = ({
         <Stack spacing={2}>
           {variant == 'amount' && (
             <TextField
-              {...(register ? register('amount') : { name: 'amount' })}
-              label={amountLabel}
-              type='number'
               fullWidth
+              type='number'
+              error={!!errors?.amount}
+              label={amountLabel}
+              {...register('amount')}
             />
           )}
 
           {variant === 'expense' && (
             <TextField
-              {...(register ? register('expense') : { name: 'expense' })}
-              label={expenseLabel}
-              type='text'
               fullWidth
+              type='text'
+              error={!!errors?.expense}
+              label={expenseLabel}
+              {...register('expense')}
             />
           )}
           {variant === 'category' && (
-            <Select
-              {...(register ? register('category') : { name: 'category' })}
-              defaultValue={categoryList[0]}
-              list={categoryList}
-              textAlign='initial'
+            <TextField
+              select
               fullWidth
-              hasBorder
-            />
+              defaultValue={''}
+              label='Category'
+              {...register('category')}
+            >
+              {categoryList.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </TextField>
           )}
 
           {variant === 'all' && (
             <>
               <TextField
-                {...(register ? register('amount') : { name: 'amount' })}
-                label={amountLabel}
-                type='number'
                 fullWidth
+                type='number'
+                error={!!errors?.amount}
+                label={amountLabel}
+                {...register('amount')}
               />
               <TextField
-                {...(register ? register('expense') : { name: 'expense' })}
-                label={expenseLabel}
+                fullWidth
                 type='text'
-                fullWidth
+                error={!!errors?.expense}
+                label={expenseLabel}
+                {...register('expense')}
               />
-              <Select
-                {...(register ? register('category') : { name: 'category' })}
-                defaultValue={categoryList[0]}
-                list={categoryList}
-                textAlign='initial'
+              <TextField
+                select
                 fullWidth
-                hasBorder
-              />
+                defaultValue={''}
+                label='Category'
+                {...register('category')}
+              >
+                {categoryList.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
             </>
           )}
         </Stack>
@@ -157,7 +170,6 @@ export const FormContent = ({
         <Stack spacing={2}>
           <Button
             type='submit'
-            onClick={onAgree}
             variant='contained'
             color={remove ? 'error' : 'secondary'}
           >
@@ -168,6 +180,6 @@ export const FormContent = ({
           </Button>
         </Stack>
       </DialogContent>
-    </>
+    </form>
   );
 };

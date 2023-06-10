@@ -122,7 +122,6 @@ const Home: NextPage = () => {
                 variant='category'
                 categoryList={monthList}
                 onAgreeLabel='Add'
-                onAgree={() => handleClose()}
                 onDisagreeLabel='Cancel'
                 onDisagree={() => handleClose()}
                 onClick={() => handleClose()}
@@ -186,7 +185,6 @@ const Home: NextPage = () => {
                   variant='category'
                   categoryList={monthList}
                   onAgreeLabel='Add'
-                  onAgree={() => handleClose()}
                   onDisagreeLabel='Cancel'
                   onDisagree={() => handleClose()}
                   onClick={() => handleClose()}

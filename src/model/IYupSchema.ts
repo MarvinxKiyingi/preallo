@@ -1,4 +1,4 @@
-import { object, string, ref } from 'yup';
+import { object, string, ref, number } from 'yup';
 
 export const ISignUpYupSchema = object().shape({
   firstName: string().required(),
@@ -17,4 +17,10 @@ export const ISignInYupSchema = object().shape({
 
 export const IPasswordResetYupSchema = object().shape({
   email: string().required().email(),
+});
+
+export const IModalFormYupSchema = object().shape({
+  amount: number().required(),
+  category: string().required(),
+  expense: string().required(),
 });
