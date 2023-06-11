@@ -30,7 +30,7 @@ export const IExpenseModalFormYupSchema = object().shape({
 });
 
 export const ICategoryModalFormYupSchema = object().shape({
-  category: string().required().typeError('Choose a month to precede'),
+  category: string().required('Choose a month to precede'),
 });
 
 export const IAllModalFormYupSchema = object().shape({

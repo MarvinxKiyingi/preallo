@@ -28,6 +28,7 @@ export type IModalContent = {
   onDisagreeLabel: string;
   amountLabel?: string;
   expenseLabel?: string;
+  categoryLabel?: string;
   categoryList: string[];
   register?: UseFormRegister<IModalForm>;
   errors?: FieldErrors<IModalForm>;
@@ -54,6 +55,7 @@ export const FormContent = ({
   onClick,
   register,
   errors,
+  categoryLabel,
   ...props
 }: IModalContent & IIconButtonProps) => {
   return (
@@ -117,7 +119,7 @@ export const FormContent = ({
               fullWidth
               error={!!errors?.category}
               helperText={errors?.category ? errors.category?.message : ''}
-              label='Category'
+              label={categoryLabel}
               {...(register ? register('category') : { name: 'category' })}
             >
               {categoryList.map((option) => (
@@ -151,7 +153,7 @@ export const FormContent = ({
                 fullWidth
                 error={!!errors?.category}
                 helperText={errors?.category ? errors.category?.message : ''}
-                label='Category'
+                label={categoryLabel}
                 {...(register ? register('category') : { name: 'category' })}
               >
                 {categoryList.map((option) => (
