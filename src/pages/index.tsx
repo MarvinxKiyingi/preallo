@@ -22,6 +22,7 @@ import { IModalForm } from '../model/IModalForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ICategoryModalFormYupSchema } from '../model/IYupSchema';
+import { useApp } from '../utils/context/AppContext';
 
 const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -68,6 +69,7 @@ const NoContentContainer = styled('div')(({ theme }) => ({
 
 const Home: NextPage = () => {
   const { currentUser } = useAuth();
+  const { createMonth } = useApp();
   const [years] = useDocument(doc(db, 'Years', `${currentUser?.uid}`));
   const yearList: [string] = years?.data()?.yearList;
 
@@ -96,7 +98,8 @@ const Home: NextPage = () => {
     data: IModalForm
   ) => {
     console.log('data:', data);
-    alert(JSON.stringify(data, null, 4));
+    // alert(JSON.stringify(data, null, 4));
+    createMonth(data);
   };
 
   return (
@@ -141,6 +144,7 @@ const Home: NextPage = () => {
                   description='Pick a month to add, you can only add existing and coming months.'
                   variant='category'
                   categoryList={monthList}
+                  categoryLabel='Month'
                   onAgreeLabel='Add'
                   onDisagreeLabel='Cancel'
                   onDisagree={() => handleClose()}
@@ -207,6 +211,7 @@ const Home: NextPage = () => {
                     title='Add Month'
                     description='Pick a month to add, you can only add existing and coming months.'
                     variant='category'
+                    categoryLabel='Month'
                     categoryList={monthList}
                     onAgreeLabel='Add'
                     onDisagreeLabel='Cancel'

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { NextShield } from 'next-shield';
 import { HeadContainer } from '../components/Container/HeadContainer';
 import { auth } from '../utils/firebase/clientApp';
+import { AppContextProvider } from '../utils/context/AppContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -30,21 +31,27 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [isUser]);
   return (
     <AuthContextProvider>
-      <ThemeProvider theme={theme}>
-        <NextShield
-          isAuth={isUser}
-          isLoading={currentUserLoading}
-          router={router}
-          privateRoutes={[`${isPrivate ? router.pathname : null}`]}
-          publicRoutes={['/auth/signup', '/auth/signin', '/auth/resetpassword']}
-          accessRoute='/'
-          loginRoute='/auth/signin'
-          LoadingComponent={<p>Loading...</p>}
-        >
-          <HeadContainer />
-          <Component {...pageProps} />
-        </NextShield>
-      </ThemeProvider>
+      <AppContextProvider>
+        <ThemeProvider theme={theme}>
+          <NextShield
+            isAuth={isUser}
+            isLoading={currentUserLoading}
+            router={router}
+            privateRoutes={[`${isPrivate ? router.pathname : null}`]}
+            publicRoutes={[
+              '/auth/signup',
+              '/auth/signin',
+              '/auth/resetpassword',
+            ]}
+            accessRoute='/'
+            loginRoute='/auth/signin'
+            LoadingComponent={<p>Loading...</p>}
+          >
+            <HeadContainer />
+            <Component {...pageProps} />
+          </NextShield>
+        </ThemeProvider>
+      </AppContextProvider>
     </AuthContextProvider>
   );
 }
