@@ -15,7 +15,6 @@ import { IconButton } from '../IconButton/IconButton';
 import { IIconButtonProps } from '../IconButton/IconButton';
 import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
 import { IModalForm } from '../../model/IModalForm';
-import { useForm } from 'react-hook-form';
 
 export type IModalContent = {
   variant: 'amount' | 'expense' | 'category' | 'all';
@@ -30,8 +29,8 @@ export type IModalContent = {
   amountLabel?: string;
   expenseLabel?: string;
   categoryList: string[];
-  // register?: UseFormRegister<IModalForm>;
-  // errors?: FieldErrors<IModalForm>;
+  register?: UseFormRegister<IModalForm>;
+  errors?: FieldErrors<IModalForm>;
 };
 
 const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
@@ -53,18 +52,12 @@ export const FormContent = ({
   categoryList,
   variant,
   onClick,
+  register,
+  errors,
   ...props
 }: IModalContent & IIconButtonProps) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({});
-
-  const submitFormContentHandler = (data: any) =>
-    alert(JSON.stringify(data, null, 4));
   return (
-    <form onSubmit={handleSubmit(submitFormContentHandler)}>
+    <>
       <DialogContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box fontSize='3rem'>
           {add && <SuccessIcon fontSize='inherit' />}
@@ -102,8 +95,9 @@ export const FormContent = ({
               fullWidth
               type='number'
               error={!!errors?.amount}
+              helperText={errors?.amount ? errors.amount?.message : ''}
               label={amountLabel}
-              {...register('amount')}
+              {...(register ? register('amount') : { name: 'amount' })}
             />
           )}
 
@@ -112,17 +106,19 @@ export const FormContent = ({
               fullWidth
               type='text'
               error={!!errors?.expense}
+              helperText={errors?.expense ? errors.expense?.message : ''}
               label={expenseLabel}
-              {...register('expense')}
+              {...(register ? register('expense') : { name: 'expense' })}
             />
           )}
           {variant === 'category' && (
             <TextField
               select
               fullWidth
-              defaultValue={''}
+              error={!!errors?.category}
+              helperText={errors?.category ? errors.category?.message : ''}
               label='Category'
-              {...register('category')}
+              {...(register ? register('category') : { name: 'category' })}
             >
               {categoryList.map((option) => (
                 <MenuItem key={option} value={option}>
@@ -138,22 +134,25 @@ export const FormContent = ({
                 fullWidth
                 type='number'
                 error={!!errors?.amount}
+                helperText={errors?.amount ? errors.amount?.message : ''}
                 label={amountLabel}
-                {...register('amount')}
+                {...(register ? register('amount') : { name: 'amount' })}
               />
               <TextField
                 fullWidth
                 type='text'
                 error={!!errors?.expense}
+                helperText={errors?.expense ? errors.expense?.message : ''}
                 label={expenseLabel}
-                {...register('expense')}
+                {...(register ? register('expense') : { name: 'expense' })}
               />
               <TextField
                 select
                 fullWidth
-                defaultValue={''}
+                error={!!errors?.category}
+                helperText={errors?.category ? errors.category?.message : ''}
                 label='Category'
-                {...register('category')}
+                {...(register ? register('category') : { name: 'category' })}
               >
                 {categoryList.map((option) => (
                   <MenuItem key={option} value={option}>
@@ -180,6 +179,6 @@ export const FormContent = ({
           </Button>
         </Stack>
       </DialogContent>
-    </form>
+    </>
   );
 };

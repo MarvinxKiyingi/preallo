@@ -19,8 +19,24 @@ export const IPasswordResetYupSchema = object().shape({
   email: string().required().email(),
 });
 
-export const IModalFormYupSchema = object().shape({
-  amount: number().required(),
-  category: string().required(),
-  expense: string().required(),
+export const IAmountModalFormYupSchema = object().shape({
+  amount: number()
+    .required()
+    .typeError('Field is required and must be a number'),
+});
+
+export const IExpenseModalFormYupSchema = object().shape({
+  expense: string().required().typeError('Field is required'),
+});
+
+export const ICategoryModalFormYupSchema = object().shape({
+  category: string().required().typeError('Choose a month to precede'),
+});
+
+export const IAllModalFormYupSchema = object().shape({
+  amount: number()
+    .required()
+    .typeError('Field is required and must be a number'),
+  expense: string().required().typeError('Field is required'),
+  category: string().required().typeError('Choose a month to precede'),
 });

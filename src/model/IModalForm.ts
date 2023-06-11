@@ -1,5 +1,5 @@
-export interface IModalForm {
+export type IModalForm = {
   amount?: number;
-  category?: string;
   expense?: string;
-}
+  category?: string;
+};

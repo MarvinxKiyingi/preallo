@@ -18,6 +18,10 @@ import { currentYear } from '../utils/functions/currentYear';
 import { FormContent } from '../components/FormContent/FormContent';
 import { useState } from 'react';
 import { monthList } from '../utils/Variables/monthList';
+import { IModalForm } from '../model/IModalForm';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { ICategoryModalFormYupSchema } from '../model/IYupSchema';
 
 const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -69,6 +73,14 @@ const Home: NextPage = () => {
 
   const [open, setOpen] = useState(false);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IModalForm>({
+    resolver: yupResolver(ICategoryModalFormYupSchema),
+  });
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -79,6 +91,13 @@ const Home: NextPage = () => {
   const isDesktop = useMediaQuery(
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
+
+  const submitFormContentHandler: SubmitHandler<IModalForm> = (
+    data: IModalForm
+  ) => {
+    console.log('data:', data);
+    alert(JSON.stringify(data, null, 4));
+  };
 
   return (
     <>
@@ -115,17 +134,21 @@ const Home: NextPage = () => {
             />
 
             <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
-              <FormContent
-                add
-                title='Add Month'
-                description='Pick a month to add, you can only add existing and coming months.'
-                variant='category'
-                categoryList={monthList}
-                onAgreeLabel='Add'
-                onDisagreeLabel='Cancel'
-                onDisagree={() => handleClose()}
-                onClick={() => handleClose()}
-              />
+              <form onSubmit={handleSubmit(submitFormContentHandler)}>
+                <FormContent
+                  add
+                  title='Add Month'
+                  description='Pick a month to add, you can only add existing and coming months.'
+                  variant='category'
+                  categoryList={monthList}
+                  onAgreeLabel='Add'
+                  onDisagreeLabel='Cancel'
+                  onDisagree={() => handleClose()}
+                  onClick={() => handleClose()}
+                  register={register}
+                  errors={errors}
+                />
+              </form>
             </Dialog>
 
             {monthList.length > 0 ? (
@@ -178,17 +201,21 @@ const Home: NextPage = () => {
               />
 
               <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
-                <FormContent
-                  add
-                  title='Add Month'
-                  description='Pick a month to add, you can only add existing and coming months.'
-                  variant='category'
-                  categoryList={monthList}
-                  onAgreeLabel='Add'
-                  onDisagreeLabel='Cancel'
-                  onDisagree={() => handleClose()}
-                  onClick={() => handleClose()}
-                />
+                <form onSubmit={handleSubmit(submitFormContentHandler)}>
+                  <FormContent
+                    add
+                    title='Add Month'
+                    description='Pick a month to add, you can only add existing and coming months.'
+                    variant='category'
+                    categoryList={monthList}
+                    onAgreeLabel='Add'
+                    onDisagreeLabel='Cancel'
+                    onDisagree={() => handleClose()}
+                    onClick={() => handleClose()}
+                    register={register}
+                    errors={errors}
+                  />
+                </form>
               </Dialog>
 
               {monthList.length > 0 ? (
