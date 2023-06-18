@@ -150,7 +150,7 @@ const Home: NextPage = () => {
               </form>
             </Dialog>
 
-            {months.length > 0 ? (
+            {months?.length > 0 ? (
               <Grid>
                 {months.map((item, indx) => (
                   <Button
@@ -218,7 +218,7 @@ const Home: NextPage = () => {
                 </form>
               </Dialog>
 
-              {months.length > 0 ? (
+              {months?.length > 0 ? (
                 <Grid>
                   {months.map((item, indx) => (
                     <Button
