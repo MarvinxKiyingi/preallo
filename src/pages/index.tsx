@@ -23,6 +23,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ICategoryModalFormYupSchema } from '../model/IYupSchema';
 import { useApp } from '../utils/context/AppContext';
+import { IMonths } from '../model/IMonth';
 
 const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -71,7 +72,9 @@ const Home: NextPage = () => {
   const { currentUser } = useAuth();
   const { createOrUpdateMonth } = useApp();
   const [years] = useDocument(doc(db, 'Years', `${currentUser?.uid}`));
+  const [monthsList] = useDocument(doc(db, 'Months', `${currentUser?.uid}`));
   const yearList: [string] = years?.data()?.yearList;
+  const months: IMonths = monthsList?.data()?.months;
 
   const [open, setOpen] = useState(false);
 
@@ -153,9 +156,9 @@ const Home: NextPage = () => {
               </form>
             </Dialog>
 
-            {monthList.length > 0 ? (
+            {months.length > 0 ? (
               <Grid>
-                {monthList.map((item, indx) => (
+                {months.map((item, indx) => (
                   <Button
                     key={indx}
                     fullWidth
@@ -164,7 +167,7 @@ const Home: NextPage = () => {
                     variant='contained'
                     version='monthPicker'
                   >
-                    {item}
+                    {item.month}
                   </Button>
                 ))}
               </Grid>
@@ -221,9 +224,9 @@ const Home: NextPage = () => {
                 </form>
               </Dialog>
 
-              {monthList.length > 0 ? (
+              {months.length > 0 ? (
                 <Grid>
-                  {monthList.map((item, indx) => (
+                  {months.map((item, indx) => (
                     <Button
                       key={indx}
                       fullWidth
@@ -232,7 +235,7 @@ const Home: NextPage = () => {
                       variant='contained'
                       version='monthPicker'
                     >
-                      {item}
+                      {item.month}
                     </Button>
                   ))}
                 </Grid>
