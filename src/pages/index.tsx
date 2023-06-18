@@ -50,23 +50,17 @@ const Grid = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('md')]: {
-    gridTemplateColumns: 'repeat(auto-fit, minmax(235px, 1fr))',
-  },
-
-  [theme.breakpoints.up('lg')]: {
-    gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
-  },
-  [theme.breakpoints.up(1400)]: {
-    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+    gridTemplateColumns: '1fr 1fr 1fr',
+    gridTemplateRows: '1fr 1fr 1fr 1fr',
   },
 }));
 
-const NoContentContainer = styled('div')(({ theme }) => ({
+const NoContentContainer = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   flex: 1,
-}));
+});
 
 const Home: NextPage = () => {
   const { currentUser } = useAuth();
