@@ -69,7 +69,7 @@ const NoContentContainer = styled('div')(({ theme }) => ({
 
 const Home: NextPage = () => {
   const { currentUser } = useAuth();
-  const { createMonth } = useApp();
+  const { createOrUpdateMonth } = useApp();
   const [years] = useDocument(doc(db, 'Years', `${currentUser?.uid}`));
   const yearList: [string] = years?.data()?.yearList;
 
@@ -97,9 +97,7 @@ const Home: NextPage = () => {
   const submitFormContentHandler: SubmitHandler<IModalForm> = (
     data: IModalForm
   ) => {
-    console.log('data:', data);
-    // alert(JSON.stringify(data, null, 4));
-    createMonth(data);
+    createOrUpdateMonth(data);
   };
 
   return (

@@ -1,5 +1,5 @@
 import { IModalForm } from './IModalForm';
 
 export type IAppContext = {
-  createMonth: (data: IModalForm) => void;
+  createOrUpdateMonth: (data: IModalForm) => void;
 };
