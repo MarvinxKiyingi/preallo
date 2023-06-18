@@ -1,4 +1,4 @@
-import { object, string, ref } from 'yup';
+import { object, string, ref, number } from 'yup';
 
 export const ISignUpYupSchema = object().shape({
   firstName: string().required(),
@@ -17,4 +17,26 @@ export const ISignInYupSchema = object().shape({
 
 export const IPasswordResetYupSchema = object().shape({
   email: string().required().email(),
+});
+
+export const IAmountModalFormYupSchema = object().shape({
+  amount: number()
+    .required()
+    .typeError('Field is required and must be a number'),
+});
+
+export const IExpenseModalFormYupSchema = object().shape({
+  expense: string().required().typeError('Field is required'),
+});
+
+export const ICategoryModalFormYupSchema = object().shape({
+  category: string().required('Choose a month to precede'),
+});
+
+export const IAllModalFormYupSchema = object().shape({
+  amount: number()
+    .required()
+    .typeError('Field is required and must be a number'),
+  expense: string().required().typeError('Field is required'),
+  category: string().required().typeError('Choose a month to precede'),
 });

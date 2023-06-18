@@ -18,6 +18,12 @@ import { currentYear } from '../utils/functions/currentYear';
 import { FormContent } from '../components/FormContent/FormContent';
 import { useState } from 'react';
 import { monthList } from '../utils/Variables/monthList';
+import { IModalForm } from '../model/IModalForm';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { ICategoryModalFormYupSchema } from '../model/IYupSchema';
+import { useApp } from '../utils/context/AppContext';
+import { IMonths } from '../model/IMonth';
 
 const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -44,30 +50,35 @@ const Grid = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('md')]: {
-    gridTemplateColumns: 'repeat(auto-fit, minmax(235px, 1fr))',
-  },
-
-  [theme.breakpoints.up('lg')]: {
-    gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
-  },
-  [theme.breakpoints.up(1400)]: {
-    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+    gridTemplateColumns: '1fr 1fr 1fr',
+    gridTemplateRows: '1fr 1fr 1fr 1fr',
   },
 }));
 
-const NoContentContainer = styled('div')(({ theme }) => ({
+const NoContentContainer = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   flex: 1,
-}));
+});
 
 const Home: NextPage = () => {
   const { currentUser } = useAuth();
+  const { createOrUpdateMonth } = useApp();
   const [years] = useDocument(doc(db, 'Years', `${currentUser?.uid}`));
+  const [monthsList] = useDocument(doc(db, 'Months', `${currentUser?.uid}`));
   const yearList: [string] = years?.data()?.yearList;
+  const months: IMonths = monthsList?.data()?.months;
 
   const [open, setOpen] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IModalForm>({
+    resolver: yupResolver(ICategoryModalFormYupSchema),
+  });
 
   const handleOpen = () => {
     setOpen(true);
@@ -79,6 +90,12 @@ const Home: NextPage = () => {
   const isDesktop = useMediaQuery(
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
+
+  const submitFormContentHandler: SubmitHandler<IModalForm> = (
+    data: IModalForm
+  ) => {
+    createOrUpdateMonth(data);
+  };
 
   return (
     <>
@@ -115,23 +132,27 @@ const Home: NextPage = () => {
             />
 
             <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
-              <FormContent
-                add
-                title='Add Month'
-                description='Pick a month to add, you can only add existing and coming months.'
-                variant='category'
-                categoryList={monthList}
-                onAgreeLabel='Add'
-                onAgree={() => handleClose()}
-                onDisagreeLabel='Cancel'
-                onDisagree={() => handleClose()}
-                onClick={() => handleClose()}
-              />
+              <form onSubmit={handleSubmit(submitFormContentHandler)}>
+                <FormContent
+                  add
+                  title='Add Month'
+                  description='Pick a month to add, you can only add existing and coming months.'
+                  variant='category'
+                  categoryList={monthList}
+                  categoryLabel='Month'
+                  onAgreeLabel='Add'
+                  onDisagreeLabel='Cancel'
+                  onDisagree={() => handleClose()}
+                  onClick={() => handleClose()}
+                  register={register}
+                  errors={errors}
+                />
+              </form>
             </Dialog>
 
-            {monthList.length > 0 ? (
+            {months.length > 0 ? (
               <Grid>
-                {monthList.map((item, indx) => (
+                {months.map((item, indx) => (
                   <Button
                     key={indx}
                     fullWidth
@@ -140,7 +161,7 @@ const Home: NextPage = () => {
                     variant='contained'
                     version='monthPicker'
                   >
-                    {item}
+                    {item.month}
                   </Button>
                 ))}
               </Grid>
@@ -179,23 +200,27 @@ const Home: NextPage = () => {
               />
 
               <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
-                <FormContent
-                  add
-                  title='Add Month'
-                  description='Pick a month to add, you can only add existing and coming months.'
-                  variant='category'
-                  categoryList={monthList}
-                  onAgreeLabel='Add'
-                  onAgree={() => handleClose()}
-                  onDisagreeLabel='Cancel'
-                  onDisagree={() => handleClose()}
-                  onClick={() => handleClose()}
-                />
+                <form onSubmit={handleSubmit(submitFormContentHandler)}>
+                  <FormContent
+                    add
+                    title='Add Month'
+                    description='Pick a month to add, you can only add existing and coming months.'
+                    variant='category'
+                    categoryLabel='Month'
+                    categoryList={monthList}
+                    onAgreeLabel='Add'
+                    onDisagreeLabel='Cancel'
+                    onDisagree={() => handleClose()}
+                    onClick={() => handleClose()}
+                    register={register}
+                    errors={errors}
+                  />
+                </form>
               </Dialog>
 
-              {monthList.length > 0 ? (
+              {months.length > 0 ? (
                 <Grid>
-                  {monthList.map((item, indx) => (
+                  {months.map((item, indx) => (
                     <Button
                       key={indx}
                       fullWidth
@@ -204,7 +229,7 @@ const Home: NextPage = () => {
                       variant='contained'
                       version='monthPicker'
                     >
-                      {item}
+                      {item.month}
                     </Button>
                   ))}
                 </Grid>
