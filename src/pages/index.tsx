@@ -33,20 +33,18 @@ const StyledSelect = styled(Select)(({ theme }) => ({
   },
 }));
 
-const Grid = styled('div')(({ theme }) => ({
+const Grid = styled('div')<{
+  ownerState: { months: IMonths };
+}>(({ theme, ownerState }) => ({
   display: 'grid',
-  gridTemplateRows: '1fr',
+  gridTemplateColumns: '1fr',
+  gridAutoRows: ownerState.months.length > 2 ? '1fr' : 'max-content',
   gap: theme.spacing(2),
   height: '100%',
   overflow: 'auto',
 
   [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
     overflow: 'unset',
-  },
-
-  [theme.breakpoints.up('sm')]: {
-    gridTemplateRows: 'unset',
-    gridTemplateColumns: '1fr 1fr',
   },
 
   [theme.breakpoints.up('md')]: {
@@ -96,6 +94,12 @@ const Home: NextPage = () => {
   ) => {
     createOrUpdateMonth(data);
   };
+
+  const ownerState = {
+    months,
+  };
+
+  console.log('months', months);
 
   return (
     <>
@@ -151,7 +155,7 @@ const Home: NextPage = () => {
             </Dialog>
 
             {months?.length > 0 ? (
-              <Grid>
+              <Grid ownerState={ownerState}>
                 {months.map((item, indx) => (
                   <Button
                     key={indx}
@@ -219,7 +223,7 @@ const Home: NextPage = () => {
               </Dialog>
 
               {months?.length > 0 ? (
-                <Grid>
+                <Grid ownerState={ownerState}>
                   {months.map((item, indx) => (
                     <Button
                       key={indx}
