@@ -1,11 +1,15 @@
-import { styled } from '@mui/material';
+import { SyntheticEvent, useState } from 'react';
+import { Tab, Tabs, styled, TabProps } from '@mui/material';
 import { Logo } from '../../Logo/Logo';
 import { DashboardIcon, RepeatIcon, SubscriptionsIcon } from '../../Icons';
-import { Button } from '../../Button/Button';
 import Link from 'next/link';
 import { Avatar } from '../../Avatar/Avatar';
 import { useAuth } from '../../../utils/context/AuthContext';
 import ContentContainer from '../../Container/ContentContainer';
+
+type IStyledTab = TabProps & {
+  href?: string;
+};
 
 const NavContainer = styled('div')({
   display: 'flex',
@@ -14,33 +18,24 @@ const NavContainer = styled('div')({
   justifyContent: 'space-between',
 });
 
-const NavItems = styled('nav')(({ theme }) => ({}));
-
-const NavMenu = styled('menu')(({ theme }) => ({
-  padding: 'unset',
-  margin: 'unset',
-
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-}));
-
-const NavItem = styled('li')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  listStyle: 'none',
-
-  '>button': {
-    ...theme.typography.subtitle1,
-    padding: theme.spacing(2),
+const StyledTabs = styled(Tabs)(({ theme }) => ({
+  '& .MuiTabs-flexContainer': {
     gap: theme.spacing(2),
-    fontWeight: 600,
-    lineHeight: '120%',
-    fontStyle: 'normal',
+  },
+  '& .MuiTabs-indicator': {
+    display: 'none',
+  },
+  '& .Mui-selected': {
+    backgroundColor: theme.palette.common.white,
+    color: `${theme.palette.secondary.main} !important`,
+  },
+  '& .MuiButtonBase-root': {
+    minHeight: 'unset',
+    borderRadius: theme.spacing(),
   },
 }));
 
-const StyledButton = styled(Button)(({ theme }) => ({
+const StyledTab = styled(Tab)<IStyledTab>(({ theme }) => ({
   ...theme.typography.subtitle1,
   justifyContent: 'flex-start',
   padding: theme.spacing(2),
@@ -49,18 +44,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   lineHeight: '120%',
   fontStyle: 'normal',
   textTransform: 'capitalize',
-  backgroundColor: 'transparent',
   color: theme.palette.common.black,
-
-  ':hover,:active': {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.secondary.main,
-  },
-
-  '.navItemIsActive': {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.secondary.main,
-  },
 }));
 
 const ProfileContainer = styled(Link)(({ theme }) => ({
@@ -78,35 +62,47 @@ const ProfileContainer = styled(Link)(({ theme }) => ({
 
 const DesktopNavigation = () => {
   const { currentUser, signOutUser } = useAuth();
+  const [value, setValue] = useState('dashboard');
+
+  const handleChange = (_event: SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
 
   return (
     <ContentContainer>
       <Logo className='desktopNavLogo' />
       <NavContainer>
-        <NavItems>
-          <NavMenu>
-            <NavItem>
-              <StyledButton fullWidth color='inherit'>
-                <DashboardIcon />
-                Dashboard
-              </StyledButton>
-            </NavItem>
-
-            <NavItem>
-              <StyledButton fullWidth color='inherit'>
-                <SubscriptionsIcon />
-                Subscriptions
-              </StyledButton>
-            </NavItem>
-
-            <NavItem>
-              <StyledButton fullWidth color='inherit'>
-                <RepeatIcon />
-                Recurring
-              </StyledButton>
-            </NavItem>
-          </NavMenu>
-        </NavItems>
+        <StyledTabs
+          value={value}
+          onChange={handleChange}
+          aria-label='navigation'
+          orientation='vertical'
+        >
+          <StyledTab
+            LinkComponent={Link}
+            href={'/'}
+            value='dashboard'
+            label='Dashboard'
+            iconPosition='start'
+            icon={<DashboardIcon />}
+          />
+          <StyledTab
+            LinkComponent={Link}
+            href={'/subscriptions'}
+            value='subscriptions'
+            label='Subscriptions'
+            iconPosition='start'
+            icon={<SubscriptionsIcon />}
+          />
+          <StyledTab
+            LinkComponent={Link}
+            href={'/recurring'}
+            value='recurring'
+            label='Recurring'
+            iconPosition='start'
+            icon={<RepeatIcon />}
+          />
+        </StyledTabs>
 
         <ProfileContainer href='' onClick={() => signOutUser()}>
           <Avatar
