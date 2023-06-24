@@ -10,7 +10,6 @@ import { Select } from '../components/Select/Select';
 import { AddRow } from '../components/AddRow/AddRow';
 import { Button } from '../components/Button/Button';
 import DesktopNavigation from '../components/Navigation/DesktopNavigation/DesktopNavigation';
-import ContentContainer from '../components/Container/ContentContainer';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { doc } from 'firebase/firestore';
 import { db } from '../utils/firebase/clientApp';
@@ -59,6 +58,19 @@ const NoContentContainer = styled('div')({
   alignItems: 'center',
   flex: 1,
 });
+
+const StyledContentContainer = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('md')]: {
+    display: 'grid',
+    gridTemplateRows: '1.3fr 0.2fr 5fr',
+    gap: theme.spacing(3),
+  },
+  '>:first-of-type': {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+}));
 
 const Home: NextPage = () => {
   const { currentUser } = useAuth();
@@ -180,9 +192,7 @@ const Home: NextPage = () => {
         {isDesktop && (
           <>
             <DesktopNavigation />
-            <ContentContainer>
-              <div aria-hidden='true' className='emptySpace' />
-
+            <StyledContentContainer>
               <div>
                 {yearList && (
                   <StyledSelect
@@ -242,7 +252,7 @@ const Home: NextPage = () => {
                   <Typography>Press the add button to get started</Typography>
                 </NoContentContainer>
               )}
-            </ContentContainer>
+            </StyledContentContainer>
           </>
         )}
       </AppContainer>
