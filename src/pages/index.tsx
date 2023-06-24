@@ -22,7 +22,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ICategoryModalFormYupSchema } from '../model/IYupSchema';
 import { useApp } from '../utils/context/AppContext';
-import { IMonths } from '../model/IMonth';
+import { IMonth, IMonths } from '../model/IMonth';
 
 const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -75,10 +75,16 @@ const StyledContentContainer = styled('div')(({ theme }) => ({
 const Home: NextPage = () => {
   const { currentUser } = useAuth();
   const { createOrUpdateMonth } = useApp();
-  const [years] = useDocument(doc(db, 'Years', `${currentUser?.uid}`));
-  const [monthsList] = useDocument(doc(db, 'Months', `${currentUser?.uid}`));
-  const yearList: [string] = years?.data()?.yearList;
-  const months: IMonths = monthsList?.data()?.months;
+  const [yearsSnapshot] = useDocument(doc(db, 'Years', `${currentUser?.uid}`));
+  const [monthsSnapshot] = useDocument(
+    doc(db, 'Months', `${currentUser?.uid}`)
+  );
+  const yearList: [string] = yearsSnapshot?.data()?.yearList;
+  const months: IMonths = monthsSnapshot
+    ?.data()
+    ?.months?.sort((a: IMonth, b: IMonth) => {
+      return monthList.indexOf(a.month) - monthList.indexOf(b.month);
+    });
 
   const [open, setOpen] = useState(false);
 
@@ -110,8 +116,6 @@ const Home: NextPage = () => {
   const ownerState = {
     months,
   };
-
-  console.log('months', months);
 
   return (
     <>
