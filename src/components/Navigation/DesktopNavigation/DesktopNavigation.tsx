@@ -104,7 +104,7 @@ const DesktopNavigation = () => {
           />
         </StyledTabs>
 
-        <ProfileContainer href='' onClick={() => signOutUser()}>
+        <ProfileContainer href='/profile'>
           <Avatar
             src={currentUser?.photoURL ? currentUser.photoURL : undefined}
           />

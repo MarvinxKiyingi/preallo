@@ -5,6 +5,7 @@ import { DashboardButton } from '../../DashboardButton/DashboardButton';
 import { IIconButtonProps } from '../../IconButton/IconButton';
 import { ProfileButton } from '../../ProfileButton/ProfileButton';
 import { useAuth } from '../../../utils/context/AuthContext';
+import Link from 'next/link';
 
 export interface IMobileNavigation extends IIconButtonProps {
   title?: string;
@@ -59,7 +60,12 @@ export const MobileNavigation = ({
         {!hideDashBoard && <DashboardButton {...props} />}
       </div>
 
-      <Typography className='titleContainer' variant='h6'>
+      <Typography
+        className='titleContainer'
+        variant='h6'
+        component={Link}
+        href={'/'}
+      >
         {title}
       </Typography>
 
