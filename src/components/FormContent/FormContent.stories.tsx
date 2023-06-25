@@ -9,7 +9,8 @@ const meta: Meta<typeof FormContent> = {
     description:
       'I live my day as if it was the last Live my day as if there was no past Doin it all night, all summer Doin it the way I wanna',
     onDisagreeLabel: 'Cancel',
-    categoryList: ['Category', 'Car', 'Transportation'],
+    selectLabel: 'Select',
+    selectList: ['Home', 'Car', 'Transportation'],
     amountLabel: 'Amount',
     expenseLabel: 'Expense',
   },
@@ -43,11 +44,11 @@ export const Expense: Story = {
     onAgreeLabel: 'Add',
   },
 };
-export const Category: Story = {
+export const Select: Story = {
   args: {
     title: 'Add',
     add: true,
-    variant: 'category',
+    variant: 'select',
     onAgreeLabel: 'Add',
   },
 };

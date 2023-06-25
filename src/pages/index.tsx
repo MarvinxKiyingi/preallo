@@ -20,7 +20,7 @@ import { monthList } from '../utils/Variables/monthList';
 import { IModalForm } from '../model/IModalForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ICategoryModalFormYupSchema } from '../model/IYupSchema';
+import { ISelectModalFormYupSchema } from '../model/IYupSchema';
 import { useApp } from '../utils/context/AppContext';
 import { IMonth, IMonths } from '../model/IMonth';
 
@@ -93,7 +93,7 @@ const Home: NextPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IModalForm>({
-    resolver: yupResolver(ICategoryModalFormYupSchema),
+    resolver: yupResolver(ISelectModalFormYupSchema),
   });
 
   const handleOpen = () => {
@@ -157,9 +157,9 @@ const Home: NextPage = () => {
                   add
                   title='Add Month'
                   description='Pick a month to add, you can only add existing and coming months.'
-                  variant='category'
-                  categoryList={monthList}
-                  categoryLabel='Month'
+                  variant='select'
+                  selectList={monthList}
+                  selectLabel='Month'
                   onAgreeLabel='Add'
                   onDisagreeLabel='Cancel'
                   onDisagree={() => handleClose()}
@@ -223,9 +223,9 @@ const Home: NextPage = () => {
                     add
                     title='Add Month'
                     description='Pick a month to add, you can only add existing and coming months.'
-                    variant='category'
-                    categoryLabel='Month'
-                    categoryList={monthList}
+                    variant='select'
+                    selectLabel='Month'
+                    selectList={monthList}
                     onAgreeLabel='Add'
                     onDisagreeLabel='Cancel'
                     onDisagree={() => handleClose()}

@@ -17,7 +17,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
 import { IModalForm } from '../../model/IModalForm';
 
 export type IModalContent = {
-  variant: 'amount' | 'expense' | 'category' | 'all';
+  variant: 'amount' | 'expense' | 'select' | 'all';
   add?: boolean;
   edit?: boolean;
   remove?: boolean;
@@ -28,8 +28,8 @@ export type IModalContent = {
   onDisagreeLabel: string;
   amountLabel?: string;
   expenseLabel?: string;
-  categoryLabel?: string;
-  categoryList: string[];
+  selectLabel?: string;
+  selectList: string[];
   register?: UseFormRegister<IModalForm>;
   errors?: FieldErrors<IModalForm>;
 };
@@ -50,12 +50,12 @@ export const FormContent = ({
   remove,
   amountLabel,
   expenseLabel,
-  categoryList,
+  selectLabel,
+  selectList,
   variant,
   onClick,
   register,
   errors,
-  categoryLabel,
   ...props
 }: IModalContent & IIconButtonProps) => {
   return (
@@ -113,16 +113,16 @@ export const FormContent = ({
               {...(register ? register('expense') : { name: 'expense' })}
             />
           )}
-          {variant === 'category' && (
+          {variant === 'select' && (
             <TextField
               select
               fullWidth
-              error={!!errors?.category}
-              helperText={errors?.category ? errors.category?.message : ''}
-              label={categoryLabel}
-              {...(register ? register('category') : { name: 'category' })}
+              error={!!errors?.selected}
+              helperText={errors?.selected ? errors.selected?.message : ''}
+              label={selectLabel}
+              {...(register ? register('selected') : { name: 'selected' })}
             >
-              {categoryList.map((option) => (
+              {selectList.map((option) => (
                 <MenuItem key={option} value={option}>
                   {option}
                 </MenuItem>
@@ -151,12 +151,12 @@ export const FormContent = ({
               <TextField
                 select
                 fullWidth
-                error={!!errors?.category}
-                helperText={errors?.category ? errors.category?.message : ''}
-                label={categoryLabel}
-                {...(register ? register('category') : { name: 'category' })}
+                error={!!errors?.selected}
+                helperText={errors?.selected ? errors.selected?.message : ''}
+                label={selectLabel}
+                {...(register ? register('selected') : { name: 'selected' })}
               >
-                {categoryList.map((option) => (
+                {selectList.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>

@@ -25,7 +25,7 @@ export const AppContextProvider = ({ children }: IChildren) => {
         if (monthSnap.exists()) {
           return updateDoc(monthRef, {
             months: arrayUnion({
-              month: data.category,
+              month: data.selected,
               year: currentYear(),
             }),
           });
@@ -33,7 +33,7 @@ export const AppContextProvider = ({ children }: IChildren) => {
           return setDoc(monthRef, {
             months: [
               {
-                month: data.category,
+                month: data.selected,
                 year: currentYear(),
               },
             ],
