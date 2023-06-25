@@ -57,20 +57,19 @@ export const MobileNavigation = ({
   return (
     <MobileNavigationContainer className='MobileNavigationContainer'>
       <div className='dashBoardIconContainer'>
-        {!hideDashBoard && <DashboardButton {...props} />}
+        {!hideDashBoard && (
+          <DashboardButton {...props} LinkComponent={Link} href='/' />
+        )}
       </div>
 
-      <Typography
-        className='titleContainer'
-        variant='h6'
-        component={Link}
-        href={'/'}
-      >
+      <Typography className='titleContainer' variant='h6'>
         {title}
       </Typography>
 
       <div className='profileContainer'>
-        {!hideProfile && <ProfileButton onClick={signOutUser} {...props} />}
+        {!hideProfile && (
+          <ProfileButton onClick={() => signOutUser} {...props} />
+        )}
       </div>
     </MobileNavigationContainer>
   );
