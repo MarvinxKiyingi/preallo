@@ -29,8 +29,8 @@ export const IExpenseModalFormYupSchema = object().shape({
   expense: string().required().typeError('Field is required'),
 });
 
-export const ICategoryModalFormYupSchema = object().shape({
-  category: string().required('Choose a month to precede'),
+export const ISelectModalFormYupSchema = object().shape({
+  selected: string().required('Choose a month to precede'),
 });
 
 export const IAllModalFormYupSchema = object().shape({
@@ -38,5 +38,5 @@ export const IAllModalFormYupSchema = object().shape({
     .required()
     .typeError('Field is required and must be a number'),
   expense: string().required().typeError('Field is required'),
-  category: string().required().typeError('Choose a month to precede'),
+  selected: string().required().typeError('Choose a month to precede'),
 });

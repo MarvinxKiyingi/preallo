@@ -10,7 +10,6 @@ import { Select } from '../components/Select/Select';
 import { AddRow } from '../components/AddRow/AddRow';
 import { Button } from '../components/Button/Button';
 import DesktopNavigation from '../components/Navigation/DesktopNavigation/DesktopNavigation';
-import ContentContainer from '../components/Container/ContentContainer';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { doc } from 'firebase/firestore';
 import { db } from '../utils/firebase/clientApp';
@@ -21,9 +20,9 @@ import { monthList } from '../utils/Variables/monthList';
 import { IModalForm } from '../model/IModalForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ICategoryModalFormYupSchema } from '../model/IYupSchema';
+import { ISelectModalFormYupSchema } from '../model/IYupSchema';
 import { useApp } from '../utils/context/AppContext';
-import { IMonths } from '../model/IMonth';
+import { IMonth, IMonths } from '../model/IMonth';
 
 const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -60,13 +59,32 @@ const NoContentContainer = styled('div')({
   flex: 1,
 });
 
+const StyledContentContainer = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('md')]: {
+    display: 'grid',
+    gridTemplateRows: '1.3fr 0.2fr 5fr',
+    gap: theme.spacing(3),
+  },
+  '>:first-of-type': {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+}));
+
 const Home: NextPage = () => {
   const { currentUser } = useAuth();
   const { createOrUpdateMonth } = useApp();
-  const [years] = useDocument(doc(db, 'Years', `${currentUser?.uid}`));
-  const [monthsList] = useDocument(doc(db, 'Months', `${currentUser?.uid}`));
-  const yearList: [string] = years?.data()?.yearList;
-  const months: IMonths = monthsList?.data()?.months;
+  const [yearsSnapshot] = useDocument(doc(db, 'Years', `${currentUser?.uid}`));
+  const [monthsSnapshot] = useDocument(
+    doc(db, 'Months', `${currentUser?.uid}`)
+  );
+  const yearList: [string] = yearsSnapshot?.data()?.yearList;
+  const months: IMonths = monthsSnapshot
+    ?.data()
+    ?.months?.sort((a: IMonth, b: IMonth) => {
+      return monthList.indexOf(a.month) - monthList.indexOf(b.month);
+    });
 
   const [open, setOpen] = useState(false);
 
@@ -75,7 +93,7 @@ const Home: NextPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IModalForm>({
-    resolver: yupResolver(ICategoryModalFormYupSchema),
+    resolver: yupResolver(ISelectModalFormYupSchema),
   });
 
   const handleOpen = () => {
@@ -93,13 +111,12 @@ const Home: NextPage = () => {
     data: IModalForm
   ) => {
     createOrUpdateMonth(data);
+    handleClose();
   };
 
   const ownerState = {
     months,
   };
-
-  console.log('months', months);
 
   return (
     <>
@@ -141,9 +158,9 @@ const Home: NextPage = () => {
                   add
                   title='Add Month'
                   description='Pick a month to add, you can only add existing and coming months.'
-                  variant='category'
-                  categoryList={monthList}
-                  categoryLabel='Month'
+                  variant='select'
+                  selectList={monthList}
+                  selectLabel='Month'
                   onAgreeLabel='Add'
                   onDisagreeLabel='Cancel'
                   onDisagree={() => handleClose()}
@@ -180,9 +197,7 @@ const Home: NextPage = () => {
         {isDesktop && (
           <>
             <DesktopNavigation />
-            <ContentContainer>
-              <div aria-hidden='true' className='emptySpace' />
-
+            <StyledContentContainer>
               <div>
                 {yearList && (
                   <StyledSelect
@@ -209,9 +224,9 @@ const Home: NextPage = () => {
                     add
                     title='Add Month'
                     description='Pick a month to add, you can only add existing and coming months.'
-                    variant='category'
-                    categoryLabel='Month'
-                    categoryList={monthList}
+                    variant='select'
+                    selectLabel='Month'
+                    selectList={monthList}
                     onAgreeLabel='Add'
                     onDisagreeLabel='Cancel'
                     onDisagree={() => handleClose()}
@@ -242,7 +257,7 @@ const Home: NextPage = () => {
                   <Typography>Press the add button to get started</Typography>
                 </NoContentContainer>
               )}
-            </ContentContainer>
+            </StyledContentContainer>
           </>
         )}
       </AppContainer>
