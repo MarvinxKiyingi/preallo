@@ -111,6 +111,7 @@ const Home: NextPage = () => {
     data: IModalForm
   ) => {
     createOrUpdateMonth(data);
+    handleClose();
   };
 
   const ownerState = {
