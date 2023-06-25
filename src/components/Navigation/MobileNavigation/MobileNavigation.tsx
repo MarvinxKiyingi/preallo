@@ -5,6 +5,7 @@ import { DashboardButton } from '../../DashboardButton/DashboardButton';
 import { IIconButtonProps } from '../../IconButton/IconButton';
 import { ProfileButton } from '../../ProfileButton/ProfileButton';
 import { useAuth } from '../../../utils/context/AuthContext';
+import Link from 'next/link';
 
 export interface IMobileNavigation extends IIconButtonProps {
   title?: string;
@@ -56,7 +57,9 @@ export const MobileNavigation = ({
   return (
     <MobileNavigationContainer className='MobileNavigationContainer'>
       <div className='dashBoardIconContainer'>
-        {!hideDashBoard && <DashboardButton {...props} />}
+        {!hideDashBoard && (
+          <DashboardButton {...props} LinkComponent={Link} href='/' />
+        )}
       </div>
 
       <Typography className='titleContainer' variant='h6'>
@@ -64,7 +67,9 @@ export const MobileNavigation = ({
       </Typography>
 
       <div className='profileContainer'>
-        {!hideProfile && <ProfileButton onClick={signOutUser} {...props} />}
+        {!hideProfile && (
+          <ProfileButton onClick={() => signOutUser} {...props} />
+        )}
       </div>
     </MobileNavigationContainer>
   );

@@ -1,5 +1,5 @@
 import '../styles/globals.css';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../styles/theme/muiTheme';
@@ -12,23 +12,22 @@ import { AppContextProvider } from '../utils/context/AppContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const isPrivate = !router.pathname.includes('/auth/');
 
   const { currentUserLoading } = useAuth();
-  const [isUser, setIsUser] = useState(false);
+  const [isUser, setIsUser] = useState(true);
+  const isPrivate = !router.pathname.includes('/auth/');
 
   //Check if there is a user, if not one will be redirected to the login page
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setIsUser(true);
-        return;
-      }
-      setIsUser(false);
+      setIsUser(!!user);
     });
 
     return () => unsubscribe();
   }, [isUser]);
+
+  console.log('isUser', isUser);
+
   return (
     <AuthContextProvider>
       <AppContextProvider>
