@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { Tab, Tabs, styled, TabProps } from '@mui/material';
 import { Logo } from '../../Logo/Logo';
 import { DashboardIcon, RepeatIcon, SubscriptionsIcon } from '../../Icons';
@@ -9,6 +9,9 @@ import ContentContainer from '../../Container/ContentContainer';
 
 type IStyledTab = TabProps & {
   href?: string;
+};
+type IDesktopNavigation = {
+  disableHighlight?: string;
 };
 
 const NavContainer = styled('div')({
@@ -60,13 +63,25 @@ const ProfileContainer = styled(Link)(({ theme }) => ({
   textTransform: 'capitalize',
 }));
 
-const DesktopNavigation = () => {
+const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
   const { currentUser, signOutUser } = useAuth();
   const [value, setValue] = useState('dashboard');
 
+  // console.log('router', router);
+  console.log('disableHighlight', disableHighlight);
+
+  const updateState = (props: string) => {
+    setValue(props);
+  };
   const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    if (disableHighlight) {
+      setValue(disableHighlight);
+    }
+  }, [disableHighlight]);
 
   return (
     <ContentContainer>
