@@ -54,7 +54,7 @@ const TextContainer = styled('div')(({ theme }) => ({
     fontWeight: 600,
 
     [theme.breakpoints.up('sm')]: {
-      ...theme.typography.h4,
+      ...theme.typography.h5,
       fontWeight: 600,
     },
   },
@@ -76,6 +76,10 @@ const CardsContainer = styled('div')(({ theme }) => ({
   '&>*': {
     flex: 1,
   },
+
+  [theme.breakpoints.up('sm')]: {
+    marginTop: 'unset',
+  },
 }));
 
 const Card = styled('div')(({ theme }) => ({
@@ -92,12 +96,25 @@ const CardContent = styled('div')(({ theme }) => ({
   padding: theme.spacing(3),
   gap: theme.spacing(2),
   flex: 1,
-  maxWidth: 455,
+  maxWidth: '90%',
 
   '.title': {
     fontWeight: 600,
   },
   '.description': {},
+
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '80%',
+    padding: theme.spacing(3, 0),
+
+    '.title': {
+      ...theme.typography.h6,
+      fontWeight: 600,
+    },
+    '.description': {
+      ...theme.typography.body1,
+    },
+  },
 }));
 
 const ButtonGroup = styled('div')(({ theme }) => ({
