@@ -23,6 +23,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ISelectModalFormYupSchema } from '../model/IYupSchema';
 import { useApp } from '../utils/context/AppContext';
 import { IMonth, IMonths } from '../model/IMonth';
+import ContentContainer from '../components/Container/ContentContainer';
 
 const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -197,7 +198,8 @@ const Home: NextPage = () => {
         {isDesktop && (
           <>
             <DesktopNavigation />
-            <StyledContentContainer>
+            <ContentContainer>
+              <div className='emptySpace' />
               <div>
                 {yearList && (
                   <StyledSelect
@@ -257,7 +259,7 @@ const Home: NextPage = () => {
                   <Typography>Press the add button to get started</Typography>
                 </NoContentContainer>
               )}
-            </StyledContentContainer>
+            </ContentContainer>
           </>
         )}
       </AppContainer>
