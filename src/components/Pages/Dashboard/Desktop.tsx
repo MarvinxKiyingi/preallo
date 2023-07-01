@@ -4,10 +4,11 @@ import { Grid, NoContentContainer, StyledSelect } from '../../../pages';
 import { AddRow } from '../../AddRow/AddRow';
 import ContentContainer from '../../Container/ContentContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
-import { FormContent } from '../../FormContent/FormContent';
+
 import { Button } from '../../Button/Button';
 import Link from 'next/link';
 import Typography from '@mui/material/Typography';
+import FormContent from './FormContent';
 
 const Desktop = ({
   currentUser,
@@ -54,16 +55,8 @@ const Desktop = ({
         <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
           <form onSubmit={handleSubmit(submitFormContentHandler)}>
             <FormContent
-              add
-              title='Add Month'
-              description='Pick a month to add, you can only add existing and coming months.'
-              variant='select'
-              selectLabel='Month'
-              selectList={monthList}
-              onAgreeLabel='Add'
-              onDisagreeLabel='Cancel'
-              onDisagree={() => handleClose()}
-              onClick={() => handleClose()}
+              monthList={monthList}
+              handleClose={handleClose}
               register={register}
               errors={errors}
             />

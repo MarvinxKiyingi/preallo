@@ -3,7 +3,7 @@ import { IMonths } from '../../../model/IMonth';
 import { StyledSelect } from '../../../pages';
 import { AddRow } from '../../AddRow/AddRow';
 import { Button } from '../../Button/Button';
-import { FormContent } from '../../FormContent/FormContent';
+import FormContent from './FormContent';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
 import { Dialog, Typography, styled } from '@mui/material';
 import Link from 'next/link';
@@ -82,16 +82,8 @@ const Mobile = ({
       <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
         <form onSubmit={handleSubmit(submitFormContentHandler)}>
           <FormContent
-            add
-            title='Add Month'
-            description='Pick a month to add, you can only add existing and coming months.'
-            variant='select'
-            selectList={monthList}
-            selectLabel='Month'
-            onAgreeLabel='Add'
-            onDisagreeLabel='Cancel'
-            onDisagree={() => handleClose()}
-            onClick={() => handleClose()}
+            monthList={monthList}
+            handleClose={handleClose}
             register={register}
             errors={errors}
           />
