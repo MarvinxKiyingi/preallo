@@ -1,11 +1,12 @@
 import React from 'react';
-import AppContainer from '../../components/Container/AppContainer';
-import { MobileNavigation } from '../../components/Navigation/MobileNavigation/MobileNavigation';
-import { useAuth } from '../../utils/context/AuthContext';
+import AppContainer from '../../Container/AppContainer';
+import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
+import { useAuth } from '../../../utils/context/AuthContext';
 import { Typography, styled, useMediaQuery } from '@mui/material';
-import { Avatar } from '../../components/Avatar/Avatar';
-import { Button } from '../../components/Button/Button';
-import { theme } from '../../styles/theme/muiTheme';
+import { Avatar } from '../../Avatar/Avatar';
+import { Button } from '../../Button/Button';
+import { theme } from '../../../styles/theme/muiTheme';
+import { ProfileCard } from '../../ProfileCard/ProfileCard';
 
 const ProfileWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -34,15 +35,6 @@ const ProfileContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const StyledAvatar = styled(Avatar)(({ theme }) => ({
-  aspectRatio: '1/1',
-  width: '28%',
-
-  [theme.breakpoints.up('sm')]: {
-    width: '59%',
-  },
-}));
-
 const TextContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -54,7 +46,7 @@ const TextContainer = styled('div')(({ theme }) => ({
     fontWeight: 600,
 
     [theme.breakpoints.up('sm')]: {
-      ...theme.typography.h4,
+      ...theme.typography.h5,
       fontWeight: 600,
     },
   },
@@ -76,28 +68,10 @@ const CardsContainer = styled('div')(({ theme }) => ({
   '&>*': {
     flex: 1,
   },
-}));
 
-const Card = styled('div')(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  backgroundColor: theme.palette.background.accent,
-  borderRadius: theme.spacing(2),
-}));
-
-const CardContent = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  padding: theme.spacing(3),
-  gap: theme.spacing(2),
-  flex: 1,
-  maxWidth: 455,
-
-  '.title': {
-    fontWeight: 600,
+  [theme.breakpoints.up('sm')]: {
+    marginTop: 'unset',
   },
-  '.description': {},
 }));
 
 const ButtonGroup = styled('div')(({ theme }) => ({
@@ -127,8 +101,8 @@ const Mobile = () => {
 
       <ProfileWrapper>
         <ProfileContainer>
-          <StyledAvatar
-            avatarMobileSize='auto'
+          <Avatar
+            avatarMobileSize='55%'
             src={currentUser?.photoURL ? currentUser.photoURL : undefined}
           />
 
@@ -164,35 +138,8 @@ const Mobile = () => {
       </ProfileWrapper>
 
       <CardsContainer>
-        <Card>
-          <CardContent>
-            <Typography className='title' variant='body1'>
-              Subscriptions
-            </Typography>
-            <Typography className='description' variant='caption'>
-              Once added here, the total amount will be subtracted from your
-              remaining budget.
-            </Typography>
-            <Button sx={{ maxHeight: 48 }} variant='contained'>
-              Edit
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent>
-            <Typography className='title' variant='body1'>
-              Recurring expenses
-            </Typography>
-            <Typography className='description' variant='caption'>
-              Once added here, the total amount will be subtracted from your
-              remaining budget.
-            </Typography>
-            <Button sx={{ maxHeight: 48 }} variant='contained'>
-              Edit
-            </Button>
-          </CardContent>
-        </Card>
+        <ProfileCard title='Subscriptions' />
+        <ProfileCard title='Recurring expenses' />
       </CardsContainer>
 
       {!isIpad && (

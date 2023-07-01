@@ -2,8 +2,8 @@ import React from 'react';
 import Head from 'next/head';
 import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
 import { theme } from '../../styles/theme/muiTheme';
-import Mobile from './Mobile';
-import Desktop from './Desktop';
+import Mobile from '../../components/Pages/Profile/Mobile';
+import Desktop from '../../components/Pages/Profile/Desktop';
 
 const Profile = () => {
   const isDesktop = useMediaQuery(

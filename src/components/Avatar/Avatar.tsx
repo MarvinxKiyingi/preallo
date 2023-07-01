@@ -6,7 +6,10 @@ import {
 } from '@mui/material';
 
 // Only include
-type AvatarProps = Pick<MuiAvatarProps, 'alt' | 'children' | 'src' | 'variant'>;
+type AvatarProps = Pick<
+  MuiAvatarProps,
+  'alt' | 'children' | 'src' | 'variant' | 'sx'
+>;
 export interface IAvatar extends AvatarProps {
   /** adjust avatar size for only when in mobile view  */
   avatarMobileSize?: string;
@@ -16,17 +19,14 @@ export interface IAvatar extends AvatarProps {
 
 const StyledAvatar = styled(MuiAvatar)<{ ownerState: IAvatar }>(
   ({ theme, ownerState }) => ({
+    aspectRatio: '1/1',
     width: ownerState.avatarMobileSize
       ? ownerState.avatarMobileSize
       : theme.spacing(3),
-    height: ownerState.avatarMobileSize
-      ? ownerState.avatarMobileSize
-      : theme.spacing(3),
+    height: 'auto',
+
     [theme.breakpoints.up('md')]: {
       width: ownerState.avatarDeskSize
-        ? ownerState.avatarDeskSize
-        : theme.spacing(6),
-      height: ownerState.avatarDeskSize
         ? ownerState.avatarDeskSize
         : theme.spacing(6),
     },
