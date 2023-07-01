@@ -6,6 +6,7 @@ import { Typography, styled, useMediaQuery } from '@mui/material';
 import { Avatar } from '../../components/Avatar/Avatar';
 import { Button } from '../../components/Button/Button';
 import { theme } from '../../styles/theme/muiTheme';
+import { Card } from './Components/Card';
 
 const ProfileWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -73,44 +74,6 @@ const CardsContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const Card = styled('div')(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  backgroundColor: theme.palette.background.accent,
-  borderRadius: theme.spacing(2),
-}));
-
-const CardContent = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  padding: theme.spacing(3),
-  gap: theme.spacing(2),
-  flex: 1,
-  maxWidth: '90%',
-
-  '.title': {
-    fontWeight: 600,
-  },
-  '.description': {},
-
-  [theme.breakpoints.up('sm')]: {
-    maxWidth: '80%',
-    padding: theme.spacing(3, 0),
-
-    '.title': {
-      ...theme.typography.h6,
-      fontWeight: 600,
-    },
-    '.description': {
-      ...theme.typography.body1,
-    },
-  },
-  [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
-    padding: theme.spacing(6, 0),
-  },
-}));
-
 const ButtonGroup = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -175,35 +138,8 @@ const Mobile = () => {
       </ProfileWrapper>
 
       <CardsContainer>
-        <Card>
-          <CardContent>
-            <Typography className='title' variant='body1'>
-              Subscriptions
-            </Typography>
-            <Typography className='description' variant='caption'>
-              Once added here, the total amount will be subtracted from your
-              remaining budget.
-            </Typography>
-            <Button sx={{ maxHeight: 48 }} variant='contained'>
-              Edit
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent>
-            <Typography className='title' variant='body1'>
-              Recurring expenses
-            </Typography>
-            <Typography className='description' variant='caption'>
-              Once added here, the total amount will be subtracted from your
-              remaining budget.
-            </Typography>
-            <Button sx={{ maxHeight: 48 }} variant='contained'>
-              Edit
-            </Button>
-          </CardContent>
-        </Card>
+        <Card title='Subscriptions' />
+        <Card title='Recurring expenses' />
       </CardsContainer>
 
       {!isIpad && (

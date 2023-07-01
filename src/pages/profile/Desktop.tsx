@@ -8,12 +8,13 @@ import { Typography, styled } from '@mui/material';
 import { useAuth } from '../../utils/context/AuthContext';
 import { Button } from '../../components/Button/Button';
 import { Avatar } from '../../components/Avatar/Avatar';
+import { Card } from './Components/Card';
 
 const Content = styled('div')(({ theme }) => ({
   height: '100%',
   display: 'grid',
   gridTemplateRows: 'repeat(2,1fr)',
-  gap: theme.spacing(6),
+  // gap: theme.spacing(4),
 }));
 
 const ProfileWrapper = styled('div')(({ theme }) => ({
@@ -47,6 +48,13 @@ const ButtonGroup = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     gap: theme.spacing(3),
   },
+}));
+
+const CardsContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(3),
+  padding: theme.spacing(3, 0),
+  height: '80%',
 }));
 
 const Desktop = () => {
@@ -102,7 +110,10 @@ const Desktop = () => {
               </ButtonGroup>
             </ProfileWrapper>
 
-            <div>Hello</div>
+            <CardsContainer>
+              <Card title='Subscriptions' />
+              <Card title='Recurring expenses' />
+            </CardsContainer>
           </Content>
         </ContentContainer>
       </>
