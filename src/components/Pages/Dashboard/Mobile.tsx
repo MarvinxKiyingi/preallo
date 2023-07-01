@@ -1,11 +1,10 @@
 import { IDashboard } from '../../../model/IDashboard';
 import { Grid, NoContentContainer, StyledSelect } from '../../../pages';
 import { AddRow } from '../../AddRow/AddRow';
-import { Button } from '../../Button/Button';
 import FormContent from './FormContent';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
 import { Dialog, Typography } from '@mui/material';
-import Link from 'next/link';
+import Month from './Month';
 
 const Mobile = ({
   currentUser,
@@ -36,7 +35,6 @@ const Mobile = ({
           <StyledSelect
             boxShadow
             fullWidth
-            // hasBorder={false}
             defaultValue={currentYear}
             textAlign='center'
             list={yearList}
@@ -65,18 +63,7 @@ const Mobile = ({
       {months?.length > 0 ? (
         <Grid ownerState={ownerState}>
           {months.map((item, indx) => (
-            <Button
-              key={indx}
-              fullWidth
-              color='primary'
-              onClick={() => {}}
-              variant='contained'
-              version='monthPicker'
-              LinkComponent={Link}
-              href=''
-            >
-              {item.month}
-            </Button>
+            <Month key={indx} month={item.month} year={item.year} />
           ))}
         </Grid>
       ) : (

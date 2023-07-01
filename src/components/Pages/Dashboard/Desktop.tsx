@@ -4,14 +4,11 @@ import { Grid, NoContentContainer, StyledSelect } from '../../../pages';
 import { AddRow } from '../../AddRow/AddRow';
 import ContentContainer from '../../Container/ContentContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
-
-import { Button } from '../../Button/Button';
-import Link from 'next/link';
 import Typography from '@mui/material/Typography';
 import FormContent from './FormContent';
+import Month from './Month';
 
 const Desktop = ({
-  currentUser,
   currentYear,
   handleClose,
   handleOpen,
@@ -37,7 +34,6 @@ const Desktop = ({
             <StyledSelect
               boxShadow
               fullWidth
-              // hasBorder={false}
               defaultValue={currentYear}
               textAlign='center'
               list={yearList}
@@ -66,18 +62,7 @@ const Desktop = ({
         {months?.length > 0 ? (
           <Grid ownerState={ownerState}>
             {months.map((item, indx) => (
-              <Button
-                key={indx}
-                fullWidth
-                color='primary'
-                onClick={() => {}}
-                variant='contained'
-                version='monthPicker'
-                LinkComponent={Link}
-                href={`/month/${item.month.toLowerCase()}-${item.year}`}
-              >
-                {item.month}
-              </Button>
+              <Month key={indx} month={item.month} year={item.year} />
             ))}
           </Grid>
         ) : (
