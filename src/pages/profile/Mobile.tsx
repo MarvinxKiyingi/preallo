@@ -34,15 +34,6 @@ const ProfileContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const StyledAvatar = styled(Avatar)(({ theme }) => ({
-  aspectRatio: '1/1',
-  width: '28%',
-
-  [theme.breakpoints.up('sm')]: {
-    width: '59%',
-  },
-}));
-
 const TextContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -115,6 +106,9 @@ const CardContent = styled('div')(({ theme }) => ({
       ...theme.typography.body1,
     },
   },
+  [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
+    padding: theme.spacing(6, 0),
+  },
 }));
 
 const ButtonGroup = styled('div')(({ theme }) => ({
@@ -144,8 +138,8 @@ const Mobile = () => {
 
       <ProfileWrapper>
         <ProfileContainer>
-          <StyledAvatar
-            avatarMobileSize='auto'
+          <Avatar
+            avatarMobileSize='55%'
             src={currentUser?.photoURL ? currentUser.photoURL : undefined}
           />
 
