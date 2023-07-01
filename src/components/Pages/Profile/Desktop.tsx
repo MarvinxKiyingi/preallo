@@ -1,14 +1,14 @@
 import React from 'react';
-import AppContainer from '../../components/Container/AppContainer';
-import DesktopNavigation from '../../components/Navigation/DesktopNavigation/DesktopNavigation';
-import ContentContainer from '../../components/Container/ContentContainer';
+import AppContainer from '../../Container/AppContainer';
+import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
+import ContentContainer from '../../Container/ContentContainer';
 import { useRouter } from 'next/router';
 import { Typography, styled } from '@mui/material';
 
-import { useAuth } from '../../utils/context/AuthContext';
-import { Button } from '../../components/Button/Button';
-import { Avatar } from '../../components/Avatar/Avatar';
-import { ProfileCard } from '../../components/ProfileCard/ProfileCard';
+import { useAuth } from '../../../utils/context/AuthContext';
+import { Button } from '../../Button/Button';
+import { Avatar } from '../../Avatar/Avatar';
+import { ProfileCard } from '../../ProfileCard/ProfileCard';
 
 const Content = styled('div')(({ theme }) => ({
   height: '100%',

@@ -1,12 +1,12 @@
 import React from 'react';
-import AppContainer from '../../components/Container/AppContainer';
-import { MobileNavigation } from '../../components/Navigation/MobileNavigation/MobileNavigation';
-import { useAuth } from '../../utils/context/AuthContext';
+import AppContainer from '../../Container/AppContainer';
+import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
+import { useAuth } from '../../../utils/context/AuthContext';
 import { Typography, styled, useMediaQuery } from '@mui/material';
-import { Avatar } from '../../components/Avatar/Avatar';
-import { Button } from '../../components/Button/Button';
-import { theme } from '../../styles/theme/muiTheme';
-import { ProfileCard } from '../../components/ProfileCard/ProfileCard';
+import { Avatar } from '../../Avatar/Avatar';
+import { Button } from '../../Button/Button';
+import { theme } from '../../../styles/theme/muiTheme';
+import { ProfileCard } from '../../ProfileCard/ProfileCard';
 
 const ProfileWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
