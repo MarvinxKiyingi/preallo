@@ -3,18 +3,13 @@ import Head from 'next/head';
 import { useAuth } from '../utils/context/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
 import { theme } from '../styles/theme/muiTheme';
-import { Dialog, Typography, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import AppContainer from '../components/Container/AppContainer';
-import { MobileNavigation } from '../components/Navigation/MobileNavigation/MobileNavigation';
 import { Select } from '../components/Select/Select';
-import { AddRow } from '../components/AddRow/AddRow';
-import { Button } from '../components/Button/Button';
-import DesktopNavigation from '../components/Navigation/DesktopNavigation/DesktopNavigation';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { doc } from 'firebase/firestore';
 import { db } from '../utils/firebase/clientApp';
 import { currentYear } from '../utils/functions/currentYear';
-import { FormContent } from '../components/FormContent/FormContent';
 import { useState } from 'react';
 import { monthList } from '../utils/Variables/monthList';
 import { IModalForm } from '../model/IModalForm';
@@ -23,9 +18,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ISelectModalFormYupSchema } from '../model/IYupSchema';
 import { useApp } from '../utils/context/AppContext';
 import { IMonth, IMonths } from '../model/IMonth';
-import ContentContainer from '../components/Container/ContentContainer';
+import Mobile from '../components/Pages/Dashboard/Mobile';
+import Desktop from '../components/Pages/Dashboard/Desktop';
 
-const StyledSelect = styled(Select)(({ theme }) => ({
+export const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
 
   [theme.breakpoints.up('md')]: {
@@ -33,7 +29,7 @@ const StyledSelect = styled(Select)(({ theme }) => ({
   },
 }));
 
-const Grid = styled('div')<{
+export const Grid = styled('div')<{
   ownerState: { months: IMonths };
 }>(({ theme, ownerState }) => ({
   display: 'grid',
@@ -48,30 +44,17 @@ const Grid = styled('div')<{
   },
 
   [theme.breakpoints.up('md')]: {
-    gridTemplateColumns: '1fr 1fr 1fr',
-    gridTemplateRows: '1fr 1fr 1fr 1fr',
+    gridTemplateColumns: 'repeat(3,1fr)',
+    gridTemplateRows: 'repeat(4,1fr)',
   },
 }));
 
-const NoContentContainer = styled('div')({
+export const NoContentContainer = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   flex: 1,
 });
-
-const StyledContentContainer = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('md')]: {
-    display: 'grid',
-    gridTemplateRows: '1.3fr 0.2fr 5fr',
-    gap: theme.spacing(3),
-  },
-  '>:first-of-type': {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-  },
-}));
 
 const Home: NextPage = () => {
   const { currentUser } = useAuth();
@@ -115,10 +98,6 @@ const Home: NextPage = () => {
     handleClose();
   };
 
-  const ownerState = {
-    months,
-  };
-
   return (
     <>
       <Head>
@@ -127,140 +106,37 @@ const Home: NextPage = () => {
 
       <AppContainer>
         {!isDesktop && (
-          <>
-            <MobileNavigation
-              title='Dashboard'
-              src={currentUser?.photoURL ? currentUser.photoURL : undefined}
-            />
-
-            <div>
-              {yearList && (
-                <StyledSelect
-                  boxShadow
-                  fullWidth
-                  // hasBorder={false}
-                  defaultValue={currentYear}
-                  textAlign='center'
-                  list={yearList}
-                />
-              )}
-            </div>
-
-            <AddRow
-              addIsVisible
-              version='secondary'
-              title='Add'
-              onClick={() => handleOpen()}
-            />
-
-            <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
-              <form onSubmit={handleSubmit(submitFormContentHandler)}>
-                <FormContent
-                  add
-                  title='Add Month'
-                  description='Pick a month to add, you can only add existing and coming months.'
-                  variant='select'
-                  selectList={monthList}
-                  selectLabel='Month'
-                  onAgreeLabel='Add'
-                  onDisagreeLabel='Cancel'
-                  onDisagree={() => handleClose()}
-                  onClick={() => handleClose()}
-                  register={register}
-                  errors={errors}
-                />
-              </form>
-            </Dialog>
-
-            {months?.length > 0 ? (
-              <Grid ownerState={ownerState}>
-                {months.map((item, indx) => (
-                  <Button
-                    key={indx}
-                    fullWidth
-                    color='primary'
-                    onClick={() => {}}
-                    variant='contained'
-                    version='monthPicker'
-                  >
-                    {item.month}
-                  </Button>
-                ))}
-              </Grid>
-            ) : (
-              <NoContentContainer>
-                <Typography>Press the add button to get started</Typography>
-              </NoContentContainer>
-            )}
-          </>
+          <Mobile
+            currentUser={currentUser}
+            handleClose={handleClose}
+            handleOpen={handleOpen}
+            handleSubmit={handleSubmit}
+            currentYear={currentYear}
+            monthList={monthList}
+            months={months}
+            open={open}
+            yearList={yearList}
+            submitFormContentHandler={submitFormContentHandler}
+            register={register}
+            errors={errors}
+          />
         )}
 
         {isDesktop && (
-          <>
-            <DesktopNavigation />
-            <ContentContainer>
-              <div className='emptySpace' />
-              <div>
-                {yearList && (
-                  <StyledSelect
-                    boxShadow
-                    fullWidth
-                    // hasBorder={false}
-                    defaultValue={currentYear}
-                    textAlign='center'
-                    list={yearList}
-                  />
-                )}
-              </div>
-
-              <AddRow
-                addIsVisible
-                version='secondary'
-                title='Add'
-                onClick={handleOpen}
-              />
-
-              <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
-                <form onSubmit={handleSubmit(submitFormContentHandler)}>
-                  <FormContent
-                    add
-                    title='Add Month'
-                    description='Pick a month to add, you can only add existing and coming months.'
-                    variant='select'
-                    selectLabel='Month'
-                    selectList={monthList}
-                    onAgreeLabel='Add'
-                    onDisagreeLabel='Cancel'
-                    onDisagree={() => handleClose()}
-                    onClick={() => handleClose()}
-                    register={register}
-                    errors={errors}
-                  />
-                </form>
-              </Dialog>
-
-              {months?.length > 0 ? (
-                <Grid ownerState={ownerState}>
-                  {months.map((item, indx) => (
-                    <Button
-                      key={indx}
-                      fullWidth
-                      color='primary'
-                      onClick={() => {}}
-                      variant='contained'
-                      version='monthPicker'
-                    >
-                      {item.month}
-                    </Button>
-                  ))}
-                </Grid>
-              ) : (
-                <NoContentContainer>
-                  <Typography>Press the add button to get started</Typography>
-                </NoContentContainer>
-              )}
-            </ContentContainer>
-          </>
+          <Desktop
+            currentUser={currentUser}
+            handleClose={handleClose}
+            handleOpen={handleOpen}
+            handleSubmit={handleSubmit}
+            currentYear={currentYear}
+            monthList={monthList}
+            months={months}
+            open={open}
+            yearList={yearList}
+            submitFormContentHandler={submitFormContentHandler}
+            register={register}
+            errors={errors}
+          />
         )}
       </AppContainer>
     </>
