@@ -26,8 +26,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     return () => unsubscribe();
   }, [isUser]);
 
-  console.log('isUser', isUser);
-
   return (
     <AuthContextProvider>
       <AppContextProvider>
