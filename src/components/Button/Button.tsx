@@ -20,6 +20,7 @@ type ButtonBaseProps = Pick<
   | 'endIcon'
   | 'sx'
   | 'type'
+  | 'LinkComponent'
 >;
 
 export interface IButtonProps extends ButtonBaseProps {
