@@ -1,39 +1,11 @@
 import { IDashboard } from '../../../model/IDashboard';
-import { IMonths } from '../../../model/IMonth';
-import { StyledSelect } from '../../../pages';
+import { Grid, NoContentContainer, StyledSelect } from '../../../pages';
 import { AddRow } from '../../AddRow/AddRow';
 import { Button } from '../../Button/Button';
 import FormContent from './FormContent';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
-import { Dialog, Typography, styled } from '@mui/material';
+import { Dialog, Typography } from '@mui/material';
 import Link from 'next/link';
-
-const Grid = styled('div')<{
-  ownerState: { months: IMonths };
-}>(({ theme, ownerState }) => ({
-  display: 'grid',
-  gridTemplateColumns: '1fr',
-  gridAutoRows: ownerState.months.length > 2 ? '1fr' : 'max-content',
-  gap: theme.spacing(2),
-  height: '100%',
-  overflow: 'auto',
-
-  [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
-    overflow: 'unset',
-  },
-
-  [theme.breakpoints.up('md')]: {
-    gridTemplateColumns: '1fr 1fr 1fr',
-    gridTemplateRows: '1fr 1fr 1fr 1fr',
-  },
-}));
-
-const NoContentContainer = styled('div')({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flex: 1,
-});
 
 const Mobile = ({
   currentUser,
