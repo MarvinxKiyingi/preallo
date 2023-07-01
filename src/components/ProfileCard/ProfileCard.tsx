@@ -1,12 +1,12 @@
 import { styled } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import { Button } from '../../../components/Button/Button';
+import { Button } from '../Button/Button';
 
 type ICard = {
   title: string;
 };
-const CardWrapper = styled('div')(({ theme }) => ({
+const CardContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   backgroundColor: theme.palette.background.accent,
@@ -50,9 +50,9 @@ const Description = styled(Typography)(({ theme }) => ({
   },
 })) as typeof Typography;
 
-export const Card = ({ title }: ICard) => {
+export const ProfileCard = ({ title }: ICard) => {
   return (
-    <CardWrapper>
+    <CardContainer>
       <CardContent>
         <Title variant='body1' component='h1'>
           {title}
@@ -67,6 +67,6 @@ export const Card = ({ title }: ICard) => {
           Edit
         </Button>
       </CardContent>
-    </CardWrapper>
+    </CardContainer>
   );
 };

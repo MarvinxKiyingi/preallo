@@ -6,7 +6,7 @@ import { Typography, styled, useMediaQuery } from '@mui/material';
 import { Avatar } from '../../components/Avatar/Avatar';
 import { Button } from '../../components/Button/Button';
 import { theme } from '../../styles/theme/muiTheme';
-import { Card } from './Components/Card';
+import { ProfileCard } from '../../components/ProfileCard/ProfileCard';
 
 const ProfileWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -138,8 +138,8 @@ const Mobile = () => {
       </ProfileWrapper>
 
       <CardsContainer>
-        <Card title='Subscriptions' />
-        <Card title='Recurring expenses' />
+        <ProfileCard title='Subscriptions' />
+        <ProfileCard title='Recurring expenses' />
       </CardsContainer>
 
       {!isIpad && (

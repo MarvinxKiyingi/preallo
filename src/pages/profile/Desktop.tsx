@@ -8,7 +8,7 @@ import { Typography, styled } from '@mui/material';
 import { useAuth } from '../../utils/context/AuthContext';
 import { Button } from '../../components/Button/Button';
 import { Avatar } from '../../components/Avatar/Avatar';
-import { Card } from './Components/Card';
+import { ProfileCard } from '../../components/ProfileCard/ProfileCard';
 
 const Content = styled('div')(({ theme }) => ({
   height: '100%',
@@ -111,8 +111,8 @@ const Desktop = () => {
             </ProfileWrapper>
 
             <CardsContainer>
-              <Card title='Subscriptions' />
-              <Card title='Recurring expenses' />
+              <ProfileCard title='Subscriptions' />
+              <ProfileCard title='Recurring expenses' />
             </CardsContainer>
           </Content>
         </ContentContainer>
