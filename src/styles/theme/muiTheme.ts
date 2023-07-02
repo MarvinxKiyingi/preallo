@@ -16,5 +16,10 @@ export const theme = createTheme({
         disableRipple: true, // Disable ripple, on the whole application 💣!
       },
     },
+    MuiDialog: {
+      defaultProps: {
+        sx: { backdropFilter: 'blur(5px)' },
+      },
+    },
   },
 });
