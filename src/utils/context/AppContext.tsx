@@ -26,6 +26,7 @@ export const AppContextProvider = ({ children }: IChildren) => {
           return updateDoc(monthRef, {
             months: arrayUnion({
               month: data.selected,
+              salary: data.amount,
               year: currentYear(),
             }),
           });
@@ -34,6 +35,7 @@ export const AppContextProvider = ({ children }: IChildren) => {
             months: [
               {
                 month: data.selected,
+                salary: data.amount,
                 year: currentYear(),
               },
             ],
