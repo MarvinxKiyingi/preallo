@@ -17,7 +17,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
 import { IModalForm } from '../../model/IModalForm';
 
 export type IModalContent = {
-  variant: 'amount' | 'expense' | 'select' | 'all';
+  variant: 'amount' | 'expense' | 'select' | 'all' | 'addMonth';
   add?: boolean;
   edit?: boolean;
   remove?: boolean;
@@ -128,6 +128,33 @@ export const FormContent = ({
                 </MenuItem>
               ))}
             </TextField>
+          )}
+
+          {variant == 'addMonth' && (
+            <>
+              <TextField
+                select
+                fullWidth
+                error={!!errors?.selected}
+                helperText={errors?.selected ? errors.selected?.message : ''}
+                label={selectLabel}
+                {...(register ? register('selected') : { name: 'selected' })}
+              >
+                {selectList.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                fullWidth
+                type='number'
+                error={!!errors?.amount}
+                helperText={errors?.amount ? errors.amount?.message : ''}
+                label={amountLabel}
+                {...(register ? register('amount') : { name: 'amount' })}
+              />
+            </>
           )}
 
           {variant === 'all' && (

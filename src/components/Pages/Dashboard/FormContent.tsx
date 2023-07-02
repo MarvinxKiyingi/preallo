@@ -13,9 +13,10 @@ function FormContent({
       add
       title='Add Month'
       description='Pick a month to add, you can only add existing and coming months.'
-      variant='select'
+      variant='addMonth'
       selectLabel='Month'
       selectList={monthList}
+      amountLabel={'Salary'}
       onAgreeLabel='Add'
       onDisagreeLabel='Cancel'
       onDisagree={() => handleClose()}
