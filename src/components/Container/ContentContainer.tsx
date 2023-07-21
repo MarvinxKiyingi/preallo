@@ -5,7 +5,7 @@ const StyledContentContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
-  '&>.desktopNavLogo,.emptySpace,.title': {
+  '&>.desktopNavLogo,.emptySpace,.pageTitle': {
     marginBottom: theme.spacing(6),
     minHeight: theme.spacing(6),
   },

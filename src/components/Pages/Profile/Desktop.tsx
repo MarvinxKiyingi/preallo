@@ -66,7 +66,7 @@ const Desktop = () => {
       <>
         <DesktopNavigation disableHighlight={currentPageRouteName} />
         <ContentContainer>
-          <Typography className='title' variant='h4' align='center'>
+          <Typography className='pageTitle' variant='h4' align='center'>
             Profile
           </Typography>
 
