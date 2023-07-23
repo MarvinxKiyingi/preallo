@@ -7,6 +7,7 @@ import { Avatar } from '../../Avatar/Avatar';
 import { Button } from '../../Button/Button';
 import { theme } from '../../../styles/theme/muiTheme';
 import { ProfileCard } from '../../ProfileCard/ProfileCard';
+import { signOut } from 'next-auth/react';
 
 const ProfileWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -126,7 +127,7 @@ const Mobile = () => {
             <Button
               sx={{ maxHeight: 48 }}
               variant='contained'
-              onClick={() => signOutUser()}
+              onClick={() => signOut()}
             >
               Sign out
             </Button>

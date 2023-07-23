@@ -10,6 +10,7 @@ import { ISignInYupSchema } from '../../../model/IYupSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../../../utils/context/AuthContext';
 import Head from 'next/head';
+import { signIn } from 'next-auth/react';
 
 export const Title = styled(Typography)(({ theme }) => ({
   ...theme.typography.h3,
@@ -127,7 +128,7 @@ const SignIn = () => {
               fullWidth
               variant={'contained'}
               startIcon={<GoogleIcon />}
-              onClick={() => googleSignIn()}
+              onClick={() => signIn('google')}
             >
               Sign in/up with google
             </Google>
