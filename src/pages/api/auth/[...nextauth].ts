@@ -19,4 +19,6 @@ export default NextAuth({
       privateKey: process.env.PRIVATE_KEY!.replace(/\\n/g, '\n'),
     }),
   }) as Adapter,
+
+  secret: process.env.NEXTAUTH_SECRET,
 });
