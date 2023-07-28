@@ -9,6 +9,7 @@ import { useAuth } from '../../../utils/context/AuthContext';
 import { Button } from '../../Button/Button';
 import { Avatar } from '../../Avatar/Avatar';
 import { ProfileCard } from '../../ProfileCard/ProfileCard';
+import { signOut } from 'next-auth/react';
 
 const Content = styled('div')(({ theme }) => ({
   height: '100%',
@@ -95,7 +96,7 @@ const Desktop = () => {
                 <Button
                   sx={{ maxHeight: 48 }}
                   variant='contained'
-                  onClick={() => signOutUser()}
+                  onClick={() => signOut()}
                 >
                   Sign out
                 </Button>
