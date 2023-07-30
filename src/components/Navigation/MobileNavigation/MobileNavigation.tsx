@@ -53,7 +53,6 @@ export const MobileNavigation = ({
   hideProfile = false,
   ...props
 }: IMobileNavigation & IAvatar) => {
-  const { signOutUser } = useAuth();
   return (
     <MobileNavigationContainer className='MobileNavigationContainer'>
       <div className='dashBoardIconContainer'>
@@ -67,9 +66,7 @@ export const MobileNavigation = ({
       </Typography>
 
       <div className='profileContainer'>
-        {!hideProfile && (
-          <ProfileButton onClick={() => signOutUser} {...props} />
-        )}
+        {!hideProfile && <ProfileButton {...props} />}
       </div>
     </MobileNavigationContainer>
   );

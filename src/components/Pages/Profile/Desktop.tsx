@@ -59,7 +59,7 @@ const CardsContainer = styled('div')(({ theme }) => ({
 }));
 
 const Desktop = () => {
-  const { currentUser, signOutUser } = useAuth();
+  const { currentUser } = useAuth();
   const router = useRouter();
   const currentPageRouteName = router.pathname.replace(/\//g, '');
   return (

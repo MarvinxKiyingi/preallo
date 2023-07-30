@@ -64,7 +64,7 @@ const ProfileContainer = styled(Link)(({ theme }) => ({
 }));
 
 const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
-  const { currentUser, signOutUser } = useAuth();
+  const { currentUser } = useAuth();
   const [value, setValue] = useState('dashboard');
 
   const updateState = (props: string) => {

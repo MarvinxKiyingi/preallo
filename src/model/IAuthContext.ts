@@ -10,6 +10,5 @@ export type IAuthContext = {
   signUpUser: (props: ISignUp) => void;
   signInUser: (props: ISignIn) => void;
   passwordReset: (props: IPasswordReset) => void;
-  signOutUser: () => void;
   googleSignIn: () => void;
 };

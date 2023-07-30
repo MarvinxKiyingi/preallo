@@ -86,7 +86,7 @@ const ButtonGroup = styled('div')(({ theme }) => ({
 }));
 
 const Mobile = () => {
-  const { currentUser, signOutUser } = useAuth();
+  const { currentUser } = useAuth();
 
   const isIpad = useMediaQuery(
     `${theme.breakpoints.up('sm').replace('@media ', '')}`
@@ -148,7 +148,7 @@ const Mobile = () => {
           <Button
             sx={{ maxHeight: 48 }}
             variant='contained'
-            onClick={() => signOutUser()}
+            onClick={() => signOut()}
           >
             Sign out
           </Button>
