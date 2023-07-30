@@ -87,18 +87,6 @@ export const AuthContextProvider = ({ children }: IChildren) => {
       });
   };
 
-  // Signing out a user from firebase
-  const signOutUser = () => {
-    signOut(auth)
-      .then(() => {})
-      .catch((error) => {
-        console.log('error:', {
-          errorMessage: error.message,
-          errorCode: error.code,
-        });
-      });
-  };
-
   // Auth provider values
   const values = {
     currentUser,
@@ -106,7 +94,6 @@ export const AuthContextProvider = ({ children }: IChildren) => {
     signUpUser,
     signInUser,
     passwordReset,
-    signOutUser,
     googleSignIn,
   };
 

@@ -4,10 +4,7 @@ import { Avatar, IAvatar } from '../Avatar/Avatar';
 import { IIconButtonProps } from '../IconButton/IconButton';
 import Link from 'next/link';
 
-export const ProfileButton = ({
-  onClick,
-  ...props
-}: IIconButtonProps & IAvatar) => {
+export const ProfileButton = ({ ...props }: IIconButtonProps & IAvatar) => {
   return (
     <IconButton
       className='profileButton-container'
