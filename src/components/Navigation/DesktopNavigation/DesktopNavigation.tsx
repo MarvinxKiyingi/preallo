@@ -67,9 +67,6 @@ const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
   const { currentUser, signOutUser } = useAuth();
   const [value, setValue] = useState('dashboard');
 
-  // console.log('router', router);
-  console.log('disableHighlight', disableHighlight);
-
   const updateState = (props: string) => {
     setValue(props);
   };
