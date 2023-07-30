@@ -21,4 +21,12 @@ export default NextAuth({
   }) as Adapter,
 
   secret: process.env.NEXTAUTH_SECRET,
+
+  callbacks: {
+    async session({ session, user }) {
+      // Attach the user ID to the session object
+      session.userId = user.id;
+      return session;
+    },
+  },
 });
