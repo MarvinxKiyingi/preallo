@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useAuth } from '../utils/context/AuthContext';
 import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
 import { theme } from '../styles/theme/muiTheme';
 import { styled } from '@mui/material';
@@ -16,10 +15,11 @@ import { IModalForm } from '../model/IModalForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ISelectModalFormYupSchema } from '../model/IYupSchema';
-import { useApp } from '../utils/context/AppContext';
 import { IMonth, IMonths } from '../model/IMonth';
 import Mobile from '../components/Pages/Dashboard/Mobile';
 import Desktop from '../components/Pages/Dashboard/Desktop';
+import { useSession } from 'next-auth/react';
+import { createOrUpdateMonth } from '../utils/functions/createOrUpdateMonth';
 
 export const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -57,12 +57,9 @@ export const NoContentContainer = styled('div')({
 });
 
 const Home: NextPage = () => {
-  const { currentUser } = useAuth();
-  const { createOrUpdateMonth } = useApp();
-  const [yearsSnapshot] = useDocument(doc(db, 'Years', `${currentUser?.uid}`));
-  const [monthsSnapshot] = useDocument(
-    doc(db, 'Months', `${currentUser?.uid}`)
-  );
+  const { data: session } = useSession();
+  const [yearsSnapshot] = useDocument(doc(db, 'Years', `${session?.userId}`));
+  const [monthsSnapshot] = useDocument(doc(db, 'Months', `${session?.userId}`));
   const yearList: [string] = yearsSnapshot?.data()?.yearList;
   const months: IMonths = monthsSnapshot
     ?.data()
@@ -70,6 +67,7 @@ const Home: NextPage = () => {
       return monthList.indexOf(a.month) - monthList.indexOf(b.month);
     });
 
+  const userId = session?.userId;
   const [open, setOpen] = useState(false);
 
   const {
@@ -94,8 +92,13 @@ const Home: NextPage = () => {
   const submitFormContentHandler: SubmitHandler<IModalForm> = (
     data: IModalForm
   ) => {
-    createOrUpdateMonth(data);
-    handleClose();
+    if (data && userId) {
+      createOrUpdateMonth(data, userId);
+      handleClose();
+    }
+    if (!data && !userId) {
+      throw new Error('Something went wrong, when submitting user data to db');
+    }
   };
 
   return (
@@ -105,9 +108,9 @@ const Home: NextPage = () => {
       </Head>
 
       <AppContainer>
-        {!isDesktop && (
+        {!isDesktop && session && (
           <Mobile
-            currentUser={currentUser}
+            session={session}
             handleClose={handleClose}
             handleOpen={handleOpen}
             handleSubmit={handleSubmit}
@@ -122,9 +125,9 @@ const Home: NextPage = () => {
           />
         )}
 
-        {isDesktop && (
+        {isDesktop && session && (
           <Desktop
-            currentUser={currentUser}
+            session={session}
             handleClose={handleClose}
             handleOpen={handleOpen}
             handleSubmit={handleSubmit}

@@ -1,13 +1,12 @@
 import React from 'react';
 import AppContainer from '../../Container/AppContainer';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
-import { useAuth } from '../../../utils/context/AuthContext';
 import { Typography, styled, useMediaQuery } from '@mui/material';
 import { Avatar } from '../../Avatar/Avatar';
 import { Button } from '../../Button/Button';
 import { theme } from '../../../styles/theme/muiTheme';
 import { ProfileCard } from '../../ProfileCard/ProfileCard';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 const ProfileWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -86,7 +85,9 @@ const ButtonGroup = styled('div')(({ theme }) => ({
 }));
 
 const Mobile = () => {
-  const { currentUser, signOutUser } = useAuth();
+  const { data: session } = useSession();
+  const imgUrl = session?.user?.image;
+  const userName = session?.user?.name;
 
   const isIpad = useMediaQuery(
     `${theme.breakpoints.up('sm').replace('@media ', '')}`
@@ -97,20 +98,15 @@ const Mobile = () => {
       <MobileNavigation
         hideProfile
         title='Profile'
-        src={currentUser?.photoURL ? currentUser.photoURL : undefined}
+        src={imgUrl ? imgUrl : undefined}
       />
 
       <ProfileWrapper>
         <ProfileContainer>
-          <Avatar
-            avatarMobileSize='55%'
-            src={currentUser?.photoURL ? currentUser.photoURL : undefined}
-          />
+          <Avatar avatarMobileSize='55%' src={imgUrl ? imgUrl : undefined} />
 
           <TextContainer>
-            <Typography className='userName'>
-              {currentUser?.displayName}
-            </Typography>
+            <Typography className='userName'>{userName}</Typography>
             {!isIpad && <Edit>Edit</Edit>}
           </TextContainer>
         </ProfileContainer>
@@ -148,7 +144,7 @@ const Mobile = () => {
           <Button
             sx={{ maxHeight: 48 }}
             variant='contained'
-            onClick={() => signOutUser()}
+            onClick={() => signOut()}
           >
             Sign out
           </Button>

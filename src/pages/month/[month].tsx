@@ -21,8 +21,6 @@ const Month = () => {
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
 
-  if (!currentUser) return null;
-
   return (
     <>
       <Head>

@@ -10,15 +10,11 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signOut,
   updateProfile,
 } from 'firebase/auth';
 import { ISignIn } from '../../model/ISignIn';
 import { IPasswordReset } from '../../model/IPasswordReset';
 import { transformFullName } from '../functions/transformFullName';
-
-import { currentYear } from '../functions/currentYear';
-import { createOrUpdateYears } from '../functions/collection/years';
 
 // Initiating context
 export const AuthContext = React.createContext({} as IAuthContext);
@@ -37,7 +33,6 @@ export const AuthContextProvider = ({ children }: IChildren) => {
         updateProfile(data.user, {
           displayName: transformFullName(props.firstName, props?.lastName),
         });
-        createOrUpdateYears(data, currentYear());
       })
       .catch((error) => {
         console.log('error:', {
@@ -50,9 +45,7 @@ export const AuthContextProvider = ({ children }: IChildren) => {
   // Signin in a user to firebase
   const signInUser = (props: ISignIn) => {
     signInWithEmailAndPassword(auth, props.email, props.password)
-      .then(async (data) => {
-        createOrUpdateYears(data, currentYear());
-      })
+      .then(async (data) => {})
       .catch((error) => {
         console.log('error:', {
           errorMessage: error.message,
@@ -76,21 +69,7 @@ export const AuthContextProvider = ({ children }: IChildren) => {
   // Google sign in
   const googleSignIn = () => {
     signInWithPopup(auth, googleProvider)
-      .then((data) => {
-        createOrUpdateYears(data, currentYear());
-      })
-      .catch((error) => {
-        console.log('error:', {
-          errorMessage: error.message,
-          errorCode: error.code,
-        });
-      });
-  };
-
-  // Signing out a user from firebase
-  const signOutUser = () => {
-    signOut(auth)
-      .then(() => {})
+      .then((data) => {})
       .catch((error) => {
         console.log('error:', {
           errorMessage: error.message,
@@ -106,7 +85,6 @@ export const AuthContextProvider = ({ children }: IChildren) => {
     signUpUser,
     signInUser,
     passwordReset,
-    signOutUser,
     googleSignIn,
   };
 
