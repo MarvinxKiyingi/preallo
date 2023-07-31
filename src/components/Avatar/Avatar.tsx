@@ -42,6 +42,7 @@ export const Avatar = ({
     avatarMobileSize,
     avatarDeskSize,
   };
+
   return (
     <StyledAvatar
       className='avatar-container'

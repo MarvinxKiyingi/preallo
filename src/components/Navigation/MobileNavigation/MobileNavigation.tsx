@@ -4,7 +4,6 @@ import { IAvatar } from '../../Avatar/Avatar';
 import { DashboardButton } from '../../DashboardButton/DashboardButton';
 import { IIconButtonProps } from '../../IconButton/IconButton';
 import { ProfileButton } from '../../ProfileButton/ProfileButton';
-import { useAuth } from '../../../utils/context/AuthContext';
 import Link from 'next/link';
 
 export interface IMobileNavigation extends IIconButtonProps {
@@ -53,7 +52,6 @@ export const MobileNavigation = ({
   hideProfile = false,
   ...props
 }: IMobileNavigation & IAvatar) => {
-  const { signOutUser } = useAuth();
   return (
     <MobileNavigationContainer className='MobileNavigationContainer'>
       <div className='dashBoardIconContainer'>
@@ -67,9 +65,7 @@ export const MobileNavigation = ({
       </Typography>
 
       <div className='profileContainer'>
-        {!hideProfile && (
-          <ProfileButton onClick={() => signOutUser} {...props} />
-        )}
+        {!hideProfile && <ProfileButton {...props} />}
       </div>
     </MobileNavigationContainer>
   );

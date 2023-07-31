@@ -7,7 +7,7 @@ import { Dialog, Typography } from '@mui/material';
 import Month from './Month';
 
 const Mobile = ({
-  currentUser,
+  session,
   currentYear,
   handleClose,
   handleOpen,
@@ -23,12 +23,10 @@ const Mobile = ({
   const ownerState = {
     months,
   };
+  const imgUrl = session?.user?.image;
   return (
     <>
-      <MobileNavigation
-        title='Dashboard'
-        src={currentUser?.photoURL ? currentUser.photoURL : undefined}
-      />
+      <MobileNavigation title='Dashboard' src={imgUrl ? imgUrl : undefined} />
 
       <div>
         {yearList && (

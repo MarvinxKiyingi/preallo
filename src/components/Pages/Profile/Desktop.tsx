@@ -5,16 +5,15 @@ import ContentContainer from '../../Container/ContentContainer';
 import { useRouter } from 'next/router';
 import { Typography, styled } from '@mui/material';
 
-import { useAuth } from '../../../utils/context/AuthContext';
 import { Button } from '../../Button/Button';
 import { Avatar } from '../../Avatar/Avatar';
 import { ProfileCard } from '../../ProfileCard/ProfileCard';
+import { signOut, useSession } from 'next-auth/react';
 
 const Content = styled('div')(({ theme }) => ({
   height: '100%',
   display: 'grid',
   gridTemplateRows: 'repeat(2,1fr)',
-  // gap: theme.spacing(4),
 }));
 
 const ProfileWrapper = styled('div')(({ theme }) => ({
@@ -58,9 +57,13 @@ const CardsContainer = styled('div')(({ theme }) => ({
 }));
 
 const Desktop = () => {
-  const { currentUser, signOutUser } = useAuth();
+  const { data: session } = useSession();
+  const imgUrl = session?.user?.image;
+  const userName = session?.user?.name;
+
   const router = useRouter();
   const currentPageRouteName = router.pathname.replace(/\//g, '');
+
   return (
     <AppContainer>
       <>
@@ -75,11 +78,11 @@ const Desktop = () => {
               <ProfileContainer>
                 <Avatar
                   avatarDeskSize='45%'
-                  src={currentUser?.photoURL ? currentUser.photoURL : undefined}
+                  src={imgUrl ? imgUrl : undefined}
                 />
 
                 <ProfileTitle className='userName' variant='h3'>
-                  {currentUser?.displayName}
+                  {userName}
                 </ProfileTitle>
               </ProfileContainer>
 
@@ -95,7 +98,7 @@ const Desktop = () => {
                 <Button
                   sx={{ maxHeight: 48 }}
                   variant='contained'
-                  onClick={() => signOutUser()}
+                  onClick={() => signOut()}
                 >
                   Sign out
                 </Button>

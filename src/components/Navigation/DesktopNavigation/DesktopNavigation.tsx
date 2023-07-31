@@ -1,11 +1,11 @@
-import { SyntheticEvent, useEffect, useMemo, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { Tab, Tabs, styled, TabProps } from '@mui/material';
 import { Logo } from '../../Logo/Logo';
 import { DashboardIcon, RepeatIcon, SubscriptionsIcon } from '../../Icons';
 import Link from 'next/link';
 import { Avatar } from '../../Avatar/Avatar';
-import { useAuth } from '../../../utils/context/AuthContext';
 import ContentContainer from '../../Container/ContentContainer';
+import { useSession } from 'next-auth/react';
 
 type IStyledTab = TabProps & {
   href?: string;
@@ -64,15 +64,12 @@ const ProfileContainer = styled(Link)(({ theme }) => ({
 }));
 
 const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
-  const { currentUser, signOutUser } = useAuth();
+  const { data: session } = useSession();
   const [value, setValue] = useState('dashboard');
 
-  // console.log('router', router);
-  console.log('disableHighlight', disableHighlight);
+  const imgUrl = session?.user?.image;
+  const userName = session?.user?.name;
 
-  const updateState = (props: string) => {
-    setValue(props);
-  };
   const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -120,10 +117,8 @@ const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
         </StyledTabs>
 
         <ProfileContainer href='/profile'>
-          <Avatar
-            src={currentUser?.photoURL ? currentUser.photoURL : undefined}
-          />
-          {currentUser?.displayName ? currentUser.displayName : 'My account'}
+          <Avatar src={imgUrl ? imgUrl : undefined} />
+          {userName ? userName : 'My account'}
         </ProfileContainer>
       </NavContainer>
     </ContentContainer>
