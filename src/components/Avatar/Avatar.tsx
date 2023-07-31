@@ -36,7 +36,6 @@ const StyledAvatar = styled(MuiAvatar)<{ ownerState: IAvatar }>(
 export const Avatar = ({
   avatarMobileSize = '24px',
   avatarDeskSize = '48px',
-  src,
   ...props
 }: IAvatar) => {
   const ownerState = {
