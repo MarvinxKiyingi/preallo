@@ -3,7 +3,7 @@ import { IMonthPage } from '../../../model/IMonthPage';
 import ContentContainer from '../../Container/ContentContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
 
-const Desktop = ({ currentUser, month, year, salary }: IMonthPage) => {
+const Desktop = ({ session, month, year, salary }: IMonthPage) => {
   const currentPageRouteName = router.pathname.replace(/\//g, '');
   return (
     <>
