@@ -10,8 +10,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
       <ThemeProvider theme={theme}>
+        <HeadContainer />
         <ProtectedRoutes>
-          <HeadContainer />
           <Component {...pageProps} />
         </ProtectedRoutes>
       </ThemeProvider>
