@@ -10,6 +10,12 @@ import { Avatar } from '../../Avatar/Avatar';
 import { ProfileCard } from '../../ProfileCard/ProfileCard';
 import { signOut, useSession } from 'next-auth/react';
 
+const Title = styled(Typography)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}));
+
 const Content = styled('div')(({ theme }) => ({
   height: '100%',
   display: 'grid',
@@ -35,9 +41,11 @@ const ProfileContainer = styled('div')(({ theme }) => ({
 }));
 
 const ProfileTitle = styled(Typography)(({ theme }) => ({
-  ...theme.typography.h5,
-  fontWeight: 600,
-}));
+  [theme.breakpoints.up('sm')]: {
+    ...theme.typography.h6,
+    fontWeight: 600,
+  },
+})) as typeof Typography;
 
 const ButtonGroup = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -69,9 +77,9 @@ const Desktop = () => {
       <>
         <DesktopNavigation disableHighlight={currentPageRouteName} />
         <ContentContainer>
-          <Typography className='pageTitle' variant='h4' align='center'>
+          <Title className='pageTitle' variant='h5' align='center'>
             Profile
-          </Typography>
+          </Title>
 
           <Content>
             <ProfileWrapper>
@@ -81,19 +89,23 @@ const Desktop = () => {
                   src={imgUrl ? imgUrl : undefined}
                 />
 
-                <ProfileTitle className='userName' variant='h3'>
+                <ProfileTitle
+                  className='userName'
+                  variant='body1'
+                  component='h1'
+                >
                   {userName}
                 </ProfileTitle>
               </ProfileContainer>
 
               <ButtonGroup>
-                <Button
+                {/* <Button
                   sx={{ maxHeight: 48 }}
                   variant='contained'
                   color='secondary'
                 >
                   Edit profile
-                </Button>
+                </Button> */}
 
                 <Button
                   sx={{ maxHeight: 48 }}

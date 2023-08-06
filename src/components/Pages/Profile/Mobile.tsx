@@ -28,6 +28,7 @@ const ProfileContainer = styled('div')(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(2),
   padding: theme.spacing(2),
+  width: '100%',
 
   [theme.breakpoints.up('sm')]: {
     gap: theme.spacing(6),
@@ -42,11 +43,10 @@ const TextContainer = styled('div')(({ theme }) => ({
   gap: theme.spacing(),
 
   '.userName': {
-    ...theme.typography.h6,
     fontWeight: 600,
 
     [theme.breakpoints.up('sm')]: {
-      ...theme.typography.h5,
+      ...theme.typography.h6,
       fontWeight: 600,
     },
   },
@@ -103,11 +103,12 @@ const Mobile = () => {
 
       <ProfileWrapper>
         <ProfileContainer>
-          <Avatar avatarMobileSize='55%' src={imgUrl ? imgUrl : undefined} />
+          <Avatar avatarMobileSize='45%' src={imgUrl ? imgUrl : undefined} />
 
           <TextContainer>
-            <Typography className='userName'>{userName}</Typography>
-            {!isIpad && <Edit>Edit</Edit>}
+            <Typography className='userName' variant='body1' component='h2'>
+              {userName}
+            </Typography>
           </TextContainer>
         </ProfileContainer>
 
