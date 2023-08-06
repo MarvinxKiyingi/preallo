@@ -12,7 +12,7 @@ const Profile = () => {
   return (
     <>
       <Head>
-        <title>Dashboard</title>
+        <title>Profile</title>
       </Head>
 
       {!isDesktop && <Mobile />}
