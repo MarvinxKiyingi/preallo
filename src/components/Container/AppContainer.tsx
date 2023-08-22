@@ -17,7 +17,7 @@ const StyledAppContainer = styled('section')(({ theme }) => ({
   flex: 1,
 
   [theme.breakpoints.up('md')]: {
-    margin: theme.spacing(6),
+    margin: theme.spacing(3),
   },
   [theme.breakpoints.up('xl')]: {
     width: '-webkit-fill-available',
