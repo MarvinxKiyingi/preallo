@@ -102,7 +102,7 @@ const Mobile = () => {
       <ProfileWrapper>
         <ProfileContainer>
           <Avatar
-            avatarMobileSize='55%'
+            avatarMobileSize='65%'
             src={currentUser?.photoURL ? currentUser.photoURL : undefined}
           />
 
