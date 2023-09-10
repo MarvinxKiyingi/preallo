@@ -10,13 +10,12 @@ const StyledContentContainer = styled('div')(({ theme }) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    maxHeight: 39,
-    height: '100%',
+    height: 39,
     ...theme.typography.h6,
   },
 
-  '&>.desktopNavLogo,.pageTitle': {
-    marginBottom: theme.spacing(4),
+  '&>.desktopNavLogo,.titleContainer': {
+    paddingBottom: theme.spacing(4),
   },
 
   gap: theme.spacing(3),

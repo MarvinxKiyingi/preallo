@@ -43,7 +43,9 @@ const Desktop = ({
     <>
       <DesktopNavigation />
       <ContentContainer>
-        <Typography className='pageTitle'>Dashboard</Typography>
+        <div className='titleContainer'>
+          <Typography className='pageTitle'>Dashboard</Typography>
+        </div>
 
         <RightGridContentContainer>
           <YearSelectContainer>
