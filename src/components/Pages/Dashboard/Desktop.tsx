@@ -10,10 +10,10 @@ import Month from './Month';
 import RightGridContentContainer from '../../Container/RightGridContentContainer';
 import { styled } from '@mui/material';
 
-const YearSelectContainer = styled('div')(({ theme }) => ({
+const YearSelectContainer = styled('div')({
   gridColumn: '1/-1',
   gridRow: '1/-10',
-}));
+});
 
 const MonthsContainer = styled('div')(({ theme }) => ({
   display: 'flex',

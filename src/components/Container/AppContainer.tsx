@@ -2,8 +2,8 @@ import { styled, useMediaQuery } from '@mui/material';
 import { IChildren } from '../../model/IChildren';
 import Background from './Background';
 import { theme } from '../../styles/theme/muiTheme';
-import MobileContainer from './MobileConatiner';
-import DesktopContainer from './DesktopConatiner';
+import MobileContainer from './MobileContainer';
+import DesktopContainer from './DesktopContainer';
 
 const StyledAppContainer = styled('section')(({ theme }) => ({
   display: 'flex',
