@@ -7,31 +7,26 @@ interface IAppContainer extends IChildren {
   desktopColumns?: string;
 }
 
-const StyledDesktopContainer = styled('div')<{
-  ownerState: IAppContainer;
-}>(({ theme, ownerState }) => ({
+const StyledDesktopContainer = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     display: 'grid',
-    gridTemplateColumns: ownerState.desktopColumns
-      ? ownerState.desktopColumns
-      : '0.4fr 2fr',
+    gridTemplateColumns: 'repeat(12,1fr)',
+    gridTemplateRow: 'repeat(12,1fr)',
     height: '100%',
     gap: theme.spacing(3),
   },
+
+  '>:first-child': {
+    gridColumn: '1/4',
+    gridRow: '1/-1',
+  },
+  '>:nth-child(2)': {
+    gridColumn: '4/-1',
+    gridRow: '1/-1',
+  },
 }));
-const DesktopContainer = ({
-  children,
-  desktopColumns = '0.4fr 2fr',
-}: IAppContainer) => {
-  const ownerState = {
-    children,
-    desktopColumns,
-  };
-  return (
-    <StyledDesktopContainer ownerState={ownerState}>
-      {children}
-    </StyledDesktopContainer>
-  );
+const DesktopContainer = ({ children }: IAppContainer) => {
+  return <StyledDesktopContainer>{children}</StyledDesktopContainer>;
 };
 
 export default DesktopContainer;

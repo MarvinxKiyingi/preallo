@@ -1,9 +1,9 @@
-import { styled } from '@mui/material';
+import { styled, BoxProps } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { Button } from '../Button/Button';
 
-type ICard = {
+type ICard = BoxProps & {
   title: string;
 };
 const CardContainer = styled('div')(({ theme }) => ({
@@ -50,9 +50,9 @@ const Description = styled(Typography)(({ theme }) => ({
   },
 })) as typeof Typography;
 
-export const ProfileCard = ({ title }: ICard) => {
+export const ProfileCard = ({ title, sx }: ICard) => {
   return (
-    <CardContainer>
+    <CardContainer sx={sx}>
       <CardContent>
         <Title variant='body1' component='h1'>
           {title}

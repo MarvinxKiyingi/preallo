@@ -3,36 +3,24 @@ import AppContainer from '../../Container/AppContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
 import ContentContainer from '../../Container/ContentContainer';
 import { useRouter } from 'next/router';
-import { Typography, styled } from '@mui/material';
+import { Typography, styled, useMediaQuery } from '@mui/material';
 
 import { useAuth } from '../../../utils/context/AuthContext';
 import { Button } from '../../Button/Button';
 import { Avatar } from '../../Avatar/Avatar';
 import { ProfileCard } from '../../ProfileCard/ProfileCard';
-
-const Content = styled('div')(({ theme }) => ({
-  height: '100%',
-  display: 'grid',
-  gridTemplateRows: 'repeat(2,1fr)',
-  // gap: theme.spacing(4),
-}));
-
-const ProfileWrapper = styled('div')(({ theme }) => ({
-  gap: theme.spacing(6),
-  padding: theme.spacing(3, 0),
-  display: 'flex',
-
-  '>*': {
-    flex: 1,
-    alignSelf: 'center',
-  },
-}));
+import { theme } from '../../../styles/theme/muiTheme';
+import RightGridContentContainer from '../../Container/RightGridContentContainer';
 
 const ProfileContainer = styled('div')(({ theme }) => ({
+  gap: theme.spacing(6),
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: theme.spacing(6),
+  justifyContent: 'center',
+
+  gridColumn: '1/5',
+  gridRow: '1/6',
 }));
 
 const ProfileTitle = styled(Typography)(({ theme }) => ({
@@ -43,78 +31,76 @@ const ProfileTitle = styled(Typography)(({ theme }) => ({
 const ButtonGroup = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(2),
-
-  [theme.breakpoints.up('sm')]: {
-    gap: theme.spacing(3),
-  },
-}));
-
-const CardsContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
+  justifyContent: 'center',
   gap: theme.spacing(3),
-  padding: theme.spacing(3, 0),
-  height: '80%',
+  gridColumn: '5/-1',
+  gridRow: '1/6',
 }));
 
 const Desktop = () => {
   const { currentUser, signOutUser } = useAuth();
   const router = useRouter();
   const currentPageRouteName = router.pathname.replace(/\//g, '');
+
+  const isIpad = useMediaQuery(
+    `${theme.breakpoints.down('md').replace('@media ', '')}`
+  );
   return (
     <AppContainer>
       <>
         <DesktopNavigation disableHighlight={currentPageRouteName} />
         <ContentContainer>
-          <Typography className='pageTitle' variant='h4' align='center'>
-            Profile
-          </Typography>
+          <Typography className='pageTitle'>Profile</Typography>
 
-          <Content>
-            <ProfileWrapper>
-              <ProfileContainer>
-                <Avatar
-                  avatarDeskSize='45%'
-                  src={currentUser?.photoURL ? currentUser.photoURL : undefined}
-                />
+          <RightGridContentContainer>
+            <ProfileContainer>
+              <Avatar
+                avatarDeskSize='40%'
+                src={currentUser?.photoURL ? currentUser.photoURL : undefined}
+              />
 
-                <ProfileTitle className='userName' variant='h3'>
-                  {currentUser?.displayName}
-                </ProfileTitle>
-              </ProfileContainer>
+              <ProfileTitle className='userName' variant='h3'>
+                {currentUser?.displayName}
+              </ProfileTitle>
+            </ProfileContainer>
 
-              <ButtonGroup>
-                <Button
-                  sx={{ maxHeight: 48 }}
-                  variant='contained'
-                  color='secondary'
-                >
-                  Edit profile
-                </Button>
+            <ButtonGroup>
+              <Button
+                sx={{ maxHeight: 48 }}
+                variant='contained'
+                color='secondary'
+              >
+                Edit profile
+              </Button>
 
-                <Button
-                  sx={{ maxHeight: 48 }}
-                  variant='contained'
-                  onClick={() => signOutUser()}
-                >
-                  Sign out
-                </Button>
+              <Button
+                sx={{ maxHeight: 48 }}
+                variant='contained'
+                onClick={() => signOutUser()}
+              >
+                Sign out
+              </Button>
 
-                <Button
-                  sx={{ maxHeight: 48 }}
-                  variant='contained'
-                  color='error'
-                >
-                  Remove account
-                </Button>
-              </ButtonGroup>
-            </ProfileWrapper>
+              <Button sx={{ maxHeight: 48 }} variant='contained' color='error'>
+                Remove account
+              </Button>
+            </ButtonGroup>
 
-            <CardsContainer>
-              <ProfileCard title='Subscriptions' />
-              <ProfileCard title='Recurring expenses' />
-            </CardsContainer>
-          </Content>
+            <ProfileCard
+              title='Subscriptions'
+              sx={{
+                gridColumn: '1 / -5',
+                gridRow: isIpad ? '6/-1' : '6 / -3',
+              }}
+            />
+            <ProfileCard
+              title='Recurring expenses'
+              sx={{
+                gridColumn: '5 / -1',
+                gridRow: isIpad ? '6/-1' : '6 / -3',
+              }}
+            />
+          </RightGridContentContainer>
         </ContentContainer>
       </>
     </AppContainer>
