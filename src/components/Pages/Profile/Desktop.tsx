@@ -3,133 +3,108 @@ import AppContainer from '../../Container/AppContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
 import ContentContainer from '../../Container/ContentContainer';
 import { useRouter } from 'next/router';
-import { Typography, styled } from '@mui/material';
+import { Typography, styled, useMediaQuery } from '@mui/material';
 
 import { Button } from '../../Button/Button';
 import { Avatar } from '../../Avatar/Avatar';
 import { ProfileCard } from '../../ProfileCard/ProfileCard';
-import { signOut, useSession } from 'next-auth/react';
-
-const Title = styled(Typography)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-}));
-
-const Content = styled('div')(({ theme }) => ({
-  height: '100%',
-  display: 'grid',
-  gridTemplateRows: 'repeat(2,1fr)',
-}));
-
-const ProfileWrapper = styled('div')(({ theme }) => ({
-  gap: theme.spacing(6),
-  padding: theme.spacing(3, 0),
-  display: 'flex',
-
-  '>*': {
-    flex: 1,
-    alignSelf: 'center',
-  },
-}));
+import { theme } from '../../../styles/theme/muiTheme';
+import RightGridContentContainer from '../../Container/RightGridContentContainer';
+import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
 const ProfileContainer = styled('div')(({ theme }) => ({
+  gap: theme.spacing(6),
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: theme.spacing(6),
+  justifyContent: 'center',
+
+  gridColumn: '1/5',
+  gridRow: '1/6',
 }));
 
 const ProfileTitle = styled(Typography)(({ theme }) => ({
-  [theme.breakpoints.up('sm')]: {
-    ...theme.typography.h6,
-    fontWeight: 600,
-  },
-})) as typeof Typography;
+  ...theme.typography.h5,
+  fontWeight: 600,
+}));
 
 const ButtonGroup = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(2),
-
-  [theme.breakpoints.up('sm')]: {
-    gap: theme.spacing(3),
-  },
-}));
-
-const CardsContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
+  justifyContent: 'center',
   gap: theme.spacing(3),
-  padding: theme.spacing(3, 0),
-  height: '80%',
+  gridColumn: '5/-1',
+  gridRow: '1/6',
 }));
 
 const Desktop = () => {
   const { data: session } = useSession();
-  const imgUrl = session?.user?.image;
-  const userName = session?.user?.name;
-
+  const { user } = session!;
   const router = useRouter();
   const currentPageRouteName = router.pathname.replace(/\//g, '');
 
+  const isIpad = useMediaQuery(
+    `${theme.breakpoints.down('md').replace('@media ', '')}`
+  );
   return (
     <AppContainer>
       <>
         <DesktopNavigation disableHighlight={currentPageRouteName} />
         <ContentContainer>
-          <Title className='pageTitle' variant='h5' align='center'>
-            Profile
-          </Title>
+          <div className='titleContainer'>
+            <Typography className='pageTitle'>Profile</Typography>
+          </div>
 
-          <Content>
-            <ProfileWrapper>
-              <ProfileContainer>
-                <Avatar
-                  avatarDeskSize='45%'
-                  src={imgUrl ? imgUrl : undefined}
-                />
+          <RightGridContentContainer>
+            <ProfileContainer>
+              <Avatar
+                avatarDeskSize='40%'
+                src={user?.image ? user.image : undefined}
+              />
 
-                <ProfileTitle
-                  className='userName'
-                  variant='body1'
-                  component='h1'
-                >
-                  {userName}
-                </ProfileTitle>
-              </ProfileContainer>
+              <ProfileTitle className='userName' variant='h3'>
+                {user?.name}
+              </ProfileTitle>
+            </ProfileContainer>
 
-              <ButtonGroup>
-                {/* <Button
-                  sx={{ maxHeight: 48 }}
-                  variant='contained'
-                  color='secondary'
-                >
-                  Edit profile
-                </Button> */}
+            <ButtonGroup>
+              <Button
+                sx={{ maxHeight: 48 }}
+                variant='contained'
+                color='secondary'
+              >
+                Edit profile
+              </Button>
 
-                <Button
-                  sx={{ maxHeight: 48 }}
-                  variant='contained'
-                  onClick={() => signOut()}
-                >
-                  Sign out
-                </Button>
+              <Button
+                sx={{ maxHeight: 48 }}
+                variant='contained'
+                onClick={() => signOut()}
+              >
+                Sign out
+              </Button>
 
-                <Button
-                  sx={{ maxHeight: 48 }}
-                  variant='contained'
-                  color='error'
-                >
-                  Remove account
-                </Button>
-              </ButtonGroup>
-            </ProfileWrapper>
+              <Button sx={{ maxHeight: 48 }} variant='contained' color='error'>
+                Remove account
+              </Button>
+            </ButtonGroup>
 
-            <CardsContainer>
-              <ProfileCard title='Subscriptions' />
-              <ProfileCard title='Recurring expenses' />
-            </CardsContainer>
-          </Content>
+            <ProfileCard
+              title='Subscriptions'
+              sx={{
+                gridColumn: '1 / -5',
+                gridRow: isIpad ? '6/-1' : '6 / -3',
+              }}
+            />
+            <ProfileCard
+              title='Recurring expenses'
+              sx={{
+                gridColumn: '5 / -1',
+                gridRow: isIpad ? '6/-1' : '6 / -3',
+              }}
+            />
+          </RightGridContentContainer>
         </ContentContainer>
       </>
     </AppContainer>

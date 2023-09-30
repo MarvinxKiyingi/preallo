@@ -2,30 +2,31 @@ import { styled, useMediaQuery } from '@mui/material';
 import { IChildren } from '../../model/IChildren';
 import Background from './Background';
 import { theme } from '../../styles/theme/muiTheme';
-import MobileContainer from './MobileConatiner';
-import DesktopContainer from './DesktopConatiner';
-
-interface IAppContainer extends IChildren {
-  /** Add css string to adjust the gird template column*/
-  desktopColumns?: string;
-}
+import MobileContainer from './MobileContainer';
+import DesktopContainer from './DesktopContainer';
 
 const StyledAppContainer = styled('section')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  maxWidth: theme.breakpoints.values.xl,
+  maxWidth: 1920,
   flex: 1,
 
   [theme.breakpoints.up('md')]: {
-    margin: theme.spacing(6),
+    margin: theme.spacing(3),
+    display: 'grid',
   },
+
+  [theme.breakpoints.up('lg')]: {
+    margin: theme.spacing(5),
+  },
+
   [theme.breakpoints.up('xl')]: {
     width: '-webkit-fill-available',
     alignSelf: 'center',
   },
 }));
 
-const AppContainer = ({ children, desktopColumns }: IAppContainer) => {
+const AppContainer = ({ children }: IChildren) => {
   const isDesktop = useMediaQuery(
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
@@ -34,11 +35,7 @@ const AppContainer = ({ children, desktopColumns }: IAppContainer) => {
     <Background>
       <StyledAppContainer>
         {!isDesktop && <MobileContainer>{children}</MobileContainer>}
-        {isDesktop && (
-          <DesktopContainer desktopColumns={desktopColumns}>
-            {children}
-          </DesktopContainer>
-        )}
+        {isDesktop && <DesktopContainer>{children}</DesktopContainer>}
       </StyledAppContainer>
     </Background>
   );

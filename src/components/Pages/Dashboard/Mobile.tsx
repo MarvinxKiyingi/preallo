@@ -3,8 +3,20 @@ import { Grid, NoContentContainer, StyledSelect } from '../../../pages';
 import { AddRow } from '../../AddRow/AddRow';
 import FormContent from './FormContent';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
-import { Dialog, Typography } from '@mui/material';
+import { Dialog, Typography, styled } from '@mui/material';
 import Month from './Month';
+
+const SelectContainer = styled('div')({
+  flex: '0.2',
+});
+
+const AddRowContainer = styled('div')({
+  flex: '0.1',
+});
+
+const MonthContainer = styled('div')({
+  flex: '3',
+});
 
 const Mobile = ({
   session,
@@ -28,24 +40,24 @@ const Mobile = ({
     <>
       <MobileNavigation title='Dashboard' src={imgUrl ? imgUrl : undefined} />
 
-      <div>
-        {yearList && (
-          <StyledSelect
-            boxShadow
-            fullWidth
-            defaultValue={currentYear}
-            textAlign='center'
-            list={yearList}
-          />
-        )}
-      </div>
+      <SelectContainer>
+        <StyledSelect
+          boxShadow
+          fullWidth
+          defaultValue={currentYear}
+          textAlign='center'
+          list={yearList}
+        />
+      </SelectContainer>
 
-      <AddRow
-        addIsVisible
-        version='secondary'
-        title='Add'
-        onClick={() => handleOpen()}
-      />
+      <AddRowContainer>
+        <AddRow
+          addIsVisible
+          version='secondary'
+          title='Add'
+          onClick={() => handleOpen()}
+        />
+      </AddRowContainer>
 
       <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
         <form onSubmit={handleSubmit(submitFormContentHandler)}>
@@ -58,17 +70,19 @@ const Mobile = ({
         </form>
       </Dialog>
 
-      {months?.length > 0 ? (
-        <Grid ownerState={ownerState}>
-          {months.map((item, indx) => (
-            <Month key={indx} month={item.month} year={item.year} />
-          ))}
-        </Grid>
-      ) : (
-        <NoContentContainer>
-          <Typography>Press the add button to get started</Typography>
-        </NoContentContainer>
-      )}
+      <MonthContainer>
+        {months?.length > 0 ? (
+          <Grid ownerState={ownerState}>
+            {months.map((item, indx) => (
+              <Month key={indx} month={item.month} year={item.year} />
+            ))}
+          </Grid>
+        ) : (
+          <NoContentContainer>
+            <Typography>Press the add button to get started</Typography>
+          </NoContentContainer>
+        )}
+      </MonthContainer>
     </>
   );
 };
