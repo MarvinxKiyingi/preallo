@@ -7,6 +7,9 @@ import { createOrUpdateYears } from '../../../utils/functions/collection/years';
 import { currentYear } from '../../../utils/functions/currentYear';
 
 export default NextAuth({
+  pages: {
+    signIn: '/auth/signin',
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,

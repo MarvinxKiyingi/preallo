@@ -1,4 +1,4 @@
-import { Stack, Typography, TextField, styled, Box } from '@mui/material';
+import { Stack, Typography, styled, Box } from '@mui/material';
 import { GoogleIcon } from '../../../components/Icons';
 import { Button } from '../../../components/Button/Button';
 import Link from 'next/link';
@@ -65,13 +65,11 @@ export const SignUpLink = styled(Link)(({ theme }) => ({
 }));
 
 const SignIn = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ISignIn>({ resolver: yupResolver(ISignInYupSchema) });
+  const { handleSubmit } = useForm<ISignIn>({
+    resolver: yupResolver(ISignInYupSchema),
+  });
 
-  const { signInUser, googleSignIn } = useAuth();
+  const { signInUser } = useAuth();
 
   const formSubmitHandler: SubmitHandler<ISignIn> = (data: ISignIn) => {
     // console.log('data:', data);
@@ -79,7 +77,7 @@ const SignIn = () => {
   };
 
   const description =
-    'Ready to get organized? Type in your credentials, to get started';
+    'Ready to get organized? Sign in with Google to get started';
 
   return (
     <>
@@ -94,7 +92,7 @@ const SignIn = () => {
             <Description>{description}</Description>
           </Stack>
 
-          <Stack spacing={2} direction='column'>
+          {/* <Stack spacing={2} direction='column'>
             <TextField
               {...register('email')}
               error={!!errors.email}
@@ -111,17 +109,17 @@ const SignIn = () => {
               type='password'
               margin={'none'}
             />
-          </Stack>
+          </Stack> */}
 
           <CtaStack>
-            <Email
+            {/* <Email
               type='submit'
               fullHeight={false}
               fullWidth
               variant={'contained'}
             >
               Sign in
-            </Email>
+            </Email> */}
 
             <Google
               fullHeight={false}
@@ -133,7 +131,7 @@ const SignIn = () => {
               Sign in/up with google
             </Google>
 
-            <Stack spacing={1}>
+            {/* <Stack spacing={1}>
               <Typography>
                 Don’t have an account?{' '}
                 <SignUpLink href={'/auth/signup'}>Sign Up</SignUpLink>
@@ -142,7 +140,7 @@ const SignIn = () => {
               <ForgottenPassword href={'/auth/resetpassword'}>
                 Forgotten password?
               </ForgottenPassword>
-            </Stack>
+            </Stack> */}
           </CtaStack>
         </form>
       </AuthLayout>
