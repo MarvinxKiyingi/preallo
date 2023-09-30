@@ -6,25 +6,25 @@ import { currentYear } from './currentYear';
 export const createOrUpdateMonth = async (data: IModalForm, userId: string) => {
   const monthRef = doc(db, 'months', userId);
   const monthSnap = await getDoc(monthRef);
+  const slug = `${data.selected?.toLocaleLowerCase()}-${currentYear()}`;
+
+  const monthProperties = {
+    month: data.selected,
+    salary: data.amount,
+    year: currentYear(),
+    slug: slug,
+  };
 
   try {
     if (monthSnap.exists()) {
       return updateDoc(monthRef, {
         months: arrayUnion({
-          month: data.selected,
-          salary: data.amount,
-          year: currentYear(),
+          ...monthProperties,
         }),
       });
     } else {
       return setDoc(monthRef, {
-        months: [
-          {
-            month: data.selected,
-            salary: data.amount,
-            year: currentYear(),
-          },
-        ],
+        months: [{ ...monthProperties }],
       });
     }
   } catch (error) {

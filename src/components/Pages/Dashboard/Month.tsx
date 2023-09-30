@@ -4,7 +4,9 @@ import Link from 'next/link';
 import { IMonth } from '../../../model/IMonth';
 
 const Month = (props: IMonth) => {
-  const monthSlug = `/month/${props.month.toLowerCase()}-${props.year}`;
+  const { slug, month } = props;
+  const monthSlug = `/month/${slug}`;
+
   return (
     <Button
       fullWidth
@@ -15,7 +17,7 @@ const Month = (props: IMonth) => {
       LinkComponent={Link}
       href={monthSlug}
     >
-      {props.month}
+      {month}
     </Button>
   );
 };
