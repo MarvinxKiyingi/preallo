@@ -1,5 +1,6 @@
 import { styled } from '@mui/material';
 import { IChildren } from '../../model/IChildren';
+import MobileWrapper from './MobileWrapper';
 
 const StyledMobileContainer = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(3),
@@ -32,7 +33,11 @@ const StyledMobileContainer = styled('div')(({ theme }) => ({
 }));
 
 const MobileContainer = ({ children }: IChildren) => {
-  return <StyledMobileContainer>{children}</StyledMobileContainer>;
+  return (
+    <MobileWrapper>
+      <StyledMobileContainer>{children}</StyledMobileContainer>
+    </MobileWrapper>
+  );
 };
 
 export default MobileContainer;

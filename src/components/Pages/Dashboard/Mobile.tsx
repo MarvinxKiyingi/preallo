@@ -5,6 +5,7 @@ import FormContent from './FormContent';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
 import { Dialog, Typography, styled } from '@mui/material';
 import Month from './Month';
+import MobileWrapper from '../../Container/MobileWrapper';
 
 const SelectContainer = styled('div')({
   flex: '0.2',
@@ -37,7 +38,7 @@ const Mobile = ({
   };
   const imgUrl = session?.user?.image;
   return (
-    <>
+    <MobileWrapper>
       <MobileNavigation title='Dashboard' src={imgUrl ? imgUrl : undefined} />
 
       <SelectContainer>
@@ -88,7 +89,7 @@ const Mobile = ({
           </NoContentContainer>
         )}
       </MonthContainer>
-    </>
+    </MobileWrapper>
   );
 };
 

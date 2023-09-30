@@ -9,6 +9,7 @@ import { LogoContainer } from '../../Container/LogoContainer';
 import { FormContainer } from '../../Container/FormContainer';
 import { AuthContainer } from '../../Container/AuthContainer';
 import { useRouter } from 'next/router';
+import MobileWrapper from '../../Container/MobileWrapper';
 
 const IllustrationContainer = styled('div')(({ theme }) => ({
   display: 'grid',
@@ -41,13 +42,13 @@ export const AuthLayout = ({ children }: IChildren) => {
   return (
     <AuthContainer>
       {!isDesktop && (
-        <>
+        <MobileWrapper>
           <LogoContainer>
             <Logo />
           </LogoContainer>
 
           <FormContainer> {children}</FormContainer>
-        </>
+        </MobileWrapper>
       )}
 
       {isDesktop && (
