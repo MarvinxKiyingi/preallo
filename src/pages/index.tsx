@@ -58,8 +58,8 @@ export const NoContentContainer = styled('div')({
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
-  const [yearsSnapshot] = useDocument(doc(db, 'Years', `${session?.userId}`));
-  const [monthsSnapshot] = useDocument(doc(db, 'Months', `${session?.userId}`));
+  const [yearsSnapshot] = useDocument(doc(db, 'years', `${session?.userId}`));
+  const [monthsSnapshot] = useDocument(doc(db, 'months', `${session?.userId}`));
   const yearList: [string] = yearsSnapshot?.data()?.yearList;
   const months: IMonths = monthsSnapshot
     ?.data()

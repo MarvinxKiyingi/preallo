@@ -12,7 +12,7 @@ import { useSession } from 'next-auth/react';
 
 const Month = () => {
   const { data: session } = useSession();
-  const [monthsSnapshot] = useDocument(doc(db, 'Months', `${session?.userId}`));
+  const [monthsSnapshot] = useDocument(doc(db, 'months', `${session?.userId}`));
   const month: IMonth = monthsSnapshot?.data()?.months?.[0];
 
   const isDesktop = useMediaQuery(

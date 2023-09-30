@@ -4,7 +4,7 @@ import { db } from '../firebase/clientApp';
 import { currentYear } from './currentYear';
 
 export const createOrUpdateMonth = async (data: IModalForm, userId: string) => {
-  const monthRef = doc(db, 'Months', userId);
+  const monthRef = doc(db, 'months', userId);
   const monthSnap = await getDoc(monthRef);
 
   try {

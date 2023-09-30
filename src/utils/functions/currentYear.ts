@@ -1,4 +1,6 @@
 export const currentYear = () => {
-  const Year = new Date().getFullYear().toString();
-  return Year;
+  return new Date().getFullYear().toString();
 };
+
+const referenceYear = 2023;
+export const isNewYear = Number(currentYear()) > referenceYear;

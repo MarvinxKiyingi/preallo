@@ -1,29 +1,29 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../firebase/clientApp';
-import { createOrUpdateYearList } from '../createOrUpdateYears';
 
 export const createOrUpdateYears = async (
   userId: string,
   currentYear: string,
-  isNewUser?: boolean
+  isNewUser?: boolean,
+  isNewYear?: boolean
 ) => {
-  const docRef = doc(db, 'Years', userId);
+  const docRef = doc(db, 'years', userId);
   const docSnap = await getDoc(docRef);
-  const dbYearList = docSnap.data()?.yearList;
 
   try {
-    // Checks if there is already a yearList in the db, if so then update db list.
-    if (isNewUser || docSnap.exists().valueOf()) {
-      setDoc(doc(db, 'Years', userId), {
-        yearList: createOrUpdateYearList(currentYear, dbYearList),
+    // If new user or "years" doesn't exist, create one
+    if (isNewUser || !docSnap.exists) {
+      setDoc(doc(db, 'years', userId), {
+        yearList: [currentYear],
       });
-    } else {
-      // If there isn't a list in db, this is where it will be created.
-      setDoc(doc(db, 'Years', userId), {
-        yearList: createOrUpdateYearList(currentYear, [currentYear]),
+    }
+    if (isNewYear) {
+      // If new year, update yeaList with the new year
+      setDoc(doc(db, 'years', userId), {
+        yearList: arrayUnion(currentYear),
       });
     }
   } catch (error) {
-    alert(error);
+    console.log(error);
   }
 };
