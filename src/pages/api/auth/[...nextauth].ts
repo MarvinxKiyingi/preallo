@@ -9,20 +9,20 @@ import { currentYear } from '../../../utils/functions/currentYear';
 export default NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
     }),
   ],
 
   adapter: FirestoreAdapter({
     credential: cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.CLIENT_EMAIL!,
-      privateKey: process.env.PRIVATE_KEY!.replace(/\\n/g, '\n'),
+      projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID as string,
+      clientEmail: process.env.NEXT_PUBLIC_CLIENT_EMAIL as string,
+      privateKey: process.env.NEXT_PUBLIC_PRIVATE_KEY as string,
     }),
   }) as Adapter,
 
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET as string,
 
   events: {
     signIn: ({ user, isNewUser: newUser }) => {
