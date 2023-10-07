@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, { AuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { FirestoreAdapter } from '@auth/firebase-adapter';
 import { cert } from 'firebase-admin/app';
@@ -6,7 +6,7 @@ import { Adapter } from 'next-auth/adapters';
 import { createOrUpdateYears } from '../../../utils/functions/collection/years';
 import { currentYear, isNewYear } from '../../../utils/functions/currentYear';
 
-export default NextAuth({
+export const authOptions: AuthOptions = {
   pages: {
     signIn: '/auth/signin',
   },
@@ -49,4 +49,6 @@ export default NextAuth({
       return session;
     },
   },
-});
+};
+
+export default NextAuth(authOptions);
