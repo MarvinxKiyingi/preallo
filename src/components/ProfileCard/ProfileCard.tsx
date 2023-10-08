@@ -29,10 +29,6 @@ const CardContent = styled('div')(({ theme }) => ({
     maxWidth: '80%',
     padding: theme.spacing(3, 0),
   },
-
-  [`${theme.breakpoints.up('sm')} and (orientation: landscape)`]: {
-    padding: theme.spacing(6, 0),
-  },
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
