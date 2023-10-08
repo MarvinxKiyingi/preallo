@@ -1,13 +1,15 @@
-import router from 'next/router';
 import { IMonthPage } from '../../../model/IMonthPage';
 import ContentContainer from '../../Container/ContentContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
 
-const Desktop = ({ session, month, year, salary }: IMonthPage) => {
-  const currentPageRouteName = router.pathname.replace(/\//g, '');
+const Desktop = ({ month, year, salary, slug }: IMonthPage) => {
   return (
     <>
-      <DesktopNavigation disableHighlight={currentPageRouteName} />
+      <DesktopNavigation
+        disableHighlight={month?.toLowerCase()}
+        month={month}
+        monthSlug={slug}
+      />
       <ContentContainer>
         <h1>{month}</h1>
         <p>{salary}</p>

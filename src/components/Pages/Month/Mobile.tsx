@@ -3,8 +3,7 @@ import MobileWrapper from '../../Container/MobileWrapper';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
 
 const Mobile = ({ session, month, year, salary }: IMonthPage) => {
-  const { user } = session;
-  const imgUrl = user?.image;
+  const imgUrl = session?.user?.image;
 
   return (
     <MobileWrapper>
