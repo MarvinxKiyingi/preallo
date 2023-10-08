@@ -16,11 +16,11 @@ const StyledDesktopContainer = styled('div')(({ theme }) => ({
     gap: theme.spacing(3),
   },
 
-  '>:first-child': {
+  '>:first-of-type': {
     gridColumn: '1/4',
     gridRow: '1/-1',
   },
-  '>:nth-child(2)': {
+  '>:nth-of-type(2)': {
     gridColumn: '4/-1',
     gridRow: '1/-1',
   },
