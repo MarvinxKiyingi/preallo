@@ -98,7 +98,7 @@ const DesktopNavigation = ({
           aria-label='navigation'
           orientation='vertical'
         >
-          {month && (
+          {/* {month && (
             <StyledTab
               LinkComponent={Link}
               href={`/month/${monthSlug}`}
@@ -107,7 +107,7 @@ const DesktopNavigation = ({
               iconPosition='start'
               icon={<CalendarMonthRoundedIcon />}
             />
-          )}
+          )} */}
           <StyledTab
             LinkComponent={Link}
             href={'/'}
