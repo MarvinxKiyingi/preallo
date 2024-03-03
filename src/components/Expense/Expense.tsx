@@ -39,7 +39,7 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
     display: 'flex',
     alignItems: 'unset',
     borderRadius: ownerState.stripped ? 'unset' : theme.spacing(2),
-    padding: ownerState.stripped ? theme.spacing(2, 0) : theme.spacing(3),
+    padding: ownerState.stripped ? theme.spacing(2, 0) : theme.spacing(2),
     height: ownerState.fullHeight ? '100%' : undefined,
     width: ownerState.fullWidth ? '100%' : 334,
     gap: theme.spacing(2),
@@ -49,7 +49,9 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
     },
 
     '.iconContainer': {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: ownerState.iconContainerBgColor
+        ? ownerState.iconContainerBgColor
+        : theme.palette.background.default,
       display: 'flex',
       aspectRatio: '1/1',
       maxWidth: 48,
@@ -59,7 +61,9 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
       justifyContent: 'center',
 
       '>svg>path': {
-        color: ownerState.IconColor ? ownerState.IconColor : grey.shades[50],
+        color: ownerState.IconColor
+          ? ownerState.IconColor
+          : theme.palette.primary.main,
       },
     },
     '.textContainer': {
@@ -105,6 +109,7 @@ export const Expense = ({
   stripped = false,
   version = 'default',
   category,
+  iconContainerBgColor,
   ...props
 }: IExpenseProps & ICategory) => {
   const isDesktop = useMediaQuery(
@@ -113,6 +118,7 @@ export const Expense = ({
 
   const ownerState = {
     bgColor,
+    iconContainerBgColor,
     fullHeight,
     fullWidth,
     invert,
