@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
+import { useMediaQuery } from '@mui/material';
 import { theme } from '../styles/theme/muiTheme';
 import { styled } from '@mui/material';
 import AppContainer from '../components/Container/AppContainer';

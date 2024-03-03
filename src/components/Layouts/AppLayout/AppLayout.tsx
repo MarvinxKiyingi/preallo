@@ -1,4 +1,4 @@
-import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
+import { useMediaQuery } from '@mui/material';
 import { theme } from '../../../styles/theme/muiTheme';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
 import AppContainer from '../../Container/AppContainer';

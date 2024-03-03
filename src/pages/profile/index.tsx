@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
+import { useMediaQuery } from '@mui/material';
 import { theme } from '../../styles/theme/muiTheme';
 import Mobile from '../../components/Pages/Profile/Mobile';
 import Desktop from '../../components/Pages/Profile/Desktop';

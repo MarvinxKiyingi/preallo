@@ -6,7 +6,7 @@ import AppContainer from '../../components/Container/AppContainer';
 import Mobile from '../../components/Pages/Month/Mobile';
 import Desktop from '../../components/Pages/Month/Desktop';
 import { theme } from '../../styles/theme/muiTheme';
-import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
+import { useMediaQuery } from '@mui/material';
 import { getSession, useSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next/types';
 import { useRouter } from 'next/router';
