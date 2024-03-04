@@ -1,3 +1,5 @@
+import React from 'react';
+import { Preview } from '@storybook/react';
 import { ThemeProvider } from '@mui/material';
 import { theme } from '../src/styles/theme/muiTheme';
 
@@ -34,7 +36,7 @@ export const globalTypes = {
       items: ['light', 'dark'],
     },
   },
-}
+};
 
 export const parameters = {
   layout: 'fullscreen',
@@ -50,10 +52,14 @@ export const parameters = {
   },
 };
 
-export const withMuiTheme = (Story) => (
-  <ThemeProvider theme={theme}>
-    <Story />
-  </ThemeProvider>
-);
+const preview: Preview = {
+  decorators: [
+    (Story) => (
+      <ThemeProvider theme={theme}>
+        <Story />
+      </ThemeProvider>
+    ),
+  ],
+};
 
-export const decorators = [withMuiTheme];
+export default preview;
