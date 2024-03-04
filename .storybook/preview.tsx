@@ -56,7 +56,9 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <ThemeProvider theme={theme}>
-        <Story />
+        <div style={{ padding: '1.5rem' }}>
+          <Story />
+        </div>
       </ThemeProvider>
     ),
   ],
