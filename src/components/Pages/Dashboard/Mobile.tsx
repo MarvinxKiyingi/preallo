@@ -47,6 +47,7 @@ const Mobile = ({
           fullWidth
           defaultValue={currentYear}
           textAlign='center'
+          variant='outlined'
           list={yearList}
         />
       </SelectContainer>

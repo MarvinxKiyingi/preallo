@@ -8,18 +8,19 @@ import { SelectProps } from '@mui/material/Select';
 
 type FormControlProps = Pick<MuiFormControlProps, 'fullWidth' | 'size'>;
 
-export interface IFormControlProps extends FormControlProps, SelectProps {
-  fullWidth?: boolean;
-  /** list of chosen items*/
-  list: string[];
-  onClick?: () => void;
-  textAlign?: 'initial' | 'center';
-  bgColor?: string | 'initial' | 'white';
-  /** if `"true"`, a box shadow will be applied to component */
-  boxShadow?: boolean;
-  /** if `"false"`, there won't be a border applied to component */
-  hasBorder?: boolean;
-}
+export type IFormControlProps = FormControlProps &
+  SelectProps & {
+    fullWidth?: boolean;
+    /** list of chosen items*/
+    list: string[];
+    onClick?: () => void;
+    textAlign?: 'initial' | 'center';
+    bgColor?: string | 'initial' | 'white';
+    /** if `"true"`, a box shadow will be applied to component */
+    boxShadow?: boolean;
+    /** if `"false"`, there won't be a border applied to component */
+    hasBorder?: boolean;
+  };
 
 const StyledMuiSelect = styled(MuiSelect)<{ ownerState: IFormControlProps }>(
   ({ theme, ownerState }) => ({
@@ -57,13 +58,13 @@ export function Select({
     bgColor,
     boxShadow,
     hasBorder,
+    ...props,
   };
 
   return (
     <StyledMuiSelect
       className='select-container'
       ownerState={ownerState}
-      variant='outlined'
       {...props}
     >
       {list &&

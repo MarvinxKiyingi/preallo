@@ -16,15 +16,15 @@ type IPickChipProps = Pick<
   'size' | 'color' | 'clickable' | 'label' | 'disabled'
 >;
 type IPickIconButton = Pick<IIconButton, 'version' | 'onClick'>;
-export interface IChipProps extends IPickChipProps {
+export type IChipProps = IPickChipProps & {
   /** Can be used in a map to identify an item */
   id?: string;
   /** if true, the activated chip will change appearance */
   activated?: boolean;
   label?: string;
-}
+};
 
-export interface IAddRowProps extends IPickIconButton {
+export type IAddRowProps = IPickIconButton & {
   /** list of chips content*/
   chipsList?: Array<IChipProps>;
   title: string;
@@ -32,7 +32,7 @@ export interface IAddRowProps extends IPickIconButton {
   addIsVisible?: boolean;
   /** if true, the filter bar will not be visible*/
   filterIsVisible?: boolean;
-}
+};
 
 export const StyledAddRowContainer = styled(Box)(({ theme }) => ({
   display: 'flex',

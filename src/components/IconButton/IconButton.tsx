@@ -17,7 +17,7 @@ type IMuiIconButtonProps = Pick<
   | 'LinkComponent'
 >;
 
-export interface IIconButtonProps extends IMuiIconButtonProps {
+export type IIconButtonProps = IMuiIconButtonProps & {
   /** Pass in a css string to control the icon size in mobile view  */
   fontSizeMobile?: string;
 
@@ -28,7 +28,7 @@ export interface IIconButtonProps extends IMuiIconButtonProps {
   hasBgColor?: boolean;
 
   href?: string;
-}
+};
 const StyledIcon = styled(MuiIconButton)<{ ownerState: IIconButtonProps }>(
   ({ theme, ownerState }) => ({
     width: 'fit-content',

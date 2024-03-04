@@ -1,3 +1,3 @@
-export interface IPasswordReset {
+export type IPasswordReset = {
   email: string;
-}
+};

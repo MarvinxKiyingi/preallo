@@ -6,7 +6,7 @@ import {
   styled,
 } from '@mui/material';
 
-export interface IMuiCircularProgressProps extends MuiCircularProgressProps {
+export type IMuiCircularProgressProps = MuiCircularProgressProps & {
   value: number;
   thickness: number;
   size?: number;
@@ -39,7 +39,7 @@ export interface IMuiCircularProgressProps extends MuiCircularProgressProps {
     | 'success'
     | 'warning'
     | undefined;
-}
+};
 
 const StyledCircularProgress = styled(Typography)(({ theme }) => ({
   '.circularProgress': {

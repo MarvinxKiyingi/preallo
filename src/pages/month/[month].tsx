@@ -26,6 +26,11 @@ const Month = (props: IMonthProps) => {
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
 
+  // Render nothing if month is undefined
+  if (!month) {
+    return null;
+  }
+
   return (
     <>
       <Head>

@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { Avatar } from '../../Avatar/Avatar';
 import ContentContainer from '../../Container/ContentContainer';
 import { useSession } from 'next-auth/react';
-import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 
 type IStyledTab = TabProps & {
   href?: string;
@@ -67,11 +66,7 @@ const ProfileContainer = styled(Link)(({ theme }) => ({
   textTransform: 'capitalize',
 }));
 
-const DesktopNavigation = ({
-  disableHighlight,
-  month,
-  monthSlug,
-}: IDesktopNavigation) => {
+const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
   const { data: session } = useSession();
   const [value, setValue] = useState('dashboard');
 

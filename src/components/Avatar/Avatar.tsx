@@ -10,12 +10,12 @@ type AvatarProps = Pick<
   MuiAvatarProps,
   'alt' | 'children' | 'src' | 'variant' | 'sx'
 >;
-export interface IAvatar extends AvatarProps {
+export type IAvatar = AvatarProps & {
   /** adjust avatar size for only when in mobile view  */
   avatarMobileSize?: string;
   /** adjust avatar size for only when in desktop view  */
   avatarDeskSize?: string;
-}
+};
 
 const StyledAvatar = styled(MuiAvatar)<{ ownerState: IAvatar }>(
   ({ theme, ownerState }) => ({

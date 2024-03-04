@@ -23,14 +23,14 @@ type ButtonBaseProps = Pick<
   | 'LinkComponent'
 >;
 
-export interface IButtonProps extends ButtonBaseProps {
+export type IButtonProps = ButtonBaseProps & {
   children?: React.ReactNode;
   fullHeight?: boolean;
   /** If `"monthPicker"`, the button will change appearance */
   version?: 'button' | 'monthPicker';
   iconSize?: string;
   className?: string;
-}
+};
 
 const StyledButton = styled(MuiButton)<{ ownerState: IButtonProps }>(
   ({ ownerState, theme }) => ({

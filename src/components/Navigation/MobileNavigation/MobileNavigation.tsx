@@ -6,13 +6,13 @@ import { IIconButtonProps } from '../../IconButton/IconButton';
 import { ProfileButton } from '../../ProfileButton/ProfileButton';
 import Link from 'next/link';
 
-export interface IMobileNavigation extends IIconButtonProps {
+export type IMobileNavigation = IIconButtonProps & {
   title?: string;
   /** If true, hides dashboard icon button */
   hideDashBoard?: boolean;
   /** If true, hides profile icon button */
   hideProfile?: boolean;
-}
+};
 
 const MobileNavigationContainer = styled(Box)(({ theme }) => ({
   display: 'flex',

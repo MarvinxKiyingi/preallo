@@ -3,10 +3,10 @@ import React from 'react';
 import { styled } from '@mui/material';
 import PlusIcon from '../Icons/PlusIcon';
 import { Button } from '../Button/Button';
-export interface IIconButton extends IIconButtonProps {
+export type IIconButton = IIconButtonProps & {
   /** Primary is the default icon button, where the secondary is a custom version */
   version: 'primary' | 'secondary';
-}
+};
 
 const StyledDefaultIcon = styled(IconButton)<{
   ownerState: IIconButton;
