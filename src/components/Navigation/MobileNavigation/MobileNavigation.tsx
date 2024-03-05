@@ -5,6 +5,7 @@ import { DashboardButton } from '../../DashboardButton/DashboardButton';
 import { IIconButtonProps } from '../../IconButton/IconButton';
 import { ProfileButton } from '../../ProfileButton/ProfileButton';
 import Link from 'next/link';
+import { theme } from '../../../styles/theme/muiTheme';
 
 export type IMobileNavigation = IIconButtonProps & {
   title?: string;
@@ -12,6 +13,8 @@ export type IMobileNavigation = IIconButtonProps & {
   hideDashBoard?: boolean;
   /** If true, hides profile icon button */
   hideProfile?: boolean;
+  /** when true, the colors will change to better suit the dark background */
+  isDarkBg?: boolean;
 };
 
 const MobileNavigationContainer = styled(Box)(({ theme }) => ({
@@ -50,13 +53,22 @@ export const MobileNavigation = ({
   title,
   hideDashBoard = false,
   hideProfile = false,
+  isDarkBg = false,
   ...props
 }: IMobileNavigation & IAvatar) => {
   return (
-    <MobileNavigationContainer className='MobileNavigationContainer'>
+    <MobileNavigationContainer
+      className='MobileNavigationContainer'
+      sx={isDarkBg ? { color: theme.palette.common.white } : {}}
+    >
       <div className='dashBoardIconContainer'>
         {!hideDashBoard && (
-          <DashboardButton {...props} LinkComponent={Link} href='/' />
+          <DashboardButton
+            {...props}
+            LinkComponent={Link}
+            href='/'
+            sx={isDarkBg ? { color: 'inherit' } : {}}
+          />
         )}
       </div>
 
