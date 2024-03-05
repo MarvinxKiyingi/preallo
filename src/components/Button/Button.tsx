@@ -52,7 +52,7 @@ const StyledButton = styled(MuiButton)<{ ownerState: IButtonProps }>(
 const StyledMonthPicker = styled(MuiButton)<{ ownerState: IButtonProps }>(
   ({ ownerState, theme }) => ({
     height: ownerState.fullHeight ? '100%' : undefined,
-    borderRadius: 8,
+    borderRadius: theme.spacing(2),
     padding: theme.spacing(4, 15),
     fontSize: theme.spacing(2),
     [theme.breakpoints.up('md')]: {
