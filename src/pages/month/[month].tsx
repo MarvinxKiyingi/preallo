@@ -35,9 +35,10 @@ const Month = (props: IMonthProps) => {
     <>
       <Head>
         <title>{month?.month}</title>
+        <meta name='theme-color' content={theme.palette.primary.main}></meta>
       </Head>
 
-      <AppContainer>
+      <AppContainer disableTopPadding={!isDesktop}>
         {!isDesktop && <Mobile session={session} {...month} />}
 
         {isDesktop && <Desktop session={session} {...month} />}

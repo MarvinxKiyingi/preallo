@@ -1,9 +1,14 @@
 import { styled } from '@mui/material';
 import { IChildren } from '../../model/IChildren';
 import MobileWrapper from './MobileWrapper';
+import { IMobileContainerProps } from '@/model/IMobileContainerProps';
 
-const StyledMobileContainer = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(3),
+const StyledMobileContainer = styled('div')<{
+  ownerState: IMobileContainerProps;
+}>(({ ownerState, theme }) => ({
+  paddingTop: ownerState.disableTopPadding
+    ? theme.spacing(0)
+    : theme.spacing(3),
   '>*': {
     padding: theme.spacing(0, 3),
   },
@@ -19,7 +24,9 @@ const StyledMobileContainer = styled('div')(({ theme }) => ({
   height: '100vh',
 
   [theme.breakpoints.up('sm')]: {
-    paddingTop: theme.spacing(6),
+    paddingTop: ownerState.disableTopPadding
+      ? theme.spacing(0)
+      : theme.spacing(3),
     '>*': {
       padding: theme.spacing(0, 6),
     },
@@ -32,10 +39,18 @@ const StyledMobileContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const MobileContainer = ({ children }: IChildren) => {
+const MobileContainer = ({
+  children,
+  disableTopPadding = false,
+}: IMobileContainerProps & IChildren) => {
+  const ownerState = {
+    disableTopPadding,
+  };
   return (
     <MobileWrapper>
-      <StyledMobileContainer>{children}</StyledMobileContainer>
+      <StyledMobileContainer ownerState={ownerState}>
+        {children}
+      </StyledMobileContainer>
     </MobileWrapper>
   );
 };

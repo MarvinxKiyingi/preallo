@@ -4,6 +4,7 @@ import Background from './Background';
 import { theme } from '../../styles/theme/muiTheme';
 import MobileContainer from './MobileContainer';
 import DesktopContainer from './DesktopContainer';
+import { IMobileContainerProps } from '@/model/IMobileContainerProps';
 
 const StyledAppContainer = styled('section')(({ theme }) => ({
   display: 'flex',
@@ -26,7 +27,10 @@ const StyledAppContainer = styled('section')(({ theme }) => ({
   },
 }));
 
-const AppContainer = ({ children }: IChildren) => {
+const AppContainer = ({
+  children,
+  disableTopPadding = false,
+}: IChildren & IMobileContainerProps) => {
   const isDesktop = useMediaQuery(
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
@@ -34,7 +38,11 @@ const AppContainer = ({ children }: IChildren) => {
   return (
     <Background>
       <StyledAppContainer>
-        {!isDesktop && <MobileContainer>{children}</MobileContainer>}
+        {!isDesktop && (
+          <MobileContainer disableTopPadding={disableTopPadding}>
+            {children}
+          </MobileContainer>
+        )}
         {isDesktop && <DesktopContainer>{children}</DesktopContainer>}
       </StyledAppContainer>
     </Background>
