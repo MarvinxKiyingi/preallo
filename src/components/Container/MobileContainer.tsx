@@ -26,7 +26,7 @@ const StyledMobileContainer = styled('div')<{
   [theme.breakpoints.up('sm')]: {
     paddingTop: ownerState.disableTopPadding
       ? theme.spacing(0)
-      : theme.spacing(3),
+      : theme.spacing(6),
     '>*': {
       padding: theme.spacing(0, 6),
     },

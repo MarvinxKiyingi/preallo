@@ -1,12 +1,12 @@
 import { Box, styled, Typography } from '@mui/material';
 import { grey } from '../../styles/colors/grey';
 import { theme } from '../../styles/theme/muiTheme';
-import { AddButton } from '../AddButton/AddButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import CurrencyFormat from 'react-currency-format';
 
 export type ISalaryDisplayProps = {
   title: string;
-  amount: string;
+  amount: number;
   invert?: boolean;
   onClick?: () => void;
 };
@@ -14,7 +14,11 @@ export type ISalaryDisplayProps = {
 const Title = styled(Typography)<{ ownerState: ISalaryDisplayProps }>(
   ({ theme, ownerState }) => ({
     ...theme.typography.subtitle1,
-    color: ownerState.invert ? grey.light[100] : grey.dark[100],
+    color: ownerState.invert ? grey.shades[300] : grey.dark[100],
+
+    [theme.breakpoints.up('sm')]: {
+      ...theme.typography.h5,
+    },
 
     [theme.breakpoints.up('md')]: {
       ...theme.typography.h4,
@@ -30,6 +34,10 @@ const Salary = styled(Typography)<{ ownerState: ISalaryDisplayProps }>(
     color: ownerState.invert
       ? theme.palette.common.white
       : theme.palette.common.black,
+
+    [theme.breakpoints.up('sm')]: {
+      ...theme.typography.h3,
+    },
 
     [theme.breakpoints.up('md')]: {
       ...theme.typography.h2,
@@ -64,10 +72,22 @@ export const SalaryDisplay = ({
         <Title as='span' ownerState={ownerState}>
           {title}
         </Title>
-        <Salary as='h3' ownerState={ownerState}>{`${amount} kr`}</Salary>
+        <CurrencyFormat
+          value={amount}
+          displayType={'text'}
+          thousandSeparator={' '}
+          decimalSeparator=','
+          thousandSpacing={'3'}
+          suffix={' kr'}
+          renderText={(value) => (
+            <Salary as='h3' ownerState={ownerState}>
+              {value}
+            </Salary>
+          )}
+        />
       </Box>
 
-      {isMobile && (
+      {/* {isMobile && (
         <Box p={theme.spacing(0, 2, 0, 0)}>
           <AddButton
             hasBgColor
@@ -76,7 +96,7 @@ export const SalaryDisplay = ({
             onClick={onClick}
           />
         </Box>
-      )}
+      )} */}
     </Box>
   );
 };

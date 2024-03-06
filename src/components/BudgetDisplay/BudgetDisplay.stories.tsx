@@ -6,10 +6,7 @@ const meta: Meta<typeof BudgetDisplay> = {
   title: 'components/BudgetDisplay',
   component: BudgetDisplay,
   args: {
-    days: 25,
     amount: 2.478,
-    progressValue: 60,
-    color: 'secondary',
   },
 };
 
@@ -22,7 +19,9 @@ export const Primary: Story = {
 
 export const WithProgress: Story = {
   args: {
+    progressValue: 60,
     viewProgress: true,
+    days: 25,
   },
 };
 

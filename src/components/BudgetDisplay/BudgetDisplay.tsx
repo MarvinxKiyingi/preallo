@@ -6,6 +6,7 @@ import {
   Typography,
 } from '@mui/material';
 import { grey } from '../../styles/colors/grey';
+import CurrencyFormat from 'react-currency-format';
 
 export type IBudgetDisplay = {
   /** Input css string to change the background color  */
@@ -17,11 +18,11 @@ export type IBudgetDisplay = {
   variant?: 'buffer' | 'determinate' | 'indeterminate' | 'query';
   /** If true, progress will be visible   */
   viewProgress?: boolean;
-  fullWidth: boolean;
+  fullWidth?: boolean;
   /** Days until next salary   */
-  days: number;
+  days?: number;
   /** If `"secondary"`, the budget display will change to a more simpler appearance   */
-  version: 'primary' | 'secondary';
+  version?: 'primary' | 'secondary';
   title?: string;
 };
 
@@ -57,12 +58,22 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
         color: theme.palette.text.secondary,
         ...theme.typography.subtitle1,
         fontWeight: 600,
+
+        [theme.breakpoints.up('sm')]: {
+          ...theme.typography.h6,
+          fontWeight: 600,
+        },
       },
 
       '.amount': {
         ...theme.typography.h6,
         fontWeight: 700,
         textTransform: 'uppercase',
+
+        [theme.breakpoints.up('sm')]: {
+          ...theme.typography.h5,
+          fontWeight: 700,
+        },
       },
     },
 
@@ -98,15 +109,16 @@ const StyledSecondaryBudgetDisplay = styled(Box)(({ theme }) => ({
 }));
 
 export const BudgetDisplay = ({
-  viewProgress = true,
+  viewProgress = false,
   bgColor,
   fullWidth,
-  days,
+  days = 0,
   amount,
-  progressValue,
+  progressValue = 100,
   version = 'primary',
   title,
   variant = 'determinate',
+  color = 'secondary',
   ...props
 }: IBudgetDisplay & LinearProgressProps) => {
   const ownerState = {
@@ -117,6 +129,7 @@ export const BudgetDisplay = ({
     progressValue,
     version,
     title,
+    color,
   };
   return (
     <>
@@ -130,13 +143,24 @@ export const BudgetDisplay = ({
           </Typography>
 
           <div className='textContainer'>
-            <Typography className={'infoText'} variant='body1'>
-              {`Left to spend, for the next ${days} days`}
-            </Typography>
-            <Typography
-              className='amount'
-              variant='h5'
-            >{`${amount} kr`}</Typography>
+            {days > 0 && (
+              <Typography className={'infoText'} variant='body1'>
+                {`Left to spend, for the next ${days} days`}
+              </Typography>
+            )}
+            <CurrencyFormat
+              value={amount}
+              displayType={'text'}
+              thousandSeparator={' '}
+              decimalSeparator=','
+              thousandSpacing={'3'}
+              suffix={' kr'}
+              renderText={(value) => (
+                <Typography className='amount' variant='h5'>
+                  {value}
+                </Typography>
+              )}
+            />
           </div>
         </StyledSecondaryBudgetDisplay>
       ) : (
@@ -146,13 +170,25 @@ export const BudgetDisplay = ({
           {...props}
         >
           <div className='textContainer'>
-            <Typography className={'infoText'} variant='caption'>
-              {`Left to spend, for the next ${days} days`}
-            </Typography>
-            <Typography
-              className='amount'
-              variant='h4'
-            >{`${amount} kr`}</Typography>
+            <CurrencyFormat
+              value={amount}
+              displayType={'text'}
+              thousandSeparator={' '}
+              decimalSeparator=','
+              thousandSpacing={'3'}
+              suffix={' kr'}
+              renderText={(value) => (
+                <Typography className='amount' variant='h4'>
+                  {value}
+                </Typography>
+              )}
+            />
+
+            {days > 0 && (
+              <Typography className={'infoText'} variant='caption'>
+                {`Left to spend, for the next ${days} days`}
+              </Typography>
+            )}
           </div>
 
           {viewProgress && (
@@ -161,6 +197,7 @@ export const BudgetDisplay = ({
                 sx={{ height: 6 }}
                 value={progressValue}
                 variant={variant}
+                color={color}
                 {...props}
               />
             </Box>
