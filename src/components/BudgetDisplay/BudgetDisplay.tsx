@@ -154,7 +154,6 @@ export const BudgetDisplay = ({
               thousandSeparator={' '}
               decimalSeparator=','
               thousandSpacing={'3'}
-              suffix={' kr'}
               renderText={(value) => (
                 <Typography className='amount' variant='h5'>
                   {value}
@@ -176,7 +175,6 @@ export const BudgetDisplay = ({
               thousandSeparator={' '}
               decimalSeparator=','
               thousandSpacing={'3'}
-              suffix={' kr'}
               renderText={(value) => (
                 <Typography className='amount' variant='h4'>
                   {value}
