@@ -1,6 +1,6 @@
 export type IMonth = {
   month: string;
-  salary: string;
+  salary?: string;
   year?: string;
   slug?: string;
 };

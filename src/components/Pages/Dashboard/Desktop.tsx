@@ -18,9 +18,15 @@ const YearSelectContainer = styled('div')({
 const MonthsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
+  flex: 1,
   gap: theme.spacing(3),
-  gridColumn: '1/-1',
-  gridRow: '2/-1',
+
+  [theme.breakpoints.up('md')]: {
+    marginTop: theme.spacing(3),
+  },
+  [theme.breakpoints.up('lg')]: {
+    marginTop: 'unset',
+  },
 }));
 
 const Desktop = ({
@@ -39,6 +45,12 @@ const Desktop = ({
   const ownerState = {
     months,
   };
+
+  const gridOverride = {
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
   return (
     <>
       <DesktopNavigation />
@@ -47,7 +59,7 @@ const Desktop = ({
           <Typography className='pageTitle'>Dashboard</Typography>
         </div>
 
-        <RightGridContentContainer>
+        <RightGridContentContainer sx={gridOverride}>
           <YearSelectContainer>
             <StyledSelect
               boxShadow
