@@ -56,10 +56,10 @@ const Mobile = ({ session, month, year, salary }: IMonthPage) => {
           <SalaryDisplay title='Salary' amount={salaryAsNumber} invert />
 
           <BudgetDisplay
-            amount={salaryAsNumber}
+            budget={4566}
+            salary={salaryAsNumber}
             sx={{ pt: 'unset' }}
             days={25}
-            viewProgress
             fullWidth
           />
         </BudgetOverviewSection>

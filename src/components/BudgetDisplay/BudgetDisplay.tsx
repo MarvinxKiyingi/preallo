@@ -11,18 +11,18 @@ import CurrencyFormat from 'react-currency-format';
 export type IBudgetDisplay = {
   /** Input css string to change the background color  */
   bgColor?: string;
-  /** Budget amount amount  */
-  amount: number;
+  /** Budget amount  */
+  budget: number;
+  /** Salary the budget is based on   */
+  salary?: number;
   /** The value of the progress indicator for the determinate and buffer variants. Value between 0 and 100.  */
   progressValue?: number;
-  variant?: 'buffer' | 'determinate' | 'indeterminate' | 'query';
+  variant?: 'buffer' | 'determinate' | 'indeterminate' | 'query' | 'test';
   /** If true, progress will be visible   */
-  viewProgress?: boolean;
+  hideProgressBar?: boolean;
   fullWidth?: boolean;
   /** Days until next salary   */
   days?: number;
-  /** If `"secondary"`, the budget display will change to a more simpler appearance   */
-  version?: 'primary' | 'secondary';
   title?: string;
 };
 
@@ -34,7 +34,6 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
     color: theme.palette.common.white,
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
     gap: theme.spacing(),
     borderRadius: theme.spacing(2),
     padding: theme.spacing(3),
@@ -53,6 +52,7 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
 
       '.infoText': {
         color: grey.light[500],
+        textTransform: 'unset',
       },
       '.title': {
         color: theme.palette.text.secondary,
@@ -66,12 +66,8 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
       },
 
       '.amount': {
-        ...theme.typography.h6,
-        fontWeight: 700,
-        textTransform: 'uppercase',
-
         [theme.breakpoints.up('sm')]: {
-          ...theme.typography.h5,
+          ...theme.typography.h3,
           fontWeight: 700,
         },
       },
@@ -83,40 +79,56 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
         borderRadius: theme.spacing(),
       },
     },
+
+    '.budgetBasedOn-container': {
+      width: '100%',
+      span: {
+        borderRadius: theme.spacing(),
+      },
+    },
   })
 );
 
-const StyledSecondaryBudgetDisplay = styled(Box)(({ theme }) => ({
-  '.title': {
-    fontWeight: 600,
-  },
-
-  '.textContainer': {
+const BudgetBasedOnContainer = styled(Box)<{ ownerState: LinearProgressProps }>(
+  ({ theme, ownerState }) => ({
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    gap: theme.spacing(1 / 2),
 
-    '.infoText': {
-      color: grey.shades[600],
+    '>:first-child': {
+      display: 'flex',
+      alignItems: 'center',
+      gap: theme.spacing(),
+
+      '&:before': {
+        content: '""',
+        display: 'flex',
+        width: theme.spacing(),
+        height: theme.spacing(),
+        borderRadius: '50%',
+        backgroundColor: 'rgb(195, 178, 255)',
+      },
     },
 
-    '.amount': {
-      ...theme.typography.h5,
-      fontWeight: 700,
-      textTransform: 'uppercase',
+    '.text': {
+      textTransform: 'none',
+      lineHeight: '115%',
     },
-  },
-}));
+    '.salary': {
+      fontSize: theme.typography.overline.fontSize,
+      lineHeight: '0',
+    },
+  })
+);
 
 export const BudgetDisplay = ({
-  viewProgress = false,
+  hideProgressBar = false,
   bgColor,
   fullWidth,
   days = 0,
-  amount,
+  budget,
+  salary,
   progressValue = 100,
-  version = 'primary',
-  title,
+  title = 'Salary:',
   variant = 'determinate',
   color = 'secondary',
   ...props
@@ -124,84 +136,75 @@ export const BudgetDisplay = ({
   const ownerState = {
     bgColor,
     fullWidth,
-    amount,
+    budget,
+    salary,
     days,
     progressValue,
-    version,
     title,
     color,
   };
   return (
-    <>
-      {version === 'secondary' ? (
-        <StyledSecondaryBudgetDisplay
-          className='budgetDisplay-secondary'
-          {...props}
-        >
-          <Typography className='title' variant='h4'>
-            {title}
+    <StyledBudgetDisplay
+      className='budgetDisplay'
+      ownerState={ownerState}
+      {...props}
+    >
+      <div className='textContainer'>
+        {days > 0 && (
+          <Typography className='infoText' variant='overline'>
+            {`Left to spend, for the next ${days} days`}
           </Typography>
+        )}
+        <CurrencyFormat
+          value={budget}
+          displayType={'text'}
+          thousandSeparator={' '}
+          decimalSeparator=','
+          thousandSpacing={'3'}
+          renderText={(value) => (
+            <Typography className='budget' variant='h4'>
+              {value}
+            </Typography>
+          )}
+        />
+      </div>
 
-          <div className='textContainer'>
-            {days > 0 && (
-              <Typography className={'infoText'} variant='body1'>
-                {`Left to spend, for the next ${days} days`}
-              </Typography>
-            )}
-            <CurrencyFormat
-              value={amount}
-              displayType={'text'}
-              thousandSeparator={' '}
-              decimalSeparator=','
-              thousandSpacing={'3'}
-              renderText={(value) => (
-                <Typography className='amount' variant='h5'>
-                  {value}
-                </Typography>
-              )}
-            />
-          </div>
-        </StyledSecondaryBudgetDisplay>
-      ) : (
-        <StyledBudgetDisplay
-          className='budgetDisplay-primary'
-          ownerState={ownerState}
-          {...props}
-        >
-          <div className='textContainer'>
-            <CurrencyFormat
-              value={amount}
-              displayType={'text'}
-              thousandSeparator={' '}
-              decimalSeparator=','
-              thousandSpacing={'3'}
-              renderText={(value) => (
-                <Typography className='amount' variant='h4'>
-                  {value}
-                </Typography>
-              )}
-            />
-
-            {days > 0 && (
-              <Typography className={'infoText'} variant='caption'>
-                {`Left to spend, for the next ${days} days`}
-              </Typography>
-            )}
-          </div>
-
-          {viewProgress && (
-            <Box className='linearProgress-container'>
+      {salary && (
+        <>
+          {!hideProgressBar && (
+            <div className='linearProgress-container'>
               <LinearProgress
-                sx={{ height: 6 }}
+                sx={{ height: 12 }}
                 value={progressValue}
                 variant={variant}
                 color={color}
                 {...props}
               />
-            </Box>
+            </div>
           )}
-        </StyledBudgetDisplay>
+
+          {salary && (
+            <BudgetBasedOnContainer ownerState={ownerState}>
+              <Typography className='text' variant='overline'>
+                <div>{title}</div>
+
+                <CurrencyFormat
+                  value={salary}
+                  displayType={'text'}
+                  thousandSeparator={' '}
+                  decimalSeparator=','
+                  thousandSpacing={'3'}
+                  renderText={(value) => (
+                    <Typography className='salary' variant='subtitle2'>
+                      {value}
+                    </Typography>
+                  )}
+                />
+              </Typography>
+            </BudgetBasedOnContainer>
+          )}
+        </>
       )}
-    </>
+    </StyledBudgetDisplay>
   );
 };

@@ -73,6 +73,7 @@ export const createTypography = {
     fontSize: '0.75rem',
   },
   overline: {
-    fontSize: '0.625',
+    fontSize: '0.625rem',
+    lineHeight: '100%',
   },
 };
