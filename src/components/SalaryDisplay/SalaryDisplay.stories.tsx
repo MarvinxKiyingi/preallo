@@ -7,7 +7,7 @@ const meta: Meta<typeof SalaryDisplay> = {
   component: SalaryDisplay,
   args: {
     title: 'Salary',
-    amount: '20.000',
+    amount: 20.0,
   },
 };
 
