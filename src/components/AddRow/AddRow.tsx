@@ -7,6 +7,7 @@ import {
   ChipProps as MuiChipProps,
 } from '@mui/material';
 import React from 'react';
+import { chipClasses } from '@mui/material/Chip';
 import { AddButton, IIconButton } from '../AddButton/AddButton';
 import { FilterIcon } from '../Icons';
 
@@ -52,7 +53,7 @@ export const StyledAddRow = styled(Box)(({ theme }) => ({
     ...theme.typography.h6,
     fontWeight: 600,
     fontSize: '1rem',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       ...theme.typography.h6,
       fontWeight: 600,
     },
@@ -69,12 +70,14 @@ export const StyledFilterBar = styled(Box)(({ theme }) => ({
   padding: theme.spacing(0, 1),
   gap: theme.spacing(2),
 
-  '.chip': {
-    fontSize: theme.typography.overline.fontSize,
-
-    [theme.breakpoints.up('md')]: {
-      fontSize: theme.typography.body2.fontSize,
-    },
+  [`.${chipClasses.root}`]: {
+    height: 'unset',
+  },
+  [`.${chipClasses.label}`]: {
+    ...theme.typography.overline,
+    lineHeight: 'normal',
+    textTransform: 'capitalize',
+    padding: '4px 12px',
   },
 }));
 
@@ -99,7 +102,7 @@ export const AddRow = ({
         </div>
       </StyledAddRow>
 
-      {filterIsVisible && (
+      {filterIsVisible && chipsList && (
         <StyledFilterBar>
           <Box display='flex' height={32} alignItems='center'>
             <FilterIcon />

@@ -3,9 +3,8 @@ import { IMonthPage } from '../../../model/IMonthPage';
 import MobileWrapper from '../../Container/MobileWrapper';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
 import { TabBar } from '@/components/TabBar/TabBar';
-import { SalaryDisplay } from '@/components/SalaryDisplay/SalaryDisplay';
-import CurrencyFormat from 'react-currency-format';
 import { BudgetDisplay } from '@/components/BudgetDisplay/BudgetDisplay';
+import { AddRow } from '@/components/AddRow/AddRow';
 
 const HeaderSection = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -70,7 +69,21 @@ const Mobile = ({ session, month, year, salary }: IMonthPage) => {
         </BudgetOverview>
       </HeaderSection>
       <div>
-        <AddExpense></AddExpense>
+        <AddExpense>
+          <AddRow
+            title='Add'
+            version='secondary'
+            chipsList={[
+              {
+                activated: true,
+                id: 'all',
+                label: 'All',
+              },
+            ]}
+            addIsVisible
+            filterIsVisible
+          />
+        </AddExpense>
       </div>
     </MobileWrapper>
   );
