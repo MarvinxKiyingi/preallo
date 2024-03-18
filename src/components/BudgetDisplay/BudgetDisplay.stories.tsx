@@ -11,7 +11,7 @@ const meta: Meta<typeof BudgetDisplay> = {
     hideProgressBar: false,
     salary: 10000,
     progressValue: 20,
-    days: 25,
+    daysUntilPayday: 25,
   },
 };
 

@@ -198,7 +198,7 @@ export const BudgetDisplay = ({
           )}
 
           {salary && (
-            <BudgetBasedOnContainer ownerState={ownerState}>
+            <BudgetBasedOnContainer>
               <Typography className='salaryTitle' variant='overline'>
                 <div>{salaryTitle}</div>
 
