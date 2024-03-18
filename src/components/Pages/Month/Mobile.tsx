@@ -16,7 +16,6 @@ const HeaderSection = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('sm')]: {
     paddingTop: theme.spacing(6),
-    gap: theme.spacing(5),
   },
 }));
 
@@ -53,13 +52,11 @@ const Mobile = ({ session, month, year, salary }: IMonthPage) => {
         <TabBar tabList={tabBarList} isDarkBg />
 
         <BudgetOverviewSection>
-          <SalaryDisplay title='Salary' amount={salaryAsNumber} invert />
-
           <BudgetDisplay
+            progressValue={50}
             budget={4566}
             salary={salaryAsNumber}
-            sx={{ pt: 'unset' }}
-            days={25}
+            daysUntilPayday={25}
             fullWidth
           />
         </BudgetOverviewSection>

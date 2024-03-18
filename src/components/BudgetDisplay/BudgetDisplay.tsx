@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
   Box,
   LinearProgress,
@@ -22,8 +23,8 @@ export type IBudgetDisplay = {
   hideProgressBar?: boolean;
   fullWidth?: boolean;
   /** Days until next salary   */
-  days?: number;
-  title?: string;
+  daysUntilPayday?: number;
+  salaryTitle?: string;
 };
 
 const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
@@ -53,6 +54,16 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
       '.infoText': {
         color: grey.light[500],
         textTransform: 'unset',
+
+        [theme.breakpoints.up('sm')]: {
+          ...theme.typography.body2,
+        },
+      },
+      '.budget': {
+        [theme.breakpoints.up('sm')]: {
+          ...theme.typography.h3,
+          fontWeight: 600,
+        },
       },
       '.title': {
         color: theme.palette.text.secondary,
@@ -79,68 +90,71 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
         borderRadius: theme.spacing(),
       },
     },
-
-    '.budgetBasedOn-container': {
-      width: '100%',
-      span: {
-        borderRadius: theme.spacing(),
-      },
-    },
   })
 );
 
-const BudgetBasedOnContainer = styled(Box)<{ ownerState: LinearProgressProps }>(
-  ({ theme, ownerState }) => ({
+const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
+  '>:first-of-type': {
     display: 'flex',
-    gap: theme.spacing(1 / 2),
+    alignItems: 'center',
+    gap: theme.spacing(),
 
-    '>:first-child': {
+    '&:before': {
+      content: '""',
       display: 'flex',
-      alignItems: 'center',
-      gap: theme.spacing(),
+      width: theme.spacing(),
+      height: theme.spacing(),
+      borderRadius: '50%',
+      backgroundColor: 'rgb(195, 178, 255)',
+    },
+  },
 
-      '&:before': {
-        content: '""',
-        display: 'flex',
-        width: theme.spacing(),
-        height: theme.spacing(),
-        borderRadius: '50%',
-        backgroundColor: 'rgb(195, 178, 255)',
-      },
-    },
+  '.salaryTitle': {
+    textTransform: 'none',
+    lineHeight: '115%',
 
-    '.text': {
-      textTransform: 'none',
-      lineHeight: '115%',
+    [theme.breakpoints.up('sm')]: {
+      ...theme.typography.body2,
     },
-    '.salary': {
-      fontSize: theme.typography.overline.fontSize,
-      lineHeight: '0',
+  },
+  '.salary': {
+    fontSize: theme.typography.overline.fontSize,
+    lineHeight: '0',
+
+    [theme.breakpoints.up('sm')]: {
+      ...theme.typography.subtitle2,
+      fontSize: theme.typography.button.fontSize,
     },
-  })
-);
+  },
+}));
 
 export const BudgetDisplay = ({
   hideProgressBar = false,
   bgColor,
   fullWidth,
-  days = 0,
+  daysUntilPayday = 25,
   budget,
   salary,
   progressValue = 100,
-  title = 'Salary:',
+  salaryTitle = 'Salary:',
   variant = 'determinate',
   color = 'secondary',
   ...props
 }: IBudgetDisplay & LinearProgressProps) => {
+  const today = useMemo(() => new Date(), []);
+
+  const daysLeft = useMemo(() => {
+    return daysUntilPayday - today.getDate();
+  }, [daysUntilPayday, today]);
+
   const ownerState = {
     bgColor,
     fullWidth,
     budget,
     salary,
-    days,
+    daysUntilPayday,
     progressValue,
-    title,
+    salaryTitle,
     color,
   };
   return (
@@ -150,9 +164,9 @@ export const BudgetDisplay = ({
       {...props}
     >
       <div className='textContainer'>
-        {days > 0 && (
+        {daysUntilPayday > 0 && (
           <Typography className='infoText' variant='overline'>
-            {`Left to spend, for the next ${days} days`}
+            {`Left to spend, for the next ${daysLeft} days`}
           </Typography>
         )}
         <CurrencyFormat
@@ -185,8 +199,8 @@ export const BudgetDisplay = ({
 
           {salary && (
             <BudgetBasedOnContainer ownerState={ownerState}>
-              <Typography className='text' variant='overline'>
-                <div>{title}</div>
+              <Typography className='salaryTitle' variant='overline'>
+                <div>{salaryTitle}</div>
 
                 <CurrencyFormat
                   value={salary}
