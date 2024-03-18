@@ -19,7 +19,7 @@ const HeaderSection = styled('div')(({ theme }) => ({
   },
 }));
 
-const BudgetOverviewSection = styled('div')(({ theme }) => ({
+const BudgetOverview = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(3),
@@ -28,6 +28,14 @@ const BudgetOverviewSection = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     gap: theme.spacing(5),
   },
+}));
+
+const AddExpense = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(),
+
+  [theme.breakpoints.up('sm')]: {},
 }));
 
 const Mobile = ({ session, month, year, salary }: IMonthPage) => {
@@ -51,7 +59,7 @@ const Mobile = ({ session, month, year, salary }: IMonthPage) => {
 
         <TabBar tabList={tabBarList} isDarkBg />
 
-        <BudgetOverviewSection>
+        <BudgetOverview>
           <BudgetDisplay
             progressValue={50}
             budget={4566}
@@ -59,12 +67,10 @@ const Mobile = ({ session, month, year, salary }: IMonthPage) => {
             daysUntilPayday={25}
             fullWidth
           />
-        </BudgetOverviewSection>
+        </BudgetOverview>
       </HeaderSection>
       <div>
-        <h1>{month}</h1>
-        <p>{salary}</p>
-        <p>{year}</p>
+        <AddExpense></AddExpense>
       </div>
     </MobileWrapper>
   );
