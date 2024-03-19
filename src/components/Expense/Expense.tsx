@@ -23,7 +23,7 @@ export type IExpenseProps = {
   /** If true, background-color, border-radius, box-shadow & left and right will be removed */
   stripped?: boolean;
   /** If `"detail"`, left and right padding will be removed. And overall show a more minimal look with category in text also visible */
-  version: 'default' | 'detail';
+  version?: 'default' | 'detail';
 };
 
 const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(

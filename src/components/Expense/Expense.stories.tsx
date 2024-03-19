@@ -8,6 +8,7 @@ const meta: Meta<typeof Expense> = {
     title: 'Netflix',
     amount: '-120',
     date: '20 March 2022',
+    category: 'Entertainment',
   },
 };
 

@@ -1,10 +1,12 @@
-import { styled } from '@mui/material';
+import { Typography, styled } from '@mui/material';
 import { IMonthPage } from '../../../model/IMonthPage';
 import MobileWrapper from '../../Container/MobileWrapper';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
 import { TabBar } from '@/components/TabBar/TabBar';
 import { BudgetDisplay } from '@/components/BudgetDisplay/BudgetDisplay';
 import { AddRow } from '@/components/AddRow/AddRow';
+import { Expense } from '@/components/Expense/Expense';
+import { NoContentContainer } from '@/pages';
 
 const HeaderSection = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -37,7 +39,15 @@ const AddExpense = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {},
 }));
 
-const Mobile = ({ session, month, year, salary }: IMonthPage) => {
+const ExpenseDisplay = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+
+  [theme.breakpoints.up('sm')]: {},
+}));
+
+const Mobile = ({ session, month, salary }: IMonthPage) => {
   const imgUrl = session?.user?.image;
   const salaryAsNumber = Number(salary);
 
@@ -85,6 +95,26 @@ const Mobile = ({ session, month, year, salary }: IMonthPage) => {
           />
         </AddExpense>
       </div>
+
+      {/* <ExpenseDisplay>
+        {expenses?.length > 0 ? (
+          expenses.map((expense) => (
+            <>
+              <Expense
+                amount='-120'
+                date='20 March 2022'
+                title='Netflix'
+                category='Entertainment'
+                fullWidth
+              />
+            </>
+          ))
+        ) : (
+          <NoContentContainer>
+            <Typography>Press the add button to get started</Typography>
+          </NoContentContainer>
+        )}
+      </ExpenseDisplay> */}
     </MobileWrapper>
   );
 };
