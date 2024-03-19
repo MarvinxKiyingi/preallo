@@ -10,6 +10,7 @@ import { useMediaQuery } from '@mui/material';
 import { getSession, useSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next/types';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 type IMonthProps = {
   months: IMonths;
@@ -21,10 +22,18 @@ const Month = (props: IMonthProps) => {
   const slug = router.query.month;
   const { data: session } = useSession();
   const month = months?.find((month) => month.slug === slug);
+  const [open, setOpen] = useState(false);
 
   const isDesktop = useMediaQuery(
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   // Render nothing if month is undefined
   if (!month) {
@@ -39,9 +48,25 @@ const Month = (props: IMonthProps) => {
       </Head>
 
       <AppContainer disableTopPadding={!isDesktop}>
-        {!isDesktop && <Mobile session={session} {...month} />}
+        {!isDesktop && (
+          <Mobile
+            session={session}
+            open={open}
+            handleOpen={handleOpen}
+            handleClose={handleClose}
+            {...month}
+          />
+        )}
 
-        {isDesktop && <Desktop session={session} {...month} />}
+        {isDesktop && (
+          <Desktop
+            session={session}
+            handleOpen={handleOpen}
+            handleClose={handleClose}
+            open={open}
+            {...month}
+          />
+        )}
       </AppContainer>
     </>
   );

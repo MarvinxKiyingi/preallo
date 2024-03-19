@@ -1,4 +1,4 @@
-import { Typography, styled } from '@mui/material';
+import { Dialog, Typography, styled } from '@mui/material';
 import { IMonthPage } from '../../../model/IMonthPage';
 import MobileWrapper from '../../Container/MobileWrapper';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
@@ -47,7 +47,14 @@ const ExpenseDisplay = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {},
 }));
 
-const Mobile = ({ session, month, salary }: IMonthPage) => {
+const Mobile = ({
+  session,
+  month,
+  salary,
+  open,
+  handleOpen,
+  handleClose,
+}: IMonthPage) => {
   const imgUrl = session?.user?.image;
   const salaryAsNumber = Number(salary);
 
@@ -92,8 +99,13 @@ const Mobile = ({ session, month, salary }: IMonthPage) => {
             ]}
             addIsVisible
             filterIsVisible
+            onClick={() => handleOpen()}
           />
         </AddExpense>
+
+        <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
+          <h1>Modal is open</h1>
+        </Dialog>
       </div>
 
       {/* <ExpenseDisplay>
