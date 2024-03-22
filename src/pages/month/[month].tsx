@@ -11,6 +11,12 @@ import { getSession, useSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next/types';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { IAddExpenseForm } from '@/model/IModalForm';
+import { IAddExpenseModalFormYupSchema } from '@/model/IYupSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { categoryList } from '@/utils/Variables/categoryList';
+import { priorityList } from '@/utils/Variables/priorityList';
 
 type IMonthProps = {
   months: IMonths;
@@ -22,7 +28,16 @@ const Month = (props: IMonthProps) => {
   const slug = router.query.month;
   const { data: session } = useSession();
   const month = months?.find((month) => month.slug === slug);
+  const userId = session?.userId;
   const [open, setOpen] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IAddExpenseForm>({
+    resolver: yupResolver(IAddExpenseModalFormYupSchema),
+  });
 
   const isDesktop = useMediaQuery(
     `${theme.breakpoints.up('md').replace('@media ', '')}`
@@ -33,6 +48,17 @@ const Month = (props: IMonthProps) => {
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const submitFormContentHandler: SubmitHandler<IAddExpenseForm> = (
+    data: IAddExpenseForm
+  ) => {
+    if (data && userId) {
+      console.log(data);
+    }
+    if (!data && !userId) {
+      throw new Error('Something went wrong, when submitting user data to db');
+    }
   };
 
   // Render nothing if month is undefined
@@ -54,6 +80,12 @@ const Month = (props: IMonthProps) => {
             open={open}
             handleOpen={handleOpen}
             handleClose={handleClose}
+            register={register}
+            categoryList={categoryList}
+            priorityList={priorityList}
+            handleSubmit={handleSubmit}
+            submitFormContentHandler={submitFormContentHandler}
+            errors={errors}
             {...month}
           />
         )}
@@ -61,9 +93,15 @@ const Month = (props: IMonthProps) => {
         {isDesktop && (
           <Desktop
             session={session}
+            open={open}
             handleOpen={handleOpen}
             handleClose={handleClose}
-            open={open}
+            register={register}
+            categoryList={categoryList}
+            priorityList={priorityList}
+            handleSubmit={handleSubmit}
+            submitFormContentHandler={submitFormContentHandler}
+            errors={errors}
             {...month}
           />
         )}

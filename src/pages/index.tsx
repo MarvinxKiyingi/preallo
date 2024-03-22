@@ -11,10 +11,10 @@ import { db } from '../utils/firebase/clientApp';
 import { currentYear } from '../utils/functions/currentYear';
 import { useState } from 'react';
 import { monthList } from '../utils/Variables/monthList';
-import { IModalForm } from '../model/IModalForm';
+import { IAddMonthForm } from '../model/IModalForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ISelectModalFormYupSchema } from '../model/IYupSchema';
+import { IAddMonthYupSchema } from '../model/IYupSchema';
 import { IMonth, IMonths } from '../model/IMonth';
 import Mobile from '../components/Pages/Dashboard/Mobile';
 import Desktop from '../components/Pages/Dashboard/Desktop';
@@ -74,8 +74,8 @@ const Home: NextPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IModalForm>({
-    resolver: yupResolver(ISelectModalFormYupSchema),
+  } = useForm<IAddMonthForm>({
+    resolver: yupResolver(IAddMonthYupSchema),
   });
 
   const handleOpen = () => {
@@ -89,8 +89,8 @@ const Home: NextPage = () => {
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
 
-  const submitFormContentHandler: SubmitHandler<IModalForm> = (
-    data: IModalForm
+  const submitFormContentHandler: SubmitHandler<IAddMonthForm> = (
+    data: IAddMonthForm
   ) => {
     if (data && userId) {
       createOrUpdateMonth(data, userId);

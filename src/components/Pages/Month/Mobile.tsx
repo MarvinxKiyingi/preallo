@@ -7,6 +7,7 @@ import { BudgetDisplay } from '@/components/BudgetDisplay/BudgetDisplay';
 import { AddRow } from '@/components/AddRow/AddRow';
 import { Expense } from '@/components/Expense/Expense';
 import { NoContentContainer } from '@/pages';
+import FormContent from './FormContent';
 
 const HeaderSection = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -54,6 +55,12 @@ const Mobile = ({
   open,
   handleOpen,
   handleClose,
+  handleSubmit,
+  register,
+  errors,
+  submitFormContentHandler,
+  categoryList,
+  priorityList,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
   const salaryAsNumber = Number(salary);
@@ -104,7 +111,15 @@ const Mobile = ({
         </AddExpense>
 
         <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
-          <h1>Modal is open</h1>
+          <form onSubmit={handleSubmit(submitFormContentHandler)}>
+            <FormContent
+              categoryList={categoryList}
+              priorityList={priorityList}
+              handleClose={handleClose}
+              register={register}
+              errors={errors}
+            />
+          </form>
         </Dialog>
       </div>
 

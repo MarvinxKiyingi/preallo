@@ -27,6 +27,32 @@ export const Primary: Story = {
   },
 };
 
+export const AddExpense: Story = {
+  args: {
+    variant: 'addExpense',
+    title: 'Add',
+    selectLabel: 'Category',
+    selectList: [
+      'Housing & Utilities',
+      'Transportation',
+      'Food & Dining',
+      'Healthcare',
+      'Debt Payments',
+      'Entertainment',
+      'Savings & Investments',
+      'Personal Care & Clothing',
+      'Insurance',
+      'Education & Learning',
+      'Gifts/Donations',
+      'Miscellaneous',
+    ],
+    selectLabelTwo: 'Priority',
+    selectListTwo: ['Need', 'Want', 'Loan'],
+    add: true,
+    onAgreeLabel: 'Add',
+  },
+};
+
 export const Amount: Story = {
   args: {
     title: 'Add',

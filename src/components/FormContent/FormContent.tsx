@@ -17,7 +17,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
 import { IModalForm } from '../../model/IModalForm';
 
 export type IModalContent = {
-  variant: 'amount' | 'expense' | 'select' | 'all' | 'addMonth';
+  variant: 'amount' | 'expense' | 'select' | 'all' | 'addMonth' | 'addExpense';
   add?: boolean;
   edit?: boolean;
   remove?: boolean;
@@ -29,7 +29,9 @@ export type IModalContent = {
   amountLabel?: string;
   expenseLabel?: string;
   selectLabel?: string;
-  selectList: string[];
+  selectList?: string[];
+  selectLabelTwo?: string;
+  selectListTwo?: string[];
   register?: UseFormRegister<IModalForm>;
   errors?: FieldErrors<IModalForm>;
 };
@@ -51,7 +53,9 @@ export const FormContent = ({
   amountLabel,
   expenseLabel,
   selectLabel,
+  selectLabelTwo,
   selectList,
+  selectListTwo,
   variant,
   onClick,
   register,
@@ -122,7 +126,7 @@ export const FormContent = ({
               label={selectLabel}
               {...(register ? register('selected') : { name: 'selected' })}
             >
-              {selectList.map((option) => (
+              {selectList?.map((option) => (
                 <MenuItem key={option} value={option}>
                   {option}
                 </MenuItem>
@@ -140,7 +144,7 @@ export const FormContent = ({
                 label={selectLabel}
                 {...(register ? register('selected') : { name: 'selected' })}
               >
-                {selectList.map((option) => (
+                {selectList?.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -154,6 +158,58 @@ export const FormContent = ({
                 label={amountLabel}
                 {...(register ? register('amount') : { name: 'amount' })}
               />
+            </>
+          )}
+          {variant == 'addExpense' && (
+            <>
+              <TextField
+                fullWidth
+                type='number'
+                error={!!errors?.amount}
+                helperText={errors?.amount ? errors.amount?.message : ''}
+                label={amountLabel}
+                {...(register ? register('amount') : { name: 'amount' })}
+              />
+              <TextField
+                fullWidth
+                type='text'
+                error={!!errors?.expense}
+                helperText={errors?.expense ? errors.expense?.message : ''}
+                label={expenseLabel}
+                {...(register ? register('expense') : { name: 'expense' })}
+              />
+              <TextField
+                select
+                fullWidth
+                error={!!errors?.selected}
+                helperText={errors?.selected ? errors.selected?.message : ''}
+                label={selectLabel}
+                {...(register ? register('selected') : { name: 'selected' })}
+              >
+                {selectList?.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                select
+                fullWidth
+                error={!!errors?.selectedTwo}
+                helperText={
+                  errors?.selectedTwo ? errors.selectedTwo?.message : ''
+                }
+                label={selectLabelTwo}
+                {...(register
+                  ? register('selectedTwo')
+                  : { name: 'selectedTwo' })}
+              >
+                {selectListTwo?.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
             </>
           )}
 
@@ -183,7 +239,7 @@ export const FormContent = ({
                 label={selectLabel}
                 {...(register ? register('selected') : { name: 'selected' })}
               >
-                {selectList.map((option) => (
+                {selectList?.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
