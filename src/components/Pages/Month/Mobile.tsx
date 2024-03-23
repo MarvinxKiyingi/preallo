@@ -8,6 +8,7 @@ import { AddRow } from '@/components/AddRow/AddRow';
 import { Expense } from '@/components/Expense/Expense';
 import { NoContentContainer } from '@/pages';
 import FormContent from './FormContent';
+import { calculatePercentage } from '@/utils/functions/calculatePercentage';
 
 const HeaderSection = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -61,9 +62,14 @@ const Mobile = ({
   submitFormContentHandler,
   categoryList,
   priorityList,
+  expensesTotal,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
   const salaryAsNumber = Number(salary);
+  const { difference, percentage } = calculatePercentage(
+    expensesTotal,
+    salaryAsNumber
+  );
 
   const tabBarList = [
     { id: 'month', label: 'month', value: 'month' },
@@ -84,8 +90,8 @@ const Mobile = ({
 
         <BudgetOverview>
           <BudgetDisplay
-            progressValue={50}
-            budget={4566}
+            progressValue={percentage}
+            budget={difference}
             salary={salaryAsNumber}
             daysUntilPayday={25}
             fullWidth

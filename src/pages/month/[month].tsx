@@ -36,13 +36,13 @@ const Month = (props: IMonthProps) => {
   const [expensesSnapshot] = useDocument(
     doc(db, 'expenses', `${session?.userId}`)
   );
-  const expenses: IExpenses = expensesSnapshot?.data()?.expenses;
-  const currentMonthExpenses = expenses?.filter(
+  const expenses: IExpenses = expensesSnapshot?.data()?.expenses || [];
+  const currentMonthExpenses = expenses.filter(
     ({ monthDetails }) =>
       monthDetails.year === month?.year && monthDetails.month === month?.month
   );
 
-  const expensesTotal = currentMonthExpenses?.reduce(
+  const expensesTotal = currentMonthExpenses.reduce(
     (total, { amount }) => total + amount,
     0
   );
@@ -139,7 +139,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const ref = doc(db, 'months', `${session?.userId}`);
 
     const querySnapshot = await getDoc(ref);
-    const months: IMonths = querySnapshot.data()?.months;
+    const months: IMonths = querySnapshot.data()?.months || [];
 
     return {
       props: {
