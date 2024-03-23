@@ -18,6 +18,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { categoryList } from '@/utils/Variables/categoryList';
 import { priorityList } from '@/utils/Variables/priorityList';
 import { createOrUpdateExpense } from '@/utils/functions/createOrUpdateExpense';
+import { useDocument } from 'react-firebase-hooks/firestore';
+import { IExpenses } from '@/model/IExpenses';
 
 type IMonthProps = {
   months: IMonths;
@@ -31,6 +33,19 @@ const Month = (props: IMonthProps) => {
   const month = months?.find((month) => month.slug === slug);
   const userId = session?.userId;
   const [open, setOpen] = useState(false);
+  const [expensesSnapshot] = useDocument(
+    doc(db, 'expenses', `${session?.userId}`)
+  );
+  const expenses: IExpenses = expensesSnapshot?.data()?.expenses;
+  const currentMonthExpenses = expenses?.filter(
+    ({ monthDetails }) =>
+      monthDetails.year === month?.year && monthDetails.month === month?.month
+  );
+
+  const expensesTotal = currentMonthExpenses?.reduce(
+    (total, { amount }) => total + amount,
+    0
+  );
 
   const {
     register,
@@ -85,6 +100,8 @@ const Month = (props: IMonthProps) => {
             register={register}
             categoryList={categoryList}
             priorityList={priorityList}
+            currentMonthExpenses={currentMonthExpenses}
+            expensesTotal={expensesTotal}
             handleSubmit={handleSubmit}
             submitFormContentHandler={submitFormContentHandler}
             errors={errors}
@@ -101,6 +118,8 @@ const Month = (props: IMonthProps) => {
             register={register}
             categoryList={categoryList}
             priorityList={priorityList}
+            currentMonthExpenses={currentMonthExpenses}
+            expensesTotal={expensesTotal}
             handleSubmit={handleSubmit}
             submitFormContentHandler={submitFormContentHandler}
             errors={errors}

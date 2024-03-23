@@ -3,6 +3,7 @@ import { IMonth } from './IMonth';
 import { SubmitHandler, UseFormHandleSubmit } from 'react-hook-form';
 import { IAddExpenseForm } from './IModalForm';
 import { IMonthlyExpenseFormContent } from './IMonthlyExpenseFormContent';
+import { IExpenses } from './IExpenses';
 
 export type IMonthPage = IMonth &
   IMonthlyExpenseFormContent & {
@@ -12,4 +13,6 @@ export type IMonthPage = IMonth &
     handleClose: () => void;
     handleSubmit: UseFormHandleSubmit<IAddExpenseForm>;
     submitFormContentHandler: SubmitHandler<IAddExpenseForm>;
+    currentMonthExpenses: IExpenses;
+    expensesTotal: number;
   };
