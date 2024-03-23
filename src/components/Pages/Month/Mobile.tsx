@@ -63,6 +63,7 @@ const Mobile = ({
   categoryList,
   priorityList,
   expensesTotal,
+  currentMonthExpenses,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
   const salaryAsNumber = Number(salary);
@@ -129,15 +130,15 @@ const Mobile = ({
         </Dialog>
       </div>
 
-      {/* <ExpenseDisplay>
-        {expenses?.length > 0 ? (
-          expenses.map((expense) => (
+      <ExpenseDisplay>
+        {currentMonthExpenses?.length > 0 ? (
+          currentMonthExpenses.map((expense) => (
             <>
               <Expense
-                amount='-120'
+                amount={expense.amount}
                 date='20 March 2022'
-                title='Netflix'
-                category='Entertainment'
+                title={expense.expense}
+                category={expense.category}
                 fullWidth
               />
             </>
@@ -147,7 +148,7 @@ const Mobile = ({
             <Typography>Press the add button to get started</Typography>
           </NoContentContainer>
         )}
-      </ExpenseDisplay> */}
+      </ExpenseDisplay>
     </MobileWrapper>
   );
 };
