@@ -17,6 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { categoryList } from '@/utils/Variables/categoryList';
 import { priorityList } from '@/utils/Variables/priorityList';
+import { createOrUpdateExpense } from '@/utils/functions/createOrUpdateExpense';
 
 type IMonthProps = {
   months: IMonths;
@@ -25,7 +26,7 @@ type IMonthProps = {
 const Month = (props: IMonthProps) => {
   const { months } = props;
   const router = useRouter();
-  const slug = router.query.month;
+  const slug = router.query.month?.toString();
   const { data: session } = useSession();
   const month = months?.find((month) => month.slug === slug);
   const userId = session?.userId;
@@ -53,8 +54,9 @@ const Month = (props: IMonthProps) => {
   const submitFormContentHandler: SubmitHandler<IAddExpenseForm> = (
     data: IAddExpenseForm
   ) => {
-    if (data && userId) {
-      console.log(data);
+    if (data && userId && month) {
+      createOrUpdateExpense(data, userId, month);
+      handleClose();
     }
     if (!data && !userId) {
       throw new Error('Something went wrong, when submitting user data to db');
