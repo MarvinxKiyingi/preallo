@@ -133,16 +133,14 @@ const Mobile = ({
       <ExpenseDisplay>
         {currentMonthExpenses?.length > 0 ? (
           currentMonthExpenses.map((expense) => (
-            <>
-              <Expense
-                key={expense.uuid}
-                amount={expense.amount}
-                date='20 March 2022'
-                title={expense.expense}
-                category={expense.category}
-                fullWidth
-              />
-            </>
+            <Expense
+              key={expense.uuid}
+              amount={expense.amount}
+              date='20 March 2022'
+              title={expense.expense}
+              category={expense.category}
+              fullWidth
+            />
           ))
         ) : (
           <NoContentContainer>
