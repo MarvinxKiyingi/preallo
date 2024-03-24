@@ -2,16 +2,17 @@ import { IMonthPage } from '../../../model/IMonthPage';
 import ContentContainer from '../../Container/ContentContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
 
-const Desktop = ({ month, year, salary, slug }: IMonthPage) => {
+const Desktop = ({ month }: IMonthPage) => {
+  const { monthName, salary, slug, year } = month;
   return (
     <>
       <DesktopNavigation
-        disableHighlight={month?.toLowerCase()}
-        month={month}
+        disableHighlight={monthName?.toLowerCase()}
+        monthName={monthName}
         monthSlug={slug}
       />
       <ContentContainer>
-        <h1>{month}</h1>
+        <h1>{monthName}</h1>
         <p>{salary}</p>
         <p>{year}</p>
       </ContentContainer>

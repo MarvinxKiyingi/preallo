@@ -63,7 +63,7 @@ const Home: NextPage = () => {
   const months: IMonths = monthsSnapshot
     ?.data()
     ?.months?.sort((a: IMonth, b: IMonth) => {
-      return monthList.indexOf(a.month) - monthList.indexOf(b.month);
+      return monthList.indexOf(a.monthName) - monthList.indexOf(b.monthName);
     });
 
   const userId = session?.userId;

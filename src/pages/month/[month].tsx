@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc } from 'firebase/firestore';
 import { db } from '../../utils/firebase/clientApp';
 import { IMonths } from '../../model/IMonth';
 import AppContainer from '../../components/Container/AppContainer';
@@ -7,8 +7,7 @@ import Mobile from '../../components/Pages/Month/Mobile';
 import Desktop from '../../components/Pages/Month/Desktop';
 import { theme } from '../../styles/theme/muiTheme';
 import { useMediaQuery } from '@mui/material';
-import { getSession, useSession } from 'next-auth/react';
-import { GetServerSideProps } from 'next/types';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { IAddExpenseForm, IModalForm } from '@/model/IModalForm';
@@ -21,25 +20,28 @@ import { createOrUpdateExpense } from '@/utils/functions/createOrUpdateExpense';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { IExpenses } from '@/model/IExpenses';
 
-type IMonthProps = {
-  months: IMonths;
-};
-
-const Month = (props: IMonthProps) => {
-  const { months } = props;
+const Month = () => {
+  const { data: session } = useSession();
   const router = useRouter();
   const slug = router.query.month?.toString();
-  const { data: session } = useSession();
-  const month = months?.find((month) => month.slug === slug);
   const userId = session?.userId;
   const [open, setOpen] = useState(false);
+
+  // Fetch months data
+  const [monthsSnapshot] = useDocument(doc(db, 'months', `${session?.userId}`));
+  const months: IMonths = monthsSnapshot?.data()?.months;
+  const currentMonth = months?.find((month) => month.slug === slug);
+
+  // Fetch expense data
   const [expensesSnapshot] = useDocument(
     doc(db, 'expenses', `${session?.userId}`)
   );
   const expenses: IExpenses = expensesSnapshot?.data()?.expenses || [];
+
   const currentMonthExpenses = expenses.filter(
     ({ monthDetails }) =>
-      monthDetails.year === month?.year && monthDetails.month === month?.month
+      monthDetails.year === currentMonth?.year &&
+      monthDetails.monthName === currentMonth?.monthName
   );
 
   const expensesTotal = currentMonthExpenses.reduce(
@@ -69,8 +71,8 @@ const Month = (props: IMonthProps) => {
   const submitFormContentHandler: SubmitHandler<IAddExpenseForm> = (
     data: IAddExpenseForm
   ) => {
-    if (data && userId && month) {
-      createOrUpdateExpense(data, userId, month);
+    if (data && userId && currentMonth) {
+      createOrUpdateExpense(data, userId, currentMonth);
       handleClose();
     }
     if (!data && !userId) {
@@ -79,14 +81,14 @@ const Month = (props: IMonthProps) => {
   };
 
   // Render nothing if month is undefined
-  if (!month) {
+  if (!currentMonth) {
     return null;
   }
 
   return (
     <>
       <Head>
-        <title>{month?.month}</title>
+        <title>{currentMonth?.monthName}</title>
         <meta name='theme-color' content={theme.palette.primary.main}></meta>
       </Head>
 
@@ -105,7 +107,7 @@ const Month = (props: IMonthProps) => {
             handleSubmit={handleSubmit}
             submitFormContentHandler={submitFormContentHandler}
             errors={errors}
-            {...month}
+            month={currentMonth}
           />
         )}
 
@@ -123,7 +125,7 @@ const Month = (props: IMonthProps) => {
             handleSubmit={handleSubmit}
             submitFormContentHandler={submitFormContentHandler}
             errors={errors}
-            {...month}
+            month={currentMonth}
           />
         )}
       </AppContainer>
@@ -132,26 +134,3 @@ const Month = (props: IMonthProps) => {
 };
 
 export default Month;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  try {
-    const session = await getSession(context);
-    const ref = doc(db, 'months', `${session?.userId}`);
-
-    const querySnapshot = await getDoc(ref);
-    const months: IMonths = querySnapshot.data()?.months || [];
-
-    return {
-      props: {
-        months: months,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return {
-      props: {
-        data: [], // Return an empty array or handle the error as needed
-      },
-    };
-  }
-};

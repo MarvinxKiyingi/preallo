@@ -1,8 +1,9 @@
 export type IMonth = {
-  month: string;
+  monthName: string;
   salary?: string;
   year?: string;
   slug?: string;
+  uuid: string;
 };
 export type IMonths = Array<IMonth>;
 

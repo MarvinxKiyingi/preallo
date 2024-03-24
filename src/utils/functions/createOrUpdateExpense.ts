@@ -2,6 +2,7 @@ import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { IAddExpenseForm } from '../../model/IModalForm';
 import { db } from '../firebase/clientApp';
 import { IMonth } from '@/model/IMonth';
+import { v4 as uuidv4 } from 'uuid';
 
 export const createOrUpdateExpense = async (
   data: IAddExpenseForm,
@@ -12,12 +13,13 @@ export const createOrUpdateExpense = async (
   const expensesSnap = await getDoc(expensesRef);
 
   const expenseProperties = {
+    uuid: uuidv4(),
     amount: data.amount,
     expense: data.expense,
     category: data.selected,
     priority: data.selectedTwo,
     monthDetails: {
-      month: month.month,
+      monthName: month.monthName,
       year: month.year,
       slug: month.slug,
     },

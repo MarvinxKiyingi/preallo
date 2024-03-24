@@ -75,13 +75,8 @@ const Mobile = ({
       <MonthContainer>
         {months?.length > 0 ? (
           <Grid ownerState={ownerState}>
-            {months.map((item, indx) => (
-              <Month
-                key={indx}
-                month={item.month}
-                year={item.year}
-                slug={item.slug}
-              />
+            {months.map((month) => (
+              <Month key={month.uuid} {...month} />
             ))}
           </Grid>
         ) : (
