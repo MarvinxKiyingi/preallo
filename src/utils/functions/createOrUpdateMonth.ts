@@ -2,6 +2,7 @@ import { arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { IAddMonthForm } from '../../model/IModalForm';
 import { db } from '../firebase/clientApp';
 import { currentYear } from './currentYear';
+import { v4 as uuidv4 } from 'uuid';
 
 export const createOrUpdateMonth = async (
   data: IAddMonthForm,
@@ -12,6 +13,7 @@ export const createOrUpdateMonth = async (
   const slug = `${data.selected?.toLocaleLowerCase()}-${currentYear()}`;
 
   const monthProperties = {
+    uuid: uuidv4(),
     monthName: data.selected,
     salary: data.amount,
     year: currentYear(),

@@ -135,6 +135,7 @@ const Mobile = ({
           currentMonthExpenses.map((expense) => (
             <>
               <Expense
+                key={expense.uuid}
                 amount={expense.amount}
                 date='20 March 2022'
                 title={expense.expense}

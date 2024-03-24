@@ -7,5 +7,6 @@ export type IExpense = {
   category: ICategory;
   priority: string;
   monthDetails: IMonth;
+  uuid: string;
 };
 export type IExpenses = Array<IExpense>;

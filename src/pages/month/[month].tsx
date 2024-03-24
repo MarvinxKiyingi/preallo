@@ -49,8 +49,6 @@ const Month = () => {
     0
   );
 
-  console.log('expenses:', expenses);
-  console.log('currentMonthExpenses:', currentMonthExpenses);
   const {
     register,
     handleSubmit,

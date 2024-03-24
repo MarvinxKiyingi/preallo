@@ -3,6 +3,7 @@ export type IMonth = {
   salary?: string;
   year?: string;
   slug?: string;
+  uuid: string;
 };
 export type IMonths = Array<IMonth>;
 
