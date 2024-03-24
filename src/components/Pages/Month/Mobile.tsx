@@ -136,7 +136,7 @@ const Mobile = ({
             <Expense
               key={expense.uuid}
               amount={expense.amount}
-              date='20 March 2022'
+              date={expense.fullDate}
               title={expense.expense}
               category={expense.category}
               fullWidth
