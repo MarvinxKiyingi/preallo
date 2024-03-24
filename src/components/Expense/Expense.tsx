@@ -52,7 +52,7 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
     '.iconContainer': {
       backgroundColor: ownerState.iconContainerBgColor
         ? ownerState.iconContainerBgColor
-        : theme.palette.background.default,
+        : theme.palette.primary.main,
       display: 'flex',
       aspectRatio: '1/1',
       maxWidth: 48,
@@ -64,7 +64,7 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
       '>svg>path': {
         color: ownerState.IconColor
           ? ownerState.IconColor
-          : theme.palette.primary.main,
+          : theme.palette.background.default,
       },
     },
     '.textContainer': {
