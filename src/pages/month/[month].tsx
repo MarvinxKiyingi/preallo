@@ -11,7 +11,7 @@ import { getSession, useSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next/types';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { IAddExpenseForm } from '@/model/IModalForm';
+import { IAddExpenseForm, IModalForm } from '@/model/IModalForm';
 import { IAddExpenseModalFormYupSchema } from '@/model/IYupSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -51,7 +51,7 @@ const Month = (props: IMonthProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IAddExpenseForm>({
+  } = useForm<IModalForm>({
     resolver: yupResolver(IAddExpenseModalFormYupSchema),
   });
 
