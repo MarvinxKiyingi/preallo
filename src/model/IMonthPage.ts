@@ -5,14 +5,14 @@ import { IAddExpenseForm } from './IModalForm';
 import { IMonthlyExpenseFormContent } from './IMonthlyExpenseFormContent';
 import { IExpenses } from './IExpenses';
 
-export type IMonthPage = IMonth &
-  IMonthlyExpenseFormContent & {
-    session: Session | null;
-    open: boolean;
-    handleOpen: () => void;
-    handleClose: () => void;
-    handleSubmit: UseFormHandleSubmit<IAddExpenseForm>;
-    submitFormContentHandler: SubmitHandler<IAddExpenseForm>;
-    currentMonthExpenses: IExpenses;
-    expensesTotal: number;
-  };
+export type IMonthPage = IMonthlyExpenseFormContent & {
+  session: Session | null;
+  open: boolean;
+  handleOpen: () => void;
+  handleClose: () => void;
+  handleSubmit: UseFormHandleSubmit<IAddExpenseForm>;
+  submitFormContentHandler: SubmitHandler<IAddExpenseForm>;
+  currentMonthExpenses: IExpenses;
+  expensesTotal: number;
+  month: IMonth;
+};

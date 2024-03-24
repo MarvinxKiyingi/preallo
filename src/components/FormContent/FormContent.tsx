@@ -13,7 +13,7 @@ import { Button } from '../Button/Button';
 import { InfoIcon, PlusIcon, SuccessIcon, TrashIcon } from '../Icons';
 import { IconButton } from '../IconButton/IconButton';
 import { IIconButtonProps } from '../IconButton/IconButton';
-import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { IModalForm } from '../../model/IModalForm';
 
 export type IModalContent = {

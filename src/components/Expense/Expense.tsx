@@ -11,7 +11,7 @@ export type IExpenseProps = {
   bgColor?: string;
   title: string;
   date?: string;
-  amount: string;
+  amount: number;
   fullHeight?: boolean;
   fullWidth?: boolean;
   /** pass in a css string to change color */
@@ -24,6 +24,7 @@ export type IExpenseProps = {
   stripped?: boolean;
   /** If `"detail"`, left and right padding will be removed. And overall show a more minimal look with category in text also visible */
   version?: 'default' | 'detail';
+  category: ICategory;
 };
 
 const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
@@ -87,9 +88,7 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
 
       '.price': {
         fontWeight: 600,
-        color: ownerState.invert
-          ? theme.palette.common.white
-          : theme.palette.common.black,
+        color: theme.palette.error.light,
         textTransform: 'uppercase',
         fontSize: theme.spacing(2),
       },
@@ -111,7 +110,7 @@ export const Expense = ({
   category,
   iconContainerBgColor,
   ...props
-}: IExpenseProps & ICategory) => {
+}: IExpenseProps) => {
   const isDesktop = useMediaQuery(
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
@@ -127,6 +126,7 @@ export const Expense = ({
     amount,
     stripped,
     version,
+    category,
   };
 
   return (
@@ -165,7 +165,7 @@ export const Expense = ({
         {amount && (
           <Stack direction='row' spacing={1 / 2} alignItems='center'>
             <Typography className='price' variant='h6' align='right'>
-              {`${amount} kr`}
+              {`- ${amount}`}
             </Typography>
             {isDesktop && <MoreVertOutlinedIcon color='secondary' />}
           </Stack>

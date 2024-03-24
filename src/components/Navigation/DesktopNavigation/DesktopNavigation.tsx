@@ -13,7 +13,7 @@ type IStyledTab = TabProps & {
 
 type IDesktopNavigation = {
   disableHighlight?: string;
-  month?: string;
+  monthName?: string;
   monthSlug?: string;
 };
 

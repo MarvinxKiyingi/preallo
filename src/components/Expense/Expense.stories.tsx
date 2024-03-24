@@ -6,7 +6,7 @@ const meta: Meta<typeof Expense> = {
   component: Expense,
   args: {
     title: 'Netflix',
-    amount: '-120',
+    amount: 120,
     date: '20 March 2022',
     category: 'Entertainment',
   },

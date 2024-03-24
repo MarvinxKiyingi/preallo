@@ -10,12 +10,11 @@ import { doc } from 'firebase/firestore';
 import { db } from '../utils/firebase/clientApp';
 import { currentYear } from '../utils/functions/currentYear';
 import { useState } from 'react';
-import { monthList } from '../utils/Variables/monthList';
 import { IAddMonthForm } from '../model/IModalForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IAddMonthYupSchema } from '../model/IYupSchema';
-import { IMonth, IMonths } from '../model/IMonth';
+import { IMonth, IMonths, monthList } from '../model/IMonth';
 import Mobile from '../components/Pages/Dashboard/Mobile';
 import Desktop from '../components/Pages/Dashboard/Desktop';
 import { useSession } from 'next-auth/react';
@@ -64,7 +63,7 @@ const Home: NextPage = () => {
   const months: IMonths = monthsSnapshot
     ?.data()
     ?.months?.sort((a: IMonth, b: IMonth) => {
-      return monthList.indexOf(a.month) - monthList.indexOf(b.month);
+      return monthList.indexOf(a.monthName) - monthList.indexOf(b.monthName);
     });
 
   const userId = session?.userId;

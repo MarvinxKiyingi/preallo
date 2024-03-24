@@ -17,7 +17,7 @@ export const createOrUpdateExpense = async (
     category: data.selected,
     priority: data.selectedTwo,
     monthDetails: {
-      month: month.month,
+      monthName: month.monthName,
       year: month.year,
       slug: month.slug,
     },

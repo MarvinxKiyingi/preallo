@@ -52,7 +52,6 @@ const ExpenseDisplay = styled('div')(({ theme }) => ({
 const Mobile = ({
   session,
   month,
-  salary,
   open,
   handleOpen,
   handleClose,
@@ -66,6 +65,7 @@ const Mobile = ({
   currentMonthExpenses,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
+  const { salary, monthName } = month;
   const salaryAsNumber = Number(salary);
   const { difference, percentage } = calculatePercentage(
     expensesTotal,
@@ -82,7 +82,7 @@ const Mobile = ({
     <MobileWrapper>
       <HeaderSection>
         <MobileNavigation
-          title={month}
+          title={monthName}
           src={imgUrl ? imgUrl : undefined}
           isDarkBg
         />

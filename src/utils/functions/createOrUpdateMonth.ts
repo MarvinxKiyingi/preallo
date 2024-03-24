@@ -12,7 +12,7 @@ export const createOrUpdateMonth = async (
   const slug = `${data.selected?.toLocaleLowerCase()}-${currentYear()}`;
 
   const monthProperties = {
-    month: data.selected,
+    monthName: data.selected,
     salary: data.amount,
     year: currentYear(),
     slug: slug,
