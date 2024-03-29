@@ -15,11 +15,11 @@ export const createOrUpdateExpense = async (
 
   const expenseProperties = {
     uuid: uuidv4(),
-    fullDate: formatDate(),
+    createdAt: formatDate(),
     amount: data.amount,
     expense: data.expense,
     category: data.selected,
-    priority: data.selectedTwo,
+    purpose: data.selectedTwo,
     monthDetails: {
       monthName: month.monthName,
       year: month.year,

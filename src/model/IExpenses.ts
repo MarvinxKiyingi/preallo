@@ -5,9 +5,9 @@ export type IExpense = {
   amount: number;
   expense: string;
   category: ICategory;
-  priority: string;
+  purpose: string;
   monthDetails: IMonth;
   uuid: string;
-  fullDate: string;
+  createdAt: string;
 };
 export type IExpenses = Array<IExpense>;
