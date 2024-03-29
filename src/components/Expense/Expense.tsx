@@ -88,7 +88,7 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
 
       '.price': {
         fontWeight: 600,
-        color: theme.palette.error.light,
+        color: theme.palette.common.black,
         textTransform: 'uppercase',
         fontSize: theme.spacing(2),
       },
