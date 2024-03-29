@@ -15,7 +15,7 @@ export type IBudgetDisplay = {
   /** Budget amount  */
   budget: number;
   /** Salary the budget is based on   */
-  salary?: number;
+  salary: number;
   /** The value of the progress indicator for the determinate and buffer variants. Value between 0 and 100.  */
   progressValue?: number;
   variant?: 'buffer' | 'determinate' | 'indeterminate' | 'query' | 'test';
@@ -94,11 +94,9 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
 );
 
 const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
-  '>:first-of-type': {
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(),
-
+  display: 'flex',
+  gap: theme.spacing(),
+  '>': {
     '&:before': {
       content: '""',
       display: 'flex',
@@ -107,9 +105,18 @@ const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
       borderRadius: '50%',
       backgroundColor: 'rgb(195, 178, 255)',
     },
+
+    '.budgetTitleContainer': {
+      '&:before': {
+        backgroundColor: theme.palette.secondary.main,
+      },
+    },
   },
 
-  '.salaryTitle': {
+  '.budgetTitleContainer, .salaryTitleWrapper': {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(),
     textTransform: 'none',
     lineHeight: '115%',
 
@@ -117,13 +124,22 @@ const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
       ...theme.typography.body2,
     },
   },
-  '.salary': {
-    fontSize: theme.typography.overline.fontSize,
-    lineHeight: '0',
 
-    [theme.breakpoints.up('sm')]: {
-      ...theme.typography.subtitle2,
-      fontSize: theme.typography.button.fontSize,
+  '.salaryTitleWrapper': {
+    '.salaryTitleContainer': {
+      display: 'flex',
+      gap: '4px',
+    },
+
+    '.salary': {
+      display: 'contents',
+      fontSize: theme.typography.overline.fontSize,
+      lineHeight: '0',
+
+      [theme.breakpoints.up('sm')]: {
+        ...theme.typography.subtitle2,
+        fontSize: theme.typography.button.fontSize,
+      },
     },
   },
 }));
@@ -141,11 +157,28 @@ export const BudgetDisplay = ({
   color = 'secondary',
   ...props
 }: IBudgetDisplay & LinearProgressProps) => {
-  const today = useMemo(() => new Date(), []);
-
   const daysLeft = useMemo(() => {
-    return daysUntilPayday - today.getDate();
-  }, [daysUntilPayday, today]);
+    const today = new Date();
+    const currentDay = today.getDate();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+
+    let nextPayday;
+
+    // Calculate days until 25th of next month
+    if (currentDay >= daysUntilPayday) {
+      const nextMonth = (currentMonth + 1) % 12;
+      const nextYear = nextMonth === 0 ? currentYear + 1 : currentYear;
+      const nextPaydayDate = new Date(nextYear, nextMonth, daysUntilPayday);
+      const timeDifference = nextPaydayDate.getTime() - today.getTime();
+      nextPayday = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    } else {
+      // Calculate remaining days until 25th of current month
+      nextPayday = daysUntilPayday - currentDay;
+    }
+
+    return nextPayday;
+  }, [daysUntilPayday]);
 
   const ownerState = {
     bgColor,
@@ -199,21 +232,26 @@ export const BudgetDisplay = ({
 
           {salary && (
             <BudgetBasedOnContainer>
-              <Typography className='salaryTitle' variant='overline'>
-                <div>{salaryTitle}</div>
+              <Typography className='budgetTitleContainer' variant='overline'>
+                <div>Budget</div>
+              </Typography>
+              <Typography className='salaryTitleWrapper' variant='overline'>
+                <div className='salaryTitleContainer'>
+                  <div>{salaryTitle}</div>
 
-                <CurrencyFormat
-                  value={salary}
-                  displayType={'text'}
-                  thousandSeparator={' '}
-                  decimalSeparator=','
-                  thousandSpacing={'3'}
-                  renderText={(value) => (
-                    <Typography className='salary' variant='subtitle2'>
-                      {value}
-                    </Typography>
-                  )}
-                />
+                  <CurrencyFormat
+                    value={salary}
+                    displayType={'text'}
+                    thousandSeparator={' '}
+                    decimalSeparator=','
+                    thousandSpacing={'3'}
+                    renderText={(value) => (
+                      <Typography className='salary' variant='subtitle2'>
+                        {value}
+                      </Typography>
+                    )}
+                  />
+                </div>
               </Typography>
             </BudgetBasedOnContainer>
           )}
