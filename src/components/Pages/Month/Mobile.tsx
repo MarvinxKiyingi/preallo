@@ -60,17 +60,13 @@ const Mobile = ({
   errors,
   submitFormContentHandler,
   categoryList,
-  priorityList,
+  purposeList,
   expensesTotal,
   currentMonthExpenses,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
   const { salary, monthName } = month;
-  const salaryAsNumber = Number(salary);
-  const { difference, percentage } = calculatePercentage(
-    expensesTotal,
-    salaryAsNumber
-  );
+  const { difference, percentage } = calculatePercentage(expensesTotal, salary);
 
   const tabBarList = [
     { id: 'month', label: 'month', value: 'month' },
@@ -93,7 +89,7 @@ const Mobile = ({
           <BudgetDisplay
             progressValue={percentage}
             budget={difference}
-            salary={salaryAsNumber}
+            salary={salary}
             daysUntilPayday={25}
             fullWidth
           />
@@ -121,7 +117,7 @@ const Mobile = ({
           <form onSubmit={handleSubmit(submitFormContentHandler)}>
             <FormContent
               categoryList={categoryList}
-              priorityList={priorityList}
+              purposeList={purposeList}
               handleClose={handleClose}
               register={register}
               errors={errors}
@@ -136,7 +132,7 @@ const Mobile = ({
             <Expense
               key={expense.uuid}
               amount={expense.amount}
-              date={expense.fullDate}
+              date={expense.createdAt}
               title={expense.expense}
               category={expense.category}
               fullWidth
