@@ -19,7 +19,7 @@ function FormContent({
       expenseLabel='Expense'
       selectLabel='Category'
       selectList={categoryList}
-      selectLabelTwo='Priority'
+      selectLabelTwo='Purpose'
       selectListTwo={purposeList}
       onAgreeLabel='Add'
       onDisagreeLabel='Cancel'
