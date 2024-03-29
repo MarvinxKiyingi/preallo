@@ -3,6 +3,7 @@ import { IMonth } from './IMonth';
 
 export type IExpense = {
   amount: number;
+  amountAsString: string;
   expense: string;
   category: ICategory;
   purpose: string;

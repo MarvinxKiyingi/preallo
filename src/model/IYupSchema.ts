@@ -46,5 +46,5 @@ export const IAddExpenseModalFormYupSchema = object().shape({
   amount: number().required().typeError('Field is required & must be a number'),
   expense: string().required().typeError('Field is required'),
   selected: string().required().typeError('Select a category to precede'),
-  selectedTwo: string().required().typeError('Select a priority to precede'),
+  selectedTwo: string().required().typeError('Select a purpose to precede'),
 });

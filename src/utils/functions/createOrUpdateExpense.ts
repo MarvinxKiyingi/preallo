@@ -4,6 +4,7 @@ import { db } from '../firebase/clientApp';
 import { IMonth } from '@/model/IMonth';
 import { v4 as uuidv4 } from 'uuid';
 import { formatDate } from './formatDate';
+import { formatNumberWithDecimal } from './formatNumberWithDecimal';
 
 export const createOrUpdateExpense = async (
   data: IAddExpenseForm,
@@ -17,6 +18,7 @@ export const createOrUpdateExpense = async (
     uuid: uuidv4(),
     createdAt: formatDate(),
     amount: data.amount,
+    amountAsString: formatNumberWithDecimal(data.amount),
     expense: data.expense,
     category: data.selected,
     purpose: data.selectedTwo,
