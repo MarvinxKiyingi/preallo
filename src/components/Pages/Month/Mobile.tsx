@@ -65,8 +65,11 @@ const Mobile = ({
   currentMonthExpenses,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
-  const { salary, monthName } = month;
-  const { difference, percentage } = calculatePercentage(expensesTotal, salary);
+  const { salary, salaryAsString, monthName } = month;
+  const { difference, differenceAsString, percentage } = calculatePercentage(
+    expensesTotal,
+    salary
+  );
 
   const tabBarList = [
     { id: 'month', label: 'month', value: 'month' },
@@ -89,7 +92,9 @@ const Mobile = ({
           <BudgetDisplay
             progressValue={percentage}
             budget={difference}
+            differenceAsString={differenceAsString}
             salary={salary}
+            salaryAsString={salaryAsString}
             daysUntilPayday={25}
             fullWidth
           />
@@ -113,7 +118,12 @@ const Mobile = ({
           />
         </AddExpense>
 
-        <Dialog onClose={() => handleClose()} open={open} maxWidth={'xs'}>
+        <Dialog
+          onClose={() => handleClose()}
+          open={open}
+          maxWidth={'xs'}
+          fullWidth
+        >
           <form onSubmit={handleSubmit(submitFormContentHandler)}>
             <FormContent
               categoryList={categoryList}
@@ -135,6 +145,7 @@ const Mobile = ({
               date={expense.createdAt}
               title={expense.expense}
               category={expense.category}
+              amountAsString={expense.amountAsString}
               fullWidth
             />
           ))

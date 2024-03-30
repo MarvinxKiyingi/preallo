@@ -6,12 +6,14 @@ import { theme } from '../../styles/theme/muiTheme';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import { ICategory } from '../../model/ICategory';
 import ExpenseContent from './ExpenseContent';
+import CurrencyFormat from 'react-currency-format';
 
 export type IExpenseProps = {
   bgColor?: string;
   title: string;
   date?: string;
   amount: number;
+  amountAsString: string;
   fullHeight?: boolean;
   fullWidth?: boolean;
   /** pass in a css string to change color */
@@ -103,6 +105,7 @@ export const Expense = ({
   title,
   date,
   amount,
+  amountAsString,
   invert = false,
   IconColor,
   stripped = false,
@@ -124,6 +127,7 @@ export const Expense = ({
     IconColor,
     title,
     amount,
+    amountAsString,
     stripped,
     version,
     category,
@@ -162,11 +166,20 @@ export const Expense = ({
           </>
         )}
 
-        {amount && (
+        {amountAsString && (
           <Stack direction='row' spacing={1 / 2} alignItems='center'>
-            <Typography className='price' variant='h6' align='right'>
-              {`- ${amount}`}
-            </Typography>
+            <CurrencyFormat
+              value={amountAsString}
+              displayType={'text'}
+              thousandSeparator={' '}
+              decimalSeparator={','}
+              thousandSpacing={'3'}
+              renderText={(value) => (
+                <Typography className='price' variant='h6' align='right'>
+                  {`- ${value}`}
+                </Typography>
+              )}
+            />
             {isDesktop && <MoreVertOutlinedIcon color='secondary' />}
           </Stack>
         )}

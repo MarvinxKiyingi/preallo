@@ -14,8 +14,10 @@ export type IBudgetDisplay = {
   bgColor?: string;
   /** Budget amount  */
   budget: number;
+  differenceAsString: string;
   /** Salary the budget is based on   */
   salary: number;
+  salaryAsString: string;
   /** The value of the progress indicator for the determinate and buffer variants. Value between 0 and 100.  */
   progressValue?: number;
   variant?: 'buffer' | 'determinate' | 'indeterminate' | 'query' | 'test';
@@ -150,7 +152,9 @@ export const BudgetDisplay = ({
   fullWidth,
   daysUntilPayday = 25,
   budget,
+  differenceAsString,
   salary,
+  salaryAsString,
   progressValue = 100,
   salaryTitle = 'Salary:',
   variant = 'determinate',
@@ -163,7 +167,9 @@ export const BudgetDisplay = ({
     bgColor,
     fullWidth,
     budget,
+    differenceAsString,
     salary,
+    salaryAsString,
     daysUntilPayday,
     progressValue,
     salaryTitle,
@@ -182,10 +188,10 @@ export const BudgetDisplay = ({
           </Typography>
         )}
         <CurrencyFormat
-          value={budget}
+          value={differenceAsString}
           displayType={'text'}
           thousandSeparator={' '}
-          decimalSeparator=','
+          decimalSeparator={','}
           thousandSpacing={'3'}
           renderText={(value) => (
             <Typography className='budget' variant='h4'>
@@ -219,10 +225,10 @@ export const BudgetDisplay = ({
                   <div>{salaryTitle}</div>
 
                   <CurrencyFormat
-                    value={salary}
+                    value={salaryAsString}
                     displayType={'text'}
                     thousandSeparator={' '}
-                    decimalSeparator=','
+                    decimalSeparator={','}
                     thousandSpacing={'3'}
                     renderText={(value) => (
                       <Typography className='salary' variant='subtitle2'>

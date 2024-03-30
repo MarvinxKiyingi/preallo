@@ -76,7 +76,7 @@ export const SalaryDisplay = ({
           value={amount}
           displayType={'text'}
           thousandSeparator={' '}
-          decimalSeparator=','
+          decimalSeparator={','}
           thousandSpacing={'3'}
           renderText={(value) => (
             <Salary as='h3' ownerState={ownerState}>

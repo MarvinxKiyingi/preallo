@@ -1,5 +1,5 @@
 import { SubmitHandler, UseFormHandleSubmit } from 'react-hook-form';
-import { IAddMonthForm, IModalForm } from './IModalForm';
+import { IAddMonthForm } from './IModalForm';
 import { IMonths } from './IMonth';
 import { IDashboardFormContent } from './IDashboardFormContent';
 import { Session } from 'next-auth/core/types';
