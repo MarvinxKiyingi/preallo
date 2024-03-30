@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { grey } from '../../styles/colors/grey';
 import CurrencyFormat from 'react-currency-format';
-import { useDaysLeft } from '@/utils/functions/daysLeft';
+import { useDaysLeft } from '../../utils/functions/daysLeft';
 
 export type IBudgetDisplay = {
   /** Input css string to change the background color  */
