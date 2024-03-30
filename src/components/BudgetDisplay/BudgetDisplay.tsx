@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import {
   Box,
   LinearProgress,
@@ -8,6 +7,7 @@ import {
 } from '@mui/material';
 import { grey } from '../../styles/colors/grey';
 import CurrencyFormat from 'react-currency-format';
+import { useDaysLeft } from '@/utils/functions/daysLeft';
 
 export type IBudgetDisplay = {
   /** Input css string to change the background color  */
@@ -157,28 +157,7 @@ export const BudgetDisplay = ({
   color = 'secondary',
   ...props
 }: IBudgetDisplay & LinearProgressProps) => {
-  const daysLeft = useMemo(() => {
-    const today = new Date();
-    const currentDay = today.getDate();
-    const currentMonth = today.getMonth();
-    const currentYear = today.getFullYear();
-
-    let nextPayday;
-
-    // Calculate days until 25th of next month
-    if (currentDay >= daysUntilPayday) {
-      const nextMonth = (currentMonth + 1) % 12;
-      const nextYear = nextMonth === 0 ? currentYear + 1 : currentYear;
-      const nextPaydayDate = new Date(nextYear, nextMonth, daysUntilPayday);
-      const timeDifference = nextPaydayDate.getTime() - today.getTime();
-      nextPayday = Math.ceil(timeDifference / (1000 * 3600 * 24));
-    } else {
-      // Calculate remaining days until 25th of current month
-      nextPayday = daysUntilPayday - currentDay;
-    }
-
-    return nextPayday;
-  }, [daysUntilPayday]);
+  const daysLeft = useDaysLeft(daysUntilPayday);
 
   const ownerState = {
     bgColor,
