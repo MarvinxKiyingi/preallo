@@ -15,4 +15,5 @@ export type IMonthPage = IMonthlyExpenseFormContent & {
   currentMonthExpenses: IExpenses;
   expensesTotal: number;
   month: IMonth;
+  daysUntilPayday: number;
 };

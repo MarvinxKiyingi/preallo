@@ -104,6 +104,7 @@ const Month = () => {
             purposeList={purposeList}
             currentMonthExpenses={currentMonthExpenses}
             expensesTotal={expensesTotal}
+            daysUntilPayday={25}
             handleSubmit={handleSubmit}
             submitFormContentHandler={submitFormContentHandler}
             errors={errors}
@@ -122,6 +123,7 @@ const Month = () => {
             purposeList={purposeList}
             currentMonthExpenses={currentMonthExpenses}
             expensesTotal={expensesTotal}
+            daysUntilPayday={25}
             handleSubmit={handleSubmit}
             submitFormContentHandler={submitFormContentHandler}
             errors={errors}

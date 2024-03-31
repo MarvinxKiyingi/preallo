@@ -63,6 +63,7 @@ const Mobile = ({
   purposeList,
   expensesTotal,
   currentMonthExpenses,
+  daysUntilPayday,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
   const { salary, salaryAsString, monthName } = month;
@@ -95,7 +96,7 @@ const Mobile = ({
             differenceAsString={differenceAsString}
             salary={salary}
             salaryAsString={salaryAsString}
-            daysUntilPayday={25}
+            daysUntilPayday={daysUntilPayday}
             fullWidth
           />
         </BudgetOverview>
