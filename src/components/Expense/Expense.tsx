@@ -180,7 +180,7 @@ export const Expense = ({
                 </Typography>
               )}
             />
-            {isDesktop && <MoreVertOutlinedIcon color='secondary' />}
+            <MoreVertOutlinedIcon color='secondary' />
           </Stack>
         )}
       </div>

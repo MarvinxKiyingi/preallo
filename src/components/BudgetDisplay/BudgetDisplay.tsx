@@ -64,7 +64,6 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
       '.budget': {
         [theme.breakpoints.up('sm')]: {
           ...theme.typography.h3,
-          fontWeight: 600,
         },
       },
       '.title': {

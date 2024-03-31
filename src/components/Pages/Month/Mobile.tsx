@@ -1,14 +1,12 @@
-import { Dialog, Typography, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import { IMonthPage } from '../../../model/IMonthPage';
 import MobileWrapper from '../../Container/MobileWrapper';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
 import { TabBar } from '@/components/TabBar/TabBar';
 import { BudgetDisplay } from '@/components/BudgetDisplay/BudgetDisplay';
-import { AddRow } from '@/components/AddRow/AddRow';
-import { Expense } from '@/components/Expense/Expense';
-import { NoContentContainer } from '@/pages';
-import FormContent from './FormContent';
 import { calculatePercentage } from '@/utils/functions/calculatePercentage';
+import AddExpense from './AddExpense';
+import ExpenseDisplay from './ExpenseDisplay';
 
 const HeaderSection = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -31,22 +29,6 @@ const BudgetOverview = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     gap: theme.spacing(5),
   },
-}));
-
-const AddExpense = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(),
-
-  [theme.breakpoints.up('sm')]: {},
-}));
-
-const ExpenseDisplay = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-
-  [theme.breakpoints.up('sm')]: {},
 }));
 
 const Mobile = ({
@@ -101,61 +83,20 @@ const Mobile = ({
           />
         </BudgetOverview>
       </HeaderSection>
-      <div>
-        <AddExpense>
-          <AddRow
-            title='Add'
-            version='secondary'
-            chipsList={[
-              {
-                activated: true,
-                id: 'all',
-                label: 'All',
-              },
-            ]}
-            addIsVisible
-            filterIsVisible
-            onClick={() => handleOpen()}
-          />
-        </AddExpense>
 
-        <Dialog
-          onClose={() => handleClose()}
-          open={open}
-          maxWidth={'xs'}
-          fullWidth
-        >
-          <form onSubmit={handleSubmit(submitFormContentHandler)}>
-            <FormContent
-              categoryList={categoryList}
-              purposeList={purposeList}
-              handleClose={handleClose}
-              register={register}
-              errors={errors}
-            />
-          </form>
-        </Dialog>
-      </div>
+      <AddExpense
+        open={open}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+        handleSubmit={handleSubmit}
+        register={register}
+        errors={errors}
+        submitFormContentHandler={submitFormContentHandler}
+        categoryList={categoryList}
+        purposeList={purposeList}
+      />
 
-      <ExpenseDisplay>
-        {currentMonthExpenses?.length > 0 ? (
-          currentMonthExpenses.map((expense) => (
-            <Expense
-              key={expense.uuid}
-              amount={expense.amount}
-              date={expense.createdAt}
-              title={expense.expense}
-              category={expense.category}
-              amountAsString={expense.amountAsString}
-              fullWidth
-            />
-          ))
-        ) : (
-          <NoContentContainer>
-            <Typography>Press the add button to get started</Typography>
-          </NoContentContainer>
-        )}
-      </ExpenseDisplay>
+      <ExpenseDisplay currentMonthExpenses={currentMonthExpenses} />
     </MobileWrapper>
   );
 };

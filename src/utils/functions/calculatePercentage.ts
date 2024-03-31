@@ -5,7 +5,7 @@ export const calculatePercentage = (
   largerNumber: number
 ) => {
   const difference = largerNumber - smallerNumber;
-  const percentage = (difference / largerNumber) * 100;
+  const percentage = 100 - (difference / largerNumber) * 100;
   const differenceAsString = formatNumberWithDecimal(difference);
 
   return { percentage, differenceAsString, difference };

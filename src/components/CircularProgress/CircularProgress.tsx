@@ -76,6 +76,16 @@ const StyledCircularProgress = styled(Typography)(({ theme }) => ({
             borderRadius: '50%',
             backgroundColor: theme.palette.secondary.main,
           },
+
+          [theme.breakpoints.up('lg')]: {
+            ...theme.typography.body1,
+          },
+        },
+        '.amount': {
+          fontSize: theme.typography.body2.fontSize,
+          [theme.breakpoints.up('lg')]: {
+            fontSize: theme.typography.body1.fontSize,
+          },
         },
       },
       '.separator': {
@@ -85,12 +95,6 @@ const StyledCircularProgress = styled(Typography)(({ theme }) => ({
         '.title': {
           '&:before': {
             backgroundColor: theme.palette.primary.main,
-          },
-        },
-        '.amount': {
-          fontSize: '14px',
-          [theme.breakpoints.up('lg')]: {
-            fontSize: theme.spacing(2),
           },
         },
       },
