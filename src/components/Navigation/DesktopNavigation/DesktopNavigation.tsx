@@ -111,7 +111,7 @@ const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
             iconPosition='start'
             icon={<DashboardIcon />}
           />
-          <StyledTab
+          {/* <StyledTab
             LinkComponent={Link}
             href={'/subscriptions'}
             value='subscriptions'
@@ -126,7 +126,7 @@ const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
             label='Recurring'
             iconPosition='start'
             icon={<RepeatIcon />}
-          />
+          /> */}
         </StyledTabs>
 
         <ProfileContainer href='/profile'>

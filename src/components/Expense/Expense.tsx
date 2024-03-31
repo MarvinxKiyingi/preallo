@@ -6,12 +6,14 @@ import { theme } from '../../styles/theme/muiTheme';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import { ICategory } from '../../model/ICategory';
 import ExpenseContent from './ExpenseContent';
+import CurrencyFormat from 'react-currency-format';
 
 export type IExpenseProps = {
   bgColor?: string;
   title: string;
   date?: string;
   amount: number;
+  amountAsString: string;
   fullHeight?: boolean;
   fullWidth?: boolean;
   /** pass in a css string to change color */
@@ -52,7 +54,7 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
     '.iconContainer': {
       backgroundColor: ownerState.iconContainerBgColor
         ? ownerState.iconContainerBgColor
-        : theme.palette.background.default,
+        : theme.palette.primary.main,
       display: 'flex',
       aspectRatio: '1/1',
       maxWidth: 48,
@@ -64,7 +66,7 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
       '>svg>path': {
         color: ownerState.IconColor
           ? ownerState.IconColor
-          : theme.palette.primary.main,
+          : theme.palette.background.default,
       },
     },
     '.textContainer': {
@@ -88,7 +90,7 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
 
       '.price': {
         fontWeight: 600,
-        color: theme.palette.error.light,
+        color: theme.palette.common.black,
         textTransform: 'uppercase',
         fontSize: theme.spacing(2),
       },
@@ -103,6 +105,7 @@ export const Expense = ({
   title,
   date,
   amount,
+  amountAsString,
   invert = false,
   IconColor,
   stripped = false,
@@ -124,6 +127,7 @@ export const Expense = ({
     IconColor,
     title,
     amount,
+    amountAsString,
     stripped,
     version,
     category,
@@ -162,12 +166,21 @@ export const Expense = ({
           </>
         )}
 
-        {amount && (
+        {amountAsString && (
           <Stack direction='row' spacing={1 / 2} alignItems='center'>
-            <Typography className='price' variant='h6' align='right'>
-              {`- ${amount}`}
-            </Typography>
-            {isDesktop && <MoreVertOutlinedIcon color='secondary' />}
+            <CurrencyFormat
+              value={amountAsString}
+              displayType={'text'}
+              thousandSeparator={' '}
+              decimalSeparator={','}
+              thousandSpacing={'3'}
+              renderText={(value) => (
+                <Typography className='price' variant='h6' align='right'>
+                  {`- ${value}`}
+                </Typography>
+              )}
+            />
+            <MoreVertOutlinedIcon color='secondary' />
           </Stack>
         )}
       </div>

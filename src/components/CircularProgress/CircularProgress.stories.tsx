@@ -21,7 +21,7 @@ const meta: Meta<typeof CircularProgress> = {
     },
   },
   args: {
-    value: 75,
+    percentageValue: 75,
     size: 230,
     thickness: 4,
   },
@@ -30,6 +30,12 @@ const meta: Meta<typeof CircularProgress> = {
 export default meta;
 type Story = StoryObj<typeof CircularProgress>;
 
-export const Primary: Story = {
+export const Percentage: Story = {
   args: {},
+};
+export const Indicator: Story = {
+  args: {
+    innerContent: 'indicators',
+    salaryAsString: '15499,49',
+  },
 };

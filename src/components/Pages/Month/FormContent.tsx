@@ -4,7 +4,7 @@ import { IMonthlyExpenseFormContent } from '@/model/IMonthlyExpenseFormContent';
 
 function FormContent({
   categoryList,
-  priorityList,
+  purposeList,
   handleClose,
   register,
   errors,
@@ -19,8 +19,8 @@ function FormContent({
       expenseLabel='Expense'
       selectLabel='Category'
       selectList={categoryList}
-      selectLabelTwo='Priority'
-      selectListTwo={priorityList}
+      selectLabelTwo='Purpose'
+      selectListTwo={purposeList}
       onAgreeLabel='Add'
       onDisagreeLabel='Cancel'
       onDisagree={() => handleClose()}

@@ -3,7 +3,7 @@ import { IAddExpenseForm } from './IModalForm';
 
 export type IMonthlyExpenseFormContent = {
   categoryList: string[];
-  priorityList: string[];
+  purposeList: string[];
   handleClose: () => void;
   register: UseFormRegister<IAddExpenseForm>;
   errors: FieldErrors<IAddExpenseForm>;

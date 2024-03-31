@@ -5,12 +5,15 @@ import {
   Box,
   styled,
 } from '@mui/material';
+import CurrencyFormat from 'react-currency-format';
 
 export type IMuiCircularProgressProps = MuiCircularProgressProps & {
-  value: number;
+  /** Percentage value */
+  percentageValue: number;
+  /** Circle thickness */
   thickness: number;
-  size?: number;
-  circularProgressColor:
+  /** Circle size */
+  circularProgressColor?:
     | 'inherit'
     | 'primary'
     | 'secondary'
@@ -19,7 +22,7 @@ export type IMuiCircularProgressProps = MuiCircularProgressProps & {
     | 'success'
     | 'warning'
     | undefined;
-  progressTextColor:
+  progressTextColor?:
     | 'common.white'
     | 'common.black'
     | 'inherit'
@@ -39,6 +42,9 @@ export type IMuiCircularProgressProps = MuiCircularProgressProps & {
     | 'success'
     | 'warning'
     | undefined;
+  /** View percentage of progress or a custom version where it shows indicators and the salary the progress is based on */
+  innerContent: 'percentage' | 'indicators';
+  salaryAsString?: string;
 };
 
 const StyledCircularProgress = styled(Typography)(({ theme }) => ({
@@ -52,17 +58,60 @@ const StyledCircularProgress = styled(Typography)(({ theme }) => ({
     '&-progressBackground': {
       position: 'absolute',
     },
+    '&-progressDetails': {
+      display: 'flex',
+      gap: theme.spacing(2),
+
+      '.budget, .salary': {
+        '.title': {
+          display: 'flex',
+          gap: theme.spacing(),
+          alignItems: 'center',
+
+          '&:before': {
+            content: '""',
+            display: 'flex',
+            width: theme.spacing(),
+            height: theme.spacing(),
+            borderRadius: '50%',
+            backgroundColor: theme.palette.secondary.main,
+          },
+
+          [theme.breakpoints.up('lg')]: {
+            ...theme.typography.body1,
+          },
+        },
+        '.amount': {
+          fontSize: theme.typography.body2.fontSize,
+          [theme.breakpoints.up('lg')]: {
+            fontSize: theme.typography.body1.fontSize,
+          },
+        },
+      },
+      '.separator': {
+        border: '1px solid',
+      },
+      '.budget': {
+        '.title': {
+          '&:before': {
+            backgroundColor: theme.palette.primary.main,
+          },
+        },
+      },
+    },
   },
 }));
 
 export const CircularProgress = ({
-  value,
+  percentageValue,
   circularProgressColor = 'primary',
   progressTextColor = 'primary',
   circularProgressColorBg = 'secondary',
+  innerContent = 'percentage',
+  salaryAsString,
   ...props
 }: IMuiCircularProgressProps) => {
-  const hasValue = value ? value : 0;
+  const hasValue = percentageValue ? percentageValue : 0;
   return (
     <StyledCircularProgress
       className='circularProgress-container'
@@ -101,12 +150,56 @@ export const CircularProgress = ({
           justifyContent: 'center',
         }}
       >
-        <Typography
-          className='circularProgress-progressText-text'
-          variant='caption'
-          component='div'
-          color={progressTextColor}
-        >{`${Math.round(hasValue)}%`}</Typography>
+        {innerContent === 'percentage' ? (
+          <Typography
+            className='circularProgress-progressText-text'
+            variant='caption'
+            component='div'
+            color={progressTextColor}
+          >{`${Math.round(hasValue)}%`}</Typography>
+        ) : (
+          <div className='circularProgress-progressDetails'>
+            <div className='salary'>
+              <div>
+                <Typography
+                  className='title'
+                  variant='body2'
+                  color={progressTextColor}
+                >
+                  Salary:
+                </Typography>
+                {salaryAsString && (
+                  <CurrencyFormat
+                    value={salaryAsString}
+                    displayType={'text'}
+                    thousandSeparator={' '}
+                    decimalSeparator={','}
+                    thousandSpacing={'3'}
+                    renderText={(value) => (
+                      <Typography
+                        className='amount'
+                        variant='subtitle2'
+                        color={progressTextColor}
+                      >
+                        {value}
+                      </Typography>
+                    )}
+                  />
+                )}
+              </div>
+            </div>
+            <span className='separator' />
+            <div className='budget'>
+              <Typography
+                className='title'
+                variant='body2'
+                color={progressTextColor}
+              >
+                Budget
+              </Typography>
+            </div>
+          </div>
+        )}
       </Box>
     </StyledCircularProgress>
   );

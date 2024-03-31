@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import {
   Box,
   LinearProgress,
@@ -8,14 +7,17 @@ import {
 } from '@mui/material';
 import { grey } from '../../styles/colors/grey';
 import CurrencyFormat from 'react-currency-format';
+import { useDaysLeft } from '../../utils/functions/daysLeft';
 
 export type IBudgetDisplay = {
   /** Input css string to change the background color  */
   bgColor?: string;
   /** Budget amount  */
   budget: number;
+  differenceAsString: string;
   /** Salary the budget is based on   */
-  salary?: number;
+  salary: number;
+  salaryAsString: string;
   /** The value of the progress indicator for the determinate and buffer variants. Value between 0 and 100.  */
   progressValue?: number;
   variant?: 'buffer' | 'determinate' | 'indeterminate' | 'query' | 'test';
@@ -62,7 +64,6 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
       '.budget': {
         [theme.breakpoints.up('sm')]: {
           ...theme.typography.h3,
-          fontWeight: 600,
         },
       },
       '.title': {
@@ -94,11 +95,9 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
 );
 
 const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
-  '>:first-of-type': {
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(),
-
+  display: 'flex',
+  gap: theme.spacing(),
+  '>': {
     '&:before': {
       content: '""',
       display: 'flex',
@@ -107,9 +106,18 @@ const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
       borderRadius: '50%',
       backgroundColor: 'rgb(195, 178, 255)',
     },
+
+    '.budgetTitleContainer': {
+      '&:before': {
+        backgroundColor: theme.palette.secondary.main,
+      },
+    },
   },
 
-  '.salaryTitle': {
+  '.budgetTitleContainer, .salaryTitleWrapper': {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(),
     textTransform: 'none',
     lineHeight: '115%',
 
@@ -117,13 +125,22 @@ const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
       ...theme.typography.body2,
     },
   },
-  '.salary': {
-    fontSize: theme.typography.overline.fontSize,
-    lineHeight: '0',
 
-    [theme.breakpoints.up('sm')]: {
-      ...theme.typography.subtitle2,
-      fontSize: theme.typography.button.fontSize,
+  '.salaryTitleWrapper': {
+    '.salaryTitleContainer': {
+      display: 'flex',
+      gap: '4px',
+    },
+
+    '.salary': {
+      display: 'contents',
+      fontSize: theme.typography.overline.fontSize,
+      lineHeight: '0',
+
+      [theme.breakpoints.up('sm')]: {
+        ...theme.typography.subtitle2,
+        fontSize: theme.typography.button.fontSize,
+      },
     },
   },
 }));
@@ -134,24 +151,24 @@ export const BudgetDisplay = ({
   fullWidth,
   daysUntilPayday = 25,
   budget,
+  differenceAsString,
   salary,
+  salaryAsString,
   progressValue = 100,
   salaryTitle = 'Salary:',
   variant = 'determinate',
   color = 'secondary',
   ...props
 }: IBudgetDisplay & LinearProgressProps) => {
-  const today = useMemo(() => new Date(), []);
-
-  const daysLeft = useMemo(() => {
-    return daysUntilPayday - today.getDate();
-  }, [daysUntilPayday, today]);
+  const daysLeft = useDaysLeft(daysUntilPayday);
 
   const ownerState = {
     bgColor,
     fullWidth,
     budget,
+    differenceAsString,
     salary,
+    salaryAsString,
     daysUntilPayday,
     progressValue,
     salaryTitle,
@@ -170,10 +187,10 @@ export const BudgetDisplay = ({
           </Typography>
         )}
         <CurrencyFormat
-          value={budget}
+          value={differenceAsString}
           displayType={'text'}
           thousandSeparator={' '}
-          decimalSeparator=','
+          decimalSeparator={','}
           thousandSpacing={'3'}
           renderText={(value) => (
             <Typography className='budget' variant='h4'>
@@ -199,21 +216,26 @@ export const BudgetDisplay = ({
 
           {salary && (
             <BudgetBasedOnContainer>
-              <Typography className='salaryTitle' variant='overline'>
-                <div>{salaryTitle}</div>
+              <Typography className='budgetTitleContainer' variant='overline'>
+                <div>Budget</div>
+              </Typography>
+              <Typography className='salaryTitleWrapper' variant='overline'>
+                <div className='salaryTitleContainer'>
+                  <div>{salaryTitle}</div>
 
-                <CurrencyFormat
-                  value={salary}
-                  displayType={'text'}
-                  thousandSeparator={' '}
-                  decimalSeparator=','
-                  thousandSpacing={'3'}
-                  renderText={(value) => (
-                    <Typography className='salary' variant='subtitle2'>
-                      {value}
-                    </Typography>
-                  )}
-                />
+                  <CurrencyFormat
+                    value={salaryAsString}
+                    displayType={'text'}
+                    thousandSeparator={' '}
+                    decimalSeparator={','}
+                    thousandSpacing={'3'}
+                    renderText={(value) => (
+                      <Typography className='salary' variant='subtitle2'>
+                        {value}
+                      </Typography>
+                    )}
+                  />
+                </div>
               </Typography>
             </BudgetBasedOnContainer>
           )}

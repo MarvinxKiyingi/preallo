@@ -3,6 +3,7 @@ import { IAddMonthForm } from '../../model/IModalForm';
 import { db } from '../firebase/clientApp';
 import { currentYear } from './currentYear';
 import { v4 as uuidv4 } from 'uuid';
+import { formatNumberWithDecimal } from './formatNumberWithDecimal';
 
 export const createOrUpdateMonth = async (
   data: IAddMonthForm,
@@ -16,6 +17,7 @@ export const createOrUpdateMonth = async (
     uuid: uuidv4(),
     monthName: data.selected,
     salary: data.amount,
+    salaryAsString: formatNumberWithDecimal(data.amount),
     year: currentYear(),
     slug: slug,
   };

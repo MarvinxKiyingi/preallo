@@ -15,7 +15,7 @@ import { IAddExpenseModalFormYupSchema } from '@/model/IYupSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { categoryList } from '@/model/ICategory';
-import { priorityList } from '@/model/IPriority';
+import { purposeList } from '@/model/IPurpose';
 import { createOrUpdateExpense } from '@/utils/functions/createOrUpdateExpense';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { IExpenses } from '@/model/IExpenses';
@@ -101,9 +101,10 @@ const Month = () => {
             handleClose={handleClose}
             register={register}
             categoryList={categoryList}
-            priorityList={priorityList}
+            purposeList={purposeList}
             currentMonthExpenses={currentMonthExpenses}
             expensesTotal={expensesTotal}
+            daysUntilPayday={25}
             handleSubmit={handleSubmit}
             submitFormContentHandler={submitFormContentHandler}
             errors={errors}
@@ -119,9 +120,10 @@ const Month = () => {
             handleClose={handleClose}
             register={register}
             categoryList={categoryList}
-            priorityList={priorityList}
+            purposeList={purposeList}
             currentMonthExpenses={currentMonthExpenses}
             expensesTotal={expensesTotal}
+            daysUntilPayday={25}
             handleSubmit={handleSubmit}
             submitFormContentHandler={submitFormContentHandler}
             errors={errors}
