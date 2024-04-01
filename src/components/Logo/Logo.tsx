@@ -15,7 +15,7 @@ const StyledLogo = styled(Link)(({ theme }) => ({
     height: 24,
   },
 
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('sm')]: {
     '>svg': {
       width: 190,
       height: 39,
@@ -23,9 +23,9 @@ const StyledLogo = styled(Link)(({ theme }) => ({
   },
 }));
 
-export const Logo = ({ color = 'inherit', ...props }: IPickedSvgProps) => {
+export const Logo = ({ color = 'inherit', sx, ...props }: IPickedSvgProps) => {
   return (
-    <StyledLogo href={'/'} {...props}>
+    <StyledLogo href={'/'} {...props} sx={sx}>
       <SvgIcon
         {...props}
         color={color}

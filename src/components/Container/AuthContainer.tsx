@@ -12,16 +12,17 @@ const Container = styled('main')<{
 }>(({ theme, ownerState }) => ({
   display: 'flex',
   flexDirection: 'column',
-  height: '100vh',
   padding: theme.spacing(3, 3, 0, 3),
+  gap: theme.spacing(10),
 
   [theme.breakpoints.up('sm')]: {
-    padding: 'unset',
+    padding: theme.spacing(6, 6, 0, 6),
   },
 
   [theme.breakpoints.up('md')]: {
     display: 'grid',
     padding: 'unset',
+    height: '100vh',
     gridTemplateColumns: ownerState.desktopColumns
       ? ownerState.desktopColumns
       : '1.3fr 1fr',

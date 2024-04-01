@@ -46,7 +46,6 @@ export const Google = styled(Button)(({ theme }) => ({
 export const CtaStack = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  marginTop: theme.spacing(3),
   gap: theme.spacing(3),
   textAlign: 'center',
 }));

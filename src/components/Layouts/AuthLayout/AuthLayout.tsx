@@ -1,4 +1,4 @@
-import { styled, useMediaQuery } from '@mui/material';
+import { Box, styled, useMediaQuery } from '@mui/material';
 import Calculator from '../../../images/Calculator.png';
 import lockIllustration from '../../../images/PasswordLockIllustration.png';
 import Image from 'next/image';
@@ -20,6 +20,34 @@ const IllustrationContainer = styled('div')(({ theme }) => ({
   height: 'inherit',
 }));
 
+const MobileIllustration = styled('div')({
+  display: 'flex',
+  width: '100%',
+  height: '100%',
+  aspectRatio: '1/1',
+  backgroundColor: theme.palette.background.accent,
+  borderRadius: '20px',
+  overflow: 'hidden',
+
+  [theme.breakpoints.up('sm')]: {
+    aspectRatio: '4/3',
+  },
+
+  img: {
+    top: '16%',
+    position: 'relative',
+    width: '100%',
+    height: 'fit-content',
+    objectFit: 'contain',
+    aspectRatio: '1/1',
+    objectPosition: '65%',
+
+    [theme.breakpoints.up('sm')]: {
+      top: '20%',
+      objectPosition: '60%',
+    },
+  },
+});
 const Illustration = styled('div')({
   gridColumn: '2/-2',
   gridRow: '2/-2',
@@ -43,11 +71,28 @@ export const AuthLayout = ({ children }: IChildren) => {
     <AuthContainer>
       {!isDesktop && (
         <MobileWrapper>
-          <LogoContainer>
-            <Logo />
-          </LogoContainer>
+          <MobileIllustration>
+            <Box
+              sx={{
+                margin: { xs: '16px 0 0 16px', sm: '32px 0 0 42px' },
+                position: 'absolute',
+              }}
+            >
+              <Logo />
+            </Box>
 
-          <FormContainer> {children}</FormContainer>
+            <Image
+              src={!isResetPassword ? Calculator : lockIllustration}
+              alt={
+                !isResetPassword
+                  ? 'Calculator illustration'
+                  : 'Password Lock Illustration'
+              }
+              priority
+            />
+          </MobileIllustration>
+
+          <FormContainer>{children}</FormContainer>
         </MobileWrapper>
       )}
 

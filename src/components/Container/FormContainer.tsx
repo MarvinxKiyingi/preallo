@@ -28,7 +28,10 @@ const StyledFormContainer = styled('div')(({ theme }) => ({
     gap: theme.spacing(3),
 
     '>*': {
-      gridColumn: '2/-2',
+      gridColumn: '1/-1',
+      [theme.breakpoints.up('md')]: {
+        gridColumn: '2/-2',
+      },
     },
   },
 }));
