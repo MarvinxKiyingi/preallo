@@ -34,7 +34,7 @@ const MobileIllustration = styled('div')({
   },
 
   img: {
-    top: '16%',
+    marginTop: '16%',
     position: 'relative',
     width: '100%',
     height: 'fit-content',
@@ -43,7 +43,7 @@ const MobileIllustration = styled('div')({
     objectPosition: '65%',
 
     [theme.breakpoints.up('sm')]: {
-      top: '20%',
+      marginTop: '20%',
       objectPosition: '60%',
     },
   },
