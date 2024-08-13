@@ -3,6 +3,7 @@ import { NextShield } from 'next-shield';
 import { useSession } from 'next-auth/react';
 import { IChildren } from '../model/IChildren';
 import { useRouter } from 'next/router';
+import Loading from '@/components/Loading/Loading';
 
 const ProtectedRoutes = ({ children }: IChildren) => {
   const router = useRouter();
@@ -20,7 +21,7 @@ const ProtectedRoutes = ({ children }: IChildren) => {
       publicRoutes={['/auth/signup', '/auth/signin', '/auth/resetpassword']}
       accessRoute='/'
       loginRoute='/auth/signin'
-      LoadingComponent={<p>Loading...</p>}
+      LoadingComponent={<Loading />}
     >
       {children}
     </NextShield>
