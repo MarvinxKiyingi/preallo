@@ -12,6 +12,8 @@ const ProtectedRoutes = ({ children }: IChildren) => {
   const loading = status === 'loading';
   const isPrivate = !router.pathname.includes('/auth/');
 
+  console.log('router.pathname:', router.pathname);
+
   return (
     <NextShield
       isAuth={authenticated}

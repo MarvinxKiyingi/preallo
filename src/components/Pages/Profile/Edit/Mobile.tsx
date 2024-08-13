@@ -1,13 +1,12 @@
 import React from 'react';
-import AppContainer from '../../Container/AppContainer';
-import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
-import { Typography, styled, useMediaQuery } from '@mui/material';
-import { Avatar } from '../../Avatar/Avatar';
-import { Button } from '../../Button/Button';
-import { theme } from '../../../styles/theme/muiTheme';
-import { ProfileCard } from '../../ProfileCard/ProfileCard';
+import { Button, Typography, styled, useMediaQuery } from '@mui/material';
 import { signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { useAuth } from '@/utils/context/AuthContext';
+import AppContainer from '@/components/Container/AppContainer';
+import { MobileNavigation } from '@/components/Navigation/MobileNavigation/MobileNavigation';
+import { ProfileCard } from '@/components/ProfileCard/ProfileCard';
+import { theme } from '@/styles/theme/muiTheme';
+import { Avatar } from '@/components/Avatar/Avatar';
 
 const ProfileWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -87,6 +86,7 @@ const ButtonGroup = styled('div')(({ theme }) => ({
 
 const Mobile = () => {
   const { data: session } = useSession();
+  const { updateUserProfile } = useAuth();
 
   const imgUrl = session?.user?.image;
   const userName = session?.user?.name;
@@ -106,6 +106,7 @@ const Mobile = () => {
       <ProfileWrapper>
         <ProfileContainer>
           <Avatar avatarMobileSize='45%' src={imgUrl ? imgUrl : undefined} />
+          <input accept='image/*' id='icon-button-file' type='file' />
 
           <TextContainer>
             <Typography className='userName' variant='body1' component='h2'>
@@ -114,16 +115,15 @@ const Mobile = () => {
           </TextContainer>
         </ProfileContainer>
 
-        {/* {isIpad && (
+        {isIpad && (
           <ButtonGroup>
             <Button
               sx={{ maxHeight: 48 }}
               variant='contained'
               color='secondary'
-              LinkComponent={Link}
-              href='/profile/edit'
+              onClick={() => signOut()}
             >
-              Edit profile
+              Update profile
             </Button>
             <Button
               sx={{ maxHeight: 48 }}
@@ -136,7 +136,7 @@ const Mobile = () => {
               Remove account
             </Button>
           </ButtonGroup>
-        )} */}
+        )}
       </ProfileWrapper>
 
       <CardsContainer>

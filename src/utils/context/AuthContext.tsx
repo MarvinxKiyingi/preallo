@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { IAuthContext } from '../../model/IAuthContext';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase/clientApp';
+import { auth, db, storage } from '../firebase/clientApp';
 import { IChildren } from '../../model/IChildren';
 import { ISignUp } from '../../model/ISignUp';
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  deleteUser,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -15,6 +16,10 @@ import {
 import { ISignIn } from '../../model/ISignIn';
 import { IPasswordReset } from '../../model/IPasswordReset';
 import { transformFullName } from '../functions/transformFullName';
+import { IUser } from '@/model/IUser';
+import { updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import { deleteObject, ref, uploadBytes } from 'firebase/storage';
+import { useRouter } from 'next/navigation';
 
 // Initiating context
 export const AuthContext = React.createContext({} as IAuthContext);
@@ -24,6 +29,10 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }: IChildren) => {
   const [currentUser, currentUserLoading] = useAuthState(auth);
+
+  const router = useRouter();
+  // firebase Storage ref
+  const storageRef = ref(storage, `profileImages/${currentUser?.uid}`);
 
   const googleProvider = new GoogleAuthProvider();
   // Signing up a user to firebase
@@ -52,6 +61,52 @@ export const AuthContextProvider = ({ children }: IChildren) => {
           errorCode: error.code,
         });
       });
+  };
+
+  const updateUserProfile = (props: IUser) => {
+    const file = props?.profileImg?.[0];
+    console.log('file', file);
+    if (currentUser) {
+      try {
+        updateDoc(doc(db, 'users', currentUser.uid), {
+          name: props.name,
+        });
+        // Update/upload profileImage
+        if (props?.profileImg?.length === 1) {
+          uploadBytes(storageRef, file);
+        }
+      } catch (error) {
+        alert(error);
+      }
+    }
+  };
+
+  const deleteUserAndProfile = async () => {
+    if (currentUser) {
+      try {
+        await deleteDoc(doc(db, 'users', currentUser.uid));
+        await deleteDoc(doc(db, 'months', currentUser.uid));
+        await deleteDoc(doc(db, 'years', currentUser.uid));
+        await deleteDoc(doc(db, 'expenses', currentUser.uid));
+      } catch (error) {
+        alert(error);
+      }
+
+      if (storageRef) {
+        try {
+          deleteObject(storageRef);
+        } catch (error) {
+          alert(error);
+        }
+      }
+
+      try {
+        await deleteUser(currentUser);
+      } catch (error) {
+        alert(error);
+      }
+      router.push('/signin');
+    }
   };
 
   // Reset password with firebase
@@ -84,6 +139,8 @@ export const AuthContextProvider = ({ children }: IChildren) => {
     currentUserLoading,
     signUpUser,
     signInUser,
+    updateUserProfile,
+    deleteUserAndProfile,
     passwordReset,
     googleSignIn,
   };
