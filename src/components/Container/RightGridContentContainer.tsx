@@ -6,7 +6,7 @@ const Content = styled('div')(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: 'repeat(8,1fr)',
 
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('md')]: {
     gridTemplateRows: 'repeat(10,1fr)',
     gap: theme.spacing(3),
   },
