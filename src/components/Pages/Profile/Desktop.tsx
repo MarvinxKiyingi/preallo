@@ -3,15 +3,13 @@ import AppContainer from '../../Container/AppContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
 import ContentContainer from '../../Container/ContentContainer';
 import { useRouter } from 'next/router';
-import { Typography, styled, useMediaQuery } from '@mui/material';
-
+import { Box, Typography, styled } from '@mui/material';
 import { Button } from '../../Button/Button';
 import { Avatar } from '../../Avatar/Avatar';
-import { ProfileCard } from '../../ProfileCard/ProfileCard';
-import { theme } from '../../../styles/theme/muiTheme';
 import RightGridContentContainer from '../../Container/RightGridContentContainer';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
+import { theme } from '@/styles/theme/muiTheme';
 
 const ProfileContainer = styled('div')(({ theme }) => ({
   gap: theme.spacing(6),
@@ -19,9 +17,13 @@ const ProfileContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-
-  gridColumn: '1/5',
-  gridRow: '1/6',
+}));
+const RightContent = styled('div')(({ theme }) => ({
+  gridColumn: '2/-2',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3),
+  justifyContent: 'center',
 }));
 
 const ProfileTitle = styled(Typography)(({ theme }) => ({
@@ -34,8 +36,6 @@ const ButtonGroup = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   gap: theme.spacing(3),
-  gridColumn: '5/-1',
-  gridRow: '1/6',
 }));
 
 const Desktop = () => {
@@ -44,9 +44,6 @@ const Desktop = () => {
   const router = useRouter();
   const currentPageRouteName = router.pathname.replace(/\//g, '');
 
-  const isIpad = useMediaQuery(
-    `${theme.breakpoints.down('md').replace('@media ', '')}`
-  );
   return (
     <AppContainer>
       <>
@@ -56,54 +53,43 @@ const Desktop = () => {
             <Typography className='pageTitle'>Profile</Typography>
           </div>
 
-          <RightGridContentContainer>
-            <ProfileContainer>
-              <Avatar
-                avatarDeskSize='40%'
-                src={user?.image ? user.image : undefined}
-              />
+          <RightGridContentContainer
+            sx={{
+              gridTemplateRows: 'unset !important',
+              backgroundColor: theme.palette.background.accent,
+              borderRadius: theme.spacing(1),
+            }}
+          >
+            <RightContent>
+              <ProfileContainer>
+                <Avatar
+                  avatarDeskSize='40%'
+                  src={user?.image ? user.image : undefined}
+                />
 
-              <ProfileTitle className='userName' variant='h3'>
-                {user?.name}
-              </ProfileTitle>
-            </ProfileContainer>
+                <ProfileTitle className='userName' variant='h3'>
+                  {user?.name}
+                </ProfileTitle>
+              </ProfileContainer>
 
-            <ButtonGroup>
-              <Button
-                sx={{ maxHeight: 48 }}
-                variant='contained'
-                color='secondary'
-              >
-                Edit profile
-              </Button>
+              <ButtonGroup>
+                <Button
+                  sx={{ maxHeight: 48 }}
+                  variant='contained'
+                  onClick={() => signOut()}
+                >
+                  Sign out
+                </Button>
 
-              <Button
-                sx={{ maxHeight: 48 }}
-                variant='contained'
-                onClick={() => signOut()}
-              >
-                Sign out
-              </Button>
-
-              <Button sx={{ maxHeight: 48 }} variant='contained' color='error'>
-                Remove account
-              </Button>
-            </ButtonGroup>
-
-            <ProfileCard
-              title='Subscriptions'
-              sx={{
-                gridColumn: '1 / -5',
-                gridRow: isIpad ? '6/-1' : '6 / -3',
-              }}
-            />
-            <ProfileCard
-              title='Recurring expenses'
-              sx={{
-                gridColumn: '5 / -1',
-                gridRow: isIpad ? '6/-1' : '6 / -3',
-              }}
-            />
+                <Button
+                  sx={{ maxHeight: 48 }}
+                  variant='contained'
+                  color='error'
+                >
+                  Remove account
+                </Button>
+              </ButtonGroup>
+            </RightContent>
           </RightGridContentContainer>
         </ContentContainer>
       </>
