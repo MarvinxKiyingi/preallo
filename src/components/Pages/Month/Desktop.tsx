@@ -105,7 +105,7 @@ const Desktop = ({
   purposeList,
   currentMonthExpenses,
 }: IMonthPage) => {
-  const { monthName, salary, salaryAsString, slug, year } = month;
+  const { monthName, salary, salaryAsString, slug } = month;
   const daysLeft = useDaysLeft(daysUntilPayday);
   const { differenceAsString, percentage } = calculatePercentage(
     expensesTotal,
@@ -129,9 +129,6 @@ const Desktop = ({
         <MonthDetailsContainer>
           <LeftContainer>
             <div className='budgetContainer'>
-              {/* <Typography className='title' variant='h4'>
-                Budget
-              </Typography> */}
               {daysLeft > 0 && (
                 <Typography className='description' variant='body2'>
                   {`Left to spend, for the next ${daysLeft} days`}
@@ -156,9 +153,13 @@ const Desktop = ({
                 <CircularProgress
                   percentageValue={percentage}
                   innerContent='indicators'
-                  thickness={4}
+                  thickness={4.2}
                   salaryAsString={salaryAsString}
-                  size={lgBreakpoint ? 300 : 230}
+                  size={lgBreakpoint ? 300 : 250}
+                  salary={salary}
+                  needTotalValue={0}
+                  wantTotalValue={0}
+                  saveTotalValue={0}
                 />
               </Box>
             </div>
