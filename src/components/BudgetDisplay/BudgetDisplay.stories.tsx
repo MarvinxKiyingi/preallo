@@ -9,9 +9,13 @@ const meta: Meta<typeof BudgetDisplay> = {
     budget: 2478.0,
     color: 'secondary',
     hideProgressBar: false,
-    salary: 10000,
+    salaryAsString: '15000',
     progressValue: 20,
     daysUntilPayday: 25,
+    salary: 15000,
+    needTotalValue: 7300,
+    wantTotalValue: 3750,
+    saveTotalValue: 3750,
   },
 };
 

@@ -79,6 +79,9 @@ const Mobile = ({
             salary={salary}
             salaryAsString={salaryAsString}
             daysUntilPayday={daysUntilPayday}
+            needTotalValue={0}
+            wantTotalValue={0}
+            saveTotalValue={0}
             fullWidth
           />
         </BudgetOverview>
