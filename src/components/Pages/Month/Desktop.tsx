@@ -105,12 +105,13 @@ const Desktop = ({
   purposeList,
   currentMonthExpenses,
 }: IMonthPage) => {
-  const { monthName, salary, salaryAsString, slug } = month;
+  const { monthName, salary, salaryAsString, slug, goal } = month;
   const daysLeft = useDaysLeft(daysUntilPayday);
   const { differenceAsString, percentage } = calculatePercentage(
     expensesTotal,
     salary
   );
+  const { needPercentage, wantPercentage, savePercentage } = goal;
   const lgBreakpoint = useMediaQuery(
     `${theme.breakpoints.up('lg').replace('@media ', '')}`
   );
@@ -160,9 +161,9 @@ const Desktop = ({
                   needTotalValue={0}
                   wantTotalValue={0}
                   saveTotalValue={0}
-                  needGoalPercentage={50}
-                  wantGoalPercentage={30}
-                  saveGoalPercentage={20}
+                  needGoalPercentage={needPercentage}
+                  wantGoalPercentage={wantPercentage}
+                  saveGoalPercentage={savePercentage}
                 />
               </Box>
             </div>

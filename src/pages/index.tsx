@@ -19,6 +19,7 @@ import Mobile from '../components/Pages/Dashboard/Mobile';
 import Desktop from '../components/Pages/Dashboard/Desktop';
 import { useSession } from 'next-auth/react';
 import { createOrUpdateMonth } from '../utils/functions/createOrUpdateMonth';
+import { IGoal } from '@/model/IGoal';
 
 export const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -59,12 +60,14 @@ const Home: NextPage = () => {
   const { data: session } = useSession();
   const [yearsSnapshot] = useDocument(doc(db, 'years', `${session?.userId}`));
   const [monthsSnapshot] = useDocument(doc(db, 'months', `${session?.userId}`));
+  const [goalsSnapshot] = useDocument(doc(db, 'goal', `${session?.userId}`));
   const yearList: [string] = yearsSnapshot?.data()?.yearList;
   const months: IMonths = monthsSnapshot
     ?.data()
     ?.months?.sort((a: IMonth, b: IMonth) => {
       return monthList.indexOf(a.monthName) - monthList.indexOf(b.monthName);
     });
+  const goal: IGoal = goalsSnapshot?.data() as IGoal;
 
   const userId = session?.userId;
   const [open, setOpen] = useState(false);
@@ -121,6 +124,7 @@ const Home: NextPage = () => {
             submitFormContentHandler={submitFormContentHandler}
             register={register}
             errors={errors}
+            goal={goal}
           />
         )}
 
@@ -138,6 +142,7 @@ const Home: NextPage = () => {
             submitFormContentHandler={submitFormContentHandler}
             register={register}
             errors={errors}
+            goal={goal}
           />
         )}
       </AppContainer>

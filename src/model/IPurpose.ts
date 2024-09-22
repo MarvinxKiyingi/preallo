@@ -1,1 +1,1 @@
-export const purposeList = ['Need', 'Want', 'Loan'];
+export const purposeList = ['Need', 'Want', 'Save'];

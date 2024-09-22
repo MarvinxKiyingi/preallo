@@ -11,6 +11,7 @@ import CurrencyFormat from 'react-currency-format';
 import { useDaysLeft } from '../../utils/functions/daysLeft';
 import { calculateProgressValue } from '../../utils/functions/calculateProgressValue';
 import { calculateExpensePercentage } from '../../utils/functions/calculateExpensePercentage';
+import { isGoalMet } from '../../utils/functions/isGoalMet';
 
 export type IBudgetDisplay = {
   /** Input css string to change the background color  */
@@ -32,6 +33,9 @@ export type IBudgetDisplay = {
   needTotalValue: number;
   wantTotalValue: number;
   saveTotalValue: number;
+  needGoalPercentage: number;
+  wantGoalPercentage: number;
+  saveGoalPercentage: number;
 };
 
 const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
@@ -127,7 +131,11 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
 const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  gap: theme.spacing(),
+  gap: '4px',
+
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(),
+  },
   '>': {
     '&:before': {
       content: '""',
@@ -141,6 +149,10 @@ const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
       '.percentage': {
         color: theme.palette.common.white,
         fontSize: theme.typography.overline.fontSize,
+
+        '&.red': {
+          color: theme.palette.error.main,
+        },
 
         [theme.breakpoints.up('sm')]: {
           ...theme.typography.subtitle2,
@@ -168,7 +180,7 @@ const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
   '.need,.want,.save, .salaryTitleWrapper': {
     display: 'flex',
     alignItems: 'center',
-    gap: theme.spacing(),
+    gap: theme.spacing(1 / 2),
     textTransform: 'none',
     lineHeight: '115%',
     color: theme.palette.grey[300],
@@ -178,6 +190,7 @@ const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
       fontFamily: theme.typography.overline,
       fontWeight: 500,
       fontSize: theme.typography.button.fontSize,
+      gap: theme.spacing(),
     },
   },
 
@@ -214,9 +227,12 @@ export const BudgetDisplay = ({
   progressValue = 100,
   variant = 'determinate',
   color = 'secondary',
-  needTotalValue,
-  wantTotalValue,
-  saveTotalValue,
+  needTotalValue = 0,
+  wantTotalValue = 0,
+  saveTotalValue = 0,
+  needGoalPercentage = 50,
+  wantGoalPercentage = 30,
+  saveGoalPercentage = 20,
   ...props
 }: IBudgetDisplay & LinearProgressProps) => {
   const daysLeft = useDaysLeft(daysUntilPayday);
@@ -234,6 +250,9 @@ export const BudgetDisplay = ({
     needTotalValue,
     wantTotalValue,
     saveTotalValue,
+    needGoalPercentage,
+    wantGoalPercentage,
+    saveGoalPercentage,
   };
 
   const needUiProgress = calculateProgressValue(needTotalValue, salary);
@@ -245,6 +264,9 @@ export const BudgetDisplay = ({
     needTotalValue + wantTotalValue + saveTotalValue,
     salary
   );
+  const needPercentage = calculateExpensePercentage(needTotalValue, salary);
+  const wantPercentage = calculateExpensePercentage(wantTotalValue, salary);
+  const savePercentage = calculateExpensePercentage(saveTotalValue, salary);
   console.log('needTotalValue:', needTotalValue);
   console.log('wantTotalValue:', wantTotalValue);
   console.log('saveTotalValue:', saveTotalValue);
@@ -324,10 +346,13 @@ export const BudgetDisplay = ({
                   <Typography
                     variant='subtitle2'
                     component={'span'}
-                    className='percentage'
+                    className={`percentage ${isGoalMet(
+                      needGoalPercentage,
+                      needPercentage.asNumber
+                    )}`}
                   >
                     {
-                      calculateExpensePercentage(salary, needTotalValue)
+                      calculateExpensePercentage(needTotalValue, salary)
                         .asString
                     }
                   </Typography>
@@ -339,10 +364,13 @@ export const BudgetDisplay = ({
                   <Typography
                     variant='subtitle2'
                     component={'span'}
-                    className='percentage'
+                    className={`percentage ${isGoalMet(
+                      wantGoalPercentage,
+                      wantPercentage.asNumber
+                    )}`}
                   >
                     {
-                      calculateExpensePercentage(salary, wantTotalValue)
+                      calculateExpensePercentage(wantTotalValue, salary)
                         .asString
                     }
                   </Typography>
@@ -354,10 +382,13 @@ export const BudgetDisplay = ({
                   <Typography
                     variant='subtitle2'
                     component={'span'}
-                    className='percentage'
+                    className={`percentage ${isGoalMet(
+                      saveGoalPercentage,
+                      savePercentage.asNumber
+                    )}`}
                   >
                     {
-                      calculateExpensePercentage(salary, saveTotalValue)
+                      calculateExpensePercentage(saveTotalValue, salary)
                         .asString
                     }
                   </Typography>

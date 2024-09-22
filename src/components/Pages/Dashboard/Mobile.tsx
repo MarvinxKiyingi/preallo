@@ -32,6 +32,7 @@ const Mobile = ({
   register,
   errors,
   open,
+  goal,
 }: IDashboard) => {
   const ownerState = {
     months,
@@ -65,6 +66,7 @@ const Mobile = ({
         <form onSubmit={handleSubmit(submitFormContentHandler)}>
           <FormContent
             monthList={monthList}
+            goal={goal}
             handleClose={handleClose}
             register={register}
             errors={errors}

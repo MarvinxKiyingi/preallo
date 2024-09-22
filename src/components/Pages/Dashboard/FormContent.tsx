@@ -4,6 +4,7 @@ import { IDashboardFormContent } from '../../../model/IDashboardFormContent';
 
 function FormContent({
   monthList,
+  goal,
   handleClose,
   register,
   errors,
@@ -16,6 +17,7 @@ function FormContent({
       variant='addMonth'
       selectLabel='Month'
       selectList={monthList}
+      goal={goal}
       amountLabel={'Salary'}
       onAgreeLabel='Add'
       onDisagreeLabel='Cancel'

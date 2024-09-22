@@ -48,7 +48,7 @@ const Mobile = ({
   daysUntilPayday,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
-  const { salary, salaryAsString, monthName } = month;
+  const { salary, salaryAsString, monthName, goal } = month;
   const { difference, differenceAsString, percentage } = calculatePercentage(
     expensesTotal,
     salary
@@ -59,6 +59,8 @@ const Mobile = ({
     { id: 'subscriptions', label: 'subscriptions', value: 'subscriptions' },
     { id: 'recurring', label: 'recurring', value: 'recurring' },
   ];
+
+  const { needPercentage, wantPercentage, savePercentage } = goal;
 
   return (
     <MobileWrapper>
@@ -82,6 +84,9 @@ const Mobile = ({
             needTotalValue={0}
             wantTotalValue={0}
             saveTotalValue={0}
+            needGoalPercentage={needPercentage}
+            wantGoalPercentage={wantPercentage}
+            saveGoalPercentage={savePercentage}
             fullWidth
           />
         </BudgetOverview>
