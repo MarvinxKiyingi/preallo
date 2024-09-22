@@ -9,6 +9,8 @@ import {
   Stack,
 } from '@mui/material';
 import CurrencyFormat from 'react-currency-format';
+import { theme } from '../../styles/theme/muiTheme';
+import { isGoalMet } from '../../utils/functions/isGoalMet';
 
 export type IMuiCircularProgressProps = MuiCircularProgressProps & {
   /** Percentage value */
@@ -34,6 +36,9 @@ export type IMuiCircularProgressProps = MuiCircularProgressProps & {
   needTotalValue: number;
   wantTotalValue: number;
   saveTotalValue: number;
+  needGoalPercentage: number;
+  wantGoalPercentage: number;
+  saveGoalPercentage: number;
 };
 
 type ICircularProgress = {
@@ -43,8 +48,23 @@ type ICircularProgress = {
 const StyledCircularProgress = styled(Typography)<{
   ownerState: ICircularProgress;
 }>(({ theme, ownerState }) => ({
+  position: 'relative',
+  display: 'inline-flex',
+  minWidth: `${ownerState.size}px`,
+  minHeight: `${ownerState.size}px`,
+
   '.circularProgress': {
     '&-progressText': {
+      '&-container': {
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        position: 'absolute',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
       '&-text': {
         ...theme.typography.h1,
         fontWeight: 600,
@@ -70,7 +90,8 @@ const StyledCircularProgress = styled(Typography)<{
     },
     '&-progressDetails': {
       display: 'flex',
-      gap: theme.spacing(2),
+      flexDirection: 'column',
+      gap: theme.spacing(),
 
       '.budget, .salary': {
         '.title, .need, .want, .save': {
@@ -111,23 +132,36 @@ const StyledCircularProgress = styled(Typography)<{
           },
         },
         '.amount': {
-          fontSize: theme.typography.body2.fontSize,
-          [theme.breakpoints.up('lg')]: {
-            fontSize: theme.typography.body1.fontSize,
-          },
+          ...theme.typography.body1,
+          fontWeight: 700,
         },
       },
       '.salary': {
         alignSelf: 'center',
       },
+      '.result': {
+        ...theme.typography.body2,
+        fontWeight: 700,
+      },
       '.separator': {
         border: '1px solid',
       },
-      '.budget': {
-        '.title': {
-          '&:before': {
-            backgroundColor: theme.palette.primary.main,
+      '.percentage': {
+        '&-container': {
+          display: 'flex',
+          gap: theme.spacing(1),
+
+          [theme.breakpoints.up('lg')]: {
+            gap: theme.spacing(2),
           },
+        },
+      },
+      '.goal': {
+        '.green': {
+          color: theme.palette.success.main,
+        },
+        '.red': {
+          color: theme.palette.error.main,
         },
       },
     },
@@ -141,9 +175,12 @@ export const CircularProgress = ({
   salaryAsString,
   size,
   salary,
-  needTotalValue,
-  wantTotalValue,
-  saveTotalValue,
+  needTotalValue = 0,
+  wantTotalValue = 0,
+  saveTotalValue = 0,
+  needGoalPercentage = 50,
+  wantGoalPercentage = 30,
+  saveGoalPercentage = 20,
   ...props
 }: IMuiCircularProgressProps) => {
   const hasValue = percentageValue ? percentageValue : 0;
@@ -160,15 +197,45 @@ export const CircularProgress = ({
     needTotalValue + wantTotalValue + saveTotalValue,
     salary
   );
+
+  const needPercentage = calculateExpensePercentage(needTotalValue, salary);
+  const wantPercentage = calculateExpensePercentage(wantTotalValue, salary);
+  const savePercentage = calculateExpensePercentage(saveTotalValue, salary);
+
+  const renderProgressDetail = (
+    title: string,
+    percentage: number,
+    goal: number
+  ) => (
+    <Typography variant='body2'>
+      <Stack gap='4px' flexDirection='row'>
+        <Typography component='span'>{title}:</Typography>
+        <Typography
+          component='span'
+          className={`result ${isGoalMet(goal, percentage)}`}
+        >{`${goal}%`}</Typography>
+      </Stack>
+    </Typography>
+  );
+
+  const renderBudgetDetail = (
+    label: string,
+    percentage: string,
+    className: string
+  ) => (
+    <Typography className={className} variant='body2'>
+      <Stack gap='4px' flexDirection='row'>
+        <Typography component='span'>{label}:</Typography>
+        <Typography component='span' className='result'>
+          {percentage}
+        </Typography>
+      </Stack>
+    </Typography>
+  );
+
   return (
     <StyledCircularProgress
       className='circularProgress-container'
-      sx={{
-        position: 'relative',
-        display: 'inline-flex',
-        minWidth: `${size}px`,
-        minHeight: `${size}px`,
-      }}
       ownerState={ownerState}
     >
       <MuiCircularProgress
@@ -200,19 +267,7 @@ export const CircularProgress = ({
         {...props}
       />
 
-      <Box
-        className='circularProgress-progressText-container'
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <Box className='circularProgress-progressText-container'>
         {innerContent === 'percentage' ? (
           <Typography
             className='circularProgress-progressText-text'
@@ -223,7 +278,11 @@ export const CircularProgress = ({
         ) : (
           <div className='circularProgress-progressDetails'>
             <div className='salary'>
-              <div>
+              <Stack
+                flexDirection={'row'}
+                gap={theme.spacing(1 / 2)}
+                alignItems={'center'}
+              >
                 <Typography
                   className='title'
                   variant='body2'
@@ -239,75 +298,41 @@ export const CircularProgress = ({
                     decimalSeparator={','}
                     thousandSpacing={'3'}
                     renderText={(value) => (
-                      <Typography
-                        className='amount'
-                        variant='subtitle2'
-                        color={progressTextColor}
-                      >
+                      <Typography className='amount' color={progressTextColor}>
                         {value}
                       </Typography>
                     )}
                   />
                 )}
-              </div>
+              </Stack>
             </div>
 
-            <span className='separator' />
+            <div className='percentage-container'>
+              <div className='goal'>
+                {renderProgressDetail(
+                  'Goal',
+                  needPercentage.asNumber,
+                  needGoalPercentage
+                )}
+                {renderProgressDetail(
+                  'Goal',
+                  wantPercentage.asNumber,
+                  wantGoalPercentage
+                )}
+                {renderProgressDetail(
+                  'Goal',
+                  savePercentage.asNumber,
+                  saveGoalPercentage
+                )}
+              </div>
 
-            <div className='budget'>
-              <Typography className='need' variant='body2'>
-                <Stack gap={'4px'} flexDirection={'row'}>
-                  <Typography variant='body2' component={'span'}>
-                    Need:
-                  </Typography>
-                  <Typography
-                    variant='body2'
-                    component={'span'}
-                    sx={{ fontWeight: '700' }}
-                  >
-                    {
-                      calculateExpensePercentage(salary, needTotalValue)
-                        .asString
-                    }
-                  </Typography>
-                </Stack>
-              </Typography>
+              <span className='separator' />
 
-              <Typography className='want' variant='body2'>
-                <Stack gap={'4px'} flexDirection={'row'}>
-                  <Typography variant='body2' component={'span'}>
-                    Want:
-                  </Typography>
-                  <Typography
-                    variant='body2'
-                    component={'span'}
-                    sx={{ fontWeight: '700' }}
-                  >
-                    {
-                      calculateExpensePercentage(salary, wantTotalValue)
-                        .asString
-                    }
-                  </Typography>
-                </Stack>
-              </Typography>
-
-              <Typography className='save' variant='body2'>
-                <Stack gap={'4px'} flexDirection={'row'}>
-                  <Typography variant='body2' component={'span'}>
-                    Save:
-                  </Typography>
-                  <Typography
-                    variant='body2'
-                    component={'span'}
-                    sx={{ fontWeight: '700' }}
-                  >
-                    {
-                      calculateExpensePercentage(salary, saveTotalValue)
-                        .asString
-                    }
-                  </Typography>
-                </Stack>
-              </Typography>
+              <div className='budget'>
+                {renderBudgetDetail('Need', needPercentage.asString, 'need')}
+                {renderBudgetDetail('Want', wantPercentage.asString, 'want')}
+                {renderBudgetDetail('Save', savePercentage.asString, 'save')}
+              </div>
             </div>
           </div>
         )}

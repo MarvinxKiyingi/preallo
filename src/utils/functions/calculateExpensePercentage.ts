@@ -1,6 +1,6 @@
 export const calculateExpensePercentage = (
-  salary: number,
-  totalExpenses: number
+  totalExpenses: number,
+  salary: number
 ): { asNumber: number; asString: string } => {
   if (salary <= 0) {
     return { asNumber: 0, asString: '0%' };

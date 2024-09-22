@@ -160,6 +160,9 @@ const Desktop = ({
                   needTotalValue={0}
                   wantTotalValue={0}
                   saveTotalValue={0}
+                  needGoalPercentage={50}
+                  wantGoalPercentage={30}
+                  saveGoalPercentage={20}
                 />
               </Box>
             </div>
