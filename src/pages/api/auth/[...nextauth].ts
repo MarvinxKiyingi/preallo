@@ -5,6 +5,7 @@ import { cert } from 'firebase-admin/app';
 import { Adapter } from 'next-auth/adapters';
 import { createOrUpdateYears } from '../../../utils/functions/collection/years';
 import { currentYear, isNewYear } from '../../../utils/functions/currentYear';
+import { createOrUpdateGoal } from '../../../utils/functions/collection/createOrUpdateGoal';
 
 export const authOptions: AuthOptions = {
   pages: {
@@ -28,24 +29,35 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET as string,
 
   events: {
-    signIn: ({ user, isNewUser: newUser }) => {
+    signIn: async ({ user, isNewUser: newUser }) => {
       const userId = user?.id;
       const isNewUser = newUser ? true : false;
 
       if (userId) {
-        if (newUser) {
-          return createOrUpdateYears(userId, currentYear(), isNewUser);
-        }
+        // Always try to create or update user-specific documents at sign-in
+        await createOrUpdateYears(userId, currentYear());
+        await createOrUpdateGoal(userId);
+
         if (isNewYear) {
-          return createOrUpdateYears(userId, currentYear(), isNewYear);
+          await createOrUpdateYears(userId, currentYear(), isNewYear);
         }
       }
     },
   },
+
   callbacks: {
     async session({ session, user }) {
-      // Attach the user ID to the session object
-      session.userId = user.id;
+      const userId = user.id;
+      session.userId = userId;
+
+      // Ensure document creation on session initialization (e.g., on reload or returning user)
+      await createOrUpdateYears(userId, currentYear());
+      await createOrUpdateGoal(userId);
+
+      if (isNewYear) {
+        await createOrUpdateYears(userId, currentYear(), isNewYear);
+      }
+
       return session;
     },
   },

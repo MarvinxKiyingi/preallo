@@ -40,6 +40,9 @@ export const IAllModalFormYupSchema = object().shape({
 export const IAddMonthYupSchema = object().shape({
   selected: string().required('Select a month to precede'),
   amount: number().required().typeError('Field is required & must be a number'),
+  needPercentage: number().typeError('Select a percentageÇ to precede'),
+  savePercentage: number().typeError('Select a percentageÇ to precede'),
+  wantPercentage: number().typeError('Select a percentageÇ to precede'),
 });
 
 export const IAddExpenseModalFormYupSchema = object().shape({

@@ -1,3 +1,5 @@
+import { IGoal } from './IGoal';
+
 export type IMonth = {
   monthName: string;
   salary: number;
@@ -5,6 +7,7 @@ export type IMonth = {
   year: string;
   slug: string;
   uuid: string;
+  goal: IGoal;
 };
 export type IMonths = Array<IMonth>;
 

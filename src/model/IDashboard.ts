@@ -3,6 +3,7 @@ import { IAddMonthForm } from './IModalForm';
 import { IMonths } from './IMonth';
 import { IDashboardFormContent } from './IDashboardFormContent';
 import { Session } from 'next-auth/core/types';
+import { IGoal } from './IGoal';
 
 export type IDashboard = IDashboardFormContent & {
   session: Session;
@@ -13,4 +14,5 @@ export type IDashboard = IDashboardFormContent & {
   submitFormContentHandler: SubmitHandler<IAddMonthForm>;
   months: IMonths;
   open: boolean;
+  goal: IGoal;
 };

@@ -1,1 +1,3 @@
-export const purposeList = ['Need', 'Want', 'Loan'];
+export const purposeList = ['Need', 'Want', 'Save'];
+
+export type IPurpose = 'Need' | 'Want' | 'Save';

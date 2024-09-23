@@ -117,13 +117,6 @@ const Mobile = () => {
             <Button
               sx={{ maxHeight: 48 }}
               variant='contained'
-              color='secondary'
-            >
-              Edit profile
-            </Button>
-            <Button
-              sx={{ maxHeight: 48 }}
-              variant='contained'
               onClick={() => signOut()}
             >
               Sign out

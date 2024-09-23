@@ -7,6 +7,7 @@ import { BudgetDisplay } from '@/components/BudgetDisplay/BudgetDisplay';
 import { calculatePercentage } from '@/utils/functions/calculatePercentage';
 import AddExpense from './AddExpense';
 import ExpenseDisplay from './ExpenseDisplay';
+import { calculateTotalAmountByPurpose } from '@/utils/functions/calculateTotalAmountByPurpose';
 
 const HeaderSection = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -48,7 +49,7 @@ const Mobile = ({
   daysUntilPayday,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
-  const { salary, salaryAsString, monthName } = month;
+  const { salary, salaryAsString, monthName, goal } = month;
   const { difference, differenceAsString, percentage } = calculatePercentage(
     expensesTotal,
     salary
@@ -59,6 +60,15 @@ const Mobile = ({
     { id: 'subscriptions', label: 'subscriptions', value: 'subscriptions' },
     { id: 'recurring', label: 'recurring', value: 'recurring' },
   ];
+
+  const { needPercentage, wantPercentage, savePercentage } = goal;
+
+  const needTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).needTotalValue;
+  const wantTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).wantTotalValue;
+  const saveTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).saveTotalValue;
 
   return (
     <MobileWrapper>
@@ -79,6 +89,12 @@ const Mobile = ({
             salary={salary}
             salaryAsString={salaryAsString}
             daysUntilPayday={daysUntilPayday}
+            needTotalValue={needTotalValue}
+            wantTotalValue={wantTotalValue}
+            saveTotalValue={saveTotalValue}
+            needGoalPercentage={needPercentage}
+            wantGoalPercentage={wantPercentage}
+            saveGoalPercentage={savePercentage}
             fullWidth
           />
         </BudgetOverview>
