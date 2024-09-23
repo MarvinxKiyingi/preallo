@@ -131,7 +131,7 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
 const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  gap: '4px',
+  gap: theme.spacing(),
 
   [theme.breakpoints.up('sm')]: {
     gap: theme.spacing(),

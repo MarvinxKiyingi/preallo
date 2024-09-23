@@ -10,6 +10,7 @@ import { CircularProgress } from '@/components/CircularProgress/CircularProgress
 import AddExpense from './AddExpense';
 import ExpenseDisplay from './ExpenseDisplay';
 import { theme } from '@/styles/theme/muiTheme';
+import { calculateTotalAmountByPurpose } from '@/utils/functions/calculateTotalAmountByPurpose';
 
 const MonthDetailsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -116,6 +117,13 @@ const Desktop = ({
     `${theme.breakpoints.up('lg').replace('@media ', '')}`
   );
 
+  const needTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).needTotalValue;
+  const wantTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).wantTotalValue;
+  const saveTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).saveTotalValue;
+
   return (
     <>
       <DesktopNavigation
@@ -158,9 +166,9 @@ const Desktop = ({
                   salaryAsString={salaryAsString}
                   size={lgBreakpoint ? 300 : 250}
                   salary={salary}
-                  needTotalValue={0}
-                  wantTotalValue={0}
-                  saveTotalValue={0}
+                  needTotalValue={needTotalValue}
+                  wantTotalValue={wantTotalValue}
+                  saveTotalValue={saveTotalValue}
                   needGoalPercentage={needPercentage}
                   wantGoalPercentage={wantPercentage}
                   saveGoalPercentage={savePercentage}

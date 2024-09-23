@@ -7,6 +7,7 @@ import { BudgetDisplay } from '@/components/BudgetDisplay/BudgetDisplay';
 import { calculatePercentage } from '@/utils/functions/calculatePercentage';
 import AddExpense from './AddExpense';
 import ExpenseDisplay from './ExpenseDisplay';
+import { calculateTotalAmountByPurpose } from '@/utils/functions/calculateTotalAmountByPurpose';
 
 const HeaderSection = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -62,6 +63,13 @@ const Mobile = ({
 
   const { needPercentage, wantPercentage, savePercentage } = goal;
 
+  const needTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).needTotalValue;
+  const wantTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).wantTotalValue;
+  const saveTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).saveTotalValue;
+
   return (
     <MobileWrapper>
       <HeaderSection>
@@ -81,9 +89,9 @@ const Mobile = ({
             salary={salary}
             salaryAsString={salaryAsString}
             daysUntilPayday={daysUntilPayday}
-            needTotalValue={0}
-            wantTotalValue={0}
-            saveTotalValue={0}
+            needTotalValue={needTotalValue}
+            wantTotalValue={wantTotalValue}
+            saveTotalValue={saveTotalValue}
             needGoalPercentage={needPercentage}
             wantGoalPercentage={wantPercentage}
             saveGoalPercentage={savePercentage}
