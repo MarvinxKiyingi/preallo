@@ -1,5 +1,3 @@
-import { IGoal } from './IGoal';
-
 export type IModalForm = {
   amount: number;
   expense: string;
@@ -10,9 +8,12 @@ export type IModalForm = {
   wantPercentage?: number;
 };
 
-export type IAddMonthForm = IGoal & {
+export type IAddMonthForm = {
   amount: number;
   selected: string;
+  needPercentage?: number;
+  savePercentage?: number;
+  wantPercentage?: number;
 };
 
 export type IAddExpenseForm = {

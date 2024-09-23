@@ -267,12 +267,7 @@ export const BudgetDisplay = ({
   const needPercentage = calculateExpensePercentage(needTotalValue, salary);
   const wantPercentage = calculateExpensePercentage(wantTotalValue, salary);
   const savePercentage = calculateExpensePercentage(saveTotalValue, salary);
-  console.log('needTotalValue:', needTotalValue);
-  console.log('wantTotalValue:', wantTotalValue);
-  console.log('saveTotalValue:', saveTotalValue);
-  console.log('needUiProgress:', needUiProgress);
-  console.log('wantUiProgress:', wantUiProgress);
-  console.log('saveUiProgress:', saveUiProgress);
+
   return (
     <StyledBudgetDisplay
       className='budgetDisplay'
