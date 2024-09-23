@@ -20,6 +20,11 @@ export const createOrUpdateMonth = async (
     salaryAsString: formatNumberWithDecimal(data.amount),
     year: currentYear(),
     slug: slug,
+    goal: {
+      wantPercentage: data.wantPercentage,
+      needPercentage: data.needPercentage,
+      savePercentage: data.savePercentage,
+    },
   };
 
   try {

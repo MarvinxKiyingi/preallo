@@ -15,6 +15,8 @@ import { IconButton } from '../IconButton/IconButton';
 import { IIconButtonProps } from '../IconButton/IconButton';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { IModalForm } from '../../model/IModalForm';
+import { theme } from '../../styles/theme/muiTheme';
+import { IGoal } from '../../model/IGoal';
 
 export type IModalContent = {
   variant: 'amount' | 'expense' | 'select' | 'all' | 'addMonth' | 'addExpense';
@@ -32,6 +34,7 @@ export type IModalContent = {
   selectList?: string[];
   selectLabelTwo?: string;
   selectListTwo?: string[];
+  goal?: IGoal;
   register?: UseFormRegister<IModalForm>;
   errors?: FieldErrors<IModalForm>;
 };
@@ -39,6 +42,31 @@ export type IModalContent = {
 const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
   ...theme.typography.h5,
   fontWeight: 600,
+}));
+
+const Goal = styled(Stack)(({ theme }) => ({
+  '.label-container': {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: theme.spacing(),
+
+    ' .need, .want, .save': {
+      display: 'flex',
+      width: theme.spacing(),
+      height: theme.spacing(),
+      borderRadius: '50%',
+    },
+    '.need': {
+      backgroundColor: theme.palette.warning.light,
+    },
+    '.want': {
+      backgroundColor: theme.palette.error.light,
+    },
+    '.save': {
+      backgroundColor: theme.palette.success.light,
+    },
+  },
 }));
 
 export const FormContent = ({
@@ -56,12 +84,21 @@ export const FormContent = ({
   selectLabelTwo,
   selectList,
   selectListTwo,
+  goal,
   variant,
   onClick,
   register,
   errors,
   ...props
 }: IModalContent & IIconButtonProps) => {
+  const percentageList = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
+  const renderLabelContainer = (className: string, name: string) => (
+    <div className='label-container'>
+      <span className={className}></span>
+      <span>{name}</span>
+    </div>
+  );
   return (
     <>
       <DialogContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -136,6 +173,81 @@ export const FormContent = ({
 
           {variant == 'addMonth' && (
             <>
+              <Goal
+                className='goal'
+                flexDirection={'row'}
+                gap={theme.spacing(1 / 2)}
+              >
+                <TextField
+                  select
+                  fullWidth
+                  error={!!errors?.needPercentage}
+                  helperText={
+                    errors?.needPercentage ? errors.needPercentage?.message : ''
+                  }
+                  label={renderLabelContainer('need', 'Need')}
+                  defaultValue={goal?.needPercentage}
+                  {...(register
+                    ? register('needPercentage')
+                    : { name: 'needPercentage' })}
+                >
+                  {percentageList?.map((option) => (
+                    <MenuItem
+                      key={option}
+                      value={option}
+                      defaultValue={goal?.needPercentage}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  select
+                  fullWidth
+                  error={!!errors?.wantPercentage}
+                  helperText={
+                    errors?.wantPercentage ? errors.wantPercentage?.message : ''
+                  }
+                  label={renderLabelContainer('want', 'Want')}
+                  defaultValue={goal?.wantPercentage}
+                  {...(register
+                    ? register('wantPercentage')
+                    : { name: 'wantPercentage' })}
+                >
+                  {percentageList?.map((option) => (
+                    <MenuItem
+                      key={option}
+                      value={option}
+                      defaultValue={goal?.wantPercentage}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  select
+                  fullWidth
+                  error={!!errors?.savePercentage}
+                  helperText={
+                    errors?.savePercentage ? errors.savePercentage?.message : ''
+                  }
+                  label={renderLabelContainer('save', 'Save')}
+                  defaultValue={goal?.savePercentage}
+                  {...(register
+                    ? register('savePercentage')
+                    : { name: 'savePercentage' })}
+                >
+                  {percentageList?.map((option) => (
+                    <MenuItem
+                      key={option}
+                      value={option}
+                      defaultValue={goal?.savePercentage}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Goal>
               <TextField
                 select
                 fullWidth
@@ -150,6 +262,7 @@ export const FormContent = ({
                   </MenuItem>
                 ))}
               </TextField>
+
               <TextField
                 fullWidth
                 type='number'

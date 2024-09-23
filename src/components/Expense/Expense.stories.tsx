@@ -7,6 +7,7 @@ const meta: Meta<typeof Expense> = {
   args: {
     title: 'Netflix',
     amount: 120,
+    amountAsString: '120',
     date: '20 March 2022',
     category: 'Entertainment',
   },
@@ -22,7 +23,6 @@ export const Primary: Story = {
 export const Stripped: Story = {
   args: {
     stripped: true,
-    version: 'detail',
     category: 'Food',
     fullWidth: true,
   },

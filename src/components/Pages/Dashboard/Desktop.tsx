@@ -41,6 +41,7 @@ const Desktop = ({
   register,
   errors,
   open,
+  goal,
 }: IDashboard) => {
   const ownerState = {
     months,
@@ -75,6 +76,7 @@ const Desktop = ({
             <form onSubmit={handleSubmit(submitFormContentHandler)}>
               <FormContent
                 monthList={monthList}
+                goal={goal}
                 handleClose={handleClose}
                 register={register}
                 errors={errors}

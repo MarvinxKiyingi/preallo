@@ -22,8 +22,12 @@ const meta: Meta<typeof CircularProgress> = {
   },
   args: {
     percentageValue: 75,
-    size: 230,
-    thickness: 4,
+    size: 250,
+    thickness: 4.5,
+    salary: 15000,
+    needTotalValue: 7300,
+    wantTotalValue: 3750,
+    saveTotalValue: 3750,
   },
 };
 

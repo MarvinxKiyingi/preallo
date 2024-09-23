@@ -24,6 +24,7 @@ const ExpenseDisplay = ({ currentMonthExpenses }: IExpenseDisplay) => {
             title={expense.expense}
             category={expense.category}
             amountAsString={expense.amountAsString}
+            purpose={expense.purpose}
             fullWidth
           />
         ))

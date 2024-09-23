@@ -2,12 +2,16 @@ import {
   Box,
   LinearProgress,
   LinearProgressProps,
+  Stack,
   styled,
   Typography,
 } from '@mui/material';
 import { grey } from '../../styles/colors/grey';
 import CurrencyFormat from 'react-currency-format';
 import { useDaysLeft } from '../../utils/functions/daysLeft';
+import { calculateProgressValue } from '../../utils/functions/calculateProgressValue';
+import { calculateExpensePercentage } from '../../utils/functions/calculateExpensePercentage';
+import { isGoalMet } from '../../utils/functions/isGoalMet';
 
 export type IBudgetDisplay = {
   /** Input css string to change the background color  */
@@ -26,7 +30,12 @@ export type IBudgetDisplay = {
   fullWidth?: boolean;
   /** Days until next salary   */
   daysUntilPayday?: number;
-  salaryTitle?: string;
+  needTotalValue: number;
+  wantTotalValue: number;
+  saveTotalValue: number;
+  needGoalPercentage: number;
+  wantGoalPercentage: number;
+  saveGoalPercentage: number;
 };
 
 const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
@@ -85,10 +94,35 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
       },
     },
 
-    '.linearProgress-container': {
-      width: '100%',
-      span: {
-        borderRadius: theme.spacing(),
+    '.linearProgress': {
+      '&-container': {
+        width: '100%',
+        position: 'relative',
+
+        span: {
+          borderRadius: theme.spacing(),
+        },
+      },
+      '&-need,&-want,&-save': {
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        left: 0,
+        right: 0,
+      },
+      '&-need': {
+        '.MuiLinearProgress-bar': {
+          backgroundColor: theme.palette.warning.light,
+        },
+      },
+      '&-want': {
+        '.MuiLinearProgress-bar': {
+          backgroundColor: theme.palette.error.light,
+        },
+      },
+      '&-save': {
+        '.MuiLinearProgress-bar': {
+          backgroundColor: theme.palette.success.light,
+        },
       },
     },
   })
@@ -96,7 +130,12 @@ const StyledBudgetDisplay = styled(Box)<{ ownerState: IBudgetDisplay }>(
 
 const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
+  flexWrap: 'wrap',
   gap: theme.spacing(),
+
+  [theme.breakpoints.up('sm')]: {
+    gap: theme.spacing(),
+  },
   '>': {
     '&:before': {
       content: '""',
@@ -106,23 +145,52 @@ const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
       borderRadius: '50%',
       backgroundColor: 'rgb(195, 178, 255)',
     },
+    '.need, .want, .save': {
+      '.percentage': {
+        color: theme.palette.common.white,
+        fontSize: theme.typography.overline.fontSize,
 
-    '.budgetTitleContainer': {
+        '&.red': {
+          color: theme.palette.error.main,
+        },
+
+        [theme.breakpoints.up('sm')]: {
+          ...theme.typography.subtitle2,
+          fontSize: theme.typography.button.fontSize,
+        },
+      },
+    },
+    '.need': {
       '&:before': {
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.warning.light,
+      },
+    },
+    '.want': {
+      '&:before': {
+        backgroundColor: theme.palette.error.light,
+      },
+    },
+    '.save': {
+      '&:before': {
+        backgroundColor: theme.palette.success.light,
       },
     },
   },
 
-  '.budgetTitleContainer, .salaryTitleWrapper': {
+  '.need,.want,.save, .salaryTitleWrapper': {
     display: 'flex',
     alignItems: 'center',
-    gap: theme.spacing(),
+    gap: theme.spacing(1 / 2),
     textTransform: 'none',
     lineHeight: '115%',
+    color: theme.palette.grey[300],
 
     [theme.breakpoints.up('sm')]: {
-      ...theme.typography.body2,
+      ...theme.typography.subtitle2,
+      fontFamily: theme.typography.overline,
+      fontWeight: 500,
+      fontSize: theme.typography.button.fontSize,
+      gap: theme.spacing(),
     },
   },
 
@@ -136,6 +204,8 @@ const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
       display: 'contents',
       fontSize: theme.typography.overline.fontSize,
       lineHeight: '0',
+      whiteSpace: ' nowrap',
+      color: theme.palette.common.white,
 
       [theme.breakpoints.up('sm')]: {
         ...theme.typography.subtitle2,
@@ -155,9 +225,14 @@ export const BudgetDisplay = ({
   salary,
   salaryAsString,
   progressValue = 100,
-  salaryTitle = 'Salary:',
   variant = 'determinate',
   color = 'secondary',
+  needTotalValue = 0,
+  wantTotalValue = 0,
+  saveTotalValue = 0,
+  needGoalPercentage = 50,
+  wantGoalPercentage = 30,
+  saveGoalPercentage = 20,
   ...props
 }: IBudgetDisplay & LinearProgressProps) => {
   const daysLeft = useDaysLeft(daysUntilPayday);
@@ -171,9 +246,28 @@ export const BudgetDisplay = ({
     salaryAsString,
     daysUntilPayday,
     progressValue,
-    salaryTitle,
     color,
+    needTotalValue,
+    wantTotalValue,
+    saveTotalValue,
+    needGoalPercentage,
+    wantGoalPercentage,
+    saveGoalPercentage,
   };
+
+  const needUiProgress = calculateProgressValue(needTotalValue, salary);
+  const wantUiProgress = calculateProgressValue(
+    needTotalValue + wantTotalValue,
+    salary
+  );
+  const saveUiProgress = calculateProgressValue(
+    needTotalValue + wantTotalValue + saveTotalValue,
+    salary
+  );
+  const needPercentage = calculateExpensePercentage(needTotalValue, salary);
+  const wantPercentage = calculateExpensePercentage(wantTotalValue, salary);
+  const savePercentage = calculateExpensePercentage(saveTotalValue, salary);
+
   return (
     <StyledBudgetDisplay
       className='budgetDisplay'
@@ -203,25 +297,101 @@ export const BudgetDisplay = ({
       {salary && (
         <>
           {!hideProgressBar && (
-            <div className='linearProgress-container'>
+            <Stack className='linearProgress-container'>
               <LinearProgress
+                className='linearProgress-base'
                 sx={{ height: 12 }}
-                value={progressValue}
+                value={0}
                 variant={variant}
                 color={color}
                 {...props}
               />
-            </div>
+              <LinearProgress
+                className='linearProgress-save'
+                sx={{ height: 12 }}
+                value={saveUiProgress.asNumber}
+                variant={variant}
+                color='success'
+                {...props}
+              />
+              <LinearProgress
+                className='linearProgress-want'
+                sx={{ height: 12 }}
+                value={wantUiProgress.asNumber}
+                variant={variant}
+                color='warning'
+                {...props}
+              />
+              <LinearProgress
+                className='linearProgress-need'
+                sx={{ height: 12 }}
+                value={needUiProgress.asNumber}
+                variant={variant}
+                color='error'
+                {...props}
+              />
+            </Stack>
           )}
 
           {salary && (
             <BudgetBasedOnContainer>
-              <Typography className='budgetTitleContainer' variant='overline'>
-                <div>Budget</div>
+              <Typography className='need' variant='overline'>
+                <Stack gap={'4px'} flexDirection={'row'}>
+                  <div>Need:</div>
+                  <Typography
+                    variant='subtitle2'
+                    component={'span'}
+                    className={`percentage ${isGoalMet(
+                      needGoalPercentage,
+                      needPercentage.asNumber
+                    )}`}
+                  >
+                    {
+                      calculateExpensePercentage(needTotalValue, salary)
+                        .asString
+                    }
+                  </Typography>
+                </Stack>
+              </Typography>
+              <Typography className='want' variant='overline'>
+                <Stack gap={'4px'} flexDirection={'row'}>
+                  <div>Want:</div>
+                  <Typography
+                    variant='subtitle2'
+                    component={'span'}
+                    className={`percentage ${isGoalMet(
+                      wantGoalPercentage,
+                      wantPercentage.asNumber
+                    )}`}
+                  >
+                    {
+                      calculateExpensePercentage(wantTotalValue, salary)
+                        .asString
+                    }
+                  </Typography>
+                </Stack>
+              </Typography>
+              <Typography className='save' variant='overline'>
+                <Stack gap={'4px'} flexDirection={'row'}>
+                  <div>Save:</div>
+                  <Typography
+                    variant='subtitle2'
+                    component={'span'}
+                    className={`percentage ${isGoalMet(
+                      saveGoalPercentage,
+                      savePercentage.asNumber
+                    )}`}
+                  >
+                    {
+                      calculateExpensePercentage(saveTotalValue, salary)
+                        .asString
+                    }
+                  </Typography>
+                </Stack>
               </Typography>
               <Typography className='salaryTitleWrapper' variant='overline'>
                 <div className='salaryTitleContainer'>
-                  <div>{salaryTitle}</div>
+                  <div>Salary:</div>
 
                   <CurrencyFormat
                     value={salaryAsString}

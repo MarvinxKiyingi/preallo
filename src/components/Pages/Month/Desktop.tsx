@@ -10,6 +10,7 @@ import { CircularProgress } from '@/components/CircularProgress/CircularProgress
 import AddExpense from './AddExpense';
 import ExpenseDisplay from './ExpenseDisplay';
 import { theme } from '@/styles/theme/muiTheme';
+import { calculateTotalAmountByPurpose } from '@/utils/functions/calculateTotalAmountByPurpose';
 
 const MonthDetailsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -105,15 +106,23 @@ const Desktop = ({
   purposeList,
   currentMonthExpenses,
 }: IMonthPage) => {
-  const { monthName, salary, salaryAsString, slug, year } = month;
+  const { monthName, salary, salaryAsString, slug, goal } = month;
   const daysLeft = useDaysLeft(daysUntilPayday);
   const { differenceAsString, percentage } = calculatePercentage(
     expensesTotal,
     salary
   );
+  const { needPercentage, wantPercentage, savePercentage } = goal;
   const lgBreakpoint = useMediaQuery(
     `${theme.breakpoints.up('lg').replace('@media ', '')}`
   );
+
+  const needTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).needTotalValue;
+  const wantTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).wantTotalValue;
+  const saveTotalValue =
+    calculateTotalAmountByPurpose(currentMonthExpenses).saveTotalValue;
 
   return (
     <>
@@ -129,9 +138,6 @@ const Desktop = ({
         <MonthDetailsContainer>
           <LeftContainer>
             <div className='budgetContainer'>
-              {/* <Typography className='title' variant='h4'>
-                Budget
-              </Typography> */}
               {daysLeft > 0 && (
                 <Typography className='description' variant='body2'>
                   {`Left to spend, for the next ${daysLeft} days`}
@@ -156,9 +162,16 @@ const Desktop = ({
                 <CircularProgress
                   percentageValue={percentage}
                   innerContent='indicators'
-                  thickness={4}
+                  thickness={4.2}
                   salaryAsString={salaryAsString}
-                  size={lgBreakpoint ? 300 : 230}
+                  size={lgBreakpoint ? 300 : 250}
+                  salary={salary}
+                  needTotalValue={needTotalValue}
+                  wantTotalValue={wantTotalValue}
+                  saveTotalValue={saveTotalValue}
+                  needGoalPercentage={needPercentage}
+                  wantGoalPercentage={wantPercentage}
+                  saveGoalPercentage={savePercentage}
                 />
               </Box>
             </div>

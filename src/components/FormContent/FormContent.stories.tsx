@@ -47,7 +47,7 @@ export const AddExpense: Story = {
       'Miscellaneous',
     ],
     selectLabelTwo: 'Priority',
-    selectListTwo: ['Need', 'Want', 'Loan'],
+    selectListTwo: ['Need', 'Want', 'Save'],
     add: true,
     onAgreeLabel: 'Add',
   },

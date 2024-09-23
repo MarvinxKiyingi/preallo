@@ -1,12 +1,12 @@
 import { Stack, styled, Typography, useMediaQuery } from '@mui/material';
 import { grey } from '../../styles/colors/grey';
 import { Button } from '../Button/Button';
-import { ExpenseIcon } from '../Icons';
 import { theme } from '../../styles/theme/muiTheme';
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import { ICategory } from '../../model/ICategory';
 import ExpenseContent from './ExpenseContent';
 import CurrencyFormat from 'react-currency-format';
+import { PurposePill } from '../PurposePill/PurposePill';
+import { IPurpose } from '@/model/IPurpose';
 
 export type IExpenseProps = {
   bgColor?: string;
@@ -27,6 +27,7 @@ export type IExpenseProps = {
   /** If `"detail"`, left and right padding will be removed. And overall show a more minimal look with category in text also visible */
   version?: 'default' | 'detail';
   category: ICategory;
+  purpose: IPurpose;
 };
 
 const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
@@ -42,7 +43,7 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
     display: 'flex',
     alignItems: 'unset',
     borderRadius: ownerState.stripped ? 'unset' : theme.spacing(2),
-    padding: ownerState.stripped ? theme.spacing(2, 0) : theme.spacing(2),
+    padding: ownerState.stripped ? theme.spacing(2, 0) : theme.spacing(2, 3),
     height: ownerState.fullHeight ? '100%' : undefined,
     width: ownerState.fullWidth ? '100%' : 334,
     gap: theme.spacing(2),
@@ -51,24 +52,6 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
       backgroundColor: theme.palette.background.accent,
     },
 
-    '.iconContainer': {
-      backgroundColor: ownerState.iconContainerBgColor
-        ? ownerState.iconContainerBgColor
-        : theme.palette.primary.main,
-      display: 'flex',
-      aspectRatio: '1/1',
-      maxWidth: 48,
-      width: '100%',
-      borderRadius: '50%',
-      alignItems: 'center',
-      justifyContent: 'center',
-
-      '>svg>path': {
-        color: ownerState.IconColor
-          ? ownerState.IconColor
-          : theme.palette.background.default,
-      },
-    },
     '.textContainer': {
       width: '100%',
       display: 'flex',
@@ -112,6 +95,7 @@ export const Expense = ({
   version = 'default',
   category,
   iconContainerBgColor,
+  purpose = 'Need',
   ...props
 }: IExpenseProps) => {
   const isDesktop = useMediaQuery(
@@ -131,6 +115,8 @@ export const Expense = ({
     stripped,
     version,
     category,
+    purpose,
+    ...props,
   };
 
   return (
@@ -139,30 +125,24 @@ export const Expense = ({
       ownerState={ownerState}
       {...props}
     >
-      <div className='iconContainer'>
-        <ExpenseIcon />
-      </div>
-
       <div className='textContainer'>
         {version === 'default' && (
-          <Stack display='flex' direction='column'>
-            <ExpenseContent title={title} date={date} />
+          <Stack direction='row' gap={theme.spacing()}>
+            <Stack direction={'column'}>
+              <ExpenseContent title={title} date={date} />
+            </Stack>
+            <Stack justifyContent={'end'}>
+              <PurposePill
+                className={purpose.toString().toLocaleLowerCase()}
+                text={purpose}
+              />
+            </Stack>
           </Stack>
         )}
 
         {version === 'detail' && (
           <>
-            {!isDesktop && (
-              <>
-                <Stack display='flex' direction='column' alignItems='center'>
-                  <ExpenseContent title={title} date={date} />
-                </Stack>
-                <ExpenseContent category={category} />
-              </>
-            )}
-            {isDesktop && (
-              <ExpenseContent title={title} date={date} category={category} />
-            )}
+            <ExpenseContent title={title} date={date} category={category} />
           </>
         )}
 
@@ -180,7 +160,6 @@ export const Expense = ({
                 </Typography>
               )}
             />
-            <MoreVertOutlinedIcon color='secondary' />
           </Stack>
         )}
       </div>
