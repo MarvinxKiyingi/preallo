@@ -11,9 +11,10 @@ const StyledDesktopContainer = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     display: 'grid',
     gridTemplateColumns: 'repeat(12,1fr)',
-    gridTemplateRow: 'repeat(12,1fr)',
+    gridTemplateRows: 'repeat(12,1fr)',
     height: '100%',
     gap: theme.spacing(3),
+    overflow: 'hidden',
   },
 
   '>:first-of-type': {

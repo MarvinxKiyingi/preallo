@@ -13,8 +13,7 @@ type IStyledTab = TabProps & {
 
 type IDesktopNavigation = {
   disableHighlight?: string;
-  monthName?: string;
-  monthSlug?: string;
+  highlightedValue?: string;
 };
 
 const NavContainer = styled('div')({
@@ -66,7 +65,10 @@ const ProfileContainer = styled(Link)(({ theme }) => ({
   textTransform: 'capitalize',
 }));
 
-const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
+const DesktopNavigation = ({
+  disableHighlight,
+  highlightedValue,
+}: IDesktopNavigation) => {
   const { data: session } = useSession();
   const [value, setValue] = useState('dashboard');
 
@@ -88,7 +90,7 @@ const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
       <Logo className='desktopNavLogo' />
       <NavContainer>
         <StyledTabs
-          value={value}
+          value={highlightedValue || value}
           onChange={handleChange}
           aria-label='navigation'
           orientation='vertical'

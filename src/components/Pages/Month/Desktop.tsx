@@ -16,6 +16,8 @@ const MonthDetailsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flex: 1,
   gap: theme.spacing(2),
+  height: '100%',
+  overflow: 'hidden',
 
   [theme.breakpoints.up('lg')]: {
     gap: theme.spacing(3),
@@ -84,7 +86,11 @@ const RightContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   flex: 1,
   gap: theme.spacing(2),
-  padding: theme.spacing(0, 2),
+  overflow: 'scroll',
+
+  '>*': {
+    padding: theme.spacing(0, 2),
+  },
 
   [theme.breakpoints.up('lg')]: {
     gap: theme.spacing(3),
@@ -128,8 +134,7 @@ const Desktop = ({
     <>
       <DesktopNavigation
         disableHighlight={monthName?.toLowerCase()}
-        monthName={monthName}
-        monthSlug={slug}
+        highlightedValue='dashboard'
       />
       <ContentContainer>
         <div className='titleContainer'>
