@@ -9,6 +9,8 @@ const StyledExpenseDisplay = styled('div')(({ theme }) => ({
   overflow: 'scroll',
   position: 'relative',
   padding: 'unset',
+  marginTop: `${theme.spacing(2)}  `,
+  marginBottom: `${theme.spacing(0)} !important `,
 
   '&::before, &::after': {
     content: '""',
@@ -39,10 +41,10 @@ const Scroll = styled('div')(({ theme }) => ({
   gap: theme.spacing(2),
   height: '100%',
   overflow: 'scroll',
-  paddingLeft: theme.spacing(3),
-  paddingRight: theme.spacing(3),
+  padding: theme.spacing(2, 3),
 
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('md')]: {
+    padding: theme.spacing(2),
     gap: theme.spacing(2),
   },
 }));
