@@ -19,6 +19,7 @@ import { purposeList } from '@/model/IPurpose';
 import { createOrUpdateExpense } from '@/utils/functions/createOrUpdateExpense';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { IExpenses } from '@/model/IExpenses';
+import { convertToTimestamp } from '@/utils/functions/convertToTimestamp';
 
 const Month = () => {
   const { data: session } = useSession();
@@ -38,11 +39,17 @@ const Month = () => {
   );
   const expenses: IExpenses = expensesSnapshot?.data()?.expenses || [];
 
-  const currentMonthExpenses = expenses.filter(
-    ({ monthDetails }) =>
-      monthDetails.year === currentMonth?.year &&
-      monthDetails.monthName === currentMonth?.monthName
-  );
+  const currentMonthExpenses = expenses
+    .filter(
+      ({ monthDetails }) =>
+        monthDetails.year === currentMonth?.year &&
+        monthDetails.monthName === currentMonth?.monthName
+    )
+    .sort(
+      (a, b) =>
+        // Sort expenses by createdAt in descending order
+        convertToTimestamp(b.createdAt) - convertToTimestamp(a.createdAt)
+    );
 
   const expensesTotal = currentMonthExpenses.reduce(
     (total, { amount }) => total + amount,
