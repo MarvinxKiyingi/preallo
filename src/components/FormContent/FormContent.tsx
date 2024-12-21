@@ -39,9 +39,23 @@ export type IModalContent = {
   errors?: FieldErrors<IModalForm>;
 };
 
+const ContentWrapper = styled(Stack)(({ theme }) => ({
+  gap: theme.spacing(3),
+  padding: theme.spacing(2),
+
+  '& .MuiDialogContent-root': {
+    padding: '0px',
+  },
+
+  '& > :nth-child(2)': {
+    padding: theme.spacing(0, 1),
+  },
+}));
+
 const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
   ...theme.typography.h5,
   fontWeight: 600,
+  padding: '0px',
 }));
 
 const Goal = styled(Stack)(({ theme }) => ({
@@ -100,13 +114,13 @@ export const FormContent = ({
     </div>
   );
   return (
-    <>
+    <ContentWrapper>
       <DialogContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box fontSize='3rem'>
+        <Stack fontSize='3rem'>
           {add && <SuccessIcon fontSize='inherit' />}
           {edit && <InfoIcon fontSize='inherit' />}
           {remove && <TrashIcon fontSize='inherit' />}
-        </Box>
+        </Stack>
 
         <div>
           <IconButton
@@ -120,16 +134,17 @@ export const FormContent = ({
         </div>
       </DialogContent>
 
-      <StyledDialogTitle id='alert-dialog-title'>{title}</StyledDialogTitle>
-
-      <DialogContent>
-        <DialogContentText
-          sx={{ fontSize: '1rem' }}
-          id='alert-dialog-description'
-        >
-          {description}
-        </DialogContentText>
-      </DialogContent>
+      <Stack gap={theme.spacing(2)}>
+        <StyledDialogTitle id='alert-dialog-title'>{title}</StyledDialogTitle>
+        <DialogContent>
+          <DialogContentText
+            sx={{ fontSize: '1rem' }}
+            id='alert-dialog-description'
+          >
+            {description}
+          </DialogContentText>
+        </DialogContent>
+      </Stack>
 
       <DialogContent>
         <Stack spacing={2}>
@@ -177,6 +192,7 @@ export const FormContent = ({
                 className='goal'
                 flexDirection={'row'}
                 gap={theme.spacing(1 / 2)}
+                padding={theme.spacing(1 / 2, 0, 0)}
               >
                 <TextField
                   select
@@ -197,7 +213,7 @@ export const FormContent = ({
                       value={option}
                       defaultValue={goal?.needPercentage}
                     >
-                      {option}
+                      {`${option}%`}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -220,7 +236,7 @@ export const FormContent = ({
                       value={option}
                       defaultValue={goal?.wantPercentage}
                     >
-                      {option}
+                      {`${option}%`}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -243,7 +259,7 @@ export const FormContent = ({
                       value={option}
                       defaultValue={goal?.savePercentage}
                     >
-                      {option}
+                      {`${option}%`}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -364,7 +380,7 @@ export const FormContent = ({
       </DialogContent>
 
       <DialogContent>
-        <Stack spacing={2}>
+        <Stack spacing={'12px'}>
           <Button
             type='submit'
             variant='contained'
@@ -377,6 +393,6 @@ export const FormContent = ({
           </Button>
         </Stack>
       </DialogContent>
-    </>
+    </ContentWrapper>
   );
 };
