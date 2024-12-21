@@ -135,6 +135,7 @@ const Desktop = ({
       <DesktopNavigation
         disableHighlight={monthName?.toLowerCase()}
         highlightedValue='dashboard'
+        slug={slug}
       />
       <ContentContainer>
         <div className='titleContainer'>
