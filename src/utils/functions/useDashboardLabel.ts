@@ -1,6 +1,6 @@
 import { usePathname } from 'next/navigation';
 
-export const generateDashboardLabel = (slug: string) => {
+export const useDashboardLabel = (slug: string = 'Dashboard') => {
   const pathname = usePathname(); // Assuming usePathname() is accessible here
   const dashboardString = 'Dashboard';
 

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Avatar } from '../../Avatar/Avatar';
 import ContentContainer from '../../Container/ContentContainer';
 import { useSession } from 'next-auth/react';
-import { generateDashboardLabel } from '@/utils/functions/generateDashboardLabel';
+import { useDashboardLabel } from '@/utils/functions/useDashboardLabel';
 
 type IStyledTab = TabProps & {
   href?: string;
@@ -88,7 +88,7 @@ const DesktopNavigation = ({
 
   const imgUrl = session?.user?.image;
   const userName = session?.user?.name;
-  const dashboardLabel = slug ? generateDashboardLabel(slug) : 'Dashboard';
+  const dashboardLabel = useDashboardLabel(slug);
 
   const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
