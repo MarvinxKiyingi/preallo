@@ -192,7 +192,7 @@ export const FormContent = ({
                 className='goal'
                 flexDirection={'row'}
                 gap={theme.spacing(1 / 2)}
-                padding={theme.spacing(1 / 2, 0, 0)}
+                padding={theme.spacing(8, 0, 0)}
               >
                 <TextField
                   select
