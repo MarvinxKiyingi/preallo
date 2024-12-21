@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Avatar } from '../../Avatar/Avatar';
 import ContentContainer from '../../Container/ContentContainer';
 import { useSession } from 'next-auth/react';
+import { generateDashboardLabel } from '@/utils/functions/generateDashboardLabel';
 
 type IStyledTab = TabProps & {
   href?: string;
@@ -14,18 +15,21 @@ type IStyledTab = TabProps & {
 type IDesktopNavigation = {
   disableHighlight?: string;
   highlightedValue?: string;
+  slug?: string;
 };
 
 const NavContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
-  justifyContent: 'space-between',
 });
 
 const StyledTabs = styled(Tabs)(({ theme }) => ({
+  height: '100%',
+
   '& .MuiTabs-flexContainer': {
     gap: theme.spacing(2),
+    height: '100%',
   },
   '& .MuiTabs-indicator': {
     display: 'none',
@@ -50,6 +54,15 @@ const StyledTab = styled(Tab)<IStyledTab>(({ theme }) => ({
   fontStyle: 'normal',
   textTransform: 'capitalize',
   color: theme.palette.common.black,
+  whiteSpace: 'nowrap',
+  '& .MuiSvgIcon-root': {
+    marginRight: 'unset',
+  },
+}));
+
+const StyledProfileTab = styled(StyledTab)(({ theme }) => ({
+  padding: theme.spacing(1),
+  marginTop: 'auto',
 }));
 
 const ProfileContainer = styled(Link)(({ theme }) => ({
@@ -68,12 +81,14 @@ const ProfileContainer = styled(Link)(({ theme }) => ({
 const DesktopNavigation = ({
   disableHighlight,
   highlightedValue,
+  slug,
 }: IDesktopNavigation) => {
   const { data: session } = useSession();
   const [value, setValue] = useState('dashboard');
 
   const imgUrl = session?.user?.image;
   const userName = session?.user?.name;
+  const dashboardLabel = slug ? generateDashboardLabel(slug) : 'Dashboard';
 
   const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -109,7 +124,7 @@ const DesktopNavigation = ({
             LinkComponent={Link}
             href={'/'}
             value='dashboard'
-            label='Dashboard'
+            label={dashboardLabel}
             iconPosition='start'
             icon={<DashboardIcon />}
           />
@@ -129,12 +144,15 @@ const DesktopNavigation = ({
             iconPosition='start'
             icon={<RepeatIcon />}
           /> */}
+          <StyledProfileTab
+            LinkComponent={Link}
+            href={'/profile'}
+            value={'profile'}
+            label={userName ? userName : 'My account'}
+            iconPosition='start'
+            icon={<Avatar src={imgUrl ? imgUrl : undefined} />}
+          />
         </StyledTabs>
-
-        <ProfileContainer href='/profile'>
-          <Avatar src={imgUrl ? imgUrl : undefined} />
-          {userName ? userName : 'My account'}
-        </ProfileContainer>
       </NavContainer>
     </ContentContainer>
   );
