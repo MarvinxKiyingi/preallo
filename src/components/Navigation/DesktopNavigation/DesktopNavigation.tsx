@@ -1,19 +1,14 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { Tab, Tabs, styled, TabProps, Box } from '@mui/material';
 import { Logo } from '../../Logo/Logo';
-import {
-  DashboardIcon,
-  RepeatIcon,
-  SettingsIcon,
-  SubscriptionsIcon,
-} from '../../Icons';
+import { DashboardIcon, SettingsIcon } from '../../Icons';
 import Link from 'next/link';
 import { Avatar } from '../../Avatar/Avatar';
 import ContentContainer from '../../Container/ContentContainer';
 import { useSession } from 'next-auth/react';
 import { useDashboardLabel } from '@/utils/functions/useDashboardLabel';
-import SignOutIcon from '@/components/Icons/SignOutIcon';
-import { signOut } from 'next-auth/react';
+import { SignOutButton } from '@/components/SignOutButton/SignOutButton';
+import { IconButton } from '@/components/IconButton/IconButton';
 import { Button } from '@/components/Button/Button';
 
 type IStyledTab = TabProps & {
@@ -106,22 +101,26 @@ const StyledProfileTab = styled(ProfileContainer)(({ theme }) => ({
   },
 }));
 
-const StatusIndicator = styled(Box)(({ theme }) => ({
+const StatusIndicator = styled(Button)(({ theme }) => ({
   ...theme.typography.overline,
   width: 'fit-content',
   backgroundColor: theme.palette.error.main,
   color: theme.palette.common.white,
   borderRadius: theme.spacing(2),
   padding: theme.spacing('5px', 1),
+
+  '&:hover': {
+    backgroundColor: theme.palette.error.main,
+  },
 }));
 
-const SignOutIconWrapper = styled(Button)(({ theme }) => ({
+const SignOutIconWrapper = styled(SignOutButton)(({ theme }) => ({
   width: 'fit-content',
   height: 'fit-content',
   minWidth: 'unset',
-  padding: theme.spacing(0.5, '2px', 0.5, '6px'),
   backgroundColor: theme.palette.grey[200],
   borderRadius: theme.spacing(),
+  color: theme.palette.common.black,
 }));
 
 const DesktopNavigation = ({
@@ -207,9 +206,7 @@ const DesktopNavigation = ({
               </Box>
               <StatusIndicator>Sign out</StatusIndicator>
             </Box>
-            <SignOutIconWrapper onClick={() => signOut()}>
-              <SignOutIcon />
-            </SignOutIconWrapper>
+            <SignOutIconWrapper />
           </Box>
         </StyledProfileTab>
       </NavContainer>
