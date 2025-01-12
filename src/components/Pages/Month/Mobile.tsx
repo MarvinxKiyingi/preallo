@@ -79,8 +79,6 @@ const Mobile = ({
           isDarkBg
         />
 
-        <TabBar tabList={tabBarList} isDarkBg />
-
         <BudgetOverview>
           <BudgetDisplay
             progressValue={percentage}

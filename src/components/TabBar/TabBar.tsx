@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { grey } from '../../styles/colors/grey';
 import { theme } from '../../styles/theme/muiTheme';
 import { styled, Tab, Tabs, TabsProps as MuiTabsProps } from '@mui/material';

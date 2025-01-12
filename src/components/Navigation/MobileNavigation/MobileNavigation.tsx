@@ -65,12 +65,11 @@ export const MobileNavigation = ({
   ...props
 }: IMobileNavigation & IAvatar) => {
   const pathname = usePathname();
-  const Icon =
-    pathname === '/settings' ? (
-      <SignOutButton />
-    ) : (
-      <SettingsButton sx={isDarkBg ? { color: 'inherit' } : {}} />
-    );
+  const Icon = pathname.includes('/settings') ? (
+    <SignOutButton />
+  ) : (
+    <SettingsButton sx={isDarkBg ? { color: 'inherit' } : {}} />
+  );
 
   return (
     <MobileNavigationContainer

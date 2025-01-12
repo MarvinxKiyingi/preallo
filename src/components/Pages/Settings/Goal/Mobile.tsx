@@ -1,6 +1,6 @@
 import React from 'react';
-import AppContainer from '../../Container/AppContainer';
-import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
+import AppContainer from '../../../Container/AppContainer';
+import { MobileNavigation } from '../../../Navigation/MobileNavigation/MobileNavigation';
 import {
   MenuItem,
   Stack,
@@ -9,8 +9,8 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { Button } from '../../Button/Button';
-import { theme } from '../../../styles/theme/muiTheme';
+import { Button } from '../../../Button/Button';
+import { theme } from '../../../../styles/theme/muiTheme';
 import { signOut, useSession } from 'next-auth/react';
 import { GoalCard } from '@/components/GoalCard/GoalCard';
 import { IGoal } from '@/model/IGoal';

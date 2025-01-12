@@ -1,5 +1,4 @@
 import {
-  Box,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -191,7 +190,7 @@ export const FormContent = ({
               <Goal
                 className='goal'
                 flexDirection={'row'}
-                gap={theme.spacing(1 / 2)}
+                gap={theme.spacing()}
                 padding={theme.spacing(1, 0, 0)}
               >
                 <TextField

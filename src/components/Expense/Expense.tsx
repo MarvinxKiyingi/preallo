@@ -98,10 +98,6 @@ export const Expense = ({
   purpose = 'Need',
   ...props
 }: IExpenseProps) => {
-  const isDesktop = useMediaQuery(
-    `${theme.breakpoints.up('md').replace('@media ', '')}`
-  );
-
   const ownerState = {
     bgColor,
     iconContainerBgColor,

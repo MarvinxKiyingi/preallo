@@ -51,3 +51,9 @@ export const IAddExpenseModalFormYupSchema = object().shape({
   selected: string().required().typeError('Select a category to precede'),
   selectedTwo: string().required().typeError('Select a purpose to precede'),
 });
+
+export const IGoalSettingsYupSchema = object().shape({
+  needPercentage: number().required('Select a percentageÇ to precede'),
+  savePercentage: number().required('Select a percentageÇ to precede'),
+  wantPercentage: number().required('Select a percentageÇ to precede'),
+});

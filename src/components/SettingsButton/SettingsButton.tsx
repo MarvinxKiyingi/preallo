@@ -10,7 +10,7 @@ export const SettingsButton = ({ ...props }: IIconButtonProps) => {
     <IconButton
       className='settingsButton-container'
       LinkComponent={Link}
-      href='/settings'
+      href='/settings/goal'
       {...props}
     >
       <SettingsIcon fontSize='inherit' />

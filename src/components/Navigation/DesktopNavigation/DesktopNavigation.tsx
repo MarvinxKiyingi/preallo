@@ -165,7 +165,7 @@ const DesktopNavigation = ({
           />
           <StyledTab
             LinkComponent={Link}
-            href={'/settings'}
+            href={'/settings/goal'}
             value='settings'
             label={'Settings'}
             iconPosition='start'
