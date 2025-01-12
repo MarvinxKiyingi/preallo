@@ -1,7 +1,12 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { Tab, Tabs, styled, TabProps, Box } from '@mui/material';
 import { Logo } from '../../Logo/Logo';
-import { DashboardIcon, RepeatIcon, SubscriptionsIcon } from '../../Icons';
+import {
+  DashboardIcon,
+  RepeatIcon,
+  SettingsIcon,
+  SubscriptionsIcon,
+} from '../../Icons';
 import Link from 'next/link';
 import { Avatar } from '../../Avatar/Avatar';
 import ContentContainer from '../../Container/ContentContainer';
@@ -158,6 +163,14 @@ const DesktopNavigation = ({
             label={dashboardLabel}
             iconPosition='start'
             icon={<DashboardIcon />}
+          />
+          <StyledTab
+            LinkComponent={Link}
+            href={'/settings'}
+            value='settings'
+            label={'Settings'}
+            iconPosition='start'
+            icon={<SettingsIcon />}
           />
           {/* <StyledTab
             LinkComponent={Link}
