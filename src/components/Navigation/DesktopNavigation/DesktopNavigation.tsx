@@ -1,5 +1,5 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { Tab, Tabs, styled, TabProps } from '@mui/material';
+import { Tab, Tabs, styled, TabProps, Box } from '@mui/material';
 import { Logo } from '../../Logo/Logo';
 import { DashboardIcon, RepeatIcon, SubscriptionsIcon } from '../../Icons';
 import Link from 'next/link';
@@ -7,6 +7,9 @@ import { Avatar } from '../../Avatar/Avatar';
 import ContentContainer from '../../Container/ContentContainer';
 import { useSession } from 'next-auth/react';
 import { useDashboardLabel } from '@/utils/functions/useDashboardLabel';
+import SignOutIcon from '@/components/Icons/SignOutIcon';
+import { signOut } from 'next-auth/react';
+import { Button } from '@/components/Button/Button';
 
 type IStyledTab = TabProps & {
   href?: string;
@@ -60,22 +63,60 @@ const StyledTab = styled(Tab)<IStyledTab>(({ theme }) => ({
   },
 }));
 
-const StyledProfileTab = styled(StyledTab)(({ theme }) => ({
-  padding: theme.spacing(1),
-  marginTop: 'auto',
-}));
-
-const ProfileContainer = styled(Link)(({ theme }) => ({
+const ProfileContainer = styled('div')(({ theme }) => ({
   ...theme.typography.subtitle1,
   display: 'flex',
   alignItems: 'center',
+  padding: theme.spacing(2),
   gap: theme.spacing(2),
-  textDecoration: 'none',
   fontWeight: 600,
   lineHeight: '120%',
   fontStyle: 'normal',
-  color: theme.palette.common.black,
   textTransform: 'capitalize',
+  color: theme.palette.common.black,
+  whiteSpace: 'nowrap',
+  '& .MuiSvgIcon-root': {
+    marginRight: 'unset',
+  },
+}));
+
+const StyledProfileTab = styled(ProfileContainer)(({ theme }) => ({
+  padding: theme.spacing(1),
+  marginTop: 'auto',
+  fontSize: '0.75rem',
+
+  '.profile-tab-content': {
+    display: 'flex',
+    gap: theme.spacing(2),
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  '.profile-text-wrapper': {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+    justifyContent: 'space-between',
+  },
+}));
+
+const StatusIndicator = styled(Box)(({ theme }) => ({
+  ...theme.typography.overline,
+  width: 'fit-content',
+  backgroundColor: theme.palette.error.main,
+  color: theme.palette.common.white,
+  borderRadius: theme.spacing(2),
+  padding: theme.spacing('5px', 1),
+}));
+
+const SignOutIconWrapper = styled(Button)(({ theme }) => ({
+  width: 'fit-content',
+  height: 'fit-content',
+  minWidth: 'unset',
+  padding: theme.spacing(0.5, '2px', 0.5, '6px'),
+  backgroundColor: theme.palette.grey[200],
+  borderRadius: theme.spacing(),
 }));
 
 const DesktopNavigation = ({
@@ -110,16 +151,6 @@ const DesktopNavigation = ({
           aria-label='navigation'
           orientation='vertical'
         >
-          {/* {month && (
-            <StyledTab
-              LinkComponent={Link}
-              href={`/month/${monthSlug}`}
-              value={month.toLowerCase()}
-              label={month}
-              iconPosition='start'
-              icon={<CalendarMonthRoundedIcon />}
-            />
-          )} */}
           <StyledTab
             LinkComponent={Link}
             href={'/'}
@@ -144,15 +175,30 @@ const DesktopNavigation = ({
             iconPosition='start'
             icon={<RepeatIcon />}
           /> */}
-          <StyledProfileTab
+          {/* <StyledProfileTab
             LinkComponent={Link}
             href={'/profile'}
             value={'profile'}
             label={userName ? userName : 'My account'}
             iconPosition='start'
             icon={<Avatar src={imgUrl ? imgUrl : undefined} />}
-          />
+          /> */}
         </StyledTabs>
+
+        <StyledProfileTab>
+          <Avatar src={imgUrl ? imgUrl : undefined} />
+          <Box className='profile-tab-content'>
+            <Box className='profile-text-wrapper'>
+              <Box display='flex' flexWrap='wrap'>
+                {userName}
+              </Box>
+              <StatusIndicator>Sign out</StatusIndicator>
+            </Box>
+            <SignOutIconWrapper onClick={() => signOut()}>
+              <SignOutIcon />
+            </SignOutIconWrapper>
+          </Box>
+        </StyledProfileTab>
       </NavContainer>
     </ContentContainer>
   );
