@@ -1,17 +1,8 @@
 import React from 'react';
 import AppContainer from '../../../Container/AppContainer';
 import { MobileNavigation } from '../../../Navigation/MobileNavigation/MobileNavigation';
-import {
-  MenuItem,
-  Stack,
-  styled,
-  TextField,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
-import { Button } from '../../../Button/Button';
-import { theme } from '../../../../styles/theme/muiTheme';
-import { signOut, useSession } from 'next-auth/react';
+import { styled } from '@mui/material';
+import { useSession } from 'next-auth/react';
 import { GoalCard } from '@/components/GoalCard/GoalCard';
 import { IGoal } from '@/model/IGoal';
 import { useDocument } from 'react-firebase-hooks/firestore';
@@ -21,8 +12,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { IGoalSettingsYupSchema } from '@/model/IYupSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { percentageList } from '@/utils/functions/percentageList';
-import IndicatorGoalLabel from '@/components/IndicatorGoalLabel/IndicatorGoalLabel';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { TabBar } from '@/components/TabBar/TabBar';
 import { settingsTabBarList } from '@/utils/functions/settingsTabBarList';
 
@@ -37,31 +26,6 @@ const CardsContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(2),
   height: 'fit-content',
-}));
-
-const Goal = styled(Stack)(({ theme }) => ({
-  '.label-container': {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: theme.spacing(),
-
-    ' .need, .want, .save': {
-      display: 'flex',
-      width: theme.spacing(),
-      height: theme.spacing(),
-      borderRadius: '50%',
-    },
-    '.need': {
-      backgroundColor: theme.palette.warning.light,
-    },
-    '.want': {
-      backgroundColor: theme.palette.error.light,
-    },
-    '.save': {
-      backgroundColor: theme.palette.success.light,
-    },
-  },
 }));
 
 const Mobile = () => {
@@ -82,16 +46,13 @@ const Mobile = () => {
     data: IGoalSettingsForm
   ) => {
     if (data && userId) {
+      // eslint-disable-next-line no-unused-vars
       console.log('Goal-data:', data);
     }
     if (!data && !userId) {
       throw new Error('Something went wrong, when submitting Goal data to db');
     }
   };
-
-  const isIpad = useMediaQuery(
-    `${theme.breakpoints.up('sm').replace('@media ', '')}`
-  );
 
   return (
     <AppContainer>

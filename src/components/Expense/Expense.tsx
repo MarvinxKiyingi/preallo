@@ -1,4 +1,4 @@
-import { Stack, styled, Typography, useMediaQuery } from '@mui/material';
+import { Stack, styled, Typography } from '@mui/material';
 import { grey } from '../../styles/colors/grey';
 import { Button } from '../Button/Button';
 import { theme } from '../../styles/theme/muiTheme';

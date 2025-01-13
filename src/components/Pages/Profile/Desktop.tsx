@@ -3,7 +3,7 @@ import AppContainer from '../../Container/AppContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
 import ContentContainer from '../../Container/ContentContainer';
 import { useRouter } from 'next/router';
-import { Box, Typography, styled } from '@mui/material';
+import { Typography, styled } from '@mui/material';
 import { Button } from '../../Button/Button';
 import { Avatar } from '../../Avatar/Avatar';
 import RightGridContentContainer from '../../Container/RightGridContentContainer';

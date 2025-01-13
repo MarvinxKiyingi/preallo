@@ -23,6 +23,7 @@ export const createOrUpdateYears = async (
       });
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Error creating/updating years:', error);
   }
 };

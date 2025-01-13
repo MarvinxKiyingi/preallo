@@ -2,7 +2,6 @@ import { styled } from '@mui/material';
 import { IMonthPage } from '../../../model/IMonthPage';
 import MobileWrapper from '../../Container/MobileWrapper';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
-import { TabBar } from '@/components/TabBar/TabBar';
 import { BudgetDisplay } from '@/components/BudgetDisplay/BudgetDisplay';
 import { calculatePercentage } from '@/utils/functions/calculatePercentage';
 import AddExpense from './AddExpense';
@@ -54,12 +53,6 @@ const Mobile = ({
     expensesTotal,
     salary
   );
-
-  const tabBarList = [
-    { id: 'month', label: 'month', value: 'month' },
-    { id: 'subscriptions', label: 'subscriptions', value: 'subscriptions' },
-    { id: 'recurring', label: 'recurring', value: 'recurring' },
-  ];
 
   const { needPercentage, wantPercentage, savePercentage } = goal;
 

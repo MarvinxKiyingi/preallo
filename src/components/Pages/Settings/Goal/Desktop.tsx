@@ -10,7 +10,6 @@ import { TabBar } from '@/components/TabBar/TabBar';
 import { settingsTabBarList } from '@/utils/functions/settingsTabBarList';
 import { GoalCard } from '@/components/GoalCard/GoalCard';
 import { IGoalSettingsYupSchema } from '@/model/IYupSchema';
-import goal from '@/pages/settings/goal';
 import { percentageList } from '@/utils/functions/percentageList';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -27,7 +26,7 @@ const RightContent = styled('div')(({ theme }) => ({
   gap: theme.spacing(3),
 }));
 
-const TabBarWrapper = styled('div')(({ theme }) => ({
+const TabBarWrapper = styled('div')(() => ({
   display: 'flex',
   height: '100%',
   maxHeight: '56px',
@@ -55,6 +54,7 @@ const Desktop = () => {
     data: IGoalSettingsForm
   ) => {
     if (data && userId) {
+      // eslint-disable-next-line no-unused-vars
       console.log('Goal-data:', data);
     }
     if (!data && !userId) {

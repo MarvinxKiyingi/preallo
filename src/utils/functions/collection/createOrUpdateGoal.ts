@@ -23,6 +23,7 @@ export const createOrUpdateGoal = async (
       // Optionally: handle an update if needed (this part could be extended)
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Error creating/updating goal:', error);
   }
 };

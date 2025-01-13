@@ -3,13 +3,10 @@ import { Box } from '@mui/system';
 import { IAvatar } from '../../Avatar/Avatar';
 import { DashboardButton } from '../../DashboardButton/DashboardButton';
 import { IIconButtonProps } from '../../IconButton/IconButton';
-import { ProfileButton } from '../../ProfileButton/ProfileButton';
 import Link from 'next/link';
 import { theme } from '../../../styles/theme/muiTheme';
-import SettingsIcon from '@/components/Icons/SettingsIcon';
 import { SettingsButton } from '@/components/SettingsButton/SettingsButton';
 import { usePathname } from 'next/navigation';
-import SignOutIcon from '@/components/Icons/SignOutIcon';
 import { SignOutButton } from '@/components/SignOutButton/SignOutButton';
 
 export type IMobileNavigation = IIconButtonProps & {
@@ -59,9 +56,7 @@ const MobileNavigationContainer = styled(Box)(({ theme }) => ({
 export const MobileNavigation = ({
   title,
   hideDashBoard = false,
-  hideProfile = false,
   isDarkBg = false,
-  showSignOutButton = false,
   ...props
 }: IMobileNavigation & IAvatar) => {
   const pathname = usePathname();

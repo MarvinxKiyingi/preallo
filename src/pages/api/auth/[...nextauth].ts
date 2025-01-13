@@ -31,6 +31,7 @@ export const authOptions: AuthOptions = {
   events: {
     signIn: async ({ user, isNewUser: newUser }) => {
       const userId = user?.id;
+      // eslint-disable-next-line no-unused-vars
       const isNewUser = newUser ? true : false;
 
       if (userId) {

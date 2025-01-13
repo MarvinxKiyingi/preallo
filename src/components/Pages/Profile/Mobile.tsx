@@ -52,13 +52,6 @@ const TextContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const Edit = styled('button')(({ theme }) => ({
-  all: 'unset',
-  color: theme.palette.secondary.main,
-  ...theme.typography.caption,
-  fontWeight: 600,
-}));
-
 const CardsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
