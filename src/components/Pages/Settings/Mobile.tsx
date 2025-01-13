@@ -36,10 +36,6 @@ const CardsContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(2),
   height: 'fit-content',
-
-  [theme.breakpoints.up('sm')]: {
-    marginTop: 'unset',
-  },
 }));
 
 const ButtonGroup = styled('div')(({ theme }) => ({

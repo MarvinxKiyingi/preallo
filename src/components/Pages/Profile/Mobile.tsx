@@ -68,10 +68,6 @@ const CardsContainer = styled('div')(({ theme }) => ({
   '&>*': {
     flex: 1,
   },
-
-  [theme.breakpoints.up('sm')]: {
-    marginTop: 'unset',
-  },
 }));
 
 const ButtonGroup = styled('div')(({ theme }) => ({
