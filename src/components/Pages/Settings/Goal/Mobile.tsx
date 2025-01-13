@@ -24,6 +24,7 @@ import { percentageList } from '@/utils/functions/percentageList';
 import IndicatorGoalLabel from '@/components/IndicatorGoalLabel/IndicatorGoalLabel';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { TabBar } from '@/components/TabBar/TabBar';
+import { settingsTabBarList } from '@/utils/functions/settingsTabBarList';
 
 export type IGoalSettingsForm = {
   needPercentage: number;
@@ -36,16 +37,6 @@ const CardsContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(2),
   height: 'fit-content',
-}));
-
-const ButtonGroup = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-
-  [theme.breakpoints.up('sm')]: {
-    gap: theme.spacing(3),
-  },
 }));
 
 const Goal = styled(Stack)(({ theme }) => ({
@@ -79,16 +70,6 @@ const Mobile = () => {
   const [goalsSnapshot] = useDocument(doc(db, 'goal', `${session?.userId}`));
   const goal: IGoal = goalsSnapshot?.data() as IGoal;
 
-  const tabBarList = [
-    { id: 'goal', label: 'Goal', value: '/settings/goal' },
-    {
-      id: 'subscriptions',
-      label: 'subscriptions',
-      value: '/settings/subscriptions',
-    },
-    { id: 'recurring', label: 'recurring', value: '/settings/recurring' },
-  ];
-
   const {
     register,
     handleSubmit,
@@ -116,108 +97,18 @@ const Mobile = () => {
     <AppContainer>
       <MobileNavigation hideProfile showSignOutButton title='Settings' />
 
-      <TabBar tabList={tabBarList} />
+      <TabBar tabList={settingsTabBarList} />
 
       <CardsContainer>
         {goal && (
-          <GoalCard>
-            <form onSubmit={handleSubmit(submitFormContentHandler)}>
-              <Stack className='goal-wrapper'>
-                <Stack
-                  flexDirection='row'
-                  alignItems='center'
-                  gap={theme.spacing()}
-                >
-                  <Typography variant='subtitle1' className='goal-title'>
-                    Goal
-                  </Typography>
-                  <InfoOutlinedIcon
-                    fontSize='small'
-                    sx={{ color: 'rgba(0, 0, 0, 0.60)' }}
-                  />
-                </Stack>
-
-                <Goal
-                  className='goal-content'
-                  flexDirection={'row'}
-                  padding={theme.spacing(1, 0, 0)}
-                >
-                  <TextField
-                    select
-                    fullWidth
-                    error={!!errors?.needPercentage}
-                    helperText={
-                      errors?.needPercentage
-                        ? errors.needPercentage?.message
-                        : ''
-                    }
-                    label={
-                      <IndicatorGoalLabel className={'need'} name={'Need'} />
-                    }
-                    defaultValue={goal.needPercentage}
-                    {...(register
-                      ? register('needPercentage')
-                      : { name: 'needPercentage' })}
-                  >
-                    {percentageList?.map((option) => (
-                      <MenuItem key={option} value={option} defaultValue={0}>
-                        {`${option}%`}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <TextField
-                    select
-                    fullWidth
-                    error={!!errors?.wantPercentage}
-                    helperText={
-                      errors?.wantPercentage
-                        ? errors.wantPercentage?.message
-                        : ''
-                    }
-                    label={
-                      <IndicatorGoalLabel className={'want'} name={'Want'} />
-                    }
-                    defaultValue={goal.wantPercentage}
-                    {...(register
-                      ? register('wantPercentage')
-                      : { name: 'wantPercentage' })}
-                  >
-                    {percentageList?.map((option) => (
-                      <MenuItem key={option} value={option} defaultValue={0}>
-                        {`${option}%`}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <TextField
-                    select
-                    fullWidth
-                    error={!!errors?.savePercentage}
-                    helperText={
-                      errors?.savePercentage
-                        ? errors.savePercentage?.message
-                        : ''
-                    }
-                    label={
-                      <IndicatorGoalLabel className={'save'} name={'Save'} />
-                    }
-                    defaultValue={goal?.savePercentage}
-                    {...(register
-                      ? register('savePercentage')
-                      : { name: 'savePercentage' })}
-                  >
-                    {percentageList?.map((option) => (
-                      <MenuItem key={option} value={option} defaultValue={0}>
-                        {`${option}%`}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Goal>
-                <Button type='submit' variant='contained' color='primary'>
-                  Edit
-                </Button>
-              </Stack>
-            </form>
-          </GoalCard>
+          <GoalCard
+            title='Goal'
+            onSubmit={handleSubmit(submitFormContentHandler)}
+            goal={goal}
+            percentageList={percentageList}
+            errors={errors}
+            register={register}
+          />
         )}
       </CardsContainer>
     </AppContainer>

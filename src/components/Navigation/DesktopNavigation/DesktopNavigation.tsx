@@ -1,5 +1,5 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { Tab, Tabs, styled, TabProps, Box } from '@mui/material';
+import { Tab, Tabs, styled, TabProps, Box, Stack } from '@mui/material';
 import { Logo } from '../../Logo/Logo';
 import { DashboardIcon, SettingsIcon } from '../../Icons';
 import Link from 'next/link';
@@ -10,6 +10,7 @@ import { useDashboardLabel } from '@/utils/functions/useDashboardLabel';
 import { SignOutButton } from '@/components/SignOutButton/SignOutButton';
 import { IconButton } from '@/components/IconButton/IconButton';
 import { Button } from '@/components/Button/Button';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 type IStyledTab = TabProps & {
   href?: string;
@@ -167,7 +168,19 @@ const DesktopNavigation = ({
             LinkComponent={Link}
             href={'/settings/goal'}
             value='settings'
-            label={'Settings'}
+            label={
+              <Stack
+                width='100%'
+                flexDirection='row'
+                justifyContent='space-between'
+              >
+                <span>Settings</span>
+                <InfoOutlinedIcon
+                  fontSize='small'
+                  sx={{ color: 'rgba(0, 0, 0, 0.60)' }}
+                />
+              </Stack>
+            }
             iconPosition='start'
             icon={<SettingsIcon />}
           />
