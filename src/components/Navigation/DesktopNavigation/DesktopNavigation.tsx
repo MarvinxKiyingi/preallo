@@ -10,6 +10,7 @@ import { useDashboardLabel } from '@/utils/functions/useDashboardLabel';
 import { SignOutButton } from '@/components/SignOutButton/SignOutButton';
 import { Button } from '@/components/Button/Button';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { signOut } from 'next-auth/react';
 
 type IStyledTab = TabProps & {
   href?: string;
@@ -216,7 +217,9 @@ const DesktopNavigation = ({
               <Box display='flex' flexWrap='wrap'>
                 {userName}
               </Box>
-              <StatusIndicator>Sign out</StatusIndicator>
+              <StatusIndicator onClick={() => signOut()}>
+                Sign out
+              </StatusIndicator>
             </Box>
             <SignOutIconWrapper />
           </Box>

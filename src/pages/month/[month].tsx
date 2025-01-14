@@ -78,12 +78,16 @@ const Month = () => {
   const submitFormContentHandler: SubmitHandler<IAddExpenseForm> = (
     data: IAddExpenseForm
   ) => {
-    if (data && userId && currentMonth) {
-      createOrUpdateExpense(data, userId, currentMonth);
-      handleClose();
-    }
-    if (!data && !userId) {
-      throw new Error('Something went wrong, when submitting user data to db');
+    try {
+      if (data && userId && currentMonth) {
+        createOrUpdateExpense(data, userId, currentMonth);
+        handleClose();
+      } else {
+        return;
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error submitting Expense data:', error);
     }
   };
 
