@@ -13,4 +13,5 @@ export type IGoalCardProps = {
   percentageList: number[];
   register: UseFormRegister<any>;
   errors: FieldErrors<IGoalSettingsForm>;
+  loading?: boolean;
 };

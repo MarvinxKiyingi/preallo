@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppContainer from '../../../Container/AppContainer';
 import DesktopNavigation from '../../../Navigation/DesktopNavigation/DesktopNavigation';
 import ContentContainer from '../../../Container/ContentContainer';
@@ -18,6 +18,7 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 import { IGoal } from '@/model/IGoal';
 import { db } from '@/utils/firebase/clientApp';
 import { doc } from 'firebase/firestore';
+import { createOrUpdateGoal } from '@/utils/functions/collection/createOrUpdateGoal';
 
 const RightContent = styled('div')(({ theme }) => ({
   gridColumn: '1/-1',
@@ -42,6 +43,8 @@ const Desktop = () => {
   const router = useRouter();
   const currentPageSlugList = router.pathname.split('/').filter(Boolean);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -50,15 +53,26 @@ const Desktop = () => {
     resolver: yupResolver(IGoalSettingsYupSchema),
   });
 
-  const submitFormContentHandler: SubmitHandler<IGoalSettingsForm> = (
+  const submitFormContentHandler: SubmitHandler<IGoalSettingsForm> = async (
     data: IGoalSettingsForm
   ) => {
-    if (data && userId) {
-      // eslint-disable-next-line no-unused-vars
-      console.log('Goal-data:', data);
-    }
-    if (!data && !userId) {
-      throw new Error('Something went wrong, when submitting Goal data to db');
+    try {
+      if (!data || !userId) {
+        return;
+      }
+
+      setIsLoading(true);
+      await createOrUpdateGoal(
+        userId,
+        data.needPercentage,
+        data.wantPercentage,
+        data.savePercentage
+      );
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error submitting goal data:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -89,6 +103,7 @@ const Desktop = () => {
                     percentageList={percentageList}
                     errors={errors}
                     register={register}
+                    loading={isLoading}
                   />
                 </Grid>
               )}

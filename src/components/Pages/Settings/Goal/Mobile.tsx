@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppContainer from '../../../Container/AppContainer';
 import { MobileNavigation } from '../../../Navigation/MobileNavigation/MobileNavigation';
 import { styled } from '@mui/material';
@@ -14,6 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { percentageList } from '@/utils/functions/percentageList';
 import { TabBar } from '@/components/TabBar/TabBar';
 import { settingsTabBarList } from '@/utils/functions/settingsTabBarList';
+import { createOrUpdateGoal } from '@/utils/functions/collection/createOrUpdateGoal';
 
 export type IGoalSettingsForm = {
   needPercentage: number;
@@ -34,6 +35,8 @@ const Mobile = () => {
   const [goalsSnapshot] = useDocument(doc(db, 'goal', `${session?.userId}`));
   const goal: IGoal = goalsSnapshot?.data() as IGoal;
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -42,15 +45,26 @@ const Mobile = () => {
     resolver: yupResolver(IGoalSettingsYupSchema),
   });
 
-  const submitFormContentHandler: SubmitHandler<IGoalSettingsForm> = (
+  const submitFormContentHandler: SubmitHandler<IGoalSettingsForm> = async (
     data: IGoalSettingsForm
   ) => {
-    if (data && userId) {
-      // eslint-disable-next-line no-unused-vars
-      console.log('Goal-data:', data);
-    }
-    if (!data && !userId) {
-      throw new Error('Something went wrong, when submitting Goal data to db');
+    try {
+      if (!data || !userId) {
+        return;
+      }
+
+      setIsLoading(true);
+      await createOrUpdateGoal(
+        userId,
+        data.needPercentage,
+        data.wantPercentage,
+        data.savePercentage
+      );
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error submitting goal data:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,6 +83,7 @@ const Mobile = () => {
             percentageList={percentageList}
             errors={errors}
             register={register}
+            loading={isLoading}
           />
         )}
       </CardsContainer>

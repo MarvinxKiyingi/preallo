@@ -88,7 +88,9 @@ export const GoalCard = ({
   percentageList,
   errors,
   register,
+  loading,
 }: ICard & IGoalCardProps) => {
+  const submitButtonText = loading ? 'Loading...' : 'Edit';
   return (
     <CardContainer sx={sx}>
       <CardContent>
@@ -172,7 +174,7 @@ export const GoalCard = ({
               </TextField>
             </Goal>
             <Button type='submit' variant='contained' color='primary'>
-              Edit
+              {submitButtonText}
             </Button>
           </Stack>
         </form>
