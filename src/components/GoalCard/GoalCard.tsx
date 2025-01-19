@@ -55,31 +55,6 @@ const CardContent = styled('div')(({ theme }) => ({
   },
 }));
 
-const Goal = styled(Stack)(({ theme }) => ({
-  '.label-container': {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: theme.spacing(),
-
-    ' .need, .want, .save': {
-      display: 'flex',
-      width: theme.spacing(),
-      height: theme.spacing(),
-      borderRadius: '50%',
-    },
-    '.need': {
-      backgroundColor: theme.palette.warning.light,
-    },
-    '.want': {
-      backgroundColor: theme.palette.error.light,
-    },
-    '.save': {
-      backgroundColor: theme.palette.success.light,
-    },
-  },
-}));
-
 export const GoalCard = ({
   sx,
   title,
@@ -110,7 +85,7 @@ export const GoalCard = ({
               />
             </Stack>
 
-            <Goal
+            <Stack
               className='goal-content'
               flexDirection={'row'}
               padding={theme.spacing(1, 0, 0)}
@@ -122,7 +97,7 @@ export const GoalCard = ({
                 helperText={
                   errors?.needPercentage ? errors.needPercentage?.message : ''
                 }
-                label={<IndicatorGoalLabel className={'need'} name={'Need'} />}
+                label={<IndicatorGoalLabel showColon={false} name={'Need'} />}
                 defaultValue={goal.needPercentage}
                 {...(register
                   ? register('needPercentage')
@@ -141,7 +116,7 @@ export const GoalCard = ({
                 helperText={
                   errors?.wantPercentage ? errors.wantPercentage?.message : ''
                 }
-                label={<IndicatorGoalLabel className={'want'} name={'Want'} />}
+                label={<IndicatorGoalLabel showColon={false} name={'Want'} />}
                 defaultValue={goal.wantPercentage}
                 {...(register
                   ? register('wantPercentage')
@@ -160,7 +135,7 @@ export const GoalCard = ({
                 helperText={
                   errors?.savePercentage ? errors.savePercentage?.message : ''
                 }
-                label={<IndicatorGoalLabel className={'save'} name={'Save'} />}
+                label={<IndicatorGoalLabel showColon={false} name={'Save'} />}
                 defaultValue={goal?.savePercentage}
                 {...(register
                   ? register('savePercentage')
@@ -172,7 +147,7 @@ export const GoalCard = ({
                   </MenuItem>
                 ))}
               </TextField>
-            </Goal>
+            </Stack>
             <Button type='submit' variant='contained' color='primary'>
               {submitButtonText}
             </Button>

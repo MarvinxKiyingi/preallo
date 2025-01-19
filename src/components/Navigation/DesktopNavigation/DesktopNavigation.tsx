@@ -6,9 +6,9 @@ import Link from 'next/link';
 import { Avatar } from '../../Avatar/Avatar';
 import ContentContainer from '../../Container/ContentContainer';
 import { useSession } from 'next-auth/react';
-import { useDashboardLabel } from '@/utils/functions/useDashboardLabel';
-import { SignOutButton } from '@/components/SignOutButton/SignOutButton';
-import { Button } from '@/components/Button/Button';
+import { useDashboardLabel } from '../../../utils/functions/useDashboardLabel';
+import { SignOutButton } from '../../../components/SignOutButton/SignOutButton';
+import { Button } from '../../../components/Button/Button';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { signOut } from 'next-auth/react';
 

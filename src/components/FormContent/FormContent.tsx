@@ -16,6 +16,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { IModalForm } from '../../model/IModalForm';
 import { theme } from '../../styles/theme/muiTheme';
 import { IGoal } from '../../model/IGoal';
+import IndicatorGoalLabel from '../IndicatorGoalLabel/IndicatorGoalLabel';
 
 export type IModalContent = {
   variant: 'amount' | 'expense' | 'select' | 'all' | 'addMonth' | 'addExpense';
@@ -44,6 +45,7 @@ const ContentWrapper = styled(Stack)(({ theme }) => ({
 
   '& .MuiDialogContent-root': {
     padding: '0px',
+    paddingTop: theme.spacing(1),
   },
 
   '& > :nth-child(2)': {
@@ -106,12 +108,6 @@ export const FormContent = ({
 }: IModalContent & IIconButtonProps) => {
   const percentageList = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
-  const renderLabelContainer = (className: string, name: string) => (
-    <div className='label-container'>
-      <span className={className}></span>
-      <span>{name}</span>
-    </div>
-  );
   return (
     <ContentWrapper>
       <DialogContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -145,7 +141,7 @@ export const FormContent = ({
         </DialogContent>
       </Stack>
 
-      <DialogContent>
+      <DialogContent sx={{}}>
         <Stack spacing={2}>
           {variant == 'amount' && (
             <TextField
@@ -191,7 +187,6 @@ export const FormContent = ({
                 className='goal'
                 flexDirection={'row'}
                 gap={theme.spacing()}
-                padding={theme.spacing(1, 0, 0)}
               >
                 <TextField
                   select
@@ -200,7 +195,7 @@ export const FormContent = ({
                   helperText={
                     errors?.needPercentage ? errors.needPercentage?.message : ''
                   }
-                  label={renderLabelContainer('need', 'Need')}
+                  label={<IndicatorGoalLabel showColon={false} name='Need' />}
                   defaultValue={goal?.needPercentage}
                   {...(register
                     ? register('needPercentage')
@@ -223,7 +218,7 @@ export const FormContent = ({
                   helperText={
                     errors?.wantPercentage ? errors.wantPercentage?.message : ''
                   }
-                  label={renderLabelContainer('want', 'Want')}
+                  label={<IndicatorGoalLabel showColon={false} name='Want' />}
                   defaultValue={goal?.wantPercentage}
                   {...(register
                     ? register('wantPercentage')
@@ -246,7 +241,7 @@ export const FormContent = ({
                   helperText={
                     errors?.savePercentage ? errors.savePercentage?.message : ''
                   }
-                  label={renderLabelContainer('save', 'Save')}
+                  label={<IndicatorGoalLabel showColon={false} name='Save' />}
                   defaultValue={goal?.savePercentage}
                   {...(register
                     ? register('savePercentage')

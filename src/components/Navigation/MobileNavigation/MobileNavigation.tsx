@@ -5,9 +5,9 @@ import { DashboardButton } from '../../DashboardButton/DashboardButton';
 import { IIconButtonProps } from '../../IconButton/IconButton';
 import Link from 'next/link';
 import { theme } from '../../../styles/theme/muiTheme';
-import { SettingsButton } from '@/components/SettingsButton/SettingsButton';
+import { SettingsButton } from '../../../components/SettingsButton/SettingsButton';
 import { usePathname } from 'next/navigation';
-import { SignOutButton } from '@/components/SignOutButton/SignOutButton';
+import { SignOutButton } from '../../../components/SignOutButton/SignOutButton';
 
 export type IMobileNavigation = IIconButtonProps & {
   title?: string;

@@ -11,6 +11,8 @@ import {
 import CurrencyFormat from 'react-currency-format';
 import { theme } from '../../styles/theme/muiTheme';
 import { isGoalMet } from '../../utils/functions/isGoalMet';
+import IndicatorGoalLabel from '../IndicatorGoalLabel/IndicatorGoalLabel';
+import { toCamelCase } from '../../utils/functions/toCamelCase';
 
 export type IMuiCircularProgressProps = MuiCircularProgressProps & {
   /** Percentage value */
@@ -99,38 +101,21 @@ const StyledCircularProgress = styled(Typography)<{
           gap: theme.spacing(),
           alignItems: 'center',
 
-          '&:before': {
-            content: '""',
-            display: 'flex',
-            width: theme.spacing(),
-            height: theme.spacing(),
-            borderRadius: '50%',
-          },
-
           [theme.breakpoints.up('lg')]: {
             ...theme.typography.body1,
           },
         },
         '.title': {
           '&:before': {
+            content: '""',
+            display: 'flex',
+            width: theme.spacing(),
+            height: theme.spacing(),
+            borderRadius: '50%',
             backgroundColor: 'rgb(195, 178, 255)',
           },
         },
-        '.need': {
-          '&:before': {
-            backgroundColor: theme.palette.warning.light,
-          },
-        },
-        '.want': {
-          '&:before': {
-            backgroundColor: theme.palette.error.light,
-          },
-        },
-        '.save': {
-          '&:before': {
-            backgroundColor: theme.palette.success.light,
-          },
-        },
+
         '.amount': {
           ...theme.typography.body1,
           fontWeight: 700,
@@ -167,6 +152,25 @@ const StyledCircularProgress = styled(Typography)<{
     },
   },
 }));
+
+const BudgetDetail = ({
+  label,
+  percentage,
+}: {
+  label: string;
+  percentage: string;
+}) => {
+  return (
+    <Typography className={toCamelCase(label)} variant='body2'>
+      <Stack gap='4px' flexDirection='row' alignItems={'center'}>
+        <IndicatorGoalLabel name={label} />
+        <Typography component='span' className='result' lineHeight={0}>
+          {percentage}
+        </Typography>
+      </Stack>
+    </Typography>
+  );
+};
 
 export const CircularProgress = ({
   percentageValue,
@@ -208,27 +212,13 @@ export const CircularProgress = ({
     goal: number
   ) => (
     <Typography variant='body2'>
-      <Stack gap='4px' flexDirection='row'>
+      <Stack gap='4px' flexDirection='row' alignItems='center'>
         <Typography component='span'>{title}:</Typography>
         <Typography
           component='span'
+          lineHeight={0}
           className={`result ${isGoalMet(goal, percentage)}`}
         >{`${goal}%`}</Typography>
-      </Stack>
-    </Typography>
-  );
-
-  const renderBudgetDetail = (
-    label: string,
-    percentage: string,
-    className: string
-  ) => (
-    <Typography className={className} variant='body2'>
-      <Stack gap='4px' flexDirection='row'>
-        <Typography component='span'>{label}:</Typography>
-        <Typography component='span' className='result'>
-          {percentage}
-        </Typography>
       </Stack>
     </Typography>
   );
@@ -329,9 +319,18 @@ export const CircularProgress = ({
               <span className='separator' />
 
               <div className='budget'>
-                {renderBudgetDetail('Need', needPercentage.asString, 'need')}
-                {renderBudgetDetail('Want', wantPercentage.asString, 'want')}
-                {renderBudgetDetail('Save', savePercentage.asString, 'save')}
+                <BudgetDetail
+                  label='Need'
+                  percentage={needPercentage.asString}
+                />
+                <BudgetDetail
+                  label='Want'
+                  percentage={wantPercentage.asString}
+                />
+                <BudgetDetail
+                  label='Save'
+                  percentage={savePercentage.asString}
+                />
               </div>
             </div>
           </div>

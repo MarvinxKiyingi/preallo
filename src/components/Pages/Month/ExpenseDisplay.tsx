@@ -63,6 +63,7 @@ const ExpenseDisplay = ({ currentMonthExpenses }: IExpenseDisplay) => {
               category={expense.category}
               amountAsString={expense.amountAsString}
               purpose={expense.purpose}
+              status={expense.status}
               fullWidth
             />
           ))

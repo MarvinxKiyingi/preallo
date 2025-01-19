@@ -5,8 +5,8 @@ import { theme } from '../../styles/theme/muiTheme';
 import { ICategory } from '../../model/ICategory';
 import ExpenseContent from './ExpenseContent';
 import CurrencyFormat from 'react-currency-format';
-import { PurposePill } from '../PurposePill/PurposePill';
-import { IPurpose } from '@/model/IPurpose';
+import { IPurpose } from '../../model/IPurpose';
+import { IStatus } from '../../model/IStatus';
 
 export type IExpenseProps = {
   bgColor?: string;
@@ -28,6 +28,7 @@ export type IExpenseProps = {
   version?: 'default' | 'detail';
   category: ICategory;
   purpose: IPurpose;
+  status: IStatus;
 };
 
 const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
@@ -96,6 +97,7 @@ export const Expense = ({
   category,
   iconContainerBgColor,
   purpose = 'Need',
+  status,
   ...props
 }: IExpenseProps) => {
   const ownerState = {
@@ -112,6 +114,7 @@ export const Expense = ({
     version,
     category,
     purpose,
+    status,
     ...props,
   };
 
@@ -125,20 +128,19 @@ export const Expense = ({
         {version === 'default' && (
           <Stack direction='row' gap={theme.spacing()}>
             <Stack direction={'column'}>
-              <ExpenseContent title={title} date={date} />
-            </Stack>
-            <Stack justifyContent={'end'}>
-              <PurposePill
-                className={purpose.toString().toLocaleLowerCase()}
-                text={purpose}
-              />
+              <ExpenseContent title={title} date={date} status={status} />
             </Stack>
           </Stack>
         )}
 
         {version === 'detail' && (
           <>
-            <ExpenseContent title={title} date={date} category={category} />
+            <ExpenseContent
+              version={version}
+              title={title}
+              date={date}
+              status={status}
+            />
           </>
         )}
 
