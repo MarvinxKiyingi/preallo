@@ -11,4 +11,5 @@ export type IAddExpense = Pick<
   | 'submitFormContentHandler'
   | 'categoryList'
   | 'purposeList'
+  | 'statusList'
 >;

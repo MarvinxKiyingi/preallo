@@ -97,7 +97,7 @@ export const Expense = ({
   category,
   iconContainerBgColor,
   purpose = 'Need',
-  status,
+  status = 'Pending',
   ...props
 }: IExpenseProps) => {
   const ownerState = {

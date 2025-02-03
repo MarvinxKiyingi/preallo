@@ -5,7 +5,6 @@ import { IMonth } from '@/model/IMonth';
 import { v4 as uuidv4 } from 'uuid';
 import { formatDate } from './formatDate';
 import { formatNumberWithDecimal } from './formatNumberWithDecimal';
-import { statusInit } from '../../model/IStatus';
 
 export const createOrUpdateExpense = async (
   data: IAddExpenseForm,
@@ -23,7 +22,7 @@ export const createOrUpdateExpense = async (
     expense: data.expense,
     category: data.selected,
     purpose: data.selectedTwo,
-    status: { ...statusInit },
+    status: data.selectedThree,
     monthDetails: {
       monthName: month.monthName,
       year: month.year,

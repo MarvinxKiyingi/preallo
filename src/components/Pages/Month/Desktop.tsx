@@ -110,6 +110,7 @@ const Desktop = ({
   submitFormContentHandler,
   categoryList,
   purposeList,
+  statusList,
   currentMonthExpenses,
 }: IMonthPage) => {
   const { monthName, salary, salaryAsString, slug, goal } = month;
@@ -194,6 +195,7 @@ const Desktop = ({
               submitFormContentHandler={submitFormContentHandler}
               categoryList={categoryList}
               purposeList={purposeList}
+              statusList={statusList}
             />
 
             <ExpenseDisplay currentMonthExpenses={currentMonthExpenses} />

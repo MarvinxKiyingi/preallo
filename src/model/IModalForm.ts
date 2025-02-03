@@ -3,6 +3,7 @@ export type IModalForm = {
   expense: string;
   selected: string;
   selectedTwo: string;
+  selectedThree: string;
   needPercentage?: number;
   savePercentage?: number;
   wantPercentage?: number;
@@ -21,4 +22,5 @@ export type IAddExpenseForm = {
   expense: string;
   selected: string;
   selectedTwo: string;
+  selectedThree: string;
 };

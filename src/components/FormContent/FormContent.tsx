@@ -34,6 +34,8 @@ export type IModalContent = {
   selectList?: string[];
   selectLabelTwo?: string;
   selectListTwo?: string[];
+  selectLabelThree?: string;
+  selectListThree?: string[];
   goal?: IGoal;
   register?: UseFormRegister<IModalForm>;
   errors?: FieldErrors<IModalForm>;
@@ -97,8 +99,10 @@ export const FormContent = ({
   expenseLabel,
   selectLabel,
   selectLabelTwo,
+  selectLabelThree,
   selectList,
   selectListTwo,
+  selectListThree,
   goal,
   variant,
   onClick,
@@ -328,6 +332,24 @@ export const FormContent = ({
                   : { name: 'selectedTwo' })}
               >
                 {selectListTwo?.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                select
+                fullWidth
+                error={!!errors?.selectedThree}
+                helperText={
+                  errors?.selectedThree ? errors.selectedThree?.message : ''
+                }
+                label={selectLabelThree}
+                {...(register
+                  ? register('selectedThree')
+                  : { name: 'selectedThree' })}
+              >
+                {selectListThree?.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>

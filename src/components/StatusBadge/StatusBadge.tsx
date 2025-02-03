@@ -1,15 +1,11 @@
 import React from 'react';
 import { Stack, styled, Typography } from '@mui/material';
 import { theme } from '../../styles/theme/muiTheme';
-import { toCamelCase } from '../../utils/functions/toCamelCase';
+import { IStatus } from '@/model/IStatus';
 
 export type IStatusBadge = {
-  /** Indicates the default payment state */
-  pending?: boolean;
-  /** Indicates whether the payment is scheduled for a specific date */
-  autoPay?: boolean;
-  /** Indicates whether the payment has been completed */
-  paid?: boolean;
+  /** Indicates payment status */
+  status?: IStatus;
 };
 
 const StyledStatusBadge = styled('div')(({ theme }) => ({
@@ -48,34 +44,33 @@ const Indicator = styled('div')(({ theme }) => ({
   borderRadius: '50%',
 }));
 
-const Badge = ({ name }: { name: string }) => {
-  const transformedName = toCamelCase(name);
-
-  return (
-    <Stack
-      flexDirection='row'
-      alignItems={'center'}
-      gap={theme.spacing(1 / 2)}
-      className={transformedName}
-    >
-      <Indicator className='indicator' />
-      <Typography component={'p'} variant='caption'>
-        {name}
-      </Typography>
-    </Stack>
-  );
+const statusMap: Record<IStatus, { label: string; className: string }> = {
+  Pending: { label: 'Pending', className: 'pending' },
+  AutoPay: { label: 'Auto Pay', className: 'autoPay' },
+  Paid: { label: 'Paid', className: 'paid' },
 };
 
-export const StatusBadge = ({
-  pending = true,
-  autoPay,
-  paid,
-}: IStatusBadge) => {
+const Badge = ({ name, className }: { name: string; className: string }) => (
+  <Stack
+    flexDirection='row'
+    alignItems='center'
+    gap={theme.spacing(1 / 2)}
+    className={className}
+  >
+    <Indicator className='indicator' />
+    <Typography component='p' variant='caption'>
+      {name}
+    </Typography>
+  </Stack>
+);
+
+export const StatusBadge = ({ status }: IStatusBadge) => {
+  if (!status || !statusMap[status]) return null;
+  const { label, className } = statusMap[status];
+
   return (
     <StyledStatusBadge className='StatusBadge-container'>
-      {pending && <Badge name={'Pending'} />}
-      {autoPay && <Badge name={'Auto Pay'} />}
-      {paid && <Badge name={'Paid'} />}
+      <Badge name={label} className={className} />
     </StyledStatusBadge>
   );
 };

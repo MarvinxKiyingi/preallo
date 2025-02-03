@@ -1,11 +1,3 @@
-export type IStatus = {
-  pending: boolean;
-  autoPay: boolean;
-  paid: boolean;
-};
+export const statusList = ['Pending', 'AutoPay', 'Paid'];
 
-export const statusInit: IStatus = {
-  pending: true,
-  autoPay: false,
-  paid: false,
-};
+export type IStatus = 'Pending' | 'AutoPay' | 'Paid';

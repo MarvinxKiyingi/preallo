@@ -25,7 +25,7 @@ const ExpenseContent = ({ title, date, category, status }: IExpenseContent) => {
           <Typography className='date' variant='caption' align='left'>
             {date}
           </Typography>
-          {status && <StatusBadge {...status} />}
+          {status && <StatusBadge status={status} />}
         </Stack>
       )}
 

@@ -23,6 +23,7 @@ const AddExpense = ({
   submitFormContentHandler,
   categoryList,
   purposeList,
+  statusList,
 }: IAddExpense) => {
   return (
     <div>
@@ -53,6 +54,7 @@ const AddExpense = ({
           <FormContent
             categoryList={categoryList}
             purposeList={purposeList}
+            statusList={statusList}
             handleClose={handleClose}
             register={register}
             errors={errors}

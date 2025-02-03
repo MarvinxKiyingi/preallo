@@ -16,6 +16,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { categoryList } from '@/model/ICategory';
 import { purposeList } from '@/model/IPurpose';
+import { statusList } from '@/model/IStatus';
 import { createOrUpdateExpense } from '@/utils/functions/createOrUpdateExpense';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { IExpenses } from '@/model/IExpenses';
@@ -113,6 +114,7 @@ const Month = () => {
             register={register}
             categoryList={categoryList}
             purposeList={purposeList}
+            statusList={statusList}
             currentMonthExpenses={currentMonthExpenses}
             expensesTotal={expensesTotal}
             daysUntilPayday={25}
@@ -132,6 +134,7 @@ const Month = () => {
             register={register}
             categoryList={categoryList}
             purposeList={purposeList}
+            statusList={statusList}
             currentMonthExpenses={currentMonthExpenses}
             expensesTotal={expensesTotal}
             daysUntilPayday={25}

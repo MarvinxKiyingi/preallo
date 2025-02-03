@@ -43,6 +43,7 @@ const Mobile = ({
   submitFormContentHandler,
   categoryList,
   purposeList,
+  statusList,
   expensesTotal,
   currentMonthExpenses,
   daysUntilPayday,
@@ -101,6 +102,7 @@ const Mobile = ({
         submitFormContentHandler={submitFormContentHandler}
         categoryList={categoryList}
         purposeList={purposeList}
+        statusList={statusList}
       />
 
       <ExpenseDisplay currentMonthExpenses={currentMonthExpenses} />
