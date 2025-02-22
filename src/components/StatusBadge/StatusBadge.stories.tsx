@@ -5,7 +5,7 @@ const meta: Meta<typeof StatusBadge> = {
   title: 'components/StatusBadge',
   component: StatusBadge,
   args: {
-    pending: true,
+    status: 'Pending',
   },
 };
 
@@ -14,6 +14,6 @@ type Story = StoryObj<typeof StatusBadge>;
 
 export const Primary: Story = {
   args: {
-    pending: true,
+    status: 'Pending',
   },
 };

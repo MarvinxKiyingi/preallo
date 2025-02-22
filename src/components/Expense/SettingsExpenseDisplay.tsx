@@ -1,10 +1,14 @@
 import { Expense } from '@/components/Expense/Expense';
-import { IExpenseDisplay } from '@/model/IExpenseDisplay';
+import { IExpense } from '@/model/IExpenses';
 import { NoContentContainer } from '@/pages';
 import { Typography, styled } from '@mui/material';
 import React from 'react';
 
-const StyledExpenseDisplay = styled('div')(({ theme }) => ({
+export type IExpenses = {
+  expenses: IExpense;
+};
+
+const StyledSettingsExpenseDisplay = styled('div')(({ theme }) => ({
   height: '100%',
   overflow: 'scroll',
   position: 'relative',
@@ -35,10 +39,10 @@ const StyledExpenseDisplay = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('sm')]: {},
 }));
+
 const Scroll = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(2),
   height: '100%',
   overflow: 'scroll',
   padding: theme.spacing(2, 3),
@@ -53,12 +57,12 @@ const Scroll = styled('div')(({ theme }) => ({
   },
 }));
 
-const ExpenseDisplay = ({ currentMonthExpenses }: IExpenseDisplay) => {
+const SettingsExpenseDisplay = ({ expenses }: IExpenses) => {
   return (
-    <StyledExpenseDisplay>
+    <StyledSettingsExpenseDisplay>
       <Scroll>
-        {currentMonthExpenses?.length > 0 ? (
-          currentMonthExpenses.map((expense) => (
+        {expenses?.length > 0 ? (
+          expenses.map((expense) => (
             <Expense
               key={expense.uuid}
               amount={expense.amount}
@@ -69,6 +73,8 @@ const ExpenseDisplay = ({ currentMonthExpenses }: IExpenseDisplay) => {
               purpose={expense.purpose}
               status={expense.status}
               fullWidth
+              stripped
+              bgColor='transparent'
             />
           ))
         ) : (
@@ -77,8 +83,8 @@ const ExpenseDisplay = ({ currentMonthExpenses }: IExpenseDisplay) => {
           </NoContentContainer>
         )}
       </Scroll>
-    </StyledExpenseDisplay>
+    </StyledSettingsExpenseDisplay>
   );
 };
 
-export default ExpenseDisplay;
+export default SettingsExpenseDisplay;

@@ -1,12 +1,12 @@
-import { Stack, styled, Typography } from '@mui/material';
+import { styled, Theme, useMediaQuery } from '@mui/material';
 import { grey } from '../../styles/colors/grey';
 import { Button } from '../Button/Button';
 import { theme } from '../../styles/theme/muiTheme';
 import { ICategory } from '../../model/ICategory';
 import ExpenseContent from './ExpenseContent';
-import CurrencyFormat from 'react-currency-format';
 import { IPurpose } from '../../model/IPurpose';
 import { IStatus } from '../../model/IStatus';
+import ExpenseDetail from './ExpenseDetail';
 
 export type IExpenseProps = {
   bgColor?: string;
@@ -31,13 +31,17 @@ export type IExpenseProps = {
   status: IStatus;
 };
 
-const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
-  ({ theme, ownerState }) => ({
+const getExpenseStyles = ({
+  theme,
+  ownerState,
+}: {
+  theme: Theme;
+  ownerState: IExpenseProps;
+}) =>
+  ({
     textTransform: 'unset',
     alignSelf: 'baseline',
-    backgroundColor: ownerState.bgColor
-      ? ownerState.bgColor
-      : theme.palette.background.paper,
+    backgroundColor: ownerState.bgColor || theme.palette.background.paper,
     boxShadow: ownerState.stripped
       ? 'unset'
       : '0px 0px 4px rgba(0, 0, 0, 0.15)',
@@ -59,6 +63,10 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
       alignItems: 'center',
       justifyContent: 'space-between',
 
+      '>*': {
+        flex: 1,
+      },
+
       '.expense': {
         color: ownerState.invert
           ? theme.palette.common.white
@@ -72,15 +80,32 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
         color: ownerState.invert ? grey.light[500] : grey.dark[500],
       },
 
-      '.price': {
+      '.price-default': {
         fontWeight: 600,
         color: theme.palette.common.black,
         textTransform: 'uppercase',
         fontSize: theme.spacing(2),
       },
+
+      '.price-detail': {
+        fontWeight: 500,
+        color: theme.palette.common.black,
+        textTransform: 'uppercase',
+        fontSize: theme.typography.body2.fontSize,
+      },
     },
-  })
+  } as const);
+
+const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
+  (props) => ({ ...getExpenseStyles(props) })
 );
+
+const StyledDetails = styled('div')<{ ownerState: IExpenseProps }>((props) => ({
+  ...getExpenseStyles(props),
+  '&:active': {
+    backgroundColor: 'unset',
+  },
+}));
 
 export const Expense = ({
   bgColor,
@@ -100,6 +125,10 @@ export const Expense = ({
   status = 'Pending',
   ...props
 }: IExpenseProps) => {
+  const isDesktop = useMediaQuery(
+    `${theme.breakpoints.up('md').replace('@media ', '')}`
+  );
+
   const ownerState = {
     bgColor,
     iconContainerBgColor,
@@ -118,49 +147,35 @@ export const Expense = ({
     ...props,
   };
 
+  const WrapperComponent =
+    version === 'detail' && isDesktop ? StyledDetails : StyledExpense;
+
   return (
-    <StyledExpense
+    <WrapperComponent
       className='expenseButtonContainer'
       ownerState={ownerState}
       {...props}
     >
       <div className='textContainer'>
         {version === 'default' && (
-          <Stack direction='row' gap={theme.spacing()}>
-            <Stack direction={'column'}>
-              <ExpenseContent title={title} date={date} status={status} />
-            </Stack>
-          </Stack>
+          <ExpenseContent
+            title={title}
+            date={date}
+            status={status}
+            amountAsString={amountAsString}
+          />
         )}
 
         {version === 'detail' && (
-          <>
-            <ExpenseContent
-              version={version}
-              title={title}
-              date={date}
-              status={status}
-            />
-          </>
-        )}
-
-        {amountAsString && (
-          <Stack direction='row' spacing={1 / 2} alignItems='center'>
-            <CurrencyFormat
-              value={amountAsString}
-              displayType={'text'}
-              thousandSeparator={' '}
-              decimalSeparator={','}
-              thousandSpacing={'3'}
-              renderText={(value) => (
-                <Typography className='price' variant='h6' align='right'>
-                  {`- ${value}`}
-                </Typography>
-              )}
-            />
-          </Stack>
+          <ExpenseDetail
+            title={title}
+            date={date}
+            status={status}
+            category={category}
+            amountAsString={amountAsString}
+          />
         )}
       </div>
-    </StyledExpense>
+    </WrapperComponent>
   );
 };

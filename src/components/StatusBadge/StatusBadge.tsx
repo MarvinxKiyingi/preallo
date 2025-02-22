@@ -10,7 +10,7 @@ export type IStatusBadge = {
 
 const StyledStatusBadge = styled('div')(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'start',
   alignItems: 'center',
   gap: theme.spacing(),
 

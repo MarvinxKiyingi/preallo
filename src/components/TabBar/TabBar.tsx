@@ -52,7 +52,7 @@ const StyledTab = styled(Tab)<IStyledTab>(({ theme }) => ({
 
   ...theme.typography.caption,
 
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('sm')]: {
     ...theme.typography.body1,
   },
 }));
