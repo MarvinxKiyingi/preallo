@@ -35,7 +35,7 @@ const Mobile = ({
 
       <div>
         <AddRow
-          title='Add'
+          title='Expense'
           version='secondary'
           addIsVisible
           onClick={() => handleOpen()}

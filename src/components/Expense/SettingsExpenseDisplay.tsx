@@ -1,11 +1,11 @@
 import { Expense } from '@/components/Expense/Expense';
-import { IExpense } from '@/model/IExpenses';
+import { IExpenses as ExpenseList } from '@/model/IExpenses';
 import { NoContentContainer } from '@/pages';
 import { Typography, styled } from '@mui/material';
 import React from 'react';
 
 export type IExpenses = {
-  expenses: IExpense;
+  expenses: ExpenseList;
 };
 
 const StyledSettingsExpenseDisplay = styled('div')(({ theme }) => ({
@@ -13,7 +13,7 @@ const StyledSettingsExpenseDisplay = styled('div')(({ theme }) => ({
   overflow: 'scroll',
   position: 'relative',
   padding: 'unset',
-  marginTop: `${theme.spacing(2)}  `,
+  marginTop: `${theme.spacing(3)}  `,
   marginBottom: `${theme.spacing(0)} !important `,
 
   '&::before, &::after': {
@@ -46,6 +46,7 @@ const Scroll = styled('div')(({ theme }) => ({
   height: '100%',
   overflow: 'scroll',
   padding: theme.spacing(2, 3),
+  paddingTop: 'unset',
 
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(2, 6),

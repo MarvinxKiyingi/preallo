@@ -29,7 +29,7 @@ const AddExpense = ({
     <div>
       <StyledAddExpense>
         <AddRow
-          title='Add'
+          title='Expense'
           version='secondary'
           chipsList={[
             {

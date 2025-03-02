@@ -5,7 +5,7 @@ const meta: Meta<typeof AddRow> = {
   title: 'components/AddRow',
   component: AddRow,
   args: {
-    title: 'Add',
+    title: 'Expense',
     addIsVisible: true,
     version: 'secondary',
   },
