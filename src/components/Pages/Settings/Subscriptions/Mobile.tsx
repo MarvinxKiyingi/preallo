@@ -8,8 +8,12 @@ import { ISubscriptions } from '@/model/ISubscriptions';
 import { settingsTabBarList } from '@/utils/functions/settingsTabBarList';
 import Dialog from '@mui/material/Dialog';
 import FormContent from '../../Month/FormContent';
-import ExpenseDisplay from '../../Month/ExpenseDisplay';
 import SettingsExpenseDisplay from '@/components/Expense/SettingsExpenseDisplay';
+import { styled } from '@mui/material/styles';
+
+const StyledTotalDisplay = styled(TotalDisplay)(({ theme }) => ({
+  padding: theme.spacing(4, 0),
+}));
 
 const Mobile = ({
   open,
@@ -27,11 +31,11 @@ const Mobile = ({
 }: ISubscriptions) => {
   return (
     <AppContainer>
-      <MobileNavigation hideProfile showSignOutButton title='Subscriptions' />
+      <MobileNavigation hideProfile showSignOutButton title='Settings' />
 
       <TabBar tabList={settingsTabBarList} />
 
-      <TotalDisplay total={expensesTotal} />
+      <StyledTotalDisplay total={expensesTotal} sx={{ marginTop: 'unset' }} />
 
       <div>
         <AddRow

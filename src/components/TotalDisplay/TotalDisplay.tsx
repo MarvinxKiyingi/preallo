@@ -1,13 +1,14 @@
-import { Box, styled, Typography } from '@mui/material';
+import { formatNumberWithDecimal } from '../../utils/functions/formatNumberWithDecimal';
+import { Box, BoxProps, styled, Typography } from '@mui/material';
 import CurrencyFormat from 'react-currency-format';
 
-export type ITotalDisplay = {
+export type ITotalDisplay = BoxProps & {
   /** Total as string  */
-  total: number | string;
+  total: number;
 };
 
 const StyledTotalDisplay = styled(Box)<{ ownerState: ITotalDisplay }>(
-  ({ theme }) => ({})
+  () => ({})
 );
 
 const StyledTotal = styled(Typography)(({ theme }) => ({
@@ -23,7 +24,6 @@ const StyledTotal = styled(Typography)(({ theme }) => ({
 export const TotalDisplay = ({ total, ...props }: ITotalDisplay) => {
   const ownerState = {
     total,
-    ...props,
   };
 
   return (
@@ -39,6 +39,8 @@ export const TotalDisplay = ({ total, ...props }: ITotalDisplay) => {
           thousandSeparator={' '}
           decimalSeparator={','}
           thousandSpacing={'3'}
+          decimalScale={2}
+          fixedDecimalScale={true}
         />
       </StyledTotal>
     </StyledTotalDisplay>

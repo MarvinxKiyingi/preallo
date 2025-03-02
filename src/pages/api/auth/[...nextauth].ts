@@ -6,7 +6,6 @@ import { Adapter } from 'next-auth/adapters';
 import { createOrUpdateYears } from '../../../utils/functions/collection/years';
 import { currentYear, isNewYear } from '../../../utils/functions/currentYear';
 import { createOrUpdateGoal } from '../../../utils/functions/collection/createOrUpdateGoal';
-import { createOrUpdateExpense } from '@/utils/functions/createOrUpdateExpense';
 
 export const authOptions: AuthOptions = {
   pages: {

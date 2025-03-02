@@ -11,6 +11,7 @@ import AddExpense from './AddExpense';
 import ExpenseDisplay from './ExpenseDisplay';
 import { theme } from '@/styles/theme/muiTheme';
 import { calculateTotalAmountByPurpose } from '@/utils/functions/calculateTotalAmountByPurpose';
+import { TotalDisplay } from '@/components/TotalDisplay/TotalDisplay';
 
 const MonthDetailsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -115,7 +116,7 @@ const Desktop = ({
 }: IMonthPage) => {
   const { monthName, salary, salaryAsString, slug, goal } = month;
   const daysLeft = useDaysLeft(daysUntilPayday);
-  const { differenceAsString, percentage } = calculatePercentage(
+  const { differenceAsString, difference, percentage } = calculatePercentage(
     expensesTotal,
     salary
   );
@@ -150,18 +151,7 @@ const Desktop = ({
                   {`Left to spend, for the next ${daysLeft} days`}
                 </Typography>
               )}
-              <CurrencyFormat
-                value={differenceAsString}
-                displayType={'text'}
-                thousandSeparator={' '}
-                decimalSeparator={','}
-                thousandSpacing={'3'}
-                renderText={(value) => (
-                  <Typography className='budget' variant='h3'>
-                    {value}
-                  </Typography>
-                )}
-              />
+              <TotalDisplay total={difference} />
             </div>
 
             <div className='salaryContainer'>

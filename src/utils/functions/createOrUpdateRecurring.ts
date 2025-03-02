@@ -6,13 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { formatDate } from './formatDate';
 import { formatNumberWithDecimal } from './formatNumberWithDecimal';
 
-export const createOrUpdateExpense = async (
+export const createOrUpdateRecurring = async (
   data: IAddExpenseForm,
   userId: string,
-  month: IMonth
+  month?: IMonth
 ) => {
-  const expensesRef = doc(db, 'expenses', userId);
-  const expensesSnap = await getDoc(expensesRef);
+  const subscriptionsRef = doc(db, 'recurring', userId);
+  const subscriptionsSnap = await getDoc(subscriptionsRef);
 
   const expenseProperties = {
     uuid: uuidv4(),
@@ -24,22 +24,22 @@ export const createOrUpdateExpense = async (
     purpose: data.selectedTwo,
     status: data.selectedThree,
     monthDetails: {
-      monthName: month.monthName,
-      year: month.year,
-      slug: month.slug,
+      monthName: month?.monthName || '',
+      year: month?.year || '',
+      slug: month?.slug || '',
     },
   };
 
   try {
-    if (expensesSnap.exists()) {
-      return updateDoc(expensesRef, {
-        expenses: arrayUnion({
+    if (subscriptionsSnap.exists()) {
+      return updateDoc(subscriptionsRef, {
+        subscriptions: arrayUnion({
           ...expenseProperties,
         }),
       });
     } else {
-      return setDoc(expensesRef, {
-        expenses: [{ ...expenseProperties }],
+      return setDoc(subscriptionsRef, {
+        subscriptions: [{ ...expenseProperties }],
       });
     }
   } catch (error) {
