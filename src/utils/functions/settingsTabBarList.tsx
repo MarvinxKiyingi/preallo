@@ -2,8 +2,8 @@ export const settingsTabBarList = [
   { id: 'goal', label: 'Goal', value: '/settings/goal' },
   {
     id: 'subscriptions',
-    label: 'subscriptions',
+    label: 'Subscriptions',
     value: '/settings/subscriptions',
   },
-  { id: 'recurring', label: 'recurring', value: '/settings/recurring' },
+  { id: 'recurring', label: 'Recurring', value: '/settings/recurring' },
 ];

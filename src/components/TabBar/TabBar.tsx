@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 
 import React from 'react';
+import { useRouter } from 'next/router';
 
 type ITabsProps = Pick<MuiTabsProps, 'textColor' | 'indicatorColor'>;
 
@@ -58,43 +59,33 @@ const StyledTab = styled(Tab)<IStyledTab>(({ theme }) => ({
 }));
 
 export const TabBar = ({ tabList, isDarkBg = false, ...props }: ITabProps) => {
-  const [value, setValue] = React.useState(tabList[0].value);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
+  const router = useRouter();
+  const currentPath = router.pathname;
 
   const darkBgStyles = isDarkBg
     ? {
-        '.MuiTab-root': {
-          color: grey.shades[200],
-        },
-        '.MuiTab-root.Mui-selected': {
-          color: theme.palette.common.white,
-        },
+        '.MuiTab-root': { color: grey.shades[200] },
+        '.MuiTab-root.Mui-selected': { color: theme.palette.common.white },
       }
     : null;
 
-  const ownerState = {
-    darkBgStyles,
-  };
+  const ownerState = { darkBgStyles };
 
   return (
     <StyledTabs
       sx={{ minHeight: 'unset' }}
-      value={value}
-      onChange={handleChange}
+      value={currentPath}
       aria-label='TabBar'
       ownerState={ownerState}
       indicatorColor={isDarkBg ? 'secondary' : 'primary'}
       {...props}
     >
-      {tabList?.map((tab) => (
+      {tabList.map((tab) => (
         <StyledTab
           key={tab.id}
           value={tab.value}
           label={tab.label}
-          LinkComponent={Link}
+          component={Link}
           href={tab.value}
         />
       ))}
