@@ -3,7 +3,6 @@ import { IMonthPage } from '../../../model/IMonthPage';
 import ContentContainer from '../../Container/ContentContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
 import { useDaysLeft } from '@/utils/functions/daysLeft';
-import CurrencyFormat from 'react-currency-format';
 import { calculatePercentage } from '@/utils/functions/calculatePercentage';
 import { grey } from '@/styles/colors/grey';
 import { CircularProgress } from '@/components/CircularProgress/CircularProgress';

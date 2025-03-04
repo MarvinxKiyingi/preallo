@@ -1,6 +1,4 @@
-import { formatNumberWithDecimal } from '../../utils/functions/formatNumberWithDecimal';
 import { Box, BoxProps, styled, Typography } from '@mui/material';
-import CurrencyFormat from 'react-currency-format';
 import { Total } from '../Total/Total';
 
 export type ITotalDisplay = BoxProps & {

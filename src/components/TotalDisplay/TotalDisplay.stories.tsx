@@ -5,7 +5,7 @@ const meta: Meta<typeof TotalDisplay> = {
   title: 'components/TotalDisplay',
   component: TotalDisplay,
   args: {
-    total: '1000,00',
+    total: 1000,
   },
 };
 
