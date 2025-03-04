@@ -1,5 +1,15 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { Tab, Tabs, styled, TabProps, Box, Stack } from '@mui/material';
+import {
+  Tab,
+  Tabs,
+  styled,
+  TabProps,
+  Box,
+  Stack,
+  Tooltip,
+  TooltipProps,
+  tooltipClasses,
+} from '@mui/material';
 import { Logo } from '../../Logo/Logo';
 import { DashboardIcon, SettingsIcon } from '../../Icons';
 import Link from 'next/link';
@@ -126,6 +136,18 @@ const SignOutIconWrapper = styled(SignOutButton)(({ theme }) => ({
   color: theme.palette.common.black,
 }));
 
+const StyledToolTip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 150,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+  },
+}));
+
 const DesktopNavigation = ({
   disableHighlight,
   highlightedValue,
@@ -137,6 +159,7 @@ const DesktopNavigation = ({
   const imgUrl = session?.user?.image;
   const userName = session?.user?.name;
   const dashboardLabel = useDashboardLabel(slug);
+  const toolTipInfoText = 'Configure default values & reaccusing expenses';
 
   const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -177,10 +200,13 @@ const DesktopNavigation = ({
                 justifyContent='space-between'
               >
                 <span>Settings</span>
-                <InfoOutlinedIcon
-                  fontSize='small'
-                  sx={{ color: 'rgba(0, 0, 0, 0.60)' }}
-                />
+
+                <StyledToolTip title={toolTipInfoText} placement='bottom'>
+                  <InfoOutlinedIcon
+                    fontSize='small'
+                    sx={{ color: 'rgba(0, 0, 0, 0.60)' }}
+                  />
+                </StyledToolTip>
               </Stack>
             }
             iconPosition='start'

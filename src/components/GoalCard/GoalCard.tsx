@@ -6,6 +6,9 @@ import {
   TextField,
   MenuItem,
   Typography,
+  Tooltip,
+  TooltipProps,
+  tooltipClasses,
 } from '@mui/material';
 import React from 'react';
 
@@ -55,6 +58,18 @@ const CardContent = styled('div')(({ theme }) => ({
   },
 }));
 
+const StyledToolTip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 150,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+  },
+}));
+
 export const GoalCard = ({
   sx,
   title,
@@ -66,6 +81,8 @@ export const GoalCard = ({
   loading,
 }: ICard & IGoalCardProps) => {
   const submitButtonText = loading ? 'Loading...' : 'Edit';
+  const toolTipInfoText = 'Default values for every new month added onward';
+
   return (
     <CardContainer sx={sx}>
       <CardContent>
@@ -79,10 +96,13 @@ export const GoalCard = ({
               <Typography variant='subtitle1' className='goal-title'>
                 {title}
               </Typography>
-              <InfoOutlinedIcon
-                fontSize='small'
-                sx={{ color: 'rgba(0, 0, 0, 0.60)' }}
-              />
+
+              <StyledToolTip title={toolTipInfoText} placement='bottom'>
+                <InfoOutlinedIcon
+                  fontSize='small'
+                  sx={{ color: 'rgba(0, 0, 0, 0.60)' }}
+                />
+              </StyledToolTip>
             </Stack>
 
             <Stack
