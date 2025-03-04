@@ -50,6 +50,8 @@ const ExpenseDetail = ({
             thousandSeparator={' '}
             decimalSeparator={','}
             thousandSpacing={'3'}
+            decimalScale={2}
+            fixedDecimalScale={true}
             renderText={(value) => (
               <Typography className='price-detail' variant='h6' align='right'>
                 {`- ${value}`}
