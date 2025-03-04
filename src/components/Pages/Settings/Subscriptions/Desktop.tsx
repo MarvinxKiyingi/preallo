@@ -3,7 +3,17 @@ import AppContainer from '../../../Container/AppContainer';
 import DesktopNavigation from '../../../Navigation/DesktopNavigation/DesktopNavigation';
 import ContentContainer from '../../../Container/ContentContainer';
 import { useRouter } from 'next/router';
-import { Dialog, Typography, styled } from '@mui/material';
+import {
+  Dialog,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  styled,
+} from '@mui/material';
 import RightGridContentContainer from '../../../Container/RightGridContentContainer';
 import { TabBar } from '@/components/TabBar/TabBar';
 import { settingsTabBarList } from '@/utils/functions/settingsTabBarList';
@@ -11,6 +21,8 @@ import { ISubscriptions } from '@/model/ISubscriptions';
 import { TotalDisplay } from '@/components/TotalDisplay/TotalDisplay';
 import { AddRow } from '@/components/AddRow/AddRow';
 import FormContent from '../../Month/FormContent';
+import { StatusBadge } from '@/components/StatusBadge/StatusBadge';
+import { NoContentContainer } from '@/pages';
 
 const RightContent = styled('div')(({ theme }) => ({
   gridColumn: '1/-1',
@@ -24,6 +36,14 @@ const TabBarWrapper = styled('div')(() => ({
   height: '100%',
   maxHeight: '56px',
   alignItems: 'center',
+}));
+const TableWrapper = styled('div')(({ theme }) => ({
+  display: 'flex',
+  height: '100%',
+
+  '.amount': {
+    fontFamily: theme.typography.h6.fontFamily,
+  },
 }));
 
 const StyledTotalDisplay = styled(TotalDisplay)(({ theme }) => ({
@@ -69,7 +89,7 @@ const Desktop = ({
 
               <div>
                 <AddRow
-                  title='Expense'
+                  title=''
                   version='secondary'
                   addIsVisible
                   onClick={() => handleOpen()}
@@ -93,6 +113,55 @@ const Desktop = ({
                   </form>
                 </Dialog>
               </div>
+
+              <TableWrapper>
+                {subscriptions?.length > 0 ? (
+                  <TableContainer component={'div'}>
+                    <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Expens</TableCell>
+                          <TableCell align='right'>Status</TableCell>
+                          <TableCell align='right'>Category</TableCell>
+                          <TableCell align='right'>Date</TableCell>
+                          <TableCell align='right'>Amount</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {subscriptions.map((row) => (
+                          <TableRow
+                            key={row.uuid}
+                            sx={{
+                              '&:last-child td, &:last-child th': { border: 0 },
+                            }}
+                          >
+                            <TableCell component='th' scope='row'>
+                              {row.expense}
+                            </TableCell>
+                            <TableCell align='right'>
+                              {row.status && (
+                                <StatusBadge
+                                  status={row.status}
+                                  justifyContent='flex-end !important'
+                                />
+                              )}
+                            </TableCell>
+                            <TableCell align='right'>{row.category}</TableCell>
+                            <TableCell align='right'>{row.createdAt}</TableCell>
+                            <TableCell align='right' className='amount'>
+                              {row.amountAsString}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                ) : (
+                  <NoContentContainer>
+                    <Typography>Press the add button to get started</Typography>
+                  </NoContentContainer>
+                )}
+              </TableWrapper>
             </RightContent>
           </RightGridContentContainer>
         </ContentContainer>

@@ -59,6 +59,8 @@ const StyledTab = styled(Tab)<IStyledTab>(({ theme }) => ({
   textTransform: 'capitalize',
   color: theme.palette.common.black,
   whiteSpace: 'nowrap',
+  width: '100%',
+  maxWidth: '100%',
   '& .MuiSvgIcon-root': {
     marginRight: 'unset',
   },

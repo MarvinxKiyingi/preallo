@@ -1,14 +1,14 @@
 import React from 'react';
-import { Stack, styled, Typography } from '@mui/material';
+import { Box, BoxProps, Stack, styled, Typography } from '@mui/material';
 import { theme } from '../../styles/theme/muiTheme';
 import { IStatus } from '@/model/IStatus';
 
-export type IStatusBadge = {
+export type IStatusBadge = BoxProps & {
   /** Indicates payment status */
   status?: IStatus;
 };
 
-const StyledStatusBadge = styled('div')(({ theme }) => ({
+const StyledStatusBadge = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'start',
   alignItems: 'center',
@@ -64,12 +64,12 @@ const Badge = ({ name, className }: { name: string; className: string }) => (
   </Stack>
 );
 
-export const StatusBadge = ({ status }: IStatusBadge) => {
+export const StatusBadge = ({ status, ...props }: IStatusBadge) => {
   if (!status || !statusMap[status]) return null;
   const { label, className } = statusMap[status];
 
   return (
-    <StyledStatusBadge className='StatusBadge-container'>
+    <StyledStatusBadge className='StatusBadge-container' {...props}>
       <Badge name={label} className={className} />
     </StyledStatusBadge>
   );
