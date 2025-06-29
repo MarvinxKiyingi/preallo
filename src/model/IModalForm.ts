@@ -24,3 +24,7 @@ export type IAddExpenseForm = {
   selectedTwo: string;
   selectedThree: string;
 };
+
+export type IEditMonthForm = IAddExpenseForm & {
+  uuid: string;
+};

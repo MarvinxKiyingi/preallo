@@ -29,6 +29,7 @@ export type IExpenseProps = {
   category: ICategory;
   purpose: IPurpose;
   status: IStatus;
+  onClick?: () => void;
 };
 
 const getExpenseStyles = ({
@@ -123,6 +124,7 @@ export const Expense = ({
   iconContainerBgColor,
   purpose = 'Need',
   status = 'Pending',
+  onClick,
   ...props
 }: IExpenseProps) => {
   const isDesktop = useMediaQuery(
@@ -144,6 +146,7 @@ export const Expense = ({
     category,
     purpose,
     status,
+    onClick,
     ...props,
   };
 
@@ -154,6 +157,7 @@ export const Expense = ({
     <WrapperComponent
       className='expenseButtonContainer'
       ownerState={ownerState}
+      onClick={onClick}
       {...props}
     >
       <div className='textContainer'>

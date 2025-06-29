@@ -1,22 +1,27 @@
 import {
+  styled,
+  Stack,
+  DialogTitle,
   DialogContent,
   DialogContentText,
-  DialogTitle,
+  TextField,
   MenuItem,
-  Stack,
-  styled,
+  IconButton,
 } from '@mui/material';
-
-import TextField from '@mui/material/TextField';
 import { Button } from '../Button/Button';
-import { InfoIcon, PlusIcon, SuccessIcon, TrashIcon } from '../Icons';
-import { IconButton } from '../IconButton/IconButton';
-import { IIconButtonProps } from '../IconButton/IconButton';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { IModalForm } from '../../model/IModalForm';
 import { theme } from '../../styles/theme/muiTheme';
+import { IModalForm } from '../../model/IModalForm';
+import {
+  UseFormRegister,
+  FieldErrors,
+  Controller,
+  Control,
+} from 'react-hook-form';
 import { IGoal } from '../../model/IGoal';
+import { IIconButtonProps } from '../IconButton/IconButton';
+import { SuccessIcon, InfoIcon, TrashIcon, PlusIcon } from '../Icons';
 import IndicatorGoalLabel from '../IndicatorGoalLabel/IndicatorGoalLabel';
+import { percentageList } from '../../utils/functions/percentageList';
 
 export type IModalContent = {
   variant: 'amount' | 'expense' | 'select' | 'all' | 'addMonth' | 'addExpense';
@@ -37,8 +42,14 @@ export type IModalContent = {
   selectLabelThree?: string;
   selectListThree?: string[];
   goal?: IGoal;
+  defaultAmount?: number;
+  defaultExpense?: string;
+  defaultCategory?: string;
+  defaultPurpose?: string;
+  defaultStatus?: string;
   register?: UseFormRegister<IModalForm>;
   errors?: FieldErrors<IModalForm>;
+  control?: Control<IModalForm>;
 };
 
 const ContentWrapper = styled(Stack)(({ theme }) => ({
@@ -108,10 +119,14 @@ export const FormContent = ({
   onClick,
   register,
   errors,
+  control,
+  defaultAmount,
+  defaultExpense,
+  defaultCategory,
+  defaultPurpose,
+  defaultStatus,
   ...props
 }: IModalContent & IIconButtonProps) => {
-  const percentageList = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-
   return (
     <ContentWrapper>
       <DialogContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -295,6 +310,7 @@ export const FormContent = ({
                 error={!!errors?.amount}
                 helperText={errors?.amount ? errors.amount?.message : ''}
                 label={amountLabel}
+                defaultValue={defaultAmount}
                 {...(register ? register('amount') : { name: 'amount' })}
               />
               <TextField
@@ -303,58 +319,142 @@ export const FormContent = ({
                 error={!!errors?.expense}
                 helperText={errors?.expense ? errors.expense?.message : ''}
                 label={expenseLabel}
+                defaultValue={defaultExpense}
                 {...(register ? register('expense') : { name: 'expense' })}
               />
-              <TextField
-                select
-                fullWidth
-                error={!!errors?.selected}
-                helperText={errors?.selected ? errors.selected?.message : ''}
-                label={selectLabel}
-                {...(register ? register('selected') : { name: 'selected' })}
-              >
-                {selectList?.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                select
-                fullWidth
-                error={!!errors?.selectedTwo}
-                helperText={
-                  errors?.selectedTwo ? errors.selectedTwo?.message : ''
-                }
-                label={selectLabelTwo}
-                {...(register
-                  ? register('selectedTwo')
-                  : { name: 'selectedTwo' })}
-              >
-                {selectListTwo?.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                select
-                fullWidth
-                error={!!errors?.selectedThree}
-                helperText={
-                  errors?.selectedThree ? errors.selectedThree?.message : ''
-                }
-                label={selectLabelThree}
-                {...(register
-                  ? register('selectedThree')
-                  : { name: 'selectedThree' })}
-              >
-                {selectListThree?.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
+              {control ? (
+                <Controller
+                  name='selected'
+                  control={control}
+                  defaultValue={defaultCategory}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      select
+                      fullWidth
+                      error={!!errors?.selected}
+                      helperText={
+                        errors?.selected ? errors.selected?.message : ''
+                      }
+                      label={selectLabel}
+                    >
+                      {selectList?.map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  )}
+                />
+              ) : (
+                <TextField
+                  select
+                  fullWidth
+                  error={!!errors?.selected}
+                  helperText={errors?.selected ? errors.selected?.message : ''}
+                  label={selectLabel}
+                  defaultValue={defaultCategory}
+                  {...(register ? register('selected') : { name: 'selected' })}
+                >
+                  {selectList?.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+              {control ? (
+                <Controller
+                  name='selectedTwo'
+                  control={control}
+                  defaultValue={defaultPurpose}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      select
+                      fullWidth
+                      error={!!errors?.selectedTwo}
+                      helperText={
+                        errors?.selectedTwo ? errors.selectedTwo?.message : ''
+                      }
+                      label={selectLabelTwo}
+                    >
+                      {selectListTwo?.map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  )}
+                />
+              ) : (
+                <TextField
+                  select
+                  fullWidth
+                  error={!!errors?.selectedTwo}
+                  helperText={
+                    errors?.selectedTwo ? errors.selectedTwo?.message : ''
+                  }
+                  label={selectLabelTwo}
+                  defaultValue={defaultPurpose}
+                  {...(register
+                    ? register('selectedTwo')
+                    : { name: 'selectedTwo' })}
+                >
+                  {selectListTwo?.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+              {control ? (
+                <Controller
+                  name='selectedThree'
+                  control={control}
+                  defaultValue={defaultStatus}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      select
+                      fullWidth
+                      error={!!errors?.selectedThree}
+                      helperText={
+                        errors?.selectedThree
+                          ? errors.selectedThree?.message
+                          : ''
+                      }
+                      label={selectLabelThree}
+                    >
+                      {selectListThree?.map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  )}
+                />
+              ) : (
+                <TextField
+                  select
+                  fullWidth
+                  error={!!errors?.selectedThree}
+                  helperText={
+                    errors?.selectedThree ? errors.selectedThree?.message : ''
+                  }
+                  label={selectLabelThree}
+                  defaultValue={defaultStatus}
+                  {...(register
+                    ? register('selectedThree')
+                    : { name: 'selectedThree' })}
+                >
+                  {selectListThree?.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
             </>
           )}
 

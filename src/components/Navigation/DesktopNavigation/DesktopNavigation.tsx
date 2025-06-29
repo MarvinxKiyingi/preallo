@@ -117,13 +117,14 @@ const StyledProfileTab = styled(ProfileContainer)(({ theme }) => ({
 const StatusIndicator = styled(Button)(({ theme }) => ({
   ...theme.typography.overline,
   width: 'fit-content',
-  backgroundColor: theme.palette.error.main,
-  color: theme.palette.common.white,
+  backgroundColor: theme.palette.grey[200],
+  color: theme.palette.common.black,
   borderRadius: theme.spacing(2),
   padding: theme.spacing('5px', 1),
 
   '&:hover': {
     backgroundColor: theme.palette.error.main,
+    color: theme.palette.common.white,
   },
 }));
 
@@ -134,6 +135,11 @@ const SignOutIconWrapper = styled(SignOutButton)(({ theme }) => ({
   backgroundColor: theme.palette.grey[200],
   borderRadius: theme.spacing(),
   color: theme.palette.common.black,
+
+  '&:hover': {
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.common.white,
+  },
 }));
 
 const StyledToolTip = styled(({ className, ...props }: TooltipProps) => (

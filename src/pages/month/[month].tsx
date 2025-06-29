@@ -10,16 +10,26 @@ import { useMediaQuery } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { IAddExpenseForm, IModalForm } from '@/model/IModalForm';
-import { IAddExpenseModalFormYupSchema } from '@/model/IYupSchema';
+import {
+  IAddExpenseForm,
+  IModalForm,
+  IEditMonthForm,
+} from '@/model/IModalForm';
+import {
+  IAddExpenseModalFormYupSchema,
+  IEditExpenseModalFormYupSchema,
+} from '@/model/IYupSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { categoryList } from '@/model/ICategory';
 import { purposeList } from '@/model/IPurpose';
 import { statusList } from '@/model/IStatus';
-import { createOrUpdateExpense } from '@/utils/functions/createOrUpdateExpense';
+import {
+  createOrUpdateExpense,
+  updateExistingExpense,
+} from '@/utils/functions/createOrUpdateExpense';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import { IExpenses } from '@/model/IExpenses';
+import { IExpenses, IExpense } from '@/model/IExpenses';
 import { convertToTimestamp } from '@/utils/functions/convertToTimestamp';
 
 const Month = () => {
@@ -28,6 +38,8 @@ const Month = () => {
   const slug = router.query.month?.toString();
   const userId = session?.userId;
   const [open, setOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [selectedExpense, setSelectedExpense] = useState<IExpense | null>(null);
 
   // Fetch months data
   const [monthsSnapshot] = useDocument(doc(db, 'months', `${session?.userId}`));
@@ -65,6 +77,16 @@ const Month = () => {
     resolver: yupResolver(IAddExpenseModalFormYupSchema),
   });
 
+  const {
+    register: editRegister,
+    handleSubmit: editHandleSubmit,
+    formState: { errors: editErrors },
+    reset,
+    control: editControl,
+  } = useForm<IEditMonthForm>({
+    resolver: yupResolver(IEditExpenseModalFormYupSchema),
+  });
+
   const isDesktop = useMediaQuery(
     `${theme.breakpoints.up('md').replace('@media ', '')}`
   );
@@ -74,6 +96,26 @@ const Month = () => {
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleEditOpen = (expense: IExpense) => {
+    console.log('expense', expense);
+    setSelectedExpense(expense);
+    // Pre-fill the form with existing expense data
+    reset({
+      amount: expense.amount,
+      expense: expense.expense,
+      selected: expense.category,
+      selectedTwo: expense.purpose,
+      selectedThree: expense.status,
+      uuid: expense.uuid,
+    });
+    setEditOpen(true);
+  };
+
+  const handleEditClose = () => {
+    setEditOpen(false);
+    setSelectedExpense(null);
   };
 
   const submitFormContentHandler: SubmitHandler<IAddExpenseForm> = (
@@ -89,6 +131,22 @@ const Month = () => {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error submitting Expense data:', error);
+    }
+  };
+
+  const submitEditFormContentHandler: SubmitHandler<IEditMonthForm> = (
+    data: IEditMonthForm
+  ) => {
+    try {
+      if (data && userId && currentMonth) {
+        updateExistingExpense(data, userId);
+        handleEditClose();
+      } else {
+        return;
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error updating Expense data:', error);
     }
   };
 
@@ -109,9 +167,15 @@ const Month = () => {
           <Mobile
             session={session}
             open={open}
+            editOpen={editOpen}
+            selectedExpense={selectedExpense}
             handleOpen={handleOpen}
             handleClose={handleClose}
+            handleEditOpen={handleEditOpen}
+            handleEditClose={handleEditClose}
             register={register}
+            editRegister={editRegister}
+            editControl={editControl}
             categoryList={categoryList}
             purposeList={purposeList}
             statusList={statusList}
@@ -119,8 +183,11 @@ const Month = () => {
             expensesTotal={expensesTotal}
             daysUntilPayday={25}
             handleSubmit={handleSubmit}
+            editHandleSubmit={editHandleSubmit}
             submitFormContentHandler={submitFormContentHandler}
+            submitEditFormContentHandler={submitEditFormContentHandler}
             errors={errors}
+            editErrors={editErrors}
             month={currentMonth}
           />
         )}
@@ -129,9 +196,15 @@ const Month = () => {
           <Desktop
             session={session}
             open={open}
+            editOpen={editOpen}
+            selectedExpense={selectedExpense}
             handleOpen={handleOpen}
             handleClose={handleClose}
+            handleEditOpen={handleEditOpen}
+            handleEditClose={handleEditClose}
             register={register}
+            editRegister={editRegister}
+            editControl={editControl}
             categoryList={categoryList}
             purposeList={purposeList}
             statusList={statusList}
@@ -139,8 +212,11 @@ const Month = () => {
             expensesTotal={expensesTotal}
             daysUntilPayday={25}
             handleSubmit={handleSubmit}
+            editHandleSubmit={editHandleSubmit}
             submitFormContentHandler={submitFormContentHandler}
+            submitEditFormContentHandler={submitEditFormContentHandler}
             errors={errors}
+            editErrors={editErrors}
             month={currentMonth}
           />
         )}

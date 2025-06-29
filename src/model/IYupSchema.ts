@@ -53,6 +53,15 @@ export const IAddExpenseModalFormYupSchema = object().shape({
   selectedThree: string().required().typeError('Select a status to precede'),
 });
 
+export const IEditExpenseModalFormYupSchema = object().shape({
+  amount: number().required().typeError('Field is required & must be a number'),
+  expense: string().required().typeError('Field is required'),
+  selected: string().required().typeError('Select a category to precede'),
+  selectedTwo: string().required().typeError('Select a purpose to precede'),
+  selectedThree: string().required().typeError('Select a status to precede'),
+  uuid: string().required().typeError('UUID is required'),
+});
+
 export const IGoalSettingsYupSchema = object().shape({
   needPercentage: number().required('Select a percentageÇ to precede'),
   savePercentage: number().required('Select a percentageÇ to precede'),

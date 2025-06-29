@@ -7,6 +7,7 @@ import { calculatePercentage } from '@/utils/functions/calculatePercentage';
 import { grey } from '@/styles/colors/grey';
 import { CircularProgress } from '@/components/CircularProgress/CircularProgress';
 import AddExpense from './AddExpense';
+import EditExpense from './EditExpense';
 import ExpenseDisplay from './ExpenseDisplay';
 import { theme } from '@/styles/theme/muiTheme';
 import { calculateTotalAmountByPurpose } from '@/utils/functions/calculateTotalAmountByPurpose';
@@ -102,16 +103,25 @@ const Desktop = ({
   daysUntilPayday,
   expensesTotal,
   open,
+  editOpen,
   handleOpen,
   handleClose,
+  handleEditOpen,
+  handleEditClose,
   handleSubmit,
+  editHandleSubmit,
   register,
+  editRegister,
+  editControl,
   errors,
+  editErrors,
   submitFormContentHandler,
+  submitEditFormContentHandler,
   categoryList,
   purposeList,
   statusList,
   currentMonthExpenses,
+  selectedExpense,
 }: IMonthPage) => {
   const { monthName, salary, salaryAsString, slug, goal } = month;
   const daysLeft = useDaysLeft(daysUntilPayday);
@@ -187,7 +197,29 @@ const Desktop = ({
               statusList={statusList}
             />
 
-            <ExpenseDisplay currentMonthExpenses={currentMonthExpenses} />
+            <EditExpense
+              open={editOpen}
+              handleClose={handleEditClose}
+              handleSubmit={editHandleSubmit}
+              register={editRegister}
+              errors={editErrors}
+              submitFormContentHandler={submitEditFormContentHandler}
+              categoryList={categoryList}
+              purposeList={purposeList}
+              statusList={statusList}
+              expenseUuid={selectedExpense?.uuid || ''}
+              defaultAmount={selectedExpense?.amount}
+              defaultExpense={selectedExpense?.expense}
+              defaultCategory={selectedExpense?.category}
+              defaultPurpose={selectedExpense?.purpose}
+              defaultStatus={selectedExpense?.status}
+              control={editControl}
+            />
+
+            <ExpenseDisplay
+              currentMonthExpenses={currentMonthExpenses}
+              onExpenseClick={handleEditOpen}
+            />
           </RightContainer>
         </MonthDetailsContainer>
       </ContentContainer>

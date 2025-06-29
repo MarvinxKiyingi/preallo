@@ -5,6 +5,7 @@ import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNaviga
 import { BudgetDisplay } from '@/components/BudgetDisplay/BudgetDisplay';
 import { calculatePercentage } from '@/utils/functions/calculatePercentage';
 import AddExpense from './AddExpense';
+import EditExpense from './EditExpense';
 import ExpenseDisplay from './ExpenseDisplay';
 import { calculateTotalAmountByPurpose } from '@/utils/functions/calculateTotalAmountByPurpose';
 
@@ -35,18 +36,27 @@ const Mobile = ({
   session,
   month,
   open,
+  editOpen,
   handleOpen,
   handleClose,
+  handleEditOpen,
+  handleEditClose,
   handleSubmit,
+  editHandleSubmit,
   register,
+  editRegister,
+  editControl,
   errors,
+  editErrors,
   submitFormContentHandler,
+  submitEditFormContentHandler,
   categoryList,
   purposeList,
   statusList,
   expensesTotal,
   currentMonthExpenses,
   daysUntilPayday,
+  selectedExpense,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
   const { salary, salaryAsString, monthName, goal } = month;
@@ -105,7 +115,29 @@ const Mobile = ({
         statusList={statusList}
       />
 
-      <ExpenseDisplay currentMonthExpenses={currentMonthExpenses} />
+      <EditExpense
+        open={editOpen}
+        handleClose={handleEditClose}
+        handleSubmit={editHandleSubmit}
+        register={editRegister}
+        errors={editErrors}
+        submitFormContentHandler={submitEditFormContentHandler}
+        categoryList={categoryList}
+        purposeList={purposeList}
+        statusList={statusList}
+        expenseUuid={selectedExpense?.uuid || ''}
+        defaultAmount={selectedExpense?.amount}
+        defaultExpense={selectedExpense?.expense}
+        defaultCategory={selectedExpense?.category}
+        defaultPurpose={selectedExpense?.purpose}
+        defaultStatus={selectedExpense?.status}
+        control={editControl}
+      />
+
+      <ExpenseDisplay
+        currentMonthExpenses={currentMonthExpenses}
+        onExpenseClick={handleEditOpen}
+      />
     </MobileWrapper>
   );
 };

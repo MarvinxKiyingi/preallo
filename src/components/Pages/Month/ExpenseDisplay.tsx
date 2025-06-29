@@ -3,6 +3,7 @@ import { IExpenseDisplay } from '@/model/IExpenseDisplay';
 import { NoContentContainer } from '@/pages';
 import { Typography, styled } from '@mui/material';
 import React from 'react';
+import { IExpense } from '@/model/IExpenses';
 
 const StyledExpenseDisplay = styled('div')(({ theme }) => ({
   height: '100%',
@@ -53,7 +54,15 @@ const Scroll = styled('div')(({ theme }) => ({
   },
 }));
 
-const ExpenseDisplay = ({ currentMonthExpenses }: IExpenseDisplay) => {
+type ExpenseDisplayProps = IExpenseDisplay & {
+  // eslint-disable-next-line no-unused-vars
+  onExpenseClick?: (expense: IExpense) => void;
+};
+
+const ExpenseDisplay = ({
+  currentMonthExpenses,
+  onExpenseClick,
+}: ExpenseDisplayProps) => {
   return (
     <StyledExpenseDisplay>
       <Scroll>
@@ -69,6 +78,7 @@ const ExpenseDisplay = ({ currentMonthExpenses }: IExpenseDisplay) => {
               purpose={expense.purpose}
               status={expense.status}
               fullWidth
+              onClick={() => onExpenseClick?.(expense)}
             />
           ))
         ) : (
