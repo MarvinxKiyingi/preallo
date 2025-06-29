@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
 import { useMediaQuery } from '@mui/material';
 import { theme } from '../../../styles/theme/muiTheme';
 import Mobile from '../../../components/Pages/Settings/Recurring/Mobile';
@@ -18,6 +17,8 @@ import { convertToTimestamp } from '@/utils/functions/convertToTimestamp';
 import { doc } from 'firebase/firestore';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { createOrUpdateRecurring } from '@/utils/functions/createOrUpdateRecurring';
+import { SEO } from '../../../components/SEO';
+
 const Recurring = () => {
   const { data: session } = useSession();
   const userId = session?.userId;
@@ -79,9 +80,12 @@ const Recurring = () => {
   console.log('expensesTotal', recurringExpensesTotal);
   return (
     <>
-      <Head>
-        <title>Recurring</title>
-      </Head>
+      <SEO
+        title='Recurring Expenses - Preallo'
+        description='Manage your recurring expenses and monthly subscriptions with Preallo. Track regular payments and maintain control over your ongoing financial commitments.'
+        canonical='/settings/recurring'
+        noIndex={true}
+      />
 
       {!isDesktop && (
         <Mobile

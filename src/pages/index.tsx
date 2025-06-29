@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import { useMediaQuery } from '@mui/material';
 import { theme } from '../styles/theme/muiTheme';
 import { styled } from '@mui/material';
@@ -20,6 +19,7 @@ import Desktop from '../components/Pages/Dashboard/Desktop';
 import { useSession } from 'next-auth/react';
 import { createOrUpdateMonth } from '../utils/functions/createOrUpdateMonth';
 import { IGoal } from '@/model/IGoal';
+import { SEO } from '../components/SEO';
 
 export const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -109,9 +109,11 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Dashboard</title>
-      </Head>
+      <SEO
+        title='Dashboard - Preallo'
+        description="Manage your personal finances with Preallo's intuitive dashboard. Track expenses, set budgets, and achieve your financial goals with real-time insights."
+        canonical='/'
+      />
 
       <AppContainer>
         {!isDesktop && session && (

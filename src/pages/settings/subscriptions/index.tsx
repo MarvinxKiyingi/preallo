@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
 import { useMediaQuery } from '@mui/material';
 import { theme } from '../../../styles/theme/muiTheme';
 import Mobile from '../../../components/Pages/Settings/Subscriptions/Mobile';
@@ -18,6 +17,8 @@ import { db } from '@/utils/firebase/clientApp';
 import { convertToTimestamp } from '@/utils/functions/convertToTimestamp';
 import { doc } from 'firebase/firestore';
 import { useDocument } from 'react-firebase-hooks/firestore';
+import { SEO } from '../../../components/SEO';
+
 const Subscriptions = () => {
   const { data: session } = useSession();
   const userId = session?.userId;
@@ -79,9 +80,12 @@ const Subscriptions = () => {
   console.log('expensesTotal', expensesTotal);
   return (
     <>
-      <Head>
-        <title>Subscriptions</title>
-      </Head>
+      <SEO
+        title='Subscriptions - Preallo'
+        description='Track and manage your monthly subscriptions with Preallo. Monitor recurring payments, categorize expenses, and optimize your subscription spending.'
+        canonical='/settings/subscriptions'
+        noIndex={true}
+      />
 
       {!isDesktop && (
         <Mobile
