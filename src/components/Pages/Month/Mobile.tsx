@@ -2,10 +2,10 @@ import { styled } from '@mui/material';
 import { IMonthPage } from '../../../model/IMonthPage';
 import MobileWrapper from '../../Container/MobileWrapper';
 import { MobileNavigation } from '../../Navigation/MobileNavigation/MobileNavigation';
-import { TabBar } from '@/components/TabBar/TabBar';
 import { BudgetDisplay } from '@/components/BudgetDisplay/BudgetDisplay';
 import { calculatePercentage } from '@/utils/functions/calculatePercentage';
 import AddExpense from './AddExpense';
+import EditExpense from './EditExpense';
 import ExpenseDisplay from './ExpenseDisplay';
 import { calculateTotalAmountByPurpose } from '@/utils/functions/calculateTotalAmountByPurpose';
 
@@ -36,17 +36,30 @@ const Mobile = ({
   session,
   month,
   open,
+  editOpen,
   handleOpen,
   handleClose,
+  handleEditOpen,
+  handleEditClose,
   handleSubmit,
+  editHandleSubmit,
   register,
+  editRegister,
+  editControl,
   errors,
+  editErrors,
   submitFormContentHandler,
+  submitEditFormContentHandler,
   categoryList,
   purposeList,
+  statusList,
   expensesTotal,
   currentMonthExpenses,
   daysUntilPayday,
+  selectedExpense,
+  onChipClick,
+  activeFilter,
+  statusFilters,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
   const { salary, salaryAsString, monthName, goal } = month;
@@ -54,12 +67,6 @@ const Mobile = ({
     expensesTotal,
     salary
   );
-
-  const tabBarList = [
-    { id: 'month', label: 'month', value: 'month' },
-    { id: 'subscriptions', label: 'subscriptions', value: 'subscriptions' },
-    { id: 'recurring', label: 'recurring', value: 'recurring' },
-  ];
 
   const { needPercentage, wantPercentage, savePercentage } = goal;
 
@@ -78,8 +85,6 @@ const Mobile = ({
           src={imgUrl ? imgUrl : undefined}
           isDarkBg
         />
-
-        <TabBar tabList={tabBarList} isDarkBg />
 
         <BudgetOverview>
           <BudgetDisplay
@@ -110,9 +115,35 @@ const Mobile = ({
         submitFormContentHandler={submitFormContentHandler}
         categoryList={categoryList}
         purposeList={purposeList}
+        statusList={statusList}
+        onChipClick={onChipClick}
+        activeFilter={activeFilter}
+        statusFilters={statusFilters}
       />
 
-      <ExpenseDisplay currentMonthExpenses={currentMonthExpenses} />
+      <EditExpense
+        open={editOpen}
+        handleClose={handleEditClose}
+        handleSubmit={editHandleSubmit}
+        register={editRegister}
+        errors={editErrors}
+        submitFormContentHandler={submitEditFormContentHandler}
+        categoryList={categoryList}
+        purposeList={purposeList}
+        statusList={statusList}
+        expenseUuid={selectedExpense?.uuid || ''}
+        defaultAmount={selectedExpense?.amount}
+        defaultExpense={selectedExpense?.expense}
+        defaultCategory={selectedExpense?.category}
+        defaultPurpose={selectedExpense?.purpose}
+        defaultStatus={selectedExpense?.status}
+        control={editControl}
+      />
+
+      <ExpenseDisplay
+        currentMonthExpenses={currentMonthExpenses}
+        onExpenseClick={handleEditOpen}
+      />
     </MobileWrapper>
   );
 };

@@ -54,6 +54,7 @@ const ResetPassword = () => {
   const formSubmitHandler: SubmitHandler<IPasswordReset> = (
     data: IPasswordReset
   ) => {
+    // eslint-disable-next-line no-console
     console.log('data:', data);
     passwordReset(data);
   };

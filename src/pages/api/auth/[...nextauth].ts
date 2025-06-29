@@ -31,12 +31,17 @@ export const authOptions: AuthOptions = {
   events: {
     signIn: async ({ user, isNewUser: newUser }) => {
       const userId = user?.id;
+      // eslint-disable-next-line no-unused-vars
       const isNewUser = newUser ? true : false;
 
       if (userId) {
         // Always try to create or update user-specific documents at sign-in
-        await createOrUpdateYears(userId, currentYear());
-        await createOrUpdateGoal(userId);
+        await createOrUpdateYears(userId, currentYear(), isNewYear);
+        if (isNewUser) {
+          await createOrUpdateGoal(userId, 50, 30, 20);
+        } else {
+          await createOrUpdateGoal(userId);
+        }
 
         if (isNewYear) {
           await createOrUpdateYears(userId, currentYear(), isNewYear);
@@ -52,7 +57,6 @@ export const authOptions: AuthOptions = {
 
       // Ensure document creation on session initialization (e.g., on reload or returning user)
       await createOrUpdateYears(userId, currentYear());
-      await createOrUpdateGoal(userId);
 
       if (isNewYear) {
         await createOrUpdateYears(userId, currentYear(), isNewYear);

@@ -94,12 +94,16 @@ const Home: NextPage = () => {
   const submitFormContentHandler: SubmitHandler<IAddMonthForm> = (
     data: IAddMonthForm
   ) => {
-    if (data && userId) {
+    try {
+      if (!data || !userId) {
+        return;
+      }
+
       createOrUpdateMonth(data, userId);
       handleClose();
-    }
-    if (!data && !userId) {
-      throw new Error('Something went wrong, when submitting user data to db');
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error submitting Month data:', error);
     }
   };
 

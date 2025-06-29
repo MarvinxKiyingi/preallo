@@ -35,6 +35,7 @@ export const AuthContextProvider = ({ children }: IChildren) => {
         });
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log('error:', {
           errorMessage: error.message,
           errorCode: error.code,
@@ -45,8 +46,9 @@ export const AuthContextProvider = ({ children }: IChildren) => {
   // Signin in a user to firebase
   const signInUser = (props: ISignIn) => {
     signInWithEmailAndPassword(auth, props.email, props.password)
-      .then(async (data) => {})
+      .then(async () => {})
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log('error:', {
           errorMessage: error.message,
           errorCode: error.code,
@@ -57,8 +59,9 @@ export const AuthContextProvider = ({ children }: IChildren) => {
   // Reset password with firebase
   const passwordReset = (props: IPasswordReset) => {
     sendPasswordResetEmail(auth, props.email)
-      .then((data) => {})
+      .then(() => {})
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log('error:', {
           errorMessage: error.message,
           errorCode: error.code,
@@ -69,8 +72,9 @@ export const AuthContextProvider = ({ children }: IChildren) => {
   // Google sign in
   const googleSignIn = () => {
     signInWithPopup(auth, googleProvider)
-      .then((data) => {})
+      .then(() => {})
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log('error:', {
           errorMessage: error.message,
           errorCode: error.code,

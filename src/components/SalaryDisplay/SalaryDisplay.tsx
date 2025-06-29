@@ -1,7 +1,5 @@
 import { Box, styled, Typography } from '@mui/material';
 import { grey } from '../../styles/colors/grey';
-import { theme } from '../../styles/theme/muiTheme';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import CurrencyFormat from 'react-currency-format';
 
 export type ISalaryDisplayProps = {
@@ -52,7 +50,7 @@ export const SalaryDisplay = ({
   invert = false,
   ...props
 }: ISalaryDisplayProps) => {
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  // const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const ownerState = {
     title,
     amount,

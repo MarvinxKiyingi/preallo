@@ -57,7 +57,7 @@ const Mobile = ({
         <AddRow
           addIsVisible
           version='secondary'
-          title='Add'
+          title='Expense'
           onClick={() => handleOpen()}
         />
       </AddRowContainer>

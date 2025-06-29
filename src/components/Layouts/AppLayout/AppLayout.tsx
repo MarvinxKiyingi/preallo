@@ -13,7 +13,7 @@ const AppLayout = () => {
     <AppContainer>
       {!isDesktop && (
         <>
-          <MobileNavigation />
+          <MobileNavigation hideProfile />
         </>
       )}
 

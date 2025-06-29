@@ -3,14 +3,15 @@ import { IMonthPage } from '../../../model/IMonthPage';
 import ContentContainer from '../../Container/ContentContainer';
 import DesktopNavigation from '../../Navigation/DesktopNavigation/DesktopNavigation';
 import { useDaysLeft } from '@/utils/functions/daysLeft';
-import CurrencyFormat from 'react-currency-format';
 import { calculatePercentage } from '@/utils/functions/calculatePercentage';
 import { grey } from '@/styles/colors/grey';
 import { CircularProgress } from '@/components/CircularProgress/CircularProgress';
 import AddExpense from './AddExpense';
+import EditExpense from './EditExpense';
 import ExpenseDisplay from './ExpenseDisplay';
 import { theme } from '@/styles/theme/muiTheme';
 import { calculateTotalAmountByPurpose } from '@/utils/functions/calculateTotalAmountByPurpose';
+import { TotalDisplay } from '@/components/TotalDisplay/TotalDisplay';
 
 const MonthDetailsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -102,22 +103,32 @@ const Desktop = ({
   daysUntilPayday,
   expensesTotal,
   open,
+  editOpen,
   handleOpen,
   handleClose,
+  handleEditOpen,
+  handleEditClose,
   handleSubmit,
+  editHandleSubmit,
   register,
+  editRegister,
+  editControl,
   errors,
+  editErrors,
   submitFormContentHandler,
+  submitEditFormContentHandler,
   categoryList,
   purposeList,
+  statusList,
   currentMonthExpenses,
+  selectedExpense,
+  onChipClick,
+  activeFilter,
+  statusFilters,
 }: IMonthPage) => {
   const { monthName, salary, salaryAsString, slug, goal } = month;
   const daysLeft = useDaysLeft(daysUntilPayday);
-  const { differenceAsString, percentage } = calculatePercentage(
-    expensesTotal,
-    salary
-  );
+  const { difference, percentage } = calculatePercentage(expensesTotal, salary);
   const { needPercentage, wantPercentage, savePercentage } = goal;
   const lgBreakpoint = useMediaQuery(
     `${theme.breakpoints.up('lg').replace('@media ', '')}`
@@ -149,18 +160,7 @@ const Desktop = ({
                   {`Left to spend, for the next ${daysLeft} days`}
                 </Typography>
               )}
-              <CurrencyFormat
-                value={differenceAsString}
-                displayType={'text'}
-                thousandSeparator={' '}
-                decimalSeparator={','}
-                thousandSpacing={'3'}
-                renderText={(value) => (
-                  <Typography className='budget' variant='h3'>
-                    {value}
-                  </Typography>
-                )}
-              />
+              <TotalDisplay total={difference} />
             </div>
 
             <div className='salaryContainer'>
@@ -194,9 +194,35 @@ const Desktop = ({
               submitFormContentHandler={submitFormContentHandler}
               categoryList={categoryList}
               purposeList={purposeList}
+              statusList={statusList}
+              onChipClick={onChipClick}
+              activeFilter={activeFilter}
+              statusFilters={statusFilters}
             />
 
-            <ExpenseDisplay currentMonthExpenses={currentMonthExpenses} />
+            <EditExpense
+              open={editOpen}
+              handleClose={handleEditClose}
+              handleSubmit={editHandleSubmit}
+              register={editRegister}
+              errors={editErrors}
+              submitFormContentHandler={submitEditFormContentHandler}
+              categoryList={categoryList}
+              purposeList={purposeList}
+              statusList={statusList}
+              expenseUuid={selectedExpense?.uuid || ''}
+              defaultAmount={selectedExpense?.amount}
+              defaultExpense={selectedExpense?.expense}
+              defaultCategory={selectedExpense?.category}
+              defaultPurpose={selectedExpense?.purpose}
+              defaultStatus={selectedExpense?.status}
+              control={editControl}
+            />
+
+            <ExpenseDisplay
+              currentMonthExpenses={currentMonthExpenses}
+              onExpenseClick={handleEditOpen}
+            />
           </RightContainer>
         </MonthDetailsContainer>
       </ContentContainer>

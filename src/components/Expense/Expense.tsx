@@ -1,12 +1,12 @@
-import { Stack, styled, Typography, useMediaQuery } from '@mui/material';
+import { styled, Theme, useMediaQuery } from '@mui/material';
 import { grey } from '../../styles/colors/grey';
 import { Button } from '../Button/Button';
 import { theme } from '../../styles/theme/muiTheme';
 import { ICategory } from '../../model/ICategory';
 import ExpenseContent from './ExpenseContent';
-import CurrencyFormat from 'react-currency-format';
-import { PurposePill } from '../PurposePill/PurposePill';
-import { IPurpose } from '@/model/IPurpose';
+import { IPurpose } from '../../model/IPurpose';
+import { IStatus } from '../../model/IStatus';
+import ExpenseDetail from './ExpenseDetail';
 
 export type IExpenseProps = {
   bgColor?: string;
@@ -28,15 +28,21 @@ export type IExpenseProps = {
   version?: 'default' | 'detail';
   category: ICategory;
   purpose: IPurpose;
+  status: IStatus;
+  onClick?: () => void;
 };
 
-const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
-  ({ theme, ownerState }) => ({
+const getExpenseStyles = ({
+  theme,
+  ownerState,
+}: {
+  theme: Theme;
+  ownerState: IExpenseProps;
+}) =>
+  ({
     textTransform: 'unset',
     alignSelf: 'baseline',
-    backgroundColor: ownerState.bgColor
-      ? ownerState.bgColor
-      : theme.palette.background.paper,
+    backgroundColor: ownerState.bgColor || theme.palette.background.paper,
     boxShadow: ownerState.stripped
       ? 'unset'
       : '0px 0px 4px rgba(0, 0, 0, 0.15)',
@@ -58,6 +64,10 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
       alignItems: 'center',
       justifyContent: 'space-between',
 
+      '>*': {
+        flex: 1,
+      },
+
       '.expense': {
         color: ownerState.invert
           ? theme.palette.common.white
@@ -71,15 +81,32 @@ const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
         color: ownerState.invert ? grey.light[500] : grey.dark[500],
       },
 
-      '.price': {
+      '.price-default': {
         fontWeight: 600,
         color: theme.palette.common.black,
         textTransform: 'uppercase',
         fontSize: theme.spacing(2),
       },
+
+      '.price-detail': {
+        fontWeight: 500,
+        color: theme.palette.common.black,
+        textTransform: 'uppercase',
+        fontSize: theme.typography.body2.fontSize,
+      },
     },
-  })
+  } as const);
+
+const StyledExpense = styled(Button)<{ ownerState: IExpenseProps }>(
+  (props) => ({ ...getExpenseStyles(props) })
 );
+
+const StyledDetails = styled('div')<{ ownerState: IExpenseProps }>((props) => ({
+  ...getExpenseStyles(props),
+  '&:active': {
+    backgroundColor: 'unset',
+  },
+}));
 
 export const Expense = ({
   bgColor,
@@ -96,6 +123,8 @@ export const Expense = ({
   category,
   iconContainerBgColor,
   purpose = 'Need',
+  status = 'Pending',
+  onClick,
   ...props
 }: IExpenseProps) => {
   const isDesktop = useMediaQuery(
@@ -116,53 +145,41 @@ export const Expense = ({
     version,
     category,
     purpose,
+    status,
+    onClick,
     ...props,
   };
 
+  const WrapperComponent =
+    version === 'detail' && isDesktop ? StyledDetails : StyledExpense;
+
   return (
-    <StyledExpense
+    <WrapperComponent
       className='expenseButtonContainer'
       ownerState={ownerState}
+      onClick={onClick}
       {...props}
     >
       <div className='textContainer'>
         {version === 'default' && (
-          <Stack direction='row' gap={theme.spacing()}>
-            <Stack direction={'column'}>
-              <ExpenseContent title={title} date={date} />
-            </Stack>
-            <Stack justifyContent={'end'}>
-              <PurposePill
-                className={purpose.toString().toLocaleLowerCase()}
-                text={purpose}
-              />
-            </Stack>
-          </Stack>
+          <ExpenseContent
+            title={title}
+            date={date}
+            status={status}
+            amountAsString={amountAsString}
+          />
         )}
 
         {version === 'detail' && (
-          <>
-            <ExpenseContent title={title} date={date} category={category} />
-          </>
-        )}
-
-        {amountAsString && (
-          <Stack direction='row' spacing={1 / 2} alignItems='center'>
-            <CurrencyFormat
-              value={amountAsString}
-              displayType={'text'}
-              thousandSeparator={' '}
-              decimalSeparator={','}
-              thousandSpacing={'3'}
-              renderText={(value) => (
-                <Typography className='price' variant='h6' align='right'>
-                  {`- ${value}`}
-                </Typography>
-              )}
-            />
-          </Stack>
+          <ExpenseDetail
+            title={title}
+            date={date}
+            status={status}
+            category={category}
+            amountAsString={amountAsString}
+          />
         )}
       </div>
-    </StyledExpense>
+    </WrapperComponent>
   );
 };

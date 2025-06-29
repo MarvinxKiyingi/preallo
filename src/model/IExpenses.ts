@@ -1,6 +1,7 @@
 import { ICategory } from './ICategory';
 import { IMonth } from './IMonth';
 import { IPurpose } from './IPurpose';
+import { IStatus } from './IStatus';
 
 export type IExpense = {
   amount: number;
@@ -11,5 +12,6 @@ export type IExpense = {
   monthDetails: IMonth;
   uuid: string;
   createdAt: string;
+  status: IStatus;
 };
 export type IExpenses = Array<IExpense>;
