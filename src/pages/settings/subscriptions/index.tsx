@@ -59,6 +59,9 @@ const Subscriptions = () => {
     formState: { errors },
   } = useForm<IModalForm>({
     resolver: yupResolver(IAddExpenseModalFormYupSchema),
+    defaultValues: {
+      selectedThree: 'Pending',
+    },
   });
 
   const {
