@@ -20,7 +20,15 @@ export type IAddExpense = Pick<
   | 'categoryList'
   | 'purposeList'
   | 'statusList'
->;
+> & {
+  /** Callback function when a chip is clicked for filtering */
+  // eslint-disable-next-line no-unused-vars
+  onChipClick?: (chipId: string) => void;
+  /** Current active filter */
+  activeFilter?: string;
+  /** List of available status filters */
+  statusFilters?: Array<{ id: string; label: string; activated: boolean }>;
+};
 
 export type IEditExpense = {
   open: boolean;

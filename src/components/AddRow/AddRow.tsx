@@ -33,6 +33,9 @@ export type IAddRowProps = IPickIconButton & {
   addIsVisible?: boolean;
   /** if true, the filter bar will not be visible*/
   filterIsVisible?: boolean;
+  /** Callback function when a chip is clicked */
+  // eslint-disable-next-line no-unused-vars
+  onChipClick?: (chipId: string) => void;
 };
 
 export const StyledAddRowContainer = styled(Box)(({ theme }) => ({
@@ -88,6 +91,7 @@ export const AddRow = ({
   filterIsVisible = false,
   version = 'primary',
   onClick,
+  onChipClick,
   ...props
 }: IAddRowProps & IChipProps & IPickIconButton) => {
   return (
@@ -117,6 +121,7 @@ export const AddRow = ({
                   color={chip.activated ? 'default' : 'default'}
                   clickable={!chip.activated ? true : false}
                   label={chip.label}
+                  onClick={() => onChipClick?.(chip.id || '')}
                   {...props}
                 />
               ))}

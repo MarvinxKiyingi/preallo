@@ -24,23 +24,35 @@ const AddExpense = ({
   categoryList,
   purposeList,
   statusList,
+  onChipClick,
+  activeFilter,
+  statusFilters,
 }: IAddExpense) => {
+  // Create chips list with status filters
+  const chipsList = [
+    {
+      activated: activeFilter === 'all',
+      id: 'all',
+      label: 'All',
+    },
+    ...(statusFilters || []).map((filter) => ({
+      activated: activeFilter === filter.id,
+      id: filter.id,
+      label: filter.label,
+    })),
+  ];
+
   return (
     <div>
       <StyledAddExpense>
         <AddRow
           title='Expense'
           version='secondary'
-          chipsList={[
-            {
-              activated: true,
-              id: 'all',
-              label: 'All',
-            },
-          ]}
+          chipsList={chipsList}
           addIsVisible
           filterIsVisible
           onClick={() => handleOpen()}
+          onChipClick={onChipClick}
         />
       </StyledAddExpense>
 

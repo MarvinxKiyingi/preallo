@@ -57,6 +57,9 @@ const Mobile = ({
   currentMonthExpenses,
   daysUntilPayday,
   selectedExpense,
+  onChipClick,
+  activeFilter,
+  statusFilters,
 }: IMonthPage) => {
   const imgUrl = session?.user?.image;
   const { salary, salaryAsString, monthName, goal } = month;
@@ -113,6 +116,9 @@ const Mobile = ({
         categoryList={categoryList}
         purposeList={purposeList}
         statusList={statusList}
+        onChipClick={onChipClick}
+        activeFilter={activeFilter}
+        statusFilters={statusFilters}
       />
 
       <EditExpense

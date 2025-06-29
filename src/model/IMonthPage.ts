@@ -32,4 +32,11 @@ export type IMonthPage = IMonthlyExpenseFormContent & {
   expensesTotal: number;
   month: IMonth;
   daysUntilPayday: number;
+  /** Callback function when a chip is clicked for filtering */
+  // eslint-disable-next-line no-unused-vars
+  onChipClick?: (chipId: string) => void;
+  /** Current active filter */
+  activeFilter?: string;
+  /** List of available status filters */
+  statusFilters?: Array<{ id: string; label: string; activated: boolean }>;
 };

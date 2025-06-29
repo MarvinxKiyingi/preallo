@@ -9,7 +9,7 @@ import { theme } from '../../styles/theme/muiTheme';
 import { useMediaQuery } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   IAddExpenseForm,
   IModalForm,
@@ -40,6 +40,7 @@ const Month = () => {
   const [open, setOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [selectedExpense, setSelectedExpense] = useState<IExpense | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string>('all');
 
   // Fetch months data
   const [monthsSnapshot] = useDocument(doc(db, 'months', `${session?.userId}`));
@@ -63,6 +64,25 @@ const Month = () => {
         // Sort expenses by createdAt in descending order
         convertToTimestamp(b.createdAt) - convertToTimestamp(a.createdAt)
     );
+
+  // Filter expenses based on active filter
+  const filteredExpenses = useMemo(() => {
+    if (activeFilter === 'all') {
+      return currentMonthExpenses;
+    }
+    return currentMonthExpenses.filter(
+      (expense) => expense.status === activeFilter
+    );
+  }, [currentMonthExpenses, activeFilter]);
+
+  // Generate status filters
+  const statusFilters = useMemo(() => {
+    return statusList.map((status) => ({
+      id: status,
+      label: status,
+      activated: activeFilter === status,
+    }));
+  }, [activeFilter]);
 
   const expensesTotal = currentMonthExpenses.reduce(
     (total, { amount }) => total + amount,
@@ -116,6 +136,10 @@ const Month = () => {
   const handleEditClose = () => {
     setEditOpen(false);
     setSelectedExpense(null);
+  };
+
+  const handleChipClick = (chipId: string) => {
+    setActiveFilter(chipId);
   };
 
   const submitFormContentHandler: SubmitHandler<IAddExpenseForm> = (
@@ -179,7 +203,7 @@ const Month = () => {
             categoryList={categoryList}
             purposeList={purposeList}
             statusList={statusList}
-            currentMonthExpenses={currentMonthExpenses}
+            currentMonthExpenses={filteredExpenses}
             expensesTotal={expensesTotal}
             daysUntilPayday={25}
             handleSubmit={handleSubmit}
@@ -189,6 +213,9 @@ const Month = () => {
             errors={errors}
             editErrors={editErrors}
             month={currentMonth}
+            onChipClick={handleChipClick}
+            activeFilter={activeFilter}
+            statusFilters={statusFilters}
           />
         )}
 
@@ -208,7 +235,7 @@ const Month = () => {
             categoryList={categoryList}
             purposeList={purposeList}
             statusList={statusList}
-            currentMonthExpenses={currentMonthExpenses}
+            currentMonthExpenses={filteredExpenses}
             expensesTotal={expensesTotal}
             daysUntilPayday={25}
             handleSubmit={handleSubmit}
@@ -218,6 +245,9 @@ const Month = () => {
             errors={errors}
             editErrors={editErrors}
             month={currentMonth}
+            onChipClick={handleChipClick}
+            activeFilter={activeFilter}
+            statusFilters={statusFilters}
           />
         )}
       </AppContainer>

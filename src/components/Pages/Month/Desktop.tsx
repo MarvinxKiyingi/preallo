@@ -122,13 +122,13 @@ const Desktop = ({
   statusList,
   currentMonthExpenses,
   selectedExpense,
+  onChipClick,
+  activeFilter,
+  statusFilters,
 }: IMonthPage) => {
   const { monthName, salary, salaryAsString, slug, goal } = month;
   const daysLeft = useDaysLeft(daysUntilPayday);
-  const { differenceAsString, difference, percentage } = calculatePercentage(
-    expensesTotal,
-    salary
-  );
+  const { difference, percentage } = calculatePercentage(expensesTotal, salary);
   const { needPercentage, wantPercentage, savePercentage } = goal;
   const lgBreakpoint = useMediaQuery(
     `${theme.breakpoints.up('lg').replace('@media ', '')}`
@@ -195,6 +195,9 @@ const Desktop = ({
               categoryList={categoryList}
               purposeList={purposeList}
               statusList={statusList}
+              onChipClick={onChipClick}
+              activeFilter={activeFilter}
+              statusFilters={statusFilters}
             />
 
             <EditExpense
