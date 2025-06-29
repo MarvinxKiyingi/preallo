@@ -1,28 +1,35 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase/clientApp';
 
 export const createOrUpdateGoal = async (
   userId: string,
-  needPercentage: number = 50,
-  wantPercentage: number = 30,
-  savePercentage: number = 20
+  needPercentage?: number,
+  wantPercentage?: number,
+  savePercentage?: number
 ) => {
   const goalRef = doc(db, 'goal', userId);
+  const goalSnap = await getDoc(goalRef);
+
+  const defaultGoal = {
+    needPercentage: 50,
+    wantPercentage: 30,
+    savePercentage: 20,
+  };
 
   try {
-    const goalSnap = await getDoc(goalRef);
-
-    // Always create the document if it doesn't exist
-    if (!goalSnap.exists()) {
-      await setDoc(goalRef, {
+    if (goalSnap.exists()) {
+      await updateDoc(goalRef, {
         needPercentage,
         wantPercentage,
         savePercentage,
       });
     } else {
-      // Optionally: handle an update if needed (this part could be extended)
+      return await setDoc(goalRef, {
+        ...defaultGoal,
+      });
     }
   } catch (error) {
-    console.error('Error creating/updating goal:', error);
+    // eslint-disable-next-line no-console
+    console.error('Error submitting goal data:', error);
   }
 };

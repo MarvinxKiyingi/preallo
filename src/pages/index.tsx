@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import { useMediaQuery } from '@mui/material';
 import { theme } from '../styles/theme/muiTheme';
 import { styled } from '@mui/material';
@@ -20,6 +19,7 @@ import Desktop from '../components/Pages/Dashboard/Desktop';
 import { useSession } from 'next-auth/react';
 import { createOrUpdateMonth } from '../utils/functions/createOrUpdateMonth';
 import { IGoal } from '@/model/IGoal';
+import { SEO } from '../components/SEO';
 
 export const StyledSelect = styled(Select)(({ theme }) => ({
   minHeight: 44,
@@ -94,20 +94,26 @@ const Home: NextPage = () => {
   const submitFormContentHandler: SubmitHandler<IAddMonthForm> = (
     data: IAddMonthForm
   ) => {
-    if (data && userId) {
+    try {
+      if (!data || !userId) {
+        return;
+      }
+
       createOrUpdateMonth(data, userId);
       handleClose();
-    }
-    if (!data && !userId) {
-      throw new Error('Something went wrong, when submitting user data to db');
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error submitting Month data:', error);
     }
   };
 
   return (
     <>
-      <Head>
-        <title>Dashboard</title>
-      </Head>
+      <SEO
+        title='Dashboard - Preallo'
+        description="Manage your personal finances with Preallo's intuitive dashboard. Track expenses, set budgets, and achieve your financial goals with real-time insights."
+        canonical='/'
+      />
 
       <AppContainer>
         {!isDesktop && session && (

@@ -88,7 +88,7 @@ const Desktop = ({
             <AddRow
               addIsVisible
               version='secondary'
-              title='Add'
+              title='Expense'
               onClick={handleOpen}
             />
             {months?.length > 0 ? (

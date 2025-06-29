@@ -9,8 +9,8 @@ import { ISignIn } from '../../../model/ISignIn';
 import { ISignInYupSchema } from '../../../model/IYupSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../../../utils/context/AuthContext';
-import Head from 'next/head';
 import { signIn } from 'next-auth/react';
+import { SEO } from '../../../components/SEO';
 
 export const Title = styled(Typography)(({ theme }) => ({
   ...theme.typography.h3,
@@ -80,10 +80,11 @@ const SignIn = () => {
 
   return (
     <>
-      <Head>
-        <title>Sign in</title>
-        <meta name='description' content={description} />
-      </Head>
+      <SEO
+        title='Sign In to Preallo - Personal Finance Dashboard'
+        description='Sign in to Preallo and start managing your personal finances. Access your dashboard, track expenses, and achieve your financial goals with our intuitive platform.'
+        canonical='/auth/signin'
+      />
       <AuthLayout>
         <form onSubmit={handleSubmit(formSubmitHandler)}>
           <Stack spacing={1} direction='column' mb={6}>
@@ -132,7 +133,7 @@ const SignIn = () => {
 
             {/* <Stack spacing={1}>
               <Typography>
-                Don’t have an account?{' '}
+                Don't have an account?{' '}
                 <SignUpLink href={'/auth/signup'}>Sign Up</SignUpLink>
               </Typography>
 

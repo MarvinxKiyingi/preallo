@@ -1,11 +1,26 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { Tab, Tabs, styled, TabProps } from '@mui/material';
+import {
+  Tab,
+  Tabs,
+  styled,
+  TabProps,
+  Box,
+  Stack,
+  Tooltip,
+  TooltipProps,
+  tooltipClasses,
+} from '@mui/material';
 import { Logo } from '../../Logo/Logo';
-import { DashboardIcon, RepeatIcon, SubscriptionsIcon } from '../../Icons';
+import { DashboardIcon, SettingsIcon } from '../../Icons';
 import Link from 'next/link';
 import { Avatar } from '../../Avatar/Avatar';
 import ContentContainer from '../../Container/ContentContainer';
 import { useSession } from 'next-auth/react';
+import { useDashboardLabel } from '../../../utils/functions/useDashboardLabel';
+import { SignOutButton } from '../../../components/SignOutButton/SignOutButton';
+import { Button } from '../../../components/Button/Button';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { signOut } from 'next-auth/react';
 
 type IStyledTab = TabProps & {
   href?: string;
@@ -13,20 +28,22 @@ type IStyledTab = TabProps & {
 
 type IDesktopNavigation = {
   disableHighlight?: string;
-  monthName?: string;
-  monthSlug?: string;
+  highlightedValue?: string;
+  slug?: string;
 };
 
 const NavContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
-  justifyContent: 'space-between',
 });
 
 const StyledTabs = styled(Tabs)(({ theme }) => ({
+  height: '100%',
+
   '& .MuiTabs-flexContainer': {
     gap: theme.spacing(2),
+    height: '100%',
   },
   '& .MuiTabs-indicator': {
     display: 'none',
@@ -51,27 +68,104 @@ const StyledTab = styled(Tab)<IStyledTab>(({ theme }) => ({
   fontStyle: 'normal',
   textTransform: 'capitalize',
   color: theme.palette.common.black,
+  whiteSpace: 'nowrap',
+  width: '100%',
+  maxWidth: '100%',
+  '& .MuiSvgIcon-root': {
+    marginRight: 'unset',
+  },
 }));
 
-const ProfileContainer = styled(Link)(({ theme }) => ({
+const ProfileContainer = styled('div')(({ theme }) => ({
   ...theme.typography.subtitle1,
   display: 'flex',
   alignItems: 'center',
+  padding: theme.spacing(2),
   gap: theme.spacing(2),
-  textDecoration: 'none',
   fontWeight: 600,
   lineHeight: '120%',
   fontStyle: 'normal',
-  color: theme.palette.common.black,
   textTransform: 'capitalize',
+  color: theme.palette.common.black,
+  whiteSpace: 'nowrap',
+  '& .MuiSvgIcon-root': {
+    marginRight: 'unset',
+  },
 }));
 
-const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
+const StyledProfileTab = styled(ProfileContainer)(({ theme }) => ({
+  padding: theme.spacing(1),
+  marginTop: 'auto',
+  fontSize: '0.75rem',
+
+  '.profile-tab-content': {
+    display: 'flex',
+    gap: theme.spacing(2),
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  '.profile-text-wrapper': {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+    justifyContent: 'space-between',
+  },
+}));
+
+const StatusIndicator = styled(Button)(({ theme }) => ({
+  ...theme.typography.overline,
+  width: 'fit-content',
+  backgroundColor: theme.palette.grey[200],
+  color: theme.palette.common.black,
+  borderRadius: theme.spacing(2),
+  padding: theme.spacing('5px', 1),
+
+  '&:hover': {
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.common.white,
+  },
+}));
+
+const SignOutIconWrapper = styled(SignOutButton)(({ theme }) => ({
+  width: 'fit-content',
+  height: 'fit-content',
+  minWidth: 'unset',
+  backgroundColor: theme.palette.grey[200],
+  borderRadius: theme.spacing(),
+  color: theme.palette.common.black,
+
+  '&:hover': {
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.common.white,
+  },
+}));
+
+const StyledToolTip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 150,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+  },
+}));
+
+const DesktopNavigation = ({
+  disableHighlight,
+  highlightedValue,
+  slug,
+}: IDesktopNavigation) => {
   const { data: session } = useSession();
   const [value, setValue] = useState('dashboard');
 
   const imgUrl = session?.user?.image;
   const userName = session?.user?.name;
+  const dashboardLabel = useDashboardLabel(slug);
+  const toolTipInfoText = 'Configure default values & reaccusing expenses';
 
   const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -88,28 +182,41 @@ const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
       <Logo className='desktopNavLogo' />
       <NavContainer>
         <StyledTabs
-          value={value}
+          value={highlightedValue || value}
           onChange={handleChange}
           aria-label='navigation'
           orientation='vertical'
         >
-          {/* {month && (
-            <StyledTab
-              LinkComponent={Link}
-              href={`/month/${monthSlug}`}
-              value={month.toLowerCase()}
-              label={month}
-              iconPosition='start'
-              icon={<CalendarMonthRoundedIcon />}
-            />
-          )} */}
           <StyledTab
             LinkComponent={Link}
             href={'/'}
             value='dashboard'
-            label='Dashboard'
+            label={dashboardLabel}
             iconPosition='start'
             icon={<DashboardIcon />}
+          />
+          <StyledTab
+            LinkComponent={Link}
+            href={'/settings/goal'}
+            value='settings'
+            label={
+              <Stack
+                width='100%'
+                flexDirection='row'
+                justifyContent='space-between'
+              >
+                <span>Settings</span>
+
+                <StyledToolTip title={toolTipInfoText} placement='bottom'>
+                  <InfoOutlinedIcon
+                    fontSize='small'
+                    sx={{ color: 'rgba(0, 0, 0, 0.60)' }}
+                  />
+                </StyledToolTip>
+              </Stack>
+            }
+            iconPosition='start'
+            icon={<SettingsIcon />}
           />
           {/* <StyledTab
             LinkComponent={Link}
@@ -127,12 +234,30 @@ const DesktopNavigation = ({ disableHighlight }: IDesktopNavigation) => {
             iconPosition='start'
             icon={<RepeatIcon />}
           /> */}
+          {/* <StyledProfileTab
+            LinkComponent={Link}
+            href={'/profile'}
+            value={'profile'}
+            label={userName ? userName : 'My account'}
+            iconPosition='start'
+            icon={<Avatar src={imgUrl ? imgUrl : undefined} />}
+          /> */}
         </StyledTabs>
 
-        <ProfileContainer href='/profile'>
+        <StyledProfileTab>
           <Avatar src={imgUrl ? imgUrl : undefined} />
-          {userName ? userName : 'My account'}
-        </ProfileContainer>
+          <Box className='profile-tab-content'>
+            <Box className='profile-text-wrapper'>
+              <Box display='flex' flexWrap='wrap'>
+                {userName}
+              </Box>
+              <StatusIndicator onClick={() => signOut()}>
+                Sign out
+              </StatusIndicator>
+            </Box>
+            <SignOutIconWrapper />
+          </Box>
+        </StyledProfileTab>
       </NavContainer>
     </ContentContainer>
   );

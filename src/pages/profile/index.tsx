@@ -1,9 +1,9 @@
 import React from 'react';
-import Head from 'next/head';
 import { useMediaQuery } from '@mui/material';
 import { theme } from '../../styles/theme/muiTheme';
 import Mobile from '../../components/Pages/Profile/Mobile';
 import Desktop from '../../components/Pages/Profile/Desktop';
+import { SEO } from '../../components/SEO';
 
 const Profile = () => {
   const isDesktop = useMediaQuery(
@@ -11,9 +11,12 @@ const Profile = () => {
   );
   return (
     <>
-      <Head>
-        <title>Profile</title>
-      </Head>
+      <SEO
+        title='Profile - Preallo'
+        description='Manage your Preallo profile and account settings. Update your personal information and preferences for your financial management experience.'
+        canonical='/profile'
+        noIndex={true}
+      />
 
       {!isDesktop && <Mobile />}
       {isDesktop && <Desktop />}

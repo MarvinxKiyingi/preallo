@@ -12,6 +12,7 @@ import { useDaysLeft } from '../../utils/functions/daysLeft';
 import { calculateProgressValue } from '../../utils/functions/calculateProgressValue';
 import { calculateExpensePercentage } from '../../utils/functions/calculateExpensePercentage';
 import { isGoalMet } from '../../utils/functions/isGoalMet';
+import IndicatorGoalLabel from '../IndicatorGoalLabel/IndicatorGoalLabel';
 
 export type IBudgetDisplay = {
   /** Input css string to change the background color  */
@@ -132,52 +133,14 @@ const BudgetBasedOnContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
   gap: theme.spacing(),
+  fontSize: theme.typography.overline.fontSize,
 
   [theme.breakpoints.up('sm')]: {
+    fontSize: theme.typography.overline.fontSize,
     gap: theme.spacing(),
   },
-  '>': {
-    '&:before': {
-      content: '""',
-      display: 'flex',
-      width: theme.spacing(),
-      height: theme.spacing(),
-      borderRadius: '50%',
-      backgroundColor: 'rgb(195, 178, 255)',
-    },
-    '.need, .want, .save': {
-      '.percentage': {
-        color: theme.palette.common.white,
-        fontSize: theme.typography.overline.fontSize,
 
-        '&.red': {
-          color: theme.palette.error.main,
-        },
-
-        [theme.breakpoints.up('sm')]: {
-          ...theme.typography.subtitle2,
-          fontSize: theme.typography.button.fontSize,
-        },
-      },
-    },
-    '.need': {
-      '&:before': {
-        backgroundColor: theme.palette.warning.light,
-      },
-    },
-    '.want': {
-      '&:before': {
-        backgroundColor: theme.palette.error.light,
-      },
-    },
-    '.save': {
-      '&:before': {
-        backgroundColor: theme.palette.success.light,
-      },
-    },
-  },
-
-  '.need,.want,.save, .salaryTitleWrapper': {
+  '.need,.want,.save,.salaryTitleWrapper': {
     display: 'flex',
     alignItems: 'center',
     gap: theme.spacing(1 / 2),
@@ -335,60 +298,76 @@ export const BudgetDisplay = ({
 
           {salary && (
             <BudgetBasedOnContainer>
-              <Typography className='need' variant='overline'>
-                <Stack gap={'4px'} flexDirection={'row'}>
-                  <div>Need:</div>
-                  <Typography
-                    variant='subtitle2'
-                    component={'span'}
-                    className={`percentage ${isGoalMet(
-                      needGoalPercentage,
-                      needPercentage.asNumber
-                    )}`}
-                  >
-                    {
-                      calculateExpensePercentage(needTotalValue, salary)
-                        .asString
-                    }
-                  </Typography>
-                </Stack>
-              </Typography>
-              <Typography className='want' variant='overline'>
-                <Stack gap={'4px'} flexDirection={'row'}>
-                  <div>Want:</div>
-                  <Typography
-                    variant='subtitle2'
-                    component={'span'}
-                    className={`percentage ${isGoalMet(
-                      wantGoalPercentage,
-                      wantPercentage.asNumber
-                    )}`}
-                  >
-                    {
-                      calculateExpensePercentage(wantTotalValue, salary)
-                        .asString
-                    }
-                  </Typography>
-                </Stack>
-              </Typography>
-              <Typography className='save' variant='overline'>
-                <Stack gap={'4px'} flexDirection={'row'}>
-                  <div>Save:</div>
-                  <Typography
-                    variant='subtitle2'
-                    component={'span'}
-                    className={`percentage ${isGoalMet(
-                      saveGoalPercentage,
-                      savePercentage.asNumber
-                    )}`}
-                  >
-                    {
-                      calculateExpensePercentage(saveTotalValue, salary)
-                        .asString
-                    }
-                  </Typography>
-                </Stack>
-              </Typography>
+              <Stack
+                className='need'
+                gap={'4px'}
+                flexDirection={'row'}
+                alignItems={'center'}
+              >
+                <IndicatorGoalLabel
+                  name='Need'
+                  sx={{ fontSize: 'inherit', lineHeight: 'inherit' }}
+                />
+
+                <Typography
+                  variant='subtitle2'
+                  component={'span'}
+                  sx={{ fontSize: 'inherit' }}
+                  className={`percentage ${isGoalMet(
+                    needGoalPercentage,
+                    needPercentage.asNumber
+                  )}`}
+                >
+                  {calculateExpensePercentage(needTotalValue, salary).asString}
+                </Typography>
+              </Stack>
+
+              <Stack
+                className='want'
+                gap={'4px'}
+                flexDirection={'row'}
+                alignItems={'center'}
+              >
+                <IndicatorGoalLabel
+                  name='Want'
+                  sx={{ fontSize: 'inherit', lineHeight: 'inherit' }}
+                />
+                <Typography
+                  variant='subtitle2'
+                  component={'span'}
+                  sx={{ fontSize: 'inherit' }}
+                  className={`percentage ${isGoalMet(
+                    wantGoalPercentage,
+                    wantPercentage.asNumber
+                  )}`}
+                >
+                  {calculateExpensePercentage(wantTotalValue, salary).asString}
+                </Typography>
+              </Stack>
+
+              <Stack
+                className='save'
+                gap={'4px'}
+                flexDirection={'row'}
+                alignItems={'center'}
+              >
+                <IndicatorGoalLabel
+                  name='Save'
+                  sx={{ fontSize: 'inherit', lineHeight: 'inherit' }}
+                />
+                <Typography
+                  variant='subtitle2'
+                  component={'span'}
+                  sx={{ fontSize: 'inherit' }}
+                  className={`percentage ${isGoalMet(
+                    saveGoalPercentage,
+                    savePercentage.asNumber
+                  )}`}
+                >
+                  {calculateExpensePercentage(saveTotalValue, salary).asString}
+                </Typography>
+              </Stack>
+
               <Typography className='salaryTitleWrapper' variant='overline'>
                 <div className='salaryTitleContainer'>
                   <div>Salary:</div>

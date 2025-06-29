@@ -8,7 +8,7 @@ import { useAuth } from '../../../utils/context/AuthContext';
 import { grey } from '../../../styles/colors/grey';
 import { Button } from '../../../components/Button/Button';
 import Link from 'next/link';
-import Head from 'next/head';
+import { SEO } from '../../../components/SEO';
 
 export const Title = styled(Typography)(({ theme }) => ({
   ...theme.typography.h3,
@@ -66,10 +66,11 @@ const SignUp = () => {
 
   return (
     <>
-      <Head>
-        <title>Sign up</title>
-        <meta name='description' content={description} />
-      </Head>
+      <SEO
+        title='Create Free Account - Preallo Personal Finance'
+        description='Create your Preallo account and start your journey to better financial management. Join thousands of users who have transformed their personal finance tracking.'
+        canonical='/auth/signup'
+      />
       <AuthLayout>
         <form onSubmit={handleSubmit(formSubmitHandler)}>
           <Stack spacing={1} direction='column' mb={6}>

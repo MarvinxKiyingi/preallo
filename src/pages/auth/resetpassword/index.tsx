@@ -8,7 +8,7 @@ import { IPasswordReset } from '../../../model/IPasswordReset';
 import { IPasswordResetYupSchema } from '../../../model/IYupSchema';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAuth } from '../../../utils/context/AuthContext';
-import Head from 'next/head';
+import { SEO } from '../../../components/SEO';
 
 export const Title = styled(Typography)(({ theme }) => ({
   ...theme.typography.h3,
@@ -54,6 +54,7 @@ const ResetPassword = () => {
   const formSubmitHandler: SubmitHandler<IPasswordReset> = (
     data: IPasswordReset
   ) => {
+    // eslint-disable-next-line no-console
     console.log('data:', data);
     passwordReset(data);
   };
@@ -63,10 +64,12 @@ const ResetPassword = () => {
 
   return (
     <>
-      <Head>
-        <title>Password reset</title>
-        <meta name='description' content={description} />
-      </Head>
+      <SEO
+        title='Reset Password - Preallo'
+        description='Reset your Preallo password securely. Enter your email address to receive password reset instructions and regain access to your financial management dashboard.'
+        canonical='/auth/resetpassword'
+        noIndex={true}
+      />
       <AuthLayout>
         <form onSubmit={handleSubmit(formSubmitHandler)}>
           <Stack spacing={1} direction='column' mb={6}>

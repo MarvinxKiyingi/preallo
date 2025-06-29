@@ -11,6 +11,7 @@ const StyledAppContainer = styled('section')(({ theme }) => ({
   flexDirection: 'column',
   maxWidth: 1920,
   flex: 1,
+  overflow: 'hidden',
 
   [theme.breakpoints.up('md')]: {
     margin: theme.spacing(3),

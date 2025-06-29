@@ -16,7 +16,7 @@ const StyledMobileContainer = styled('div')<{
     marginTop: theme.spacing(3),
   },
   '>:last-child': {
-    paddingBottom: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 
   display: 'flex',
