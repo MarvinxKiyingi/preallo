@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { doc } from 'firebase/firestore';
 import { db } from '../../utils/firebase/clientApp';
 import { IMonths } from '../../model/IMonth';
@@ -31,6 +30,7 @@ import {
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { IExpenses, IExpense } from '@/model/IExpenses';
 import { convertToTimestamp } from '@/utils/functions/convertToTimestamp';
+import { SEO } from '../../components/SEO';
 
 const Month = () => {
   const { data: session } = useSession();
@@ -181,10 +181,12 @@ const Month = () => {
 
   return (
     <>
-      <Head>
-        <title>{currentMonth?.monthName}</title>
-        <meta name='theme-color' content={theme.palette.primary.main}></meta>
-      </Head>
+      <SEO
+        title={`${currentMonth?.monthName} ${currentMonth?.year} - Preallo`}
+        description="Manage your personal finances with Preallo's intuitive dashboard. Track expenses, set budgets, and achieve your financial goals with real-time insights."
+        noIndex={true}
+        canonical={`/month/${currentMonth?.slug}`}
+      />
 
       <AppContainer disableTopPadding={!isDesktop}>
         {!isDesktop && (
